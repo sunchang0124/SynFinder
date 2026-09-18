@@ -14,7 +14,8 @@ from synfinder.explain import as_text, explain               # noqa: E402
 from synfinder.intake import Intake                          # noqa: E402
 from synfinder.ranking import load_weights, rank             # noqa: E402
 from synfinder.report import (                               # noqa: E402
-    comparison_rows, empty_result_message, render_html, render_markdown,
+    PREVIEW_DISCLAIMER, comparison_rows, empty_result_message, render_html,
+    render_markdown,
 )
 
 UNSET = "not specified"
@@ -45,6 +46,53 @@ def _pretty(value: str) -> str:
     return value.replace("_", " ")
 
 
+def dataset_rows(datasets) -> list[dict]:
+    """Flatten datasets for the browse table, without a Streamlit runtime."""
+    return [
+        {
+            "Name": d.name,
+            "Records": d.n_records,
+            "Domains": ", ".join(d.domains),
+            "Data types": ", ".join(_pretty(t) for t in d.data_types),
+            "Licence": d.license,
+            "Access": d.access_conditions,
+        }
+        for d in datasets
+    ]
+
+
+def _browse_view(st, catalog) -> None:
+    st.subheader("Ready-made synthetic datasets")
+    st.caption(
+        "If one of these fits, you do not need to generate anything. Read "
+        "the caveats - none of them describes a real population."
+    )
+    tax = catalog.taxonomy
+    c1, c2 = st.columns(2)
+    domain = c1.selectbox("Domain", ["any"] + tax["domains"], key="bd")
+    data_type = c2.selectbox("Data type", ["any"] + tax["data_types"],
+                             key="bt", format_func=_pretty)
+
+    found = catalog.datasets
+    if domain != "any":
+        found = [d for d in found
+                 if domain in d.domains or "general" in d.domains]
+    if data_type != "any":
+        found = [d for d in found if data_type in d.data_types]
+
+    if not found:
+        st.info("No dataset in the registry matches those filters yet.")
+        return
+    st.dataframe(dataset_rows(found), hide_index=True)
+    for d in found:
+        with st.expander(d.name):
+            for caveat in d.realism_caveats:
+                st.warning(caveat, icon="⚠️")
+            link = d.links.docs or d.links.code
+            if link:
+                st.markdown(f"[Where to get it]({link})")
+
+
 def main() -> None:
     import streamlit as st
 
@@ -56,8 +104,17 @@ def main() -> None:
     )
 
     catalog = load_catalog(ROOT / "catalog")
-    tax = catalog.taxonomy
     weights = load_weights(ROOT / "catalog" / "weights.yaml")
+
+    find_tab, browse_tab = st.tabs(["Find a method", "Browse datasets"])
+    with browse_tab:
+        _browse_view(st, catalog)
+    with find_tab:
+        _find_view(st, catalog, weights)
+
+
+def _find_view(st, catalog, weights) -> None:
+    tax = catalog.taxonomy
 
     with st.form("intake"):
         st.subheader("The essentials")
@@ -112,6 +169,21 @@ def main() -> None:
         "needs_governance_evidence": needs_governance or None,
     })
 
+    matching = match_datasets(catalog.datasets, intake)
+    if matching:
+        st.success(
+            "**You may not need to generate anything.** These datasets "
+            "already exist and match what you described.", icon="📦")
+        for d in matching:
+            with st.container(border=True):
+                st.markdown(f"### {d.name}")
+                st.write(f"{d.n_records} · {d.license} · {d.access_conditions}")
+                for caveat in d.realism_caveats:
+                    st.warning(caveat, icon="⚠️")
+                link = d.links.docs or d.links.code
+                if link:
+                    st.markdown(f"[Where to get it]({link})")
+
     ranking = rank(catalog.generation_methods(), intake, weights, top_n=5)
 
     covered = catalog.covers(intake.data_type)
@@ -137,6 +209,12 @@ def main() -> None:
 
             for caveat in e.caveats:
                 st.warning(caveat, icon="⚠️")
+            if c.method.output_preview:
+                with st.expander("What the output looks like"):
+                    st.caption(PREVIEW_DISCLAIMER.strip("_"))
+                    st.write(c.method.output_preview.note)
+                    st.code(c.method.output_preview.preview)
+
             if e.evaluation:
                 st.info("**How to check it worked:** " + "; ".join(e.evaluation))
 
@@ -152,14 +230,6 @@ def main() -> None:
         st.subheader("Side by side")
         header, rows = comparison_rows(ranking)
         st.dataframe([dict(zip(header, r)) for r in rows], hide_index=True)
-
-    matching = match_datasets(catalog.datasets, intake)
-    if matching:
-        st.subheader("Ready-made synthetic datasets")
-        for d in matching:
-            st.markdown(
-                f"- **{d.name}** ({d.size}, {d.license}) — {d.access_conditions}"
-            )
 
     if ranking.excluded:
         with st.expander(

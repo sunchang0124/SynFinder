@@ -1,0 +1,49 @@
+id: dp_cgans
+name: DP-CGANS
+aliases: [Differentially Private Conditional GANs]
+family: gan
+domains: [biomedical]
+data_types: [tabular_cross_sectional]
+variable_types: [continuous, categorical, ordinal, count]
+formal_dp: true
+dp_mechanism: DP-SGD with a Renyi accountant, via TensorFlow Privacy
+compute: gpu_recommended
+license: MIT
+purposes: [open_release, ml_augmentation, benchmarking]
+preserves: [marginals, joint_correlations]
+scale:
+  min_rows: 1000
+  max_rows: 500000
+  max_cols: 150
+expertise: high
+maturity:
+  maintained: true
+  last_release: "2025-10"
+  implementation_quality: research_code
+governance:
+  acceptance_evidence:
+    - Published with an explicit privacy budget and a disclosure risk evaluation
+      on personal health data
+  known_deployments:
+    - Rare disease registry data at Maastricht University
+caveats:
+  - The conditional matrix is modified to emphasise relations between variables,
+    which helps on health data with strong dependencies and costs training
+    stability elsewhere.
+  - A differential privacy guarantee is only as meaningful as the epsilon you
+    choose and report. Running it at a large epsilon gives you the paperwork of
+    privacy without the protection.
+  - Utility degrades sharply as epsilon tightens. Budget time to run the whole
+    privacy-utility curve rather than a single setting.
+  - Research code, pinned to specific sdv and rdt versions; expect to manage the
+    environment carefully.
+evaluation:
+  - Report epsilon and delta alongside every utility number; a fidelity score
+    without its privacy budget is not interpretable
+  - Membership inference and attribute disclosure tests
+  - Train-on-synthetic, test-on-real for the downstream clinical model
+links:
+  paper: https://doi.org/10.1016/j.jbi.2023.104404
+  code: https://github.com/sunchang0124/dp_cgans
+  docs: https://pypi.org/project/dp-cgans/
+related_datasets: []

@@ -1,0 +1,44 @@
+id: synthpop
+name: synthpop
+aliases: [CART sequential synthesis]
+family: sequential_tree
+domains: [general]
+data_types: [tabular_cross_sectional]
+variable_types: [continuous, categorical, ordinal, count, datetime]
+formal_dp: false
+compute: cpu_fine
+license: GPL-2.0
+purposes: [statistical_replication, pipeline_testing, education, open_release]
+preserves: [marginals, joint_correlations, rare_events]
+scale:
+  min_rows: 100
+  max_rows: 500000
+  max_cols: 200
+expertise: low
+maturity:
+  maintained: true
+  last_release: "2024-09"
+  implementation_quality: production_ready
+governance:
+  acceptance_evidence:
+    - Developed in the ESRC SYLLS project explicitly for releasing synthetic
+      versions of UK administrative and longitudinal survey microdata
+    - Used by national statistical offices to produce teaching and testing
+      versions of restricted datasets
+  known_deployments:
+    - UK Longitudinal Studies synthetic spine datasets
+caveats:
+  - Synthesises columns one at a time in a chosen visit sequence, so the order
+    matters. A poor ordering silently destroys relationships you care about.
+  - CART models reproduce observed values rather than inventing new ones, so
+    unique records can survive into the output. Run the disclosure checks the
+    package ships with; do not assume the output is safe.
+  - R only. There is no maintained Python port.
+evaluation:
+  - The package's own utility measures (pMSE, standardised propensity score)
+  - synthpop's replicated.uniques disclosure check before any release
+links:
+  paper: https://doi.org/10.18637/jss.v074.i11
+  code: https://github.com/cran/synthpop
+  docs: https://synthpop.org.uk/
+related_datasets: []

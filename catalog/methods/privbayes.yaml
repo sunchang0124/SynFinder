@@ -1,0 +1,45 @@
+id: privbayes
+name: PrivBayes
+aliases: [Differentially private Bayesian network synthesis]
+family: probabilistic_graphical
+domains: [general]
+data_types: [tabular_cross_sectional]
+variable_types: [categorical, ordinal, count]
+formal_dp: true
+dp_mechanism: Laplace noise on low-order marginals selected by an exponential mechanism
+compute: cpu_fine
+license: MIT
+purposes: [open_release, statistical_replication, benchmarking]
+preserves: [marginals, joint_correlations]
+scale:
+  min_rows: 500
+  max_rows: 2000000
+  max_cols: 100
+expertise: high
+maturity:
+  maintained: true
+  last_release: "2024-11"
+  implementation_quality: research_code
+governance:
+  acceptance_evidence:
+    - Long-standing reference method for differentially private tabular release
+    - The marginal-based family it belongs to supplied the winning entries of the
+      NIST differential privacy synthetic data challenges
+  known_deployments:
+    - Statistical agency pilots for privacy-preserving microdata release
+caveats:
+  - Only models low-order dependencies - the degree parameter caps how much
+    structure can survive. Higher-order interactions are gone.
+  - Requires discretised inputs; binning choices interact with the noise and can
+    dominate the result.
+  - Runs on CPU and is a far more defensible open-release option than a GAN, but
+    it will not win a fidelity benchmark against one.
+evaluation:
+  - Report epsilon alongside all utility results
+  - Compare k-way marginals up to the degree the model was fitted at, and check
+    what is lost above it
+links:
+  paper: https://doi.org/10.1145/3134428
+  code: https://github.com/DataResponsibly/DataSynthesizer
+  docs: https://github.com/DataResponsibly/DataSynthesizer
+related_datasets: []

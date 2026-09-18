@@ -1,0 +1,46 @@
+id: bayesian_network
+name: Bayesian network synthesis
+aliases: [pgmpy, bnlearn, DAG-based synthesis]
+family: probabilistic_graphical
+domains: [general]
+data_types: [tabular_cross_sectional]
+variable_types: [categorical, ordinal, count]
+formal_dp: false
+compute: cpu_fine
+license: MIT
+purposes: [causal_inference, statistical_replication, education, benchmarking]
+preserves: [marginals, joint_correlations, causal_structure]
+scale:
+  min_rows: 200
+  max_rows: 1000000
+  max_cols: 100
+expertise: medium
+maturity:
+  maintained: true
+  last_release: "2025-04"
+  implementation_quality: production_ready
+governance:
+  acceptance_evidence:
+    - The fitted graph is inspectable and can be shown to a domain expert or an
+      ethics committee, which few generative models allow
+  known_deployments:
+    - Standard approach where a known clinical dependency structure must be
+      imposed rather than learned
+caveats:
+  - Continuous variables must usually be discretised first, and the choice of
+    bins silently determines the quality of everything downstream.
+  - Structure learned from data is not a causal graph. It reproduces the
+    dependencies in the sample; reading interventions off it requires the
+    structure to be supplied or verified by domain knowledge.
+  - Scales badly in the number of parents per node; dense dependency structures
+    become intractable well before a hundred variables.
+evaluation:
+  - Compare the learned or supplied DAG against domain expectation before
+    trusting any synthetic output
+  - Check conditional distributions, not just marginals
+  - Re-run the target analysis on synthetic data and compare effect estimates
+links:
+  paper: https://doi.org/10.21105/joss.06463
+  code: https://github.com/pgmpy/pgmpy
+  docs: https://pgmpy.org/
+related_datasets: []

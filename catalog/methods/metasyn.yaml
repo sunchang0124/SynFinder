@@ -1,0 +1,45 @@
+id: metasyn
+name: metasyn
+aliases: [MetaSyn, metaframe synthesis]
+family: marginal_based
+domains: [general]
+data_types: [tabular_cross_sectional]
+variable_types: [continuous, categorical, ordinal, count, datetime]
+formal_dp: false
+compute: cpu_fine
+license: MIT
+purposes: [pipeline_testing, education, open_release]
+preserves: [marginals]
+scale:
+  min_rows: 50
+  max_rows: 10000000
+  max_cols: 1000
+expertise: low
+maturity:
+  maintained: true
+  last_release: "2025-03"
+  implementation_quality: production_ready
+governance:
+  acceptance_evidence:
+    - Designed around a disclosure-by-design argument - the intermediate
+      metaframe contains only fitted marginal distributions, is human readable,
+      and can itself be reviewed and published
+  known_deployments:
+    - Dutch research infrastructure, for sharing structurally faithful stand-ins
+      for datasets that cannot leave a secure environment
+caveats:
+  - Fits each column independently. Every relationship between columns is gone,
+    by design. Do not use it for anything where joint structure matters -
+    analysis, model training or causal work.
+  - The right tool when the question is "can my pipeline run on data shaped like
+    this", and the wrong tool when the question is "what would the analysis show".
+  - A DP variant exists but is not the default; plain metasyn carries no formal
+    guarantee, only a much reduced disclosure surface.
+evaluation:
+  - Compare column-wise distributions and missingness patterns
+  - Confirm that column relationships are absent rather than assuming they hold
+links:
+  paper: https://doi.org/10.21105/joss.05654
+  code: https://github.com/sodascience/metasyn
+  docs: https://metasyn.readthedocs.io/
+related_datasets: []

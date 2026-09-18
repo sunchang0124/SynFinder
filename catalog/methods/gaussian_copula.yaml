@@ -1,0 +1,42 @@
+id: gaussian_copula
+name: Gaussian Copula
+aliases: [SDV GaussianCopulaSynthesizer]
+family: copula
+domains: [general]
+data_types: [tabular_cross_sectional]
+variable_types: [continuous, categorical, ordinal, count, datetime]
+formal_dp: false
+compute: cpu_fine
+license: MIT
+purposes: [pipeline_testing, education, benchmarking, statistical_replication]
+preserves: [marginals, joint_correlations]
+scale:
+  min_rows: 100
+  max_rows: 5000000
+  max_cols: 500
+expertise: low
+maturity:
+  maintained: true
+  last_release: "2025-06"
+  implementation_quality: production_ready
+governance:
+  acceptance_evidence: []
+  known_deployments:
+    - Common default for generating test fixtures that mimic production schemas
+caveats:
+  - Models dependence through a single Gaussian correlation matrix, so it
+    captures monotone pairwise association and nothing else. Interactions,
+    non-linear relationships and conditional structure are lost.
+  - Fits in seconds on a laptop, which makes it the right first thing to try and
+    the wrong thing to defend as high fidelity.
+  - No formal privacy guarantee, though the aggressive smoothing makes verbatim
+    record reproduction unlikely in practice.
+evaluation:
+  - SDMetrics column shape scores
+  - Compare a correlation heatmap of real and synthetic data; disagreement here
+    means the copula assumption has failed
+links:
+  paper: https://doi.org/10.1109/DSAA.2016.49
+  code: https://github.com/sdv-dev/SDV
+  docs: https://docs.sdv.dev/sdv
+related_datasets: []

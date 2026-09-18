@@ -1,0 +1,43 @@
+id: ctgan
+name: CTGAN
+aliases: [Conditional Tabular GAN]
+family: gan
+domains: [general]
+data_types: [tabular_cross_sectional]
+variable_types: [continuous, categorical, ordinal, count]
+formal_dp: false
+compute: gpu_recommended
+license: MIT
+purposes: [ml_augmentation, pipeline_testing, benchmarking, imbalance_correction]
+preserves: [marginals, joint_correlations]
+scale:
+  min_rows: 1000
+  max_rows: 1000000
+  max_cols: 200
+expertise: medium
+maturity:
+  maintained: true
+  last_release: "2025-06"
+  implementation_quality: production_ready
+governance:
+  acceptance_evidence: []
+  known_deployments:
+    - Widely used as the baseline in tabular synthetic data benchmarks
+caveats:
+  - High-cardinality categorical columns blow up the conditional vector; training
+    becomes unstable and rare categories are dropped entirely.
+  - Offers no formal privacy guarantee. Memorisation of outlier records has been
+    demonstrated repeatedly, so it is not a defensible basis for open release of
+    sensitive data however good the utility looks.
+  - Needs on the order of thousands of rows. On small clinical cohorts it
+    overfits and effectively resamples the training data.
+evaluation:
+  - SDMetrics column shape and column pair trend scores
+  - Nearest-neighbour distance ratio against the training set, to detect
+    memorised records
+  - Train-on-synthetic, test-on-real for the downstream model you actually care about
+links:
+  paper: https://doi.org/10.48550/arXiv.1907.00503
+  code: https://github.com/sdv-dev/CTGAN
+  docs: https://docs.sdv.dev/sdv
+related_datasets: []

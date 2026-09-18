@@ -1,0 +1,39 @@
+id: tvae
+name: TVAE
+aliases: [Tabular Variational Autoencoder]
+family: vae
+domains: [general]
+data_types: [tabular_cross_sectional]
+variable_types: [continuous, categorical, ordinal, count]
+formal_dp: false
+compute: gpu_recommended
+license: MIT
+purposes: [ml_augmentation, pipeline_testing, benchmarking]
+preserves: [marginals, joint_correlations]
+scale:
+  min_rows: 1000
+  max_rows: 1000000
+  max_cols: 200
+expertise: medium
+maturity:
+  maintained: true
+  last_release: "2025-06"
+  implementation_quality: production_ready
+governance:
+  acceptance_evidence: []
+  known_deployments: []
+caveats:
+  - Trains more stably than CTGAN and often scores better on column-wise
+    fidelity, but tends to over-smooth, so tails and rare combinations are
+    under-represented.
+  - No formal privacy guarantee.
+  - The reconstruction objective can reproduce training records closely when the
+    latent dimension is set too large.
+evaluation:
+  - SDMetrics column shape and column pair trend scores
+  - Explicitly check the tails of clinically important continuous variables
+links:
+  paper: https://doi.org/10.48550/arXiv.1907.00503
+  code: https://github.com/sdv-dev/CTGAN
+  docs: https://docs.sdv.dev/sdv
+related_datasets: []

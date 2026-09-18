@@ -49,48 +49,41 @@
       </div>
 
       <div class="field">
-        <label for="domain">Research domain</label>
+        <label for="domain">Research domain <button type="button" class="info" tabindex="0" aria-label="What is this?" data-tip="Methods marked for a specific domain are only shown there. Methods that work anywhere are always shown.">i</button></label>
         <div class="select"><select id="domain" name="domain"></select></div>
       </div>
 
       <div class="field">
-        <label for="data_type">What your real data looks like</label>
+        <label for="data_type">What your real data looks like <button type="button" class="info" tabindex="0" aria-label="What is this?" data-tip="A hard filter: a method that cannot handle your data type is excluded outright, and you can see every exclusion and its reason below the results.">i</button></label>
         <div class="select"><select id="data_type" name="data_type"></select></div>
       </div>
 
       <div class="field">
-        <label for="purpose">What the synthetic data is for</label>
+        <label for="purpose">What the synthetic data is for <button type="button" class="info" tabindex="0" aria-label="What is this?" data-tip="The single most important answer. A method that does not serve your stated purpose is never recommended above one that does.">i</button></label>
         <div class="select"><select id="purpose" name="purpose"></select></div>
-        <p class="hint">The single most important answer. A method that does not
-        serve your purpose is never recommended above one that does.</p>
       </div>
 
       <div class="field">
-        <label for="privacy">Privacy requirement</label>
+        <label for="privacy">Privacy requirement <button type="button" class="info" tabindex="0" aria-label="What is this?" data-tip="&quot;Formal differential privacy required&quot; rules out every method that cannot state a privacy budget (an epsilon) — while keeping simulators that never read your data in the first place, since they have nothing to leak.">i</button></label>
         <div class="select"><select id="privacy" name="privacy"></select></div>
-        <p class="hint">"Formal differential privacy required" rules out every method
-        that cannot state a privacy budget — and keeps simulators that never read
-        your data in the first place.</p>
       </div>
 
       <details class="more">
         <summary>Constraints &amp; resources</summary>
         <div class="field">
-          <label for="compute">Compute available</label>
+          <label for="compute">Compute available <button type="button" class="info" tabindex="0" aria-label="What is this?" data-tip="Saying CPU only excludes methods that genuinely require a GPU. Leave it unset and nothing is excluded on this basis.">i</button></label>
           <div class="select"><select id="compute" name="compute"></select></div>
         </div>
         <div class="field">
-          <label for="expertise">Your experience with these methods</label>
-          <p class="hint">Used to avoid recommending something that needs more
-          tuning than you want to do.</p>
+          <label for="expertise">Your experience with these methods <button type="button" class="info" tabindex="0" aria-label="What is this?" data-tip="Used to avoid recommending something that needs more tuning and debugging than you want to take on. It never rules a method out, it only lowers its score.">i</button></label>
           <div class="select"><select id="expertise" name="expertise"></select></div>
         </div>
         <div class="field">
-          <label for="expected_rows">Roughly how many records</label>
+          <label for="expected_rows">Roughly how many records <button type="button" class="info" tabindex="0" aria-label="What is this?" data-tip="Compared against the largest dataset each method has been demonstrated on. Most entries have no published size envelope yet, so this often has no effect.">i</button></label>
           <input type="number" id="expected_rows" name="expected_rows" min="0" step="1000" placeholder="leave blank if unsure">
         </div>
         <div class="field">
-          <label>Variable types you must generate</label>
+          <label>Variable types you must generate <button type="button" class="info" tabindex="0" aria-label="What is this?" data-tip="A hard filter. Free text in particular excludes most methods — very few generate it at all.">i</button></label>
           <div class="chips" id="variable_types"></div>
         </div>
         <label class="check"><input type="checkbox" id="require_open_license"><span></span>Must have an open licence</label>
@@ -99,20 +92,14 @@
       <details class="more">
         <summary>Fidelity &amp; evaluation</summary>
         <div class="field">
-          <label>What the synthetic data must preserve</label>
-          <p class="hint">Structure that has to survive generation. Leave blank and
-          it is not counted for or against any method.</p>
+          <label>What the synthetic data must preserve <button type="button" class="info" tabindex="0" aria-label="What is this?" data-tip="Structure that has to survive generation — correlations between variables, behaviour over time, causal structure, or the rare cases in the tails. Leave blank and this is not counted for or against any method.">i</button></label>
           <div class="chips" id="preserves"></div>
         </div>
       </details>
 
       <details class="more">
         <summary>Governance &amp; acceptance</summary>
-        <label class="check"><input type="checkbox" id="needs_governance_evidence"><span></span>My choice has to satisfy a review board</label>
-        <p class="hint">Prefers methods someone has already got approved — used by a
-        statistical agency, accepted by an ethics committee, or with no disclosure
-        risk to argue about. Gives you something to cite in a DPIA or ethics
-        application instead of "we chose it because it performed well".</p>
+        <label class="check"><input type="checkbox" id="needs_governance_evidence"><span></span>My choice has to satisfy a review board <button type="button" class="info" tabindex="0" aria-label="What is this?" data-tip="Prefers methods someone has already got approved — used by a statistical agency, accepted by an ethics committee, or carrying no disclosure risk to argue about. It gives you something to cite in a DPIA or ethics application instead of &quot;we chose it because it performed well&quot;.">i</button></label>
       </details>
 
       <button class="btn-primary" type="submit" id="submitBtn">

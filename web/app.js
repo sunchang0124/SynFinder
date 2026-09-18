@@ -90,6 +90,7 @@ async function boot() {
   const c = TAX.counts;
   $("#catalogCount").textContent =
     `${c.methods} methods · ${c.frameworks} frameworks · ${c.datasets} datasets`;
+  $("#buildId").textContent = "build __BUILD__";
   $("#brandSub").textContent = "synthetic data, chosen well";
 }
 

@@ -408,3 +408,6 @@ pre{
 .more-ranked > summary:hover{color:var(--text)}
 .more-list{display:flex; flex-direction:column; gap:14px; margin-top:14px}
 .more-list .card{box-shadow:none; animation:none}
+
+.panel-foot.build{margin-top:4px; font-size:11px; color:var(--faint);
+  font-family:var(--mono); letter-spacing:.04em}

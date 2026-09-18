@@ -120,3 +120,17 @@ def test_privacy_not_required_still_surfaces_privacy_preserving_methods():
 def test_privacy_is_binary():
     body = client.get("/api/taxonomy").json()
     assert body["privacy"] == ["not_required", "required"]
+
+
+def test_the_page_is_never_cached():
+    """The page carries its own CSS and JS, so a cached copy pins the entire
+    interface to an old version - which is indistinguishable from a bug."""
+    r = client.get("/")
+    assert "no-store" in r.headers.get("cache-control", "")
+
+
+def test_the_page_carries_a_build_id():
+    import re
+    html = client.get("/").text
+    assert "__BUILD__" not in html, "build placeholder was not substituted"
+    assert re.search(r"build [0-9a-f]{7}", html)

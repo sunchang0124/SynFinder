@@ -5,6 +5,7 @@ web interface and the CLI can never disagree about a recommendation.
 """
 from __future__ import annotations
 
+import hashlib
 from functools import lru_cache
 from pathlib import Path
 
@@ -165,6 +166,18 @@ def recommend(req: IntakeRequest) -> dict:
     }
 
 
+def _build_id() -> str:
+    """Short hash of the frontend sources, shown in the UI.
+
+    Makes "are you looking at the current version?" answerable instead of
+    guessable when the page is served through a caching proxy.
+    """
+    h = hashlib.sha256()
+    for name in ("index.html", "style.css", "app.js"):
+        h.update((WEB_DIR / name).read_bytes())
+    return h.hexdigest()[:7]
+
+
 def _page() -> str:
     """Inline CSS and JS into the page.
 
@@ -176,12 +189,19 @@ def _page() -> str:
     html = (WEB_DIR / "index.html").read_text()
     css = (WEB_DIR / "style.css").read_text()
     js = (WEB_DIR / "app.js").read_text()
-    return html.replace("/*__CSS__*/", css).replace("/*__JS__*/", js)
+    return (html.replace("/*__CSS__*/", css)
+                .replace("/*__JS__*/", js)
+                .replace("__BUILD__", _build_id()))
 
 
 @app.get("/", response_class=HTMLResponse)
 def index() -> HTMLResponse:
-    return HTMLResponse(_page())
+    # The page carries its own CSS and JS, so a cached copy pins the whole
+    # interface to an old version. Never cache it.
+    return HTMLResponse(_page(), headers={
+        "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
+        "Pragma": "no-cache",
+    })
 
 
 # kept so a direct link still works, but the page does not depend on it

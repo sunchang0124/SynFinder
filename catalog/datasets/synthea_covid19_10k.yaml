@@ -1,0 +1,19 @@
+id: synthea_covid19_10k
+name: Synthea COVID-19 synthetic patients (10k)
+domains: [biomedical]
+data_types: [coded_event_sequences, tabular_longitudinal]
+purposes: [pipeline_testing, education, benchmarking, open_release]
+n_records: 10,000 synthetic patients with COVID-19 care pathways
+formal_dp: false
+generated_by: synthea
+access_conditions: >-
+  Single 57 MB CSV zip, direct download, no registration.
+license: Apache-2.0
+realism_caveats:
+  - >-
+    Built from a care-pathway model written early in the pandemic. The clinical
+    course encoded in it reflects that moment's guidance, not current practice.
+  - No real patient data, so it is safe to share and useless for epidemiology.
+links:
+  docs: https://synthetichealth.github.io/synthea-sample-data/downloads/10k_synthea_covid19_csv.zip
+  code: https://github.com/synthetichealth/synthea-sample-data

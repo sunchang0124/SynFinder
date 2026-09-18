@@ -41,7 +41,7 @@ evaluation:
   - Check conditional distributions, not just marginals
   - Re-run the target analysis on synthetic data and compare effect estimates
 links:
-  paper: https://doi.org/10.21105/joss.06463
+  paper: https://doi.org/10.25080/majora-7b98e3ed-001
   code: https://github.com/pgmpy/pgmpy
   docs: https://pgmpy.org/
 related_datasets: []

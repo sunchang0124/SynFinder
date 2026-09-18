@@ -13,12 +13,19 @@ Built for health, clinical and biomedical researchers first. Social sciences
 and humanities are next, and will arrive as catalog entries rather than as new
 code.
 
-## Install
+## Run it from a clean clone
 
 ```bash
+git clone https://github.com/sunchang0124/SynFinder.git
+cd SynFinder
 python -m venv .venv && source .venv/bin/activate   # Python 3.11+
-pip install -e ".[app,dev]"
+pip install -e ".[web,dev]"
+./run_web.sh                                        # http://localhost:8501
 ```
+
+Behind a reverse proxy such as an HPC OnDemand portal, use
+`PORT=<your port> ./run_web.sh`. CI runs exactly these steps on every push and
+fails if the app does not boot and answer.
 
 ## Use it
 
@@ -40,14 +47,6 @@ synfinder new method
 ```
 
 The bare `synfinder --domain ...` form was replaced by `synfinder find` in v2.
-
-Web interface:
-
-```bash
-./run_web.sh            # then open http://localhost:8501
-```
-
-Behind a reverse proxy such as an HPC OnDemand portal, `PORT=xxxxx ./run_web.sh`.
 
 The older Streamlit prototype is still in `app/streamlit_app.py` (`./run_app.sh`)
 but the web interface is the one to use.

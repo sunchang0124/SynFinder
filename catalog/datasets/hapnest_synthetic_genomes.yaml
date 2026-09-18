@@ -1,0 +1,27 @@
+id: hapnest_synthetic_genomes
+name: HAPNEST synthetic genomes and phenotypes
+domains: [biomedical]
+data_types: [genomic, tabular_cross_sectional]
+purposes: [benchmarking, ml_augmentation, education, open_release]
+n_records: >-
+  Around one million synthetic individuals across multiple ancestry groups,
+  with genotypes and simulated phenotypes
+formal_dp: false
+generated_by: hapnest
+access_conditions: Free download from EMBL-EBI BioStudies, accession S-BSST936.
+license: CC-BY-4.0
+realism_caveats:
+  - >-
+    Explicitly multi-ancestry, which is the point - it exists so polygenic
+    score methods can be benchmarked outside the European-ancestry populations
+    that dominate real genomic resources.
+  - >-
+    Built from reference haplotypes, so it is derived from real genomes rather
+    than simulated from population genetic theory. That is a different privacy
+    argument from msprime, and a weaker one.
+  - >-
+    Phenotypes follow the genetic architecture the authors specified. They are
+    not observations, and no epidemiological conclusion can be drawn from them.
+links:
+  docs: https://www.ebi.ac.uk/biostudies/studies/S-BSST936
+  code: https://github.com/intervene-EU-H2020/synthetic_data

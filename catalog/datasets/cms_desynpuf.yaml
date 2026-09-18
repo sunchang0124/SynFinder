@@ -1,0 +1,27 @@
+id: cms_desynpuf
+name: CMS Medicare Claims Synthetic Public Use Files (DE-SynPUF)
+aliases: [DE-SynPUF]
+domains: [biomedical]
+data_types: [tabular_cross_sectional, tabular_longitudinal, coded_event_sequences]
+purposes: [education, pipeline_testing, benchmarking]
+n_records: >-
+  Synthetic claims for around 2.3 million Medicare beneficiaries across
+  inpatient, outpatient, carrier and prescription drug files
+formal_dp: false
+access_conditions: Free public download from CMS, no registration.
+license: US public domain
+realism_caveats:
+  - >-
+    Built by the US Centers for Medicare and Medicaid Services so that
+    developers can learn the claims file structure before requesting real data.
+    The structure is faithful; the statistical relationships are deliberately
+    degraded.
+  - >-
+    Disclosure protection was applied aggressively, so inference drawn from it
+    will not hold in the real claims. Use it for plumbing, not for findings.
+  - >-
+    Derived from 2008-2010 claims, so the coding and the care patterns are
+    old. An OMOP conversion is maintained by OHDSI if you need that model.
+links:
+  docs: https://www.cms.gov/data-research/statistics-trends-and-reports/medicare-claims-synthetic-public-use-files
+  code: https://github.com/OHDSI/ETL-CMS

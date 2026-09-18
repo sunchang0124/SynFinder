@@ -36,7 +36,7 @@ evaluation:
   - Check that the missingness pattern is reproduced, not just the values
 links:
   paper: https://doi.org/10.1038/s41746-023-00888-7
-  code: https://github.com/google-research/google-research/tree/master/ehr_safe
+  code: null
 related_datasets: []
 output_preview:
   format: tabular_csv

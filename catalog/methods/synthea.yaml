@@ -44,7 +44,7 @@ links:
   paper: https://doi.org/10.1093/jamia/ocx079
   code: https://github.com/synthetichealth/synthea
   docs: https://synthetichealth.github.io/synthea/
-related_datasets: [synthea_synthetic_massachusetts, synthea_covid19]
+related_datasets: [synthea_sample_data, synthea_covid19_10k, lhs_open_synthea]
 output_preview:
   format: event_sequence
   note: >-

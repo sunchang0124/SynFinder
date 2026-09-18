@@ -1,0 +1,28 @@
+id: simulacrum
+name: Simulacrum
+domains: [biomedical]
+data_types: [tabular_cross_sectional, tabular_longitudinal, survival]
+purposes: [education, pipeline_testing, benchmarking, statistical_replication]
+n_records: >-
+  Synthetic versions of the English national cancer registry, covering
+  millions of tumour records plus systemic anti-cancer therapy and radiotherapy
+formal_dp: false
+access_conditions: >-
+  Free public download after accepting the terms of use. No application, no
+  approvals committee.
+license: Open Government Licence
+realism_caveats:
+  - >-
+    Built to let researchers develop and test analysis code before applying for
+    the real Cancer Analysis System data. It is a rehearsal dataset, and results
+    computed on it must never be reported as findings.
+  - >-
+    Preserves marginal distributions and some relationships, but not the full
+    joint structure. An association present here may not exist in the real
+    registry, and vice versa.
+  - >-
+    The intended workflow is to write your code against Simulacrum, then have it
+    run against the real data - which is a genuinely different and better use
+    than treating it as a substitute dataset.
+links:
+  docs: https://simulacrum.healthdatainsight.org.uk/

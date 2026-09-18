@@ -25,13 +25,13 @@ def test_find_rejects_a_data_type_outside_the_taxonomy(capsys):
 
 def test_datasets_lists_the_registry(capsys):
     assert main(["datasets"]) == 0
-    assert "SyntheticMass" in capsys.readouterr().out
+    assert "Simulacrum" in capsys.readouterr().out
 
 
 def test_datasets_filters_by_data_type(capsys):
     assert main(["datasets", "--data-type", "images"]) == 0
     out = capsys.readouterr().out
-    assert "SyntheticMass" not in out
+    assert "Simulacrum" not in out
     assert "No dataset" in out
 
 

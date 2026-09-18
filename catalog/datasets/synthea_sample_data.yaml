@@ -1,0 +1,22 @@
+id: synthea_sample_data
+name: Synthea sample patient records
+domains: [biomedical]
+data_types: [coded_event_sequences, tabular_longitudinal]
+purposes: [pipeline_testing, education, benchmarking, open_release]
+n_records: ~1,000 synthetic patients per bundle
+formal_dp: false
+generated_by: synthea
+access_conditions: >-
+  Direct download, no registration, no data use agreement. CSV, FHIR
+  (DSTU2/STU3/R4) and C-CDA bundles are published as separate zip files.
+license: Apache-2.0
+realism_caveats:
+  - Generated from published care maps and US epidemiology, not from any real
+    cohort. Statistics computed on it describe Synthea, not a population.
+  - >-
+    The bundles are dated snapshots (the newest are November 2021), so coding
+    practice and care pathways reflect that point in time.
+  - Contains no real patient data, so it can be redistributed freely.
+links:
+  code: https://github.com/synthetichealth/synthea-sample-data
+  docs: https://synthetichealth.github.io/synthea-sample-data/

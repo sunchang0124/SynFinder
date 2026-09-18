@@ -1,0 +1,20 @@
+id: lhs_open_synthea
+name: Open Synthea patient populations
+domains: [biomedical]
+data_types: [coded_event_sequences, tabular_longitudinal]
+purposes: [ml_augmentation, pipeline_testing, education, benchmarking]
+n_records: Multiple populations, including a 30,000-patient set, as CSV
+formal_dp: false
+generated_by: synthea
+access_conditions: Free download, no registration.
+license: Apache-2.0
+realism_caveats:
+  - >-
+    Synthea output at a larger scale than the official sample bundles, for
+    machine learning work and team training.
+  - >-
+    Inherits every Synthea caveat - it reflects encoded care maps and US
+    epidemiology, so a model trained on it learns Synthea's rules rather than
+    clinical reality.
+links:
+  code: https://github.com/lhs-open/synthetic-data

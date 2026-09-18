@@ -38,7 +38,7 @@ evaluation:
 links:
   paper: https://doi.org/10.1093/bioinformatics/btad535
   code: https://github.com/intervene-EU-H2020/synthetic_data
-related_datasets: []
+related_datasets: [hapnest_synthetic_genomes]
 output_preview:
   format: genomic_matrix
   note: >-

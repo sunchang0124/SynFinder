@@ -40,7 +40,7 @@ evaluation:
   - Compare column-wise distributions and missingness patterns
   - Confirm that column relationships are absent rather than assuming they hold
 links:
-  paper: https://doi.org/10.21105/joss.05654
+  paper: https://doi.org/10.21105/joss.07099
   code: https://github.com/sodascience/metasyn
   docs: https://metasyn.readthedocs.io/
 related_datasets: []

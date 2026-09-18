@@ -34,3 +34,11 @@ links:
   paper: https://doi.org/10.1038/s41598-023-34341-2
   code: https://github.com/FirasGit/medicaldiffusion
 related_datasets: []
+output_preview:
+  format: image_spec
+  note: Full 3D volumes, not independent slices.
+  preview: |
+    format      NIfTI (.nii.gz) or NumPy array
+    dimensions  128 x 128 x 128 voxels, single channel
+    modality    MRI or CT depending on the trained checkpoint
+    note        coherent along all 3 axes, unlike slice-wise generation

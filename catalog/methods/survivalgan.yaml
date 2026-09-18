@@ -33,3 +33,13 @@ links:
   paper: https://proceedings.mlr.press/v206/norcliffe23a.html
   code: https://github.com/vanderschaarlab/synthcity
 related_datasets: []
+output_preview:
+  format: tabular_csv
+  note: >-
+    One row per subject with a follow-up time and an event indicator.
+    event=0 means censored, not survived.
+  preview: |
+    subject_id,age,sex,stage,time_days,event
+    s0001,62,F,II,412,1
+    s0002,55,M,I,730,0
+    s0003,71,F,III,96,1

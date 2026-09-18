@@ -33,3 +33,14 @@ links:
   paper: https://doi.org/10.1109/ICDM51629.2021.00074
   code: https://github.com/acphile/RTSGAN
 related_datasets: []
+output_preview:
+  format: tabular_csv
+  note: >-
+    Long format, one row per subject per timestep. Regular intervals unless
+    the method explicitly handles irregular sampling.
+  preview: |
+    subject_id,t,heart_rate,sbp,spo2,on_vasopressor
+    s0001,0,88,112,97,0
+    s0001,1,91,108,96,0
+    s0001,2,104,96,94,1
+    s0002,0,76,124,99,0

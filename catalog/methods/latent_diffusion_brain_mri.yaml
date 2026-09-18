@@ -43,3 +43,17 @@ links:
   paper: https://doi.org/10.1007/978-3-031-18576-2_12
   code: https://github.com/Project-MONAI/GenerativeModels
 related_datasets: []
+output_preview:
+  format: image_spec
+  note: >-
+    Volumetric images written as NIfTI files, plus the conditioning values
+    used to generate each one.
+  preview: |
+    format      NIfTI (.nii.gz), one file per subject
+    dimensions  160 x 224 x 160 voxels, single channel
+    modality    T1-weighted structural MRI
+    voxel size  1.0 x 1.0 x 1.0 mm
+    conditioned age, sex, brain volume, ventricular volume
+    manifest    subject_id,age,sex,brain_volume,file
+                s0001,67,F,1043210,s0001_T1.nii.gz
+                s0002,44,M,1198455,s0002_T1.nii.gz

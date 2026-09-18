@@ -42,3 +42,13 @@ links:
   code: https://github.com/tskit-dev/msprime
   docs: https://tskit.dev/msprime/
 related_datasets: []
+output_preview:
+  format: genomic_matrix
+  note: >-
+    A genotype matrix, variants by samples, with a companion variant table. 0, 1 and 2 count copies of the alternate allele.
+  preview: |
+    variant_id  chrom  pos      ref alt  s0001 s0002 s0003
+    rs0000001   1      752721   A   G    0     1     1
+    rs0000002   1      768448   G   A    1     1     2
+    rs0000003   1      798959   C   T    0     0     1
+    rs0000004   2      113422   T   C    2     1     0

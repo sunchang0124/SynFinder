@@ -31,3 +31,19 @@ links:
   paper: https://proceedings.mlr.press/v80/you18a.html
   code: https://github.com/snap-stanford/GraphRNN
 related_datasets: []
+output_preview:
+  format: graph_edgelist
+  note: >-
+    One generated graph per record, as an edge list plus node attributes.
+  preview: |
+    # graph g0001  nodes=6  edges=7
+    source,target,weight
+    n1,n2,1
+    n1,n3,1
+    n2,n4,1
+    n3,n4,1
+    n4,n5,1
+    # nodes
+    node_id,attribute
+    n1,clinic
+    n2,ward

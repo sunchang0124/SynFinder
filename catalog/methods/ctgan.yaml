@@ -46,3 +46,12 @@ links:
   code: https://github.com/sdv-dev/CTGAN
   docs: https://docs.sdv.dev/sdv
 related_datasets: []
+output_preview:
+  format: tabular_csv
+  note: >-
+    One row per person, same columns and types as your input. Values are new; the schema is yours.
+  preview: |
+    patient_id,age,sex,bmi,hba1c,smoker,diagnosis
+    s0001,54,F,27.3,6.1,former,E11.9
+    s0002,38,M,31.8,5.4,never,I10
+    s0003,71,F,24.1,7.9,current,E11.9

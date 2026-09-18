@@ -34,3 +34,19 @@ links:
   paper: https://openreview.net/forum?id=UaAD-Nu86WX
   code: https://github.com/cvignac/DiGress
 related_datasets: []
+output_preview:
+  format: graph_edgelist
+  note: >-
+    One molecular graph per record; atoms are nodes, bonds are typed edges. Exportable as SMILES or an adjacency matrix.
+  preview: |
+    # graph g0001  nodes=6  edges=7
+    source,target,weight
+    n1,n2,1
+    n1,n3,1
+    n2,n4,1
+    n3,n4,1
+    n4,n5,1
+    # nodes
+    node_id,attribute
+    n1,clinic
+    n2,ward

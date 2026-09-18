@@ -33,3 +33,15 @@ links:
   paper: https://doi.org/10.48550/arXiv.2012.10020
   code: https://github.com/SiddharthBiswal/EVA
 related_datasets: []
+output_preview:
+  format: event_sequence
+  note: >-
+    One record per patient, containing an ordered list of visits, each with
+    its own diagnosis and procedure codes.
+  preview: |
+    patient s0001
+      visit 1  2019-03-14  ICD-10: E11.9, I10      proc: 99213
+      visit 2  2019-09-02  ICD-10: E11.65          proc: 82947
+      visit 3  2020-01-27  ICD-10: E11.9, E78.5    proc: 80061, 99214
+    patient s0002
+      visit 1  2019-06-11  ICD-10: J45.909         proc: 94010

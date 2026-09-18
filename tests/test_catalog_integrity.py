@@ -45,3 +45,33 @@ def test_data_types_are_all_in_the_taxonomy():
     allowed = set(catalog.taxonomy["data_types"])
     for m in catalog.methods:
         assert set(m.data_types) <= allowed, f"{m.id} uses an unknown data type"
+
+
+def test_every_rankable_method_has_an_output_preview():
+    for m in load_catalog(default_catalog_root()).generation_methods():
+        assert m.output_preview, f"{m.id} has no output_preview"
+
+
+def test_image_previews_contain_a_specification_not_image_data():
+    """A fabricated medical image presented as output would be a lie told by
+    a tool whose whole subject is synthetic data honesty."""
+    for m in load_catalog(default_catalog_root()).methods:
+        p = m.output_preview
+        if p and p.format == "image_spec":
+            body = p.preview.lower()
+            assert "data:image" not in body
+            assert "base64" not in body
+            assert any(ch.isdigit() for ch in body), (
+                f"{m.id} image_spec should state concrete dimensions")
+
+
+def test_preview_format_suits_the_data_type():
+    """A CSV snippet for a graph method tells the user nothing."""
+    expected = {"images": "image_spec", "graph": "graph_edgelist",
+                "genomic": "genomic_matrix"}
+    for m in load_catalog(default_catalog_root()).generation_methods():
+        for dt, fmt in expected.items():
+            if m.data_types == [dt] and m.output_preview:
+                assert m.output_preview.format == fmt, (
+                    f"{m.id} handles only {dt} but previews as "
+                    f"{m.output_preview.format}")

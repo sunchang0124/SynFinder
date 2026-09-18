@@ -36,3 +36,14 @@ links:
   paper: https://doi.org/10.48550/arXiv.2211.12737
   code: https://github.com/StanfordMIMI/RoentGen
 related_datasets: []
+output_preview:
+  format: image_spec
+  note: >-
+    A 2D radiograph per prompt, paired with the text that produced it.
+  preview: |
+    format      PNG or DICOM, one file per image
+    dimensions  512 x 512 pixels, single channel, 8-bit
+    modality    frontal chest radiograph
+    manifest    image_id,prompt,file
+                r0001,"small left pleural effusion",r0001.png
+                r0002,"bilateral interstitial opacities",r0002.png

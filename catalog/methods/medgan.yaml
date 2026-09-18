@@ -32,3 +32,13 @@ links:
   paper: https://doi.org/10.48550/arXiv.1703.06490
   code: https://github.com/mp2893/medgan
 related_datasets: []
+output_preview:
+  format: tabular_csv
+  note: >-
+    One row per patient holding counts per code. All visit ordering and
+    timing is gone - this is the aggregate, not the trajectory.
+  preview: |
+    patient_id,E11.9,I10,E78.5,J45.909,N18.3
+    s0001,3,2,1,0,0
+    s0002,0,0,0,4,0
+    s0003,1,0,2,0,1

@@ -41,3 +41,12 @@ links:
   paper: https://doi.org/10.14778/3551793.3551817
   code: https://github.com/ryan112358/private-pgm
 related_datasets: []
+output_preview:
+  format: tabular_csv
+  note: >-
+    One row per person, same schema as your input. Continuous columns come back discretised into the bins you supplied.
+  preview: |
+    patient_id,age,sex,bmi,hba1c,smoker,diagnosis
+    s0001,54,F,27.3,6.1,former,E11.9
+    s0002,38,M,31.8,5.4,never,I10
+    s0003,71,F,24.1,7.9,current,E11.9

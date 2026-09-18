@@ -39,3 +39,15 @@ links:
   paper: https://doi.org/10.1038/s41746-023-00958-w
   code: https://github.com/uf-hobi-informatics-lab/GatorTronGPT
 related_datasets: []
+output_preview:
+  format: text
+  note: >-
+    Free-text clinical documents, one per record, with any structured fields you conditioned on.
+  preview: |
+    note_id: n0001
+    type: discharge summary
+    ---
+    54-year-old female admitted with a two-day history of shortness of
+    breath. Known type 2 diabetes on metformin. Chest radiograph showed
+    bibasal consolidation. Treated with intravenous antibiotics and
+    discharged on day four in stable condition.

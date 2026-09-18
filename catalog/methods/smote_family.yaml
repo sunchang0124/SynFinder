@@ -37,3 +37,12 @@ links:
   paper: https://doi.org/10.1613/jair.953
   code: https://github.com/scikit-learn-contrib/imbalanced-learn
 related_datasets: []
+output_preview:
+  format: tabular_csv
+  note: >-
+    One row per person, same schema as your input. Rows are interpolations between real neighbours, not new people.
+  preview: |
+    patient_id,age,sex,bmi,hba1c,smoker,diagnosis
+    s0001,54,F,27.3,6.1,former,E11.9
+    s0002,38,M,31.8,5.4,never,I10
+    s0003,71,F,24.1,7.9,current,E11.9

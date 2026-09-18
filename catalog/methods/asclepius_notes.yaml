@@ -9,6 +9,8 @@ formal_dp: false
 requires_no_source_data: true
 compute: gpu_required
 license: CC-BY-4.0
+language: python
+last_updated: 2024
 purposes: [ml_augmentation, education, open_release, benchmarking]
 preserves: [marginals]
 scale:

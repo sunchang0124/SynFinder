@@ -75,3 +75,22 @@ def test_preview_format_suits_the_data_type():
                 assert m.output_preview.format == fmt, (
                     f"{m.id} handles only {dt} but previews as "
                     f"{m.output_preview.format}")
+
+
+def test_language_and_year_tags_are_sourced_not_guessed():
+    """Both tags are read off the repository. A method may legitimately lack
+    them - an absent tag is honest, an invented one is not."""
+    catalog = load_catalog(default_catalog_root())
+    allowed = set(catalog.taxonomy["languages"])
+    for m in catalog.methods:
+        if m.language is not None:
+            assert m.language in allowed, f"{m.id} has language '{m.language}'"
+        if m.last_updated is not None:
+            assert 2000 <= m.last_updated <= 2100, f"{m.id} year {m.last_updated}"
+
+
+def test_most_methods_carry_both_tags():
+    methods = load_catalog(default_catalog_root()).methods
+    tagged = [m for m in methods if m.language and m.last_updated]
+    assert len(tagged) > len(methods) * 0.8, (
+        f"only {len(tagged)} of {len(methods)} methods carry both tags")

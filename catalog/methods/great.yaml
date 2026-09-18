@@ -8,6 +8,8 @@ variable_types: [continuous, categorical, ordinal, count, free_text]
 formal_dp: false
 compute: gpu_required
 license: MIT
+language: python
+last_updated: 2026
 purposes: [ml_augmentation, benchmarking]
 preserves: [marginals, joint_correlations]
 scale:

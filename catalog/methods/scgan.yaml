@@ -7,6 +7,8 @@ variable_types: [count]
 formal_dp: false
 compute: gpu_required
 license: MIT
+language: python
+last_updated: 2024
 purposes: [ml_augmentation, benchmarking]
 preserves: [marginals, joint_correlations]
 scale:

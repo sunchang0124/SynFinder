@@ -20,6 +20,10 @@ governance:
   acceptance_evidence: []
   known_deployments: []
 caveats:
+  - >-
+    No public implementation is available - the repository referenced in the
+    literature is gone. Using this means reimplementing it from the paper,
+    which is a different size of project from installing a package.
   - Accelerated sampling makes it practical where plain diffusion on EHR is too
     slow to generate a useful cohort.
   - Conditioning on a label is supported, which is what you want for generating
@@ -31,7 +35,7 @@ evaluation:
   - Train-on-synthetic, test-on-real for your downstream task
 links:
   paper: https://doi.org/10.48550/arXiv.2302.04355
-  code: https://github.com/tencent-ailab/MedDiff
+  code: null
 related_datasets: []
 output_preview:
   format: tabular_csv

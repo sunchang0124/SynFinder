@@ -7,6 +7,8 @@ variable_types: [continuous, categorical, ordinal, count]
 formal_dp: false
 compute: cpu_fine
 license: GPL-2.0
+language: r
+last_updated: 2026
 purposes: [statistical_replication, open_release, education, benchmarking]
 preserves: [marginals, joint_correlations]
 scale:

@@ -9,6 +9,8 @@ formal_dp: true
 dp_mechanism: DP-SGD with a Renyi accountant, via TensorFlow Privacy
 compute: gpu_recommended
 license: MIT
+language: python
+last_updated: 2026
 purposes: [open_release, ml_augmentation, benchmarking]
 preserves: [marginals, joint_correlations]
 scale:

@@ -23,6 +23,10 @@ governance:
       argument, unusual for genomic generative models
   known_deployments: []
 caveats:
+  - >-
+    No public implementation is available - the repository referenced in the
+    literature is gone. Using this means reimplementing it from the paper,
+    which is a different size of project from installing a package.
   - Learns haplotype structure from real genomes rather than assuming a
     demographic model, so it reproduces population structure the model-based
     simulators cannot.
@@ -39,7 +43,7 @@ evaluation:
   - Linkage disequilibrium decay curves
 links:
   paper: https://doi.org/10.1371/journal.pgen.1009303
-  code: https://github.com/burakyelmen/artificial_genomes
+  code: null
 related_datasets: []
 output_preview:
   format: genomic_matrix

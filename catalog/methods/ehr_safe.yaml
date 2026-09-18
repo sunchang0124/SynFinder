@@ -7,6 +7,8 @@ variable_types: [continuous, categorical, ordinal, count, datetime]
 formal_dp: false
 compute: gpu_required
 license: Apache-2.0
+language: python
+last_updated: 2026
 purposes: [ml_augmentation, open_release, benchmarking]
 preserves: [temporal_dynamics, joint_correlations, marginals]
 scale:

@@ -9,6 +9,8 @@ formal_dp: true
 dp_mechanism: Adaptive private query selection with a neural network approximating the data distribution
 compute: gpu_recommended
 license: MIT
+language: python
+last_updated: 2023
 purposes: [open_release, statistical_replication, benchmarking]
 preserves: [marginals, joint_correlations]
 scale:

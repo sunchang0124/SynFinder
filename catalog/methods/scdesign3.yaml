@@ -7,6 +7,8 @@ variable_types: [count, continuous, categorical]
 formal_dp: false
 compute: cpu_fine
 license: MIT
+language: r
+last_updated: 2025
 purposes: [benchmarking, statistical_replication, ml_augmentation, education]
 preserves: [marginals, joint_correlations]
 scale:

@@ -8,6 +8,8 @@ variable_types: [continuous, categorical, ordinal, count, datetime]
 formal_dp: false
 compute: cpu_fine
 license: MIT
+language: python
+last_updated: 2026
 purposes: [pipeline_testing, education, open_release]
 preserves: [marginals]
 scale:

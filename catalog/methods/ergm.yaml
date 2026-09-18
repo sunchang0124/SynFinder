@@ -8,6 +8,8 @@ variable_types: [categorical, count]
 formal_dp: false
 compute: cpu_fine
 license: GPL-3.0
+language: r
+last_updated: 2026
 purposes: [statistical_replication, causal_inference, education, benchmarking]
 preserves: [joint_correlations, causal_structure]
 scale:

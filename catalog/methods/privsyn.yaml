@@ -8,6 +8,8 @@ formal_dp: true
 dp_mechanism: Noisy selection and measurement of highly correlated marginals, fitted by gradient-based synthesis
 compute: cpu_fine
 license: MIT
+language: python
+last_updated: 2021
 purposes: [open_release, statistical_replication, benchmarking]
 preserves: [marginals, joint_correlations]
 scale:

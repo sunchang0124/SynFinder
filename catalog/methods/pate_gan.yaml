@@ -8,6 +8,8 @@ formal_dp: true
 dp_mechanism: PATE - a differentially private teacher ensemble trains the discriminator
 compute: gpu_recommended
 license: BSD-3-Clause
+language: python
+last_updated: 2026
 purposes: [open_release, ml_augmentation, benchmarking]
 preserves: [marginals, joint_correlations]
 scale:

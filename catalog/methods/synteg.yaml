@@ -20,6 +20,10 @@ governance:
   acceptance_evidence: []
   known_deployments: []
 caveats:
+  - >-
+    No public implementation is available - the repository referenced in the
+    literature is gone. Using this means reimplementing it from the paper,
+    which is a different size of project from installing a package.
   - Models visit timing as well as visit content, so inter-visit intervals stay
     plausible. Most EHR generators ignore timing entirely.
   - Two-stage training, transformer then GAN, gives two things that can fail to
@@ -30,7 +34,7 @@ evaluation:
   - Next-visit prediction trained on synthetic, tested on real
 links:
   paper: https://doi.org/10.1093/jamia/ocaa262
-  code: https://github.com/zzzace2000/SynTEG
+  code: null
 related_datasets: []
 output_preview:
   format: event_sequence

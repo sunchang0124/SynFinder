@@ -7,6 +7,8 @@ variable_types: [continuous, categorical, ordinal, count, datetime]
 formal_dp: false
 compute: gpu_required
 license: MIT
+language: python
+last_updated: 2026
 purposes: [ml_augmentation, benchmarking, statistical_replication]
 preserves: [temporal_dynamics, joint_correlations, marginals]
 scale:

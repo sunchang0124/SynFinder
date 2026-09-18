@@ -8,6 +8,8 @@ variable_types: [continuous, categorical, ordinal, count, datetime]
 formal_dp: false
 compute: cpu_fine
 license: Apache-2.0
+language: python
+last_updated: 2026
 purposes: [benchmarking, ml_augmentation, statistical_replication, open_release]
 preserves: [marginals, joint_correlations, temporal_dynamics]
 scale:

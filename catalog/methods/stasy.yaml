@@ -8,6 +8,8 @@ variable_types: [continuous, categorical, ordinal]
 formal_dp: false
 compute: gpu_required
 license: Apache-2.0
+language: python
+last_updated: 2023
 purposes: [ml_augmentation, benchmarking, statistical_replication]
 preserves: [marginals, joint_correlations]
 scale:

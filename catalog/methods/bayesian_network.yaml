@@ -8,6 +8,8 @@ variable_types: [categorical, ordinal, count]
 formal_dp: false
 compute: cpu_fine
 license: MIT
+language: python
+last_updated: 2026
 purposes: [causal_inference, statistical_replication, education, benchmarking]
 preserves: [marginals, joint_correlations, causal_structure]
 scale:

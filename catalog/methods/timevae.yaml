@@ -7,6 +7,8 @@ variable_types: [continuous]
 formal_dp: false
 compute: cpu_fine
 license: MIT
+language: python
+last_updated: 2025
 purposes: [ml_augmentation, pipeline_testing, benchmarking, education]
 preserves: [temporal_dynamics, marginals]
 scale:

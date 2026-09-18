@@ -21,6 +21,10 @@ governance:
   acceptance_evidence: []
   known_deployments: []
 caveats:
+  - >-
+    No public implementation is available - the repository referenced in the
+    literature is gone. Using this means reimplementing it from the paper,
+    which is a different size of project from installing a package.
   - Conditional generation lets you ask for patients with a given condition,
     which is the main practical reason to reach for it over an unconditional model.
   - Like most VAEs it over-smooths; rare codes and unusual trajectories are
@@ -31,7 +35,7 @@ evaluation:
   - Check that the conditioning actually holds in the generated cohort
 links:
   paper: https://doi.org/10.48550/arXiv.2012.10020
-  code: https://github.com/SiddharthBiswal/EVA
+  code: null
 related_datasets: []
 output_preview:
   format: event_sequence

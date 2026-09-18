@@ -7,6 +7,8 @@ variable_types: [continuous, categorical, datetime]
 formal_dp: false
 compute: gpu_recommended
 license: BSD-3-Clause
+language: python
+last_updated: 2023
 purposes: [ml_augmentation, pipeline_testing, benchmarking]
 preserves: [temporal_dynamics, marginals]
 scale:

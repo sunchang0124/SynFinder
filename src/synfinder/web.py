@@ -86,6 +86,8 @@ def _candidate_json(c) -> dict:
         "compute": m.compute,
         "expertise": m.expertise,
         "license": m.license,
+        "language": m.language,
+        "last_updated": m.last_updated,
         "maintained": m.maturity.maintained,
         "quality": m.maturity.implementation_quality,
         "links": {"paper": m.links.paper, "code": m.links.code,

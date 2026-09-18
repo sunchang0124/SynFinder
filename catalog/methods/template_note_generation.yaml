@@ -9,6 +9,8 @@ formal_dp: false
 requires_no_source_data: true
 compute: cpu_fine
 license: MIT
+language: java
+last_updated: 2026
 purposes: [pipeline_testing, education, open_release]
 preserves: []
 scale:

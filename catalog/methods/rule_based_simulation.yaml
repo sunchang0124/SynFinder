@@ -9,6 +9,8 @@ formal_dp: false
 requires_no_source_data: true
 compute: cpu_fine
 license: MIT
+language: python
+last_updated: 2026
 purposes: [pipeline_testing, education, benchmarking, causal_inference, open_release]
 preserves: [causal_structure]
 scale:

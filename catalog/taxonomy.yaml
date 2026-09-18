@@ -49,3 +49,12 @@ preview_formats:
   - image_spec
   - text
   - graph_edgelist
+languages:
+  - python
+  - r
+  - julia
+  - cpp
+  - java
+  - javascript
+  - multiple
+  - other

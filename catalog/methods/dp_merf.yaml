@@ -9,6 +9,8 @@ formal_dp: true
 dp_mechanism: A single privatised random-Fourier-feature mean embedding of the data
 compute: cpu_fine
 license: MIT
+language: python
+last_updated: 2023
 purposes: [open_release, ml_augmentation, benchmarking]
 preserves: [marginals]
 scale:

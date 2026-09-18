@@ -9,6 +9,8 @@ formal_dp: true
 dp_mechanism: Noisy measurement of selected low-order marginals, reconstructed by graphical-model inference
 compute: cpu_fine
 license: Apache-2.0
+language: python
+last_updated: 2026
 purposes: [open_release, statistical_replication, benchmarking]
 preserves: [marginals, joint_correlations]
 scale:

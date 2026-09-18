@@ -19,6 +19,7 @@ CONTROLLED: dict[str, str] = {
     "purposes": "purposes",
     "preserves": "preserves",
     "family": "families",
+    "language": "languages",
 }
 
 

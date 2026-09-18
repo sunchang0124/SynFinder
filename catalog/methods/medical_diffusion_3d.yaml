@@ -8,6 +8,8 @@ variable_types: []
 formal_dp: false
 compute: gpu_required
 license: MIT
+language: python
+last_updated: 2023
 purposes: [ml_augmentation, benchmarking, education]
 preserves: [marginals]
 scale:

@@ -4,6 +4,10 @@ const $ = (s, r = document) => r.querySelector(s);
 // call against the page's own directory rather than the server root.
 const API = new URL(".", location.href).href;
 // Words that should stay upper-case rather than being title-cased.
+const LANG = {
+  python: "Python", r: "R", julia: "Julia", cpp: "C/C++", java: "Java",
+  javascript: "JavaScript", multiple: "Multiple languages", other: "Other",
+};
 const ACRONYM = {
   gan: "GAN", vae: "VAE", llm: "LLM", dp: "DP", ssh: "SSH", cpu: "CPU",
   gpu: "GPU", ml: "ML", ok: "OK", csv: "CSV", ehr: "EHR", id: "ID",
@@ -238,6 +242,13 @@ function badges(m) {
   else if (m.compute === "gpu_recommended") b.push(`<span class="badge">GPU recommended</span>`);
   else b.push(`<span class="badge">runs on CPU</span>`);
   b.push(`<span class="badge">${esc(m.expertise)} expertise</span>`);
+  if (m.language) b.push(`<span class="badge lang">${esc(LANG[m.language] || m.language)}</span>`);
+  if (m.last_updated) {
+    // A year is only useful as a staleness signal, so colour it like one.
+    const age = new Date().getFullYear() - m.last_updated;
+    const cls = age >= 3 ? "badge stale" : age >= 2 ? "badge warnish" : "badge";
+    b.push(`<span class="${cls}">updated ${m.last_updated}</span>`);
+  }
   if (!m.maintained) b.push(`<span class="badge stale">unmaintained</span>`);
   b.push(`<span class="badge">${esc(m.license)}</span>`);
   return `<div class="badges">${b.join("")}</div>`;

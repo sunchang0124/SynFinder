@@ -9,6 +9,8 @@ formal_dp: false
 requires_no_source_data: true
 compute: cpu_fine
 license: GPL-3.0
+language: cpp
+last_updated: 2026
 purposes: [benchmarking, education, statistical_replication, open_release]
 preserves: [causal_structure]
 scale:

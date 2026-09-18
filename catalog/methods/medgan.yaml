@@ -7,6 +7,8 @@ variable_types: [categorical, count]
 formal_dp: false
 compute: gpu_recommended
 license: BSD-3-Clause
+language: python
+last_updated: 2019
 purposes: [benchmarking, education]
 preserves: [marginals]
 scale:

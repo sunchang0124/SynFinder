@@ -8,6 +8,8 @@ variable_types: [continuous]
 formal_dp: false
 compute: gpu_required
 license: MIT
+language: python
+last_updated: 2024
 purposes: [ml_augmentation, benchmarking]
 preserves: [temporal_dynamics, joint_correlations]
 scale:

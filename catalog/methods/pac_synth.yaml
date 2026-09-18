@@ -9,6 +9,8 @@ formal_dp: true
 dp_mechanism: Differentially private aggregate counts, from which records are seeded and sampled
 compute: cpu_fine
 license: MIT
+language: python
+last_updated: 2026
 purposes: [open_release, statistical_replication, education]
 preserves: [marginals]
 scale:

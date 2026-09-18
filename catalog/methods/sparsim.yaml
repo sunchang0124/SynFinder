@@ -7,6 +7,7 @@ variable_types: [count, categorical]
 formal_dp: false
 compute: cpu_fine
 license: GPL-3.0
+language: r
 purposes: [benchmarking, education, pipeline_testing]
 preserves: [marginals]
 scale:

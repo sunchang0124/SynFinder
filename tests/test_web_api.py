@@ -134,3 +134,11 @@ def test_the_page_carries_a_build_id():
     html = client.get("/").text
     assert "__BUILD__" not in html, "build placeholder was not substituted"
     assert re.search(r"build [0-9a-f]{7}", html)
+
+
+def test_candidates_carry_the_language_and_year_tags():
+    body = client.post("/api/recommend", json={
+        "domain": "biomedical", "data_type": "tabular_cross_sectional",
+        "purpose": "ml_augmentation", "privacy": "not_required"}).json()
+    assert any(c["language"] for c in body["shortlist"])
+    assert any(c["last_updated"] for c in body["shortlist"])

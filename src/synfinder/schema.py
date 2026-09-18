@@ -87,6 +87,10 @@ class Method(BaseModel):
     related_datasets: list[str] = Field(default_factory=list)
     output_preview: OutputPreview | None = None
 
+    # Practical tags, read off the repository rather than estimated.
+    language: str | None = None
+    last_updated: int | None = None
+
     is_framework: bool = False
 
     # True for simulators that never ingest real records (Synthea, rule-based

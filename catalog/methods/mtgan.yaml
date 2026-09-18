@@ -7,6 +7,8 @@ variable_types: [categorical, count, datetime]
 formal_dp: false
 compute: gpu_required
 license: MIT
+language: python
+last_updated: 2022
 purposes: [ml_augmentation, benchmarking]
 preserves: [temporal_dynamics, marginals, rare_events]
 scale:

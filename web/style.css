@@ -205,6 +205,9 @@ select:focus,input:focus{
 .badge.dp{color:var(--accent); border-color:color-mix(in srgb, var(--accent) 34%, transparent);
   background:color-mix(in srgb, var(--accent) 11%, transparent)}
 .badge.gpu{color:var(--warn); border-color:var(--warn-br); background:var(--warn-bg)}
+.badge.lang{color:var(--accent-2); border-color:color-mix(in srgb, var(--accent-2) 30%, transparent);
+  background:color-mix(in srgb, var(--accent-2) 10%, transparent)}
+.badge.warnish{color:var(--warn); border-color:var(--warn-br); background:var(--warn-bg)}
 .badge.stale{color:var(--rose); border-color:color-mix(in srgb, var(--rose) 30%, transparent);
   background:color-mix(in srgb, var(--rose) 9%, transparent)}
 

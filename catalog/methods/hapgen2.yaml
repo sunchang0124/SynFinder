@@ -7,6 +7,7 @@ variable_types: [categorical]
 formal_dp: false
 compute: cpu_fine
 license: GPL-3.0
+language: cpp
 purposes: [benchmarking, ml_augmentation, education]
 preserves: [marginals, joint_correlations]
 scale:

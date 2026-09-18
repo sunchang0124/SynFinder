@@ -7,6 +7,8 @@ variable_types: [free_text]
 formal_dp: false
 compute: gpu_required
 license: Apache-2.0
+language: python
+last_updated: 2023
 purposes: [ml_augmentation, benchmarking]
 preserves: [marginals]
 scale:

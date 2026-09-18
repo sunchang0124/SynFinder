@@ -9,6 +9,8 @@ formal_dp: true
 dp_mechanism: Laplace noise on low-order marginals selected by an exponential mechanism
 compute: cpu_fine
 license: MIT
+language: python
+last_updated: 2026
 purposes: [open_release, statistical_replication, benchmarking]
 preserves: [marginals, joint_correlations]
 scale:

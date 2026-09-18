@@ -1,0 +1,38 @@
+name: Deploy to Hugging Face Space
+
+# Keeps the public Space in step with main. Does nothing until the HF_TOKEN
+# repository secret exists, so it is safe to merge before you set that up.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Skip unless a token is configured
+        id: gate
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          if [ -z "$HF_TOKEN" ]; then
+            echo "no HF_TOKEN secret set - skipping deploy"
+            echo "go=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "go=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Install client
+        if: steps.gate.outputs.go == 'true'
+        run: pip install huggingface_hub
+      - name: Push to the Space
+        if: steps.gate.outputs.go == 'true'
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          HF_USER: ${{ vars.HF_USER }}
+          HF_SPACE: ${{ vars.HF_SPACE }}
+        run: ./deploy/to_huggingface.sh "${HF_USER:-sunchang0124}" "${HF_SPACE:-synfinder}"

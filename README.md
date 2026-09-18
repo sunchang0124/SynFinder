@@ -76,10 +76,17 @@ docker build -t synfinder .
 docker run -p 8501:8501 synfinder
 ```
 
-For Hugging Face Spaces, create a Space with the **Docker** SDK pointing at
-this repository; it reads the `Dockerfile` and sets `PORT` itself. That is the
-route to a permanent public link someone can click without installing
-anything.
+**A public link anyone can click** — publish to Hugging Face Spaces:
+
+```bash
+export HF_TOKEN=hf_xxxxxxxx        # write token from huggingface.co/settings/tokens
+./deploy/to_huggingface.sh <your-hf-username>
+```
+
+That creates the Space, uploads the app and builds it. The result is a
+permanent URL with no install for the visitor. After the first run, add
+`HF_TOKEN` as a repository secret and the included workflow redeploys on every
+push to `main`.
 
 CI builds the image and boots it on every push, so the container path is
 verified rather than assumed.

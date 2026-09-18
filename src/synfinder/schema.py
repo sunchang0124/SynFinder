@@ -5,9 +5,27 @@ from pydantic import BaseModel, Field, model_validator
 
 
 class Scale(BaseModel):
+    """The demonstrated size envelope, and where that claim comes from.
+
+    `evidence` cites the paper table or repository example the numbers were
+    read off. A Scale with bounds but no evidence is a guess, and the loader
+    rejects it — see `_scale_needs_evidence`.
+    """
+
     min_rows: int | None = None
     max_rows: int | None = None
     max_cols: int | None = None
+    evidence: str | None = None
+
+    @model_validator(mode="after")
+    def _scale_needs_evidence(self) -> "Scale":
+        stated = (self.min_rows, self.max_rows, self.max_cols)
+        if any(v is not None for v in stated) and not self.evidence:
+            raise ValueError(
+                "scale bounds were given without `evidence`; cite the paper "
+                "table or repository example the numbers come from"
+            )
+        return self
 
 
 class Maturity(BaseModel):

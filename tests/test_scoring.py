@@ -58,7 +58,8 @@ def test_method_needing_more_expertise_than_the_user_has_is_penalised():
 
 
 def test_scale_beyond_the_method_maximum_is_penalised():
-    m = make_method(scale=Scale(min_rows=None, max_rows=10_000, max_cols=None))
+    m = make_method(scale=Scale(min_rows=None, max_rows=10_000, max_cols=None,
+                                evidence="test fixture"))
     c = score_method(m, intake(expected_rows=1_000_000), DEFAULT_WEIGHTS)
     assert axis(c, "scale").score < 0.5
 

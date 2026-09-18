@@ -11,13 +11,17 @@ license: MIT
 purposes: [ml_augmentation, pipeline_testing, benchmarking]
 preserves: [marginals, joint_correlations]
 scale:
-  min_rows: 1000
-  max_rows: 1000000
-  max_cols: 200
+  min_rows: 23000
+  max_rows: 481000
+  max_cols: 784
+  evidence: >-
+    Evaluated on the same benchmark as CTGAN (Xu et al. 2019, Table 4):
+    Covertype 481k train is the largest, Adult 23k train the smallest,
+    MNIST28 the widest at 784 flattened-image columns.
 expertise: medium
 maturity:
   maintained: true
-  last_release: "2025-06"
+  last_release: "2026-02"
   implementation_quality: production_ready
 governance:
   acceptance_evidence: []

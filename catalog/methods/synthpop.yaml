@@ -11,13 +11,12 @@ license: GPL-2.0
 purposes: [statistical_replication, pipeline_testing, education, open_release]
 preserves: [marginals, joint_correlations, rare_events]
 scale:
-  min_rows: 100
-  max_rows: 500000
-  max_cols: 200
+  # UNVERIFIED - JSS paper uses SD2011; row/variable counts not yet confirmed
+  evidence: null
 expertise: low
 maturity:
   maintained: true
-  last_release: "2024-09"
+  last_release: "2026-09"
   implementation_quality: production_ready
 governance:
   acceptance_evidence:

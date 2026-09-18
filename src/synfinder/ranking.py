@@ -164,6 +164,9 @@ def _scale_axis(method: Method, intake: Intake) -> AxisScore:
     elif min_rows is not None and rows < min_rows:
         score = 0.4
         note = f"needs roughly {min_rows:,} rows to train well"
+    elif max_rows is None and min_rows is None:
+        score = 1.0
+        note = "has no published size envelope in the catalog yet"
     else:
         score = 1.0
         note = f"handles {rows:,} rows comfortably"

@@ -2,7 +2,7 @@ id: dp_cgans
 name: DP-CGANS
 aliases: [Differentially Private Conditional GANs]
 family: gan
-domains: [biomedical]
+domains: [general]
 data_types: [tabular_cross_sectional]
 variable_types: [continuous, categorical, ordinal, count]
 formal_dp: true
@@ -12,13 +12,12 @@ license: MIT
 purposes: [open_release, ml_augmentation, benchmarking]
 preserves: [marginals, joint_correlations]
 scale:
-  min_rows: 1000
-  max_rows: 500000
-  max_cols: 150
+  # UNVERIFIED - Sun et al. 2023 experiment sizes not yet confirmed (repo example is a 200-row toy)
+  evidence: null
 expertise: high
 maturity:
   maintained: true
-  last_release: "2025-10"
+  last_release: "2025-12"
   implementation_quality: research_code
 governance:
   acceptance_evidence:

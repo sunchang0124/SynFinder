@@ -12,13 +12,17 @@ license: MIT
 purposes: [open_release, statistical_replication, benchmarking]
 preserves: [marginals, joint_correlations]
 scale:
-  min_rows: 500
-  max_rows: 2000000
-  max_cols: 100
+  min_rows: 21574
+  max_rows: 45222
+  max_cols: 23
+  evidence: >-
+    Zhang et al. 2017 experiments: NLTCS 21,574 records / 16 attributes,
+    BR2000 38,000 / 14, TPC-E 40,000, Adult ~45,222 / 15, ACS 23 attributes.
+    Nothing larger than ~45k rows was demonstrated.
 expertise: high
 maturity:
   maintained: true
-  last_release: "2024-11"
+  last_release: null  # DataSynthesizer publishes no releases or tags; last commit 2026-07
   implementation_quality: research_code
 governance:
   acceptance_evidence:

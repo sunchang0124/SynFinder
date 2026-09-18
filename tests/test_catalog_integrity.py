@@ -19,3 +19,11 @@ def test_related_dataset_ids_resolve():
     for m in catalog.methods:
         for ref in m.related_datasets:
             assert ref in known, f"{m.id} references unknown dataset {ref}"
+
+
+def test_scale_bounds_always_cite_their_source():
+    """An invented size envelope is worse than none - it silently scores."""
+    for m in load_catalog(default_catalog_root()).methods:
+        if any(v is not None for v in (m.scale.min_rows, m.scale.max_rows,
+                                       m.scale.max_cols)):
+            assert m.scale.evidence, f"{m.id} states a scale with no evidence"

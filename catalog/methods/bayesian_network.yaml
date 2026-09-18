@@ -11,13 +11,12 @@ license: MIT
 purposes: [causal_inference, statistical_replication, education, benchmarking]
 preserves: [marginals, joint_correlations, causal_structure]
 scale:
-  min_rows: 200
-  max_rows: 1000000
-  max_cols: 100
+  # UNVERIFIED - pgmpy publishes no scale benchmark
+  evidence: null
 expertise: medium
 maturity:
   maintained: true
-  last_release: "2025-04"
+  last_release: "2026-04"
   implementation_quality: production_ready
 governance:
   acceptance_evidence:

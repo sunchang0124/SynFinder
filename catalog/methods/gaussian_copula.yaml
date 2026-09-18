@@ -11,13 +11,12 @@ license: MIT
 purposes: [pipeline_testing, education, benchmarking, statistical_replication]
 preserves: [marginals, joint_correlations]
 scale:
-  min_rows: 100
-  max_rows: 5000000
-  max_cols: 500
+  # UNVERIFIED - SDV paper (Patki et al. 2016) not yet checked for tested sizes
+  evidence: null
 expertise: low
 maturity:
   maintained: true
-  last_release: "2025-06"
+  last_release: "2026-09"
   implementation_quality: production_ready
 governance:
   acceptance_evidence: []

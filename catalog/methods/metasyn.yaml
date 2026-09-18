@@ -11,13 +11,12 @@ license: MIT
 purposes: [pipeline_testing, education, open_release]
 preserves: [marginals]
 scale:
-  min_rows: 50
-  max_rows: 10000000
-  max_cols: 1000
+  # UNVERIFIED - JOSS paper / docs not yet checked for tested sizes
+  evidence: null
 expertise: low
 maturity:
   maintained: true
-  last_release: "2025-03"
+  last_release: "2026-05"
   implementation_quality: production_ready
 governance:
   acceptance_evidence:

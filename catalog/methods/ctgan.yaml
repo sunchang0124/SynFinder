@@ -11,13 +11,18 @@ license: MIT
 purposes: [ml_augmentation, pipeline_testing, benchmarking, imbalance_correction]
 preserves: [marginals, joint_correlations]
 scale:
-  min_rows: 1000
-  max_rows: 1000000
-  max_cols: 200
+  min_rows: 23000
+  max_rows: 481000
+  max_cols: 784
+  evidence: >-
+    Xu et al. 2019, Table 4 (benchmark datasets). Largest by rows is Covertype
+    at 481k train / 100k test; smallest is Adult at 23k train. Widest is
+    MNIST28 at 784 columns, which is a flattened image - the widest genuinely
+    tabular set is Census at 41 columns.
 expertise: medium
 maturity:
   maintained: true
-  last_release: "2025-06"
+  last_release: "2026-02"
   implementation_quality: production_ready
 governance:
   acceptance_evidence: []

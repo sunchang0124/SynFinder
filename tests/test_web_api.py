@@ -87,3 +87,18 @@ def test_api_calls_resolve_relative_to_the_page():
     js = (Path(__file__).resolve().parents[1] / "web" / "app.js").read_text()
     assert 'fetch("/api' not in js
     assert "const API" in js
+
+
+def test_frontend_rendering_checks_pass():
+    """Runs tests/test_frontend_rendering.js - label capitalisation and the
+    preview table renderers. Skipped where node is unavailable."""
+    import shutil
+    import subprocess
+    from pathlib import Path
+
+    node = shutil.which("node")
+    if not node:
+        pytest.skip("node not available")
+    script = Path(__file__).resolve().parent / "test_frontend_rendering.js"
+    r = subprocess.run([node, str(script)], capture_output=True, text=True)
+    assert r.returncode == 0, r.stdout + r.stderr

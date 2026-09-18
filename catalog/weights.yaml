@@ -1,0 +1,9 @@
+# Relative importance of each scored axis. Tuned against the golden
+# scenarios in tests/test_golden_scenarios.py — change these and run
+# that file.
+purpose: 3.0
+preserves: 2.5
+expertise: 1.5
+maturity: 1.5
+scale: 1.0
+governance: 1.0

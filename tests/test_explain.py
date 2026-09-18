@@ -6,7 +6,7 @@ from tests.factories import make_method
 
 def intake(**over) -> Intake:
     base = dict(domain="biomedical", data_type="tabular_cross_sectional",
-                purpose="ml_augmentation", privacy="none")
+                purpose="ml_augmentation", privacy="not_required")
     base.update(over)
     return Intake(**base)
 

@@ -10,7 +10,7 @@ def test_core_four_are_required():
 
 def test_optional_axes_default_to_unanswered():
     i = Intake(domain="biomedical", data_type="tabular_cross_sectional",
-               purpose="open_release", privacy="formal_dp_required")
+               purpose="open_release", privacy="required")
     assert i.expertise is None
     assert i.preserves == []
     assert i.answered("expertise") is False
@@ -20,7 +20,7 @@ def test_optional_axes_default_to_unanswered():
 
 def test_answered_is_true_once_an_optional_axis_is_filled():
     i = Intake(domain="biomedical", data_type="tabular_cross_sectional",
-               purpose="open_release", privacy="none",
+               purpose="open_release", privacy="not_required",
                preserves=["temporal_dynamics"], expertise="low")
     assert i.answered("preserves") is True
     assert i.answered("expertise") is True

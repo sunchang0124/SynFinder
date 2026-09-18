@@ -29,7 +29,7 @@ Command line:
 synfinder find --domain biomedical \
                --data-type tabular_cross_sectional \
                --purpose open_release \
-               --privacy formal_dp_required \
+               --privacy required \
                --out recommendation.md
 
 # browse ready-made synthetic datasets - you may not need to generate anything

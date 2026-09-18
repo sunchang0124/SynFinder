@@ -26,8 +26,8 @@ def _build_parser() -> argparse.ArgumentParser:
     f.add_argument("--domain", required=True)
     f.add_argument("--data-type", required=True)
     f.add_argument("--purpose", required=True)
-    f.add_argument("--privacy", required=True,
-                   choices=["none", "deidentified_ok", "formal_dp_required"])
+    f.add_argument("--privacy", required=True, choices=["not_required", "required"],
+                   help="whether the method must specify privacy measures")
     f.add_argument("--compute",
                    choices=["cpu_fine", "gpu_recommended", "gpu_required"])
     f.add_argument("--expertise", choices=["low", "medium", "high"])

@@ -5,7 +5,7 @@ from tests.factories import make_method
 
 def intake(**over) -> Intake:
     base = dict(domain="biomedical", data_type="tabular_cross_sectional",
-                purpose="ml_augmentation", privacy="none")
+                purpose="ml_augmentation", privacy="not_required")
     base.update(over)
     return Intake(**base)
 
@@ -28,11 +28,11 @@ def test_unsupported_data_type_is_excluded():
     assert "tabular_cross_sectional" in dropped[0].reason
 
 
-def test_no_formal_dp_when_dp_is_required():
+def test_a_method_with_no_privacy_measures_is_excluded_when_required():
     kept, dropped = hard_filter(
-        [make_method(formal_dp=False)], intake(privacy="formal_dp_required"))
+        [make_method(formal_dp=False)], intake(privacy="required"))
     assert kept == []
-    assert "differential privacy" in dropped[0].reason
+    assert "privacy measures" in dropped[0].reason
 
 
 def test_gpu_required_when_user_has_cpu_only():
@@ -73,13 +73,23 @@ def test_a_simulator_survives_a_dp_requirement():
     for lacking a DP guarantee would drop the safest option on the list."""
     kept, _ = hard_filter(
         [make_method(formal_dp=False, requires_no_source_data=True)],
-        intake(privacy="formal_dp_required"))
+        intake(privacy="required"))
     assert [m.id for m in kept] == ["m"]
 
 
-def test_an_ordinary_method_is_still_excluded_without_dp():
+def test_an_ordinary_method_is_still_excluded_when_privacy_is_required():
     kept, dropped = hard_filter(
         [make_method(formal_dp=False, requires_no_source_data=False)],
-        intake(privacy="formal_dp_required"))
+        intake(privacy="required"))
     assert kept == []
-    assert "differential privacy" in dropped[0].reason
+    assert "privacy measures" in dropped[0].reason
+
+
+def test_privacy_not_required_keeps_privacy_preserving_methods():
+    """An unstated privacy requirement is the absence of a constraint, not a
+    reason to drop the methods that do offer privacy."""
+    dp = make_method(id="dp", formal_dp=True, dp_mechanism="DP-SGD")
+    plain = make_method(id="plain", formal_dp=False)
+    kept, dropped = hard_filter([dp, plain], intake(privacy="not_required"))
+    assert sorted(m.id for m in kept) == ["dp", "plain"]
+    assert dropped == []

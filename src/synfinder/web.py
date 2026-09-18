@@ -54,6 +54,12 @@ class IntakeRequest(BaseModel):
         return Intake(**self.model_dump())
 
 
+def _top_only(ranking: Ranking, top: list) -> Ranking:
+    """The exported report carries the shortlist, not the long tail."""
+    return Ranking(shortlist=top, excluded=ranking.excluded,
+                   no_purpose_match=ranking.no_purpose_match)
+
+
 def _dataset_json(d) -> dict:
     return {
         "id": d.id, "name": d.name, "n_records": d.n_records,
@@ -99,7 +105,7 @@ def taxonomy() -> dict:
     cat = _catalog()
     return {
         **cat.taxonomy,
-        "privacy": ["none", "deidentified_ok", "formal_dp_required"],
+        "privacy": ["not_required", "required"],
         "counts": {
             "methods": len(cat.generation_methods()),
             "frameworks": len(cat.frameworks()),
@@ -127,14 +133,19 @@ def datasets(domain: str | None = None, data_type: str | None = None,
 def recommend(req: IntakeRequest) -> dict:
     cat = _catalog()
     intake = req.to_intake()
+    # Rank deeply, then split. With many methods tying on the core four, a
+    # hard cut at five buries whole families - which is how every
+    # privacy-preserving method fell off a list it had not been excluded from.
     ranking: Ranking = rank(cat.generation_methods(), intake, _weights(),
-                            top_n=5)
+                            top_n=24)
+    top, rest = ranking.shortlist[:5], ranking.shortlist[5:]
     matching = match_datasets(cat.datasets, intake)
     covered = cat.covers(intake.data_type)
 
     return {
         "datasets": [_dataset_json(d) for d in matching],
-        "shortlist": [_candidate_json(c) for c in ranking.shortlist],
+        "shortlist": [_candidate_json(c) for c in top],
+        "also_ranked": [_candidate_json(c) for c in rest],
         "excluded": [
             {"id": e.method_id, "name": e.method_name, "reason": e.reason}
             for e in ranking.excluded
@@ -142,14 +153,15 @@ def recommend(req: IntakeRequest) -> dict:
         "no_purpose_match": ranking.no_purpose_match,
         "covered": covered,
         "empty_message": (
-            None if ranking.shortlist
+            None if top
             else empty_result_message(intake, covered,
                                       cat.covered_data_types())
         ),
-        "report_markdown": render_markdown(intake, ranking, matching, covered,
+        "report_markdown": render_markdown(intake, _top_only(ranking, top),
+                                           matching, covered,
                                            cat.covered_data_types()),
-        "report_html": render_html(intake, ranking, matching, covered,
-                                   cat.covered_data_types()),
+        "report_html": render_html(intake, _top_only(ranking, top), matching,
+                                   covered, cat.covered_data_types()),
     }
 
 

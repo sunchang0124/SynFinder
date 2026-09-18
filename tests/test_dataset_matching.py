@@ -8,7 +8,7 @@ from tests.factories import make_method
 
 def intake(**over):
     base = dict(domain="biomedical", data_type="tabular_cross_sectional",
-                purpose="education", privacy="none")
+                purpose="education", privacy="not_required")
     base.update(over)
     return Intake(**base)
 

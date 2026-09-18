@@ -382,3 +382,29 @@ pre{
 @media (max-width:900px){
   .info::after{max-width:min(78vw, 300px)}
 }
+
+/* ---------- callout lists ---------- */
+.callout p{margin:0}
+.callout ul{margin:0; padding:0; list-style:none; display:grid; gap:7px}
+.callout li{position:relative; padding-left:16px}
+.callout li::before{
+  content:""; position:absolute; left:2px; top:.62em;
+  width:5px; height:5px; border-radius:50%; background:var(--warn); opacity:.75;
+}
+.callout.info li::before{background:var(--info)}
+
+/* ---------- the long tail ---------- */
+.more-ranked > summary{
+  cursor:pointer; list-style:none; font-size:13.5px; color:var(--dim);
+  display:flex; align-items:center; gap:8px;
+}
+.more-ranked > summary::-webkit-details-marker{display:none}
+.more-ranked > summary::before{
+  content:""; width:5px; height:5px; border-right:1.5px solid currentColor;
+  border-bottom:1.5px solid currentColor; transform:rotate(-45deg);
+  transition:transform .18s;
+}
+.more-ranked[open] > summary::before{transform:rotate(45deg)}
+.more-ranked > summary:hover{color:var(--text)}
+.more-list{display:flex; flex-direction:column; gap:14px; margin-top:14px}
+.more-list .card{box-shadow:none; animation:none}

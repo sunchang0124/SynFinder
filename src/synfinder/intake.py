@@ -5,7 +5,10 @@ from typing import Literal
 
 from pydantic import BaseModel, Field
 
-PRIVACY = Literal["none", "deidentified_ok", "formal_dp_required"]
+# Binary by design. The old three-valued form had a middle option
+# ("deidentified_ok") that no filter or score ever acted on - an answer that
+# changed nothing. A method either specifies privacy measures or it does not.
+PRIVACY = Literal["not_required", "required"]
 
 
 class Intake(BaseModel):

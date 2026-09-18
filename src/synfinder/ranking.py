@@ -33,10 +33,12 @@ def _exclusion_reason(method: Method, intake: Intake) -> str | None:
     if intake.data_type not in method.data_types:
         return f"cannot handle {intake.data_type} data"
 
-    if (intake.privacy == "formal_dp_required"
+    # Only a stated requirement filters. "not_required" is the absence of a
+    # constraint, so every method - privacy-preserving or not - stays in.
+    if (intake.privacy == "required"
             and not method.formal_dp
             and not method.requires_no_source_data):
-        return "provides no formal differential privacy guarantee"
+        return "specifies no privacy measures"
 
     if intake.compute == "cpu_fine" and method.compute == "gpu_required":
         return "requires a GPU, which you said is not available"

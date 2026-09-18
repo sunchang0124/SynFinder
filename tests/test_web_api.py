@@ -8,13 +8,13 @@ from synfinder.web import app  # noqa: E402
 client = TestClient(app)
 
 INTAKE = {"domain": "biomedical", "data_type": "tabular_cross_sectional",
-          "purpose": "open_release", "privacy": "formal_dp_required"}
+          "purpose": "open_release", "privacy": "required"}
 
 
 def test_taxonomy_exposes_the_form_options():
     body = client.get("/api/taxonomy").json()
     assert "biomedical" in body["domains"]
-    assert "formal_dp_required" in body["privacy"]
+    assert "required" in body["privacy"]
     assert body["counts"]["methods"] > 0
 
 
@@ -102,3 +102,21 @@ def test_frontend_rendering_checks_pass():
     script = Path(__file__).resolve().parent / "test_frontend_rendering.js"
     r = subprocess.run([node, str(script)], capture_output=True, text=True)
     assert r.returncode == 0, r.stdout + r.stderr
+
+
+def test_privacy_not_required_still_surfaces_privacy_preserving_methods():
+    """Reported by Chang: with no privacy requirement she saw no privacy
+    methods. They were ranked but cut off by the top-5 shortlist."""
+    body = client.post("/api/recommend", json={
+        "domain": "biomedical", "data_type": "tabular_cross_sectional",
+        "purpose": "open_release", "privacy": "not_required"}).json()
+    everything = body["shortlist"] + body["also_ranked"]
+    assert any(c["formal_dp"] for c in everything), \
+        "privacy-preserving methods must be reachable when privacy is not required"
+    assert not any("privacy measures" in e["reason"] for e in body["excluded"]), \
+        "nothing may be excluded on privacy grounds when none was required"
+
+
+def test_privacy_is_binary():
+    body = client.get("/api/taxonomy").json()
+    assert body["privacy"] == ["not_required", "required"]

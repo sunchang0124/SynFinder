@@ -17,11 +17,11 @@ def test_build_intake_maps_answers_to_the_model():
         "domain": "biomedical",
         "data_type": "tabular_cross_sectional",
         "purpose": "open_release",
-        "privacy": "formal_dp_required",
+        "privacy": "required",
         "expertise": None,
         "preserves": [],
     })
-    assert intake.privacy == "formal_dp_required"
+    assert intake.privacy == "required"
     assert intake.expertise is None
     assert intake.answered("expertise") is False
 

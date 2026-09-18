@@ -2,7 +2,7 @@ from synfinder.cli import main
 
 FIND = ["find", "--domain", "biomedical",
         "--data-type", "tabular_cross_sectional",
-        "--purpose", "ml_augmentation", "--privacy", "none"]
+        "--purpose", "ml_augmentation", "--privacy", "not_required"]
 
 
 def test_find_prints_a_shortlist(capsys):
@@ -18,7 +18,7 @@ def test_find_writes_a_report_file(tmp_path):
 
 def test_find_rejects_a_data_type_outside_the_taxonomy(capsys):
     argv = ["find", "--domain", "biomedical", "--data-type", "holograms",
-            "--purpose", "ml_augmentation", "--privacy", "none"]
+            "--purpose", "ml_augmentation", "--privacy", "not_required"]
     assert main(argv) == 2
     assert "holograms" in capsys.readouterr().err
 

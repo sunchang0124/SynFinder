@@ -59,3 +59,21 @@ jobs:
         env:
           SYNFINDER_CHECK_LINKS: "1"
         run: python -m pytest tests/test_links.py -q
+
+  container-builds-and-serves:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the image
+        run: docker build -t synfinder:ci .
+      - name: Run it and check it answers
+        run: |
+          docker run -d --name synfinder -p 8501:8501 synfinder:ci
+          for i in $(seq 1 40); do
+            curl -sf http://localhost:8501/ >/dev/null && break
+            sleep 1
+          done
+          curl -sf http://localhost:8501/ | grep -q "<title>SynFinder</title>"
+          curl -sf http://localhost:8501/api/taxonomy | grep -q biomedical
+          docker rm -f synfinder
+          echo "container builds and serves"

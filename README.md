@@ -56,6 +56,34 @@ exported report are all produced from the catalog with no network call. If an
 `ANTHROPIC_API_KEY` is present, an LLM rewrites the rationale into fluent
 prose — it cannot add a claim that is not already in the catalog.
 
+## Running it
+
+GitHub cannot host this itself — GitHub Pages serves static files only, and
+the ranking engine is Python so that the web interface and the CLI can never
+disagree about a recommendation. Three ways to run it:
+
+**1. Locally, from a clone** (above) — three commands.
+
+**2. GitHub Codespaces** — no install at all. On the repo page choose
+*Code -> Codespaces -> Create codespace*. The devcontainer installs
+everything and starts the app; the forwarded port opens in your browser.
+
+**3. A container, anywhere** — including free hosts such as Hugging Face
+Spaces, Render or Fly.io:
+
+```bash
+docker build -t synfinder .
+docker run -p 8501:8501 synfinder
+```
+
+For Hugging Face Spaces, create a Space with the **Docker** SDK pointing at
+this repository; it reads the `Dockerfile` and sets `PORT` itself. That is the
+route to a permanent public link someone can click without installing
+anything.
+
+CI builds the image and boots it on every push, so the container path is
+verified rather than assumed.
+
 ## Ready-made datasets come first
 
 When a synthetic dataset already exists that matches what you described, it is

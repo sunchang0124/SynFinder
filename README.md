@@ -41,11 +41,16 @@ synfinder new method
 
 The bare `synfinder --domain ...` form was replaced by `synfinder find` in v2.
 
-App:
+Web interface:
 
 ```bash
-streamlit run app/streamlit_app.py
+./run_web.sh            # then open http://localhost:8501
 ```
+
+Behind a reverse proxy such as an HPC OnDemand portal, `PORT=xxxxx ./run_web.sh`.
+
+The older Streamlit prototype is still in `app/streamlit_app.py` (`./run_app.sh`)
+but the web interface is the one to use.
 
 **No API key is required.** Ranking, rationales, the comparison table and the
 exported report are all produced from the catalog with no network call. If an

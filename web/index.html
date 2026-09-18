@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SynFinder</title>
+<meta name="description" content="Find the synthetic data generation method that fits your study.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <svg class="mark" viewBox="0 0 32 32" aria-hidden="true">
+      <circle cx="16" cy="16" r="13" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".35"/>
+      <circle cx="16" cy="16" r="5.5" fill="none" stroke="currentColor" stroke-width="2"/>
+      <circle cx="16" cy="4.5" r="2.4" fill="currentColor"/>
+      <circle cx="26.4" cy="22" r="2.4" fill="currentColor"/>
+      <circle cx="5.6" cy="22" r="2.4" fill="currentColor"/>
+    </svg>
+    <div>
+      <div class="brand-name">SynFinder</div>
+      <div class="brand-sub" id="brandSub">synthetic data, chosen well</div>
+    </div>
+  </div>
+  <nav class="tabs" role="tablist">
+    <button class="tab is-active" data-view="find" role="tab">Find a method</button>
+    <button class="tab" data-view="browse" role="tab">Datasets</button>
+  </nav>
+  <button class="icon-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle theme">
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+      <path class="sun" d="M12 4V2m0 20v-2m8-8h2M2 12h2m13.66-5.66 1.41-1.41M4.93 19.07l1.41-1.41m0-11.32L4.93 4.93m14.14 14.14-1.41-1.41" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+      <circle class="sun" cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8" fill="none"/>
+      <path class="moon" d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z" fill="currentColor"/>
+    </svg>
+  </button>
+</header>
+
+<!-- ============ FIND ============ -->
+<main class="layout" id="view-find">
+  <aside class="panel">
+    <form id="intakeForm" autocomplete="off">
+      <div class="panel-head">
+        <h2>Your situation</h2>
+        <p>Four questions. The rest only sharpen the answer.</p>
+      </div>
+
+      <div class="field">
+        <label for="domain">Research domain</label>
+        <div class="select"><select id="domain" name="domain"></select></div>
+      </div>
+
+      <div class="field">
+        <label for="data_type">What your real data looks like</label>
+        <div class="select"><select id="data_type" name="data_type"></select></div>
+      </div>
+
+      <div class="field">
+        <label for="purpose">What the synthetic data is for</label>
+        <div class="select"><select id="purpose" name="purpose"></select></div>
+      </div>
+
+      <div class="field">
+        <label for="privacy">Privacy requirement</label>
+        <div class="select"><select id="privacy" name="privacy"></select></div>
+      </div>
+
+      <details class="more">
+        <summary>Constraints &amp; resources</summary>
+        <div class="field">
+          <label for="compute">Compute available</label>
+          <div class="select"><select id="compute" name="compute"></select></div>
+        </div>
+        <div class="field">
+          <label for="expertise">Your experience with these methods</label>
+          <div class="select"><select id="expertise" name="expertise"></select></div>
+        </div>
+        <div class="field">
+          <label for="expected_rows">Roughly how many records</label>
+          <input type="number" id="expected_rows" name="expected_rows" min="0" step="1000" placeholder="leave blank if unsure">
+        </div>
+        <div class="field">
+          <label>Variable types you must generate</label>
+          <div class="chips" id="variable_types"></div>
+        </div>
+        <label class="check"><input type="checkbox" id="require_open_license"><span></span>Must have an open licence</label>
+      </details>
+
+      <details class="more">
+        <summary>Fidelity &amp; evaluation</summary>
+        <div class="field">
+          <label>What the synthetic data must preserve</label>
+          <div class="chips" id="preserves"></div>
+        </div>
+      </details>
+
+      <details class="more">
+        <summary>Governance &amp; acceptance</summary>
+        <label class="check"><input type="checkbox" id="needs_governance_evidence"><span></span>I need evidence of ethics or regulatory acceptance</label>
+      </details>
+
+      <button class="btn-primary" type="submit" id="submitBtn">
+        <span class="btn-label">Find methods</span>
+        <svg class="btn-spin" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-dasharray="14 40"/></svg>
+      </button>
+      <p class="panel-foot" id="catalogCount"></p>
+    </form>
+  </aside>
+
+  <section class="results" id="results">
+    <div class="empty-state">
+      <svg viewBox="0 0 64 64" width="56" height="56" aria-hidden="true">
+        <circle cx="32" cy="32" r="22" fill="none" stroke="currentColor" stroke-width="2" opacity=".25"/>
+        <circle cx="32" cy="32" r="10" fill="none" stroke="currentColor" stroke-width="2" opacity=".5"/>
+        <circle cx="32" cy="32" r="2.5" fill="currentColor"/>
+      </svg>
+      <h3>Answer the four essentials</h3>
+      <p>You will get a ranked shortlist, the caveats that will actually bite you, and every method that was ruled out — with the reason.</p>
+    </div>
+  </section>
+</main>
+
+<!-- ============ BROWSE ============ -->
+<main class="layout browse hidden" id="view-browse">
+  <aside class="panel">
+    <div class="panel-head">
+      <h2>Ready-made datasets</h2>
+      <p>If one of these fits, you do not need to generate anything at all.</p>
+    </div>
+    <div class="field">
+      <label for="b_domain">Domain</label>
+      <div class="select"><select id="b_domain"></select></div>
+    </div>
+    <div class="field">
+      <label for="b_data_type">Data type</label>
+      <div class="select"><select id="b_data_type"></select></div>
+    </div>
+  </aside>
+  <section class="results" id="datasetResults"></section>
+</main>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

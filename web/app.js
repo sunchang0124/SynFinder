@@ -1,4 +1,8 @@
 const $ = (s, r = document) => r.querySelector(s);
+
+// Behind a proxy the app may live under a path prefix. Resolve every API
+// call against the page's own directory rather than the server root.
+const API = new URL(".", location.href).href;
 const pretty = s => String(s).replace(/_/g, " ");
 const esc = s => String(s).replace(/[&<>"]/g, c =>
   ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -44,7 +48,7 @@ function chips(sel, values) {
 const chosen = sel => [...$(sel).querySelectorAll(".chip.on")].map(c => c.dataset.v);
 
 async function boot() {
-  TAX = await (await fetch("/api/taxonomy")).json();
+  TAX = await (await fetch(API + "api/taxonomy")).json();
   fill("#domain", TAX.domains);
   fill("#data_type", TAX.data_types);
   fill("#purpose", TAX.purposes);
@@ -82,7 +86,7 @@ $("#intakeForm").onsubmit = async e => {
     needs_governance_evidence: $("#needs_governance_evidence").checked || null,
   };
   try {
-    const res = await fetch("/api/recommend", {
+    const res = await fetch(API + "api/recommend", {
       method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     });
@@ -240,7 +244,7 @@ async function loadDatasets() {
   const q = new URLSearchParams({
     domain: $("#b_domain").value, data_type: $("#b_data_type").value,
   });
-  const { datasets } = await (await fetch("/api/datasets?" + q)).json();
+  const { datasets } = await (await fetch(API + "api/datasets?" + q)).json();
   $("#datasetResults").innerHTML = datasets.length
     ? `<p class="section-label">${datasets.length} dataset${datasets.length === 1 ? "" : "s"}</p>`
       + `<section class="lead">${datasets.map(datasetBlock).join("")}</section>`

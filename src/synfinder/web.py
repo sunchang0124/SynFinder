@@ -9,7 +9,7 @@ from functools import lru_cache
 from pathlib import Path
 
 from fastapi import FastAPI
-from fastapi.responses import FileResponse
+from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
@@ -153,9 +153,24 @@ def recommend(req: IntakeRequest) -> dict:
     }
 
 
-@app.get("/")
-def index() -> FileResponse:
-    return FileResponse(WEB_DIR / "index.html")
+def _page() -> str:
+    """Inline CSS and JS into the page.
+
+    Reverse proxies (HPC OnDemand, JupyterHub) serve apps under a path
+    prefix, where an absolute asset path like /static/style.css resolves to
+    the portal root and 404s - leaving an unstyled, unreadable page. Having
+    no asset paths at all removes the failure mode entirely.
+    """
+    html = (WEB_DIR / "index.html").read_text()
+    css = (WEB_DIR / "style.css").read_text()
+    js = (WEB_DIR / "app.js").read_text()
+    return html.replace("/*__CSS__*/", css).replace("/*__JS__*/", js)
 
 
+@app.get("/", response_class=HTMLResponse)
+def index() -> HTMLResponse:
+    return HTMLResponse(_page())
+
+
+# kept so a direct link still works, but the page does not depend on it
 app.mount("/static", StaticFiles(directory=WEB_DIR), name="static")

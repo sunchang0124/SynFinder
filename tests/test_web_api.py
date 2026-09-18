@@ -69,3 +69,21 @@ def test_the_frontend_never_reimplements_scoring():
     js = (Path(__file__).resolve().parents[1] / "web" / "app.js").read_text()
     for banned in ["DEFAULT_WEIGHTS", "hard_filter", "weights ="]:
         assert banned not in js, f"app.js appears to score client-side: {banned}"
+
+
+def test_the_page_is_self_contained():
+    """Behind a path-prefixing proxy an absolute /static/... URL 404s and the
+    page renders unstyled and unreadable. The page must carry its own assets."""
+    html = client.get("/").text
+    assert 'href="/static' not in html
+    assert 'src="/static' not in html
+    assert "design tokens" in html, "CSS should be inlined"
+    assert "api/taxonomy" in html, "JS should be inlined"
+
+
+def test_api_calls_resolve_relative_to_the_page():
+    """A leading slash breaks every fetch when served under a path prefix."""
+    from pathlib import Path
+    js = (Path(__file__).resolve().parents[1] / "web" / "app.js").read_text()
+    assert 'fetch("/api' not in js
+    assert "const API" in js

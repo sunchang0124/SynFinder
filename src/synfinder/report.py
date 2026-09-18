@@ -92,6 +92,17 @@ def render_markdown(
         "",
     ]
 
+    if ranking.no_purpose_match and ranking.shortlist:
+        out += [
+            f"> **Nothing in this catalog is intended for "
+            f"{intake.purpose.replace('_', ' ')} with "
+            f"{intake.data_type.replace('_', ' ')} data.** The entries below "
+            "are the closest available on your other constraints, but none of "
+            "them is designed for what you asked. Read their caveats before "
+            "going further, and treat this as a gap rather than an answer.",
+            "",
+        ]
+
     if not ranking.shortlist:
         out += [empty_result_message(intake, covered, also_covered), ""]
 

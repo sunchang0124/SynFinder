@@ -108,6 +108,9 @@ class Candidate:
 class Ranking:
     shortlist: list[Candidate]
     excluded: list[Exclusion]
+    # True when NOTHING in the catalog is intended for the stated purpose and
+    # the shortlist is therefore a set of near-misses, not recommendations.
+    no_purpose_match: bool = False
 
 
 def load_weights(path: Path) -> dict[str, float]:
@@ -230,6 +233,15 @@ def rank(
 ) -> Ranking:
     kept, excluded = hard_filter(methods, intake)
     candidates = [score_method(m, intake, weights) for m in kept]
+
+    # Purpose is the question the user actually asked. A method scoring zero
+    # on it must never outrank one that matches, however good its other axes
+    # look - that is how Synthea came top for statistical replication while
+    # its own caveat said never to use it for that.
+    matched = [c for c in candidates
+               if (a := c.axis("purpose")) is not None and a.score > 0]
+    no_purpose_match = not matched
+    candidates = matched or candidates
     # Ties are common: with only the core four answered, every method that
     # supports the stated purpose scores identically. Break on implementation
     # quality, then on whether anyone has actually got this past a review
@@ -243,4 +255,8 @@ def rank(
         ),
         reverse=True,
     )
-    return Ranking(shortlist=candidates[:top_n], excluded=excluded)
+    return Ranking(
+        shortlist=candidates[:top_n],
+        excluded=excluded,
+        no_purpose_match=no_purpose_match,
+    )

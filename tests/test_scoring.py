@@ -94,3 +94,19 @@ def test_ties_break_towards_the_method_with_a_track_record():
     unproven = make_method(id="unproven", governance=Governance())
     result = rank([unproven, proven], intake(), top_n=1)
     assert [c.method.id for c in result.shortlist] == ["proven"]
+
+
+def test_a_purpose_match_always_outranks_a_non_match():
+    """A method scoring 0 on purpose must not win on its other axes."""
+    wrong_purpose = make_method(id="wrong", purposes=["education"])
+    right_purpose = make_method(id="right", purposes=["ml_augmentation"],
+                                maturity=make_method().maturity)
+    result = rank([wrong_purpose, right_purpose], intake(), top_n=2)
+    assert result.shortlist[0].method.id == "right"
+    assert result.no_purpose_match is False
+
+
+def test_no_purpose_match_is_flagged_rather_than_hidden():
+    result = rank([make_method(purposes=["education"])], intake(), top_n=3)
+    assert result.no_purpose_match is True
+    assert result.shortlist, "near-misses are still shown, but labelled"

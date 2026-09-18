@@ -13,7 +13,7 @@ from synfinder.explain import as_text, explain               # noqa: E402
 from synfinder.intake import Intake                          # noqa: E402
 from synfinder.ranking import load_weights, rank             # noqa: E402
 from synfinder.report import (                               # noqa: E402
-    comparison_rows, render_html, render_markdown,
+    comparison_rows, empty_result_message, render_html, render_markdown,
 )
 
 UNSET = "not specified"
@@ -113,8 +113,12 @@ def main() -> None:
 
     ranking = rank(catalog.generation_methods(), intake, weights, top_n=5)
 
+    covered = catalog.covers(intake.data_type)
     if not ranking.shortlist:
-        st.error("No method in the catalog meets these requirements.")
+        if covered:
+            st.error(empty_result_message(intake, covered))
+        else:
+            st.info(empty_result_message(intake, covered), icon="🗺️")
     else:
         st.subheader("Recommended methods")
 
@@ -167,10 +171,10 @@ def main() -> None:
     st.subheader("Take it with you")
     d1, d2 = st.columns(2)
     d1.download_button("Download report (Markdown)",
-                       render_markdown(intake, ranking, matching),
+                       render_markdown(intake, ranking, matching, covered),
                        file_name="synfinder-report.md", mime="text/markdown")
     d2.download_button("Download report (HTML)",
-                       render_html(intake, ranking, matching),
+                       render_html(intake, ranking, matching, covered),
                        file_name="synfinder-report.html", mime="text/html")
 
     if not llm.available():

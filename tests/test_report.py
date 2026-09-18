@@ -37,3 +37,17 @@ def test_html_is_wrapped_in_a_document():
     html = render_html(intake(), rank([make_method()], intake()))
     assert html.lstrip().startswith("<!doctype html>")
     assert "</html>" in html
+
+
+def test_an_uncovered_modality_says_so_instead_of_claiming_no_match():
+    """An empty shortlist for images is a catalog gap, not a no-match."""
+    md = render_markdown(intake(data_type="images"),
+                         rank([make_method()], intake(data_type="images")),
+                         covered=False)
+    assert "no entries for images data yet" in md
+    assert "not a statement that no method exists" in md
+
+
+def test_a_covered_modality_with_no_match_says_that_instead():
+    md = render_markdown(intake(), rank([], intake()), covered=True)
+    assert "No method in the catalog meets these requirements" in md

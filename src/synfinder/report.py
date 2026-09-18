@@ -48,8 +48,26 @@ def _intake_lines(intake: Intake) -> list[str]:
     return lines
 
 
+def empty_result_message(intake: Intake, covered: bool) -> str:
+    """Why the shortlist is empty - an uncovered modality is not a no-match."""
+    if not covered:
+        return (
+            f"SynFinder has no entries for {intake.data_type.replace('_', ' ')} "
+            "data yet. That is a gap in this catalog, not a statement that no "
+            "method exists. The catalog currently covers tabular, longitudinal, "
+            "coded event sequence, time series and survival data."
+        )
+    return (
+        "No method in the catalog meets these requirements. Try relaxing the "
+        "constraint shown most often in the ruled-out list below."
+    )
+
+
 def render_markdown(
-    intake: Intake, ranking: Ranking, datasets: list[Dataset] | None = None
+    intake: Intake,
+    ranking: Ranking,
+    datasets: list[Dataset] | None = None,
+    covered: bool = True,
 ) -> str:
     out: list[str] = [
         "# Synthetic data method recommendation",
@@ -65,7 +83,7 @@ def render_markdown(
     ]
 
     if not ranking.shortlist:
-        out += ["No method in the catalog matches these requirements.", ""]
+        out += [empty_result_message(intake, covered), ""]
 
     for i, c in enumerate(ranking.shortlist, start=1):
         e = explain(c)
@@ -122,9 +140,12 @@ def render_markdown(
 
 
 def render_html(
-    intake: Intake, ranking: Ranking, datasets: list[Dataset] | None = None
+    intake: Intake,
+    ranking: Ranking,
+    datasets: list[Dataset] | None = None,
+    covered: bool = True,
 ) -> str:
-    body = html_mod.escape(render_markdown(intake, ranking, datasets))
+    body = html_mod.escape(render_markdown(intake, ranking, datasets, covered))
     return (
         "<!doctype html>\n"
         '<html lang="en"><head><meta charset="utf-8">'

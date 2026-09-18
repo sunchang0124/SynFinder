@@ -38,6 +38,15 @@ class Catalog:
     def frameworks(self) -> list[Method]:
         return [m for m in self.methods if m.is_framework]
 
+    def covers(self, data_type: str) -> bool:
+        """True if any rankable method handles this data type at all.
+
+        Distinguishes "nothing fits your constraints" from "SynFinder has no
+        entries for this modality yet" - an empty result otherwise reads as a
+        broken tool rather than an incomplete catalog.
+        """
+        return any(data_type in m.data_types for m in self.generation_methods())
+
     def by_id(self, method_id: str) -> Method | None:
         return next((m for m in self.methods if m.id == method_id), None)
 

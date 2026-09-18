@@ -1,0 +1,38 @@
+id: synthcity
+name: synthcity
+family: toolkit
+is_framework: true
+domains: [biomedical, general]
+data_types: [tabular_cross_sectional, tabular_longitudinal, time_series, survival]
+variable_types: [continuous, categorical, ordinal, count, datetime]
+formal_dp: false
+compute: cpu_fine
+license: Apache-2.0
+purposes: [benchmarking, ml_augmentation, statistical_replication, open_release]
+preserves: [marginals, joint_correlations, temporal_dynamics]
+scale:
+  evidence: null
+expertise: medium
+maturity:
+  maintained: true
+  last_release: null
+  implementation_quality: production_ready
+governance:
+  acceptance_evidence: []
+  known_deployments:
+    - Common benchmarking harness in the synthetic health data literature
+caveats:
+  - A framework, not a method. It is the single most useful thing in this
+    catalog for comparing methods fairly, because it implements many of them
+    behind one interface with a shared evaluation suite.
+  - Includes survival and DP methods that have no maintained standalone
+    implementation - SurvivalGAN, PATE-GAN and DP-CTGAN are reached through it.
+  - The breadth means individual methods vary in how faithfully they reproduce
+    their papers. Check the implementation before citing a comparison.
+evaluation:
+  - Use its benchmarking module to compare candidates on your own data rather
+    than trusting published leaderboards
+links:
+  paper: https://doi.org/10.48550/arXiv.2301.07573
+  code: https://github.com/vanderschaarlab/synthcity
+related_datasets: []

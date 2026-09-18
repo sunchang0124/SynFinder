@@ -1,0 +1,45 @@
+id: synthea
+name: Synthea
+aliases: [SyntheticMass generator]
+family: agent_simulation
+domains: [biomedical]
+data_types: [coded_event_sequences, tabular_longitudinal]
+variable_types: [categorical, ordinal, count, datetime, continuous]
+formal_dp: false
+requires_no_source_data: true
+compute: cpu_fine
+license: Apache-2.0
+purposes: [pipeline_testing, education, open_release, benchmarking]
+preserves: [temporal_dynamics]
+scale:
+  evidence: null
+expertise: low
+maturity:
+  maintained: true
+  last_release: null
+  implementation_quality: production_ready
+governance:
+  acceptance_evidence:
+    - Generates patients from published care maps and epidemiology rather than
+      from anyone's records, so there is no disclosure risk to argue about and
+      no data use agreement to negotiate
+  known_deployments:
+    - Widely used for FHIR interoperability testing and health IT training
+caveats:
+  - It is a simulation, not a model of your population. The output reflects the
+    care maps and US epidemiology the authors encoded. Any statistic you compute
+    from it tells you about Synthea, not about your patients.
+  - Never use it to estimate an effect, validate a finding or train a model you
+    intend to deploy. Use it to exercise pipelines, teach, and demonstrate.
+  - Disease coverage is uneven; common conditions are modelled well, rare ones
+    barely or not at all.
+evaluation:
+  - Check that the code systems, value sets and message formats match what your
+    pipeline expects - that is what it is for
+  - Do not bother computing fidelity metrics against real data; it is not
+    trying to match a real population
+links:
+  paper: https://doi.org/10.1093/jamia/ocx079
+  code: https://github.com/synthetichealth/synthea
+  docs: https://synthetichealth.github.io/synthea/
+related_datasets: [synthea_synthetic_massachusetts, synthea_covid19]

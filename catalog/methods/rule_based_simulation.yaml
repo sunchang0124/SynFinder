@@ -1,0 +1,43 @@
+id: rule_based_simulation
+name: Rule-based expert simulation
+aliases: [hand-specified generative model, mechanistic simulation]
+family: rule_based
+domains: [general]
+data_types: [tabular_cross_sectional, tabular_longitudinal, time_series]
+variable_types: [continuous, categorical, ordinal, count, datetime]
+formal_dp: false
+requires_no_source_data: true
+compute: cpu_fine
+license: MIT
+purposes: [pipeline_testing, education, benchmarking, causal_inference, open_release]
+preserves: [causal_structure]
+scale:
+  evidence: null
+expertise: low
+maturity:
+  maintained: true
+  last_release: null
+  implementation_quality: production_ready
+governance:
+  acceptance_evidence:
+    - No real records are used, so there is nothing to disclose and no data use
+      agreement to negotiate. This is often the fastest route to data you are
+      allowed to share today.
+  known_deployments:
+    - The standard way to build ground-truth datasets for evaluating causal and
+      statistical methods
+caveats:
+  - You write the data-generating process yourself, so you know the truth
+    exactly. That is the whole point when you are validating a method, and it is
+    worthless when you are trying to learn something about a real population.
+  - The output can only contain the structure you put in. It will never surprise
+    you, and it will confidently mislead anyone who forgets that.
+  - Frequently the right answer when the real requirement is a demo, a teaching
+    set, a test fixture or a method benchmark. Consider it before any model here.
+evaluation:
+  - Confirm the generated data matches the specification you wrote
+  - State the assumptions of the generating process wherever the data is used
+links:
+  paper: null
+  code: https://github.com/py-why/dowhy
+related_datasets: []

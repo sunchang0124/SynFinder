@@ -1,0 +1,43 @@
+id: mst_aim
+name: MST and AIM
+aliases: [Maximum Spanning Tree, Adaptive Iterative Mechanism, private-pgm]
+family: marginal_based
+domains: [general]
+data_types: [tabular_cross_sectional]
+variable_types: [categorical, ordinal, count]
+formal_dp: true
+dp_mechanism: Noisy measurement of selected low-order marginals, reconstructed by graphical-model inference
+compute: cpu_fine
+license: Apache-2.0
+purposes: [open_release, statistical_replication, benchmarking]
+preserves: [marginals, joint_correlations]
+scale:
+  evidence: null
+expertise: high
+maturity:
+  maintained: true
+  last_release: null
+  implementation_quality: research_code
+governance:
+  acceptance_evidence:
+    - MST won the NIST differential privacy synthetic data challenge; AIM is its
+      adaptive successor and is the current reference point for DP tabular synthesis
+    - Used by statistical agencies evaluating differentially private microdata release
+  known_deployments:
+    - NIST differential privacy synthetic data challenge
+caveats:
+  - This is the honest default for differentially private tabular data. If
+    someone proposes a DP GAN, this is the baseline it has to beat, and usually
+    does not.
+  - Requires discretised inputs; binning choices interact with the noise.
+  - Only the measured marginals survive. Structure above the selected clique
+    size is gone, by construction rather than by accident.
+  - Research-grade code with a real learning curve.
+evaluation:
+  - Report epsilon alongside all utility results
+  - Compare k-way marginals up to the measured clique size, and state what was
+    not measured
+links:
+  paper: https://doi.org/10.14778/3551793.3551817
+  code: https://github.com/ryan112358/private-pgm
+related_datasets: []

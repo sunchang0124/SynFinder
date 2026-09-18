@@ -1,0 +1,35 @@
+id: timeautodiff
+name: TimeAutoDiff
+family: diffusion
+domains: [general]
+data_types: [time_series, tabular_longitudinal]
+variable_types: [continuous, categorical, ordinal, count, datetime]
+formal_dp: false
+compute: gpu_required
+license: MIT
+purposes: [ml_augmentation, benchmarking, statistical_replication]
+preserves: [temporal_dynamics, joint_correlations, marginals]
+scale:
+  evidence: null
+expertise: high
+maturity:
+  maintained: false
+  last_release: null
+  implementation_quality: research_code
+governance:
+  acceptance_evidence: []
+  known_deployments: []
+caveats:
+  - Assumes regular sampling intervals. Irregular clinical visit spacing breaks
+    the model's notion of time, and EHR data is almost always irregular - resample
+    first and understand what that resampling destroys.
+  - Combines an autoencoder with a diffusion model, so it handles mixed-type
+    columns over time better than most sequence GANs.
+  - Diffusion sampling is slow. Generating a large cohort takes real wall-clock time.
+evaluation:
+  - Autocorrelation and cross-correlation structure over time, not just marginals
+  - Discriminative and predictive scores as used in the time-series synthesis literature
+links:
+  paper: https://doi.org/10.48550/arXiv.2406.16028
+  code: https://github.com/namjoonsuh/TimeAutoDiff
+related_datasets: []

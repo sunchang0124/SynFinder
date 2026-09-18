@@ -84,3 +84,13 @@ def test_rank_reports_exclusions():
     result = rank([make_method(id="img", data_types=["images"])], intake())
     assert result.shortlist == []
     assert result.excluded[0].method_id == "img"
+
+
+def test_ties_break_towards_the_method_with_a_track_record():
+    """With only the core four answered, many methods score identically."""
+    from synfinder.schema import Governance
+    proven = make_method(id="proven", governance=Governance(
+        acceptance_evidence=["Accepted by a national statistics office"]))
+    unproven = make_method(id="unproven", governance=Governance())
+    result = rank([unproven, proven], intake(), top_n=1)
+    assert [c.method.id for c in result.shortlist] == ["proven"]

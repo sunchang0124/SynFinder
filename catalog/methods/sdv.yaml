@@ -1,0 +1,38 @@
+id: sdv
+name: SDV
+aliases: [Synthetic Data Vault]
+family: toolkit
+is_framework: true
+domains: [general]
+data_types: [tabular_cross_sectional, tabular_longitudinal, time_series]
+variable_types: [continuous, categorical, ordinal, count, datetime]
+formal_dp: false
+compute: cpu_fine
+license: MIT
+purposes: [pipeline_testing, ml_augmentation, benchmarking, education]
+preserves: [marginals, joint_correlations]
+scale:
+  evidence: null
+expertise: low
+maturity:
+  maintained: true
+  last_release: "2026-09"
+  implementation_quality: production_ready
+governance:
+  acceptance_evidence: []
+  known_deployments:
+    - The most widely used entry point to tabular synthesis in Python
+caveats:
+  - A framework, not a method. It packages Gaussian Copula, CTGAN, TVAE and
+    multi-table synthesis behind one API, plus the SDMetrics evaluation library.
+  - Start here if you want to try several methods quickly. Choose the method on
+    its own merits; SDV is how you run it, not what it does.
+  - The default synthesizer is Gaussian Copula, so an SDV result with no
+    method named is usually a copula result and should be read as one.
+evaluation:
+  - Use its bundled SDMetrics reports as a first pass, not as a sufficient one
+links:
+  paper: https://doi.org/10.1109/DSAA.2016.49
+  code: https://github.com/sdv-dev/SDV
+  docs: https://docs.sdv.dev/sdv
+related_datasets: []

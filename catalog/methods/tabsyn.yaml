@@ -1,0 +1,34 @@
+id: tabsyn
+name: TabSyn
+family: diffusion
+domains: [general]
+data_types: [tabular_cross_sectional]
+variable_types: [continuous, categorical, ordinal, count]
+formal_dp: false
+compute: gpu_required
+license: MIT
+purposes: [ml_augmentation, benchmarking, statistical_replication]
+preserves: [marginals, joint_correlations, rare_events]
+scale:
+  evidence: null
+expertise: high
+maturity:
+  maintained: false
+  last_release: null
+  implementation_quality: research_code
+governance:
+  acceptance_evidence: []
+  known_deployments: []
+caveats:
+  - Diffusion in a learned latent space rather than on the raw columns, which
+    makes it faster to sample than TabDDPM and better at mixed types.
+  - Two components to train, so two things to tune before you see the reported quality.
+  - No formal privacy guarantee, and the same fidelity-versus-disclosure tension
+    as TabDDPM applies.
+evaluation:
+  - SDMetrics fidelity plus machine-learning efficiency
+  - Nearest-neighbour distance ratio against the training set
+links:
+  paper: https://openreview.net/forum?id=4Ay23yeuz0
+  code: https://github.com/amazon-science/tabsyn
+related_datasets: []

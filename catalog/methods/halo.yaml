@@ -1,0 +1,40 @@
+id: halo
+name: HALO
+aliases: [Hierarchical Autoregressive Language mOdel]
+family: llm
+domains: [biomedical]
+data_types: [coded_event_sequences, tabular_longitudinal]
+variable_types: [categorical, count, datetime]
+formal_dp: false
+compute: gpu_required
+license: MIT
+purposes: [ml_augmentation, benchmarking, statistical_replication]
+preserves: [temporal_dynamics, joint_correlations, rare_events]
+scale:
+  evidence: null
+expertise: high
+maturity:
+  maintained: false
+  last_release: null
+  implementation_quality: research_code
+governance:
+  acceptance_evidence: []
+  known_deployments: []
+caveats:
+  - Models a patient as a hierarchy of visits and codes, which is why it keeps
+    visit-level structure that flat tabular methods destroy. That structure is
+    the reason to choose it.
+  - Vocabulary size drives everything. A large code vocabulary means a long
+    training run on a real GPU, and it will not fit on a laptop.
+  - No formal privacy guarantee, and autoregressive models over sparse code
+    sequences can reproduce rare code combinations that identify a patient.
+    Run membership inference before releasing anything.
+  - Research code accompanying a paper; expect to read it rather than install it.
+evaluation:
+  - Compare code prevalence, codes per visit and visits per patient against real data
+  - Check that clinically impossible sequences do not appear
+  - Membership inference, with particular attention to rare code combinations
+links:
+  paper: https://doi.org/10.1038/s41467-023-41093-0
+  code: https://github.com/btheodorou99/HALO_Inpatient
+related_datasets: []

@@ -33,7 +33,9 @@ def _exclusion_reason(method: Method, intake: Intake) -> str | None:
     if intake.data_type not in method.data_types:
         return f"cannot handle {intake.data_type} data"
 
-    if intake.privacy == "formal_dp_required" and not method.formal_dp:
+    if (intake.privacy == "formal_dp_required"
+            and not method.formal_dp
+            and not method.requires_no_source_data):
         return "provides no formal differential privacy guarantee"
 
     if intake.compute == "cpu_fine" and method.compute == "gpu_required":
@@ -228,10 +230,16 @@ def rank(
 ) -> Ranking:
     kept, excluded = hard_filter(methods, intake)
     candidates = [score_method(m, intake, weights) for m in kept]
+    # Ties are common: with only the core four answered, every method that
+    # supports the stated purpose scores identically. Break on implementation
+    # quality, then on whether anyone has actually got this past a review
+    # board - an arbitrary order would drop a defensible method off the list.
     candidates.sort(
         key=lambda c: (
             c.fit,
             QUALITY_SCORE.get(c.method.maturity.implementation_quality, 0.0),
+            len(c.method.governance.acceptance_evidence)
+            + len(c.method.governance.known_deployments),
         ),
         reverse=True,
     )

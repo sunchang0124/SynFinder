@@ -1,0 +1,35 @@
+id: timegan
+name: TimeGAN
+family: gan
+domains: [general]
+data_types: [time_series]
+variable_types: [continuous]
+formal_dp: false
+compute: gpu_recommended
+license: BSD-3-Clause
+purposes: [benchmarking, ml_augmentation, education]
+preserves: [temporal_dynamics, marginals]
+scale:
+  evidence: null
+expertise: medium
+maturity:
+  maintained: false
+  last_release: null
+  implementation_quality: research_code
+governance:
+  acceptance_evidence: []
+  known_deployments: []
+caveats:
+  - The standard baseline in time-series synthesis papers, which is the main
+    reason to run it - comparability, not quality.
+  - Continuous variables only. Categorical columns need encoding, and the
+    results degrade when you do.
+  - Handles short sequences; quality falls away as sequence length grows.
+  - Unmaintained TensorFlow 1 reference implementation.
+evaluation:
+  - The paper's discriminative and predictive scores
+  - t-SNE or PCA overlay of real and synthetic sequences
+links:
+  paper: https://papers.nips.cc/paper/2019/hash/c9efe5f26cd17ba6216bbe2a7d26d490-Abstract.html
+  code: https://github.com/jsyoon0823/TimeGAN
+related_datasets: []

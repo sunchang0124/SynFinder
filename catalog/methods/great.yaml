@@ -1,0 +1,39 @@
+id: great
+name: GReaT
+aliases: [Generation of Realistic Tabular data]
+family: llm
+domains: [general]
+data_types: [tabular_cross_sectional]
+variable_types: [continuous, categorical, ordinal, count, free_text]
+formal_dp: false
+compute: gpu_required
+license: MIT
+purposes: [ml_augmentation, benchmarking]
+preserves: [marginals, joint_correlations]
+scale:
+  evidence: null
+expertise: medium
+maturity:
+  maintained: false
+  last_release: null
+  implementation_quality: research_code
+governance:
+  acceptance_evidence: []
+  known_deployments: []
+caveats:
+  - Serialises each row as a sentence and fine-tunes a language model on it, so
+    column names carry meaning and free-text fields come along for free.
+  - The pretrained model brings outside knowledge into your synthetic data. For
+    a clinical dataset that means the output can encode associations from the
+    internet rather than from your cohort - sometimes helpful, always a
+    confounder you did not consent to.
+  - Language models memorise. Verbatim reproduction of training rows has been
+    demonstrated for this class of model.
+  - Slow to train and slow to sample relative to everything else here.
+evaluation:
+  - SDMetrics fidelity plus machine-learning efficiency
+  - Exact-match search for training rows in the output, every time
+links:
+  paper: https://openreview.net/forum?id=cEygmQNOeI
+  code: https://github.com/kathrinse/be_great
+related_datasets: []

@@ -1,0 +1,16 @@
+id: synthea_synthetic_massachusetts
+name: SyntheticMass
+domain: biomedical
+data_type: coded_event_sequences
+size: ~1 million synthetic residents of Massachusetts
+generated_by: synthea
+access_conditions: Free public download, no application or data use agreement
+license: Apache-2.0
+realism_caveats:
+  - Statistically calibrated to Massachusetts demographics and disease
+    prevalence, not to any real cohort. Do not treat a finding in it as a
+    finding about anyone.
+  - Contains no real patient data, so it can be shared and published freely.
+links:
+  code: https://github.com/synthetichealth/synthea
+  docs: https://synthetichealth.github.io/synthea/

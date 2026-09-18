@@ -1,0 +1,36 @@
+id: promptehr
+name: PromptEHR
+family: llm
+domains: [biomedical]
+data_types: [coded_event_sequences, tabular_longitudinal, text]
+variable_types: [categorical, count, datetime, free_text]
+formal_dp: false
+compute: gpu_required
+license: MIT
+purposes: [ml_augmentation, benchmarking]
+preserves: [temporal_dynamics, joint_correlations]
+scale:
+  evidence: null
+expertise: high
+maturity:
+  maintained: false
+  last_release: null
+  implementation_quality: research_code
+governance:
+  acceptance_evidence: []
+  known_deployments: []
+caveats:
+  - One of the few options that handles coded events and free text together,
+    which is why you would choose it despite the cost.
+  - Built on a pretrained language model, so it carries that model's biases and
+    its training data into your synthetic cohort. What it "knows" about a
+    disease may not come from your data at all.
+  - Generated free text is the highest-risk output in this catalog for
+    disclosure. Do not release it without manual review.
+evaluation:
+  - Perplexity-style checks on held-out real records
+  - Manual clinical review of a sample of generated text, always
+links:
+  paper: https://doi.org/10.48550/arXiv.2211.01761
+  code: https://github.com/RyanWangZf/PromptEHR
+related_datasets: []

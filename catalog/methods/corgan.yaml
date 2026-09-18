@@ -1,0 +1,33 @@
+id: corgan
+name: CorGAN
+family: gan
+domains: [biomedical]
+data_types: [tabular_cross_sectional]
+variable_types: [categorical, count]
+formal_dp: false
+compute: gpu_recommended
+license: MIT
+purposes: [ml_augmentation, benchmarking]
+preserves: [marginals, joint_correlations]
+scale:
+  evidence: null
+expertise: medium
+maturity:
+  maintained: false
+  last_release: null
+  implementation_quality: research_code
+governance:
+  acceptance_evidence: []
+  known_deployments: []
+caveats:
+  - Uses convolutional autoencoders to capture correlation between neighbouring
+    discrete features, which helps when your feature ordering is meaningful and
+    does nothing when it is not.
+  - Like medGAN it produces per-patient aggregates, not sequences.
+  - Unmaintained research code.
+evaluation:
+  - Dimension-wise probability and dimension-wise prediction
+links:
+  paper: https://doi.org/10.48550/arXiv.2001.09346
+  code: https://github.com/astorfi/cor-gan
+related_datasets: []

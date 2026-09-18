@@ -66,3 +66,20 @@ def test_frameworks_are_never_ranked():
     kept, dropped = hard_filter([make_method(is_framework=True)], intake())
     assert kept == []
     assert "framework" in dropped[0].reason
+
+
+def test_a_simulator_survives_a_dp_requirement():
+    """Synthea never sees a real record, so it cannot leak one. Excluding it
+    for lacking a DP guarantee would drop the safest option on the list."""
+    kept, _ = hard_filter(
+        [make_method(formal_dp=False, requires_no_source_data=True)],
+        intake(privacy="formal_dp_required"))
+    assert [m.id for m in kept] == ["m"]
+
+
+def test_an_ordinary_method_is_still_excluded_without_dp():
+    kept, dropped = hard_filter(
+        [make_method(formal_dp=False, requires_no_source_data=False)],
+        intake(privacy="formal_dp_required"))
+    assert kept == []
+    assert "differential privacy" in dropped[0].reason

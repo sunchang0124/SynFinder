@@ -1,0 +1,36 @@
+id: doppelganger
+name: DoppelGANger
+family: gan
+domains: [general]
+data_types: [time_series]
+variable_types: [continuous, categorical, datetime]
+formal_dp: false
+compute: gpu_recommended
+license: BSD-3-Clause
+purposes: [ml_augmentation, pipeline_testing, benchmarking]
+preserves: [temporal_dynamics, marginals]
+scale:
+  evidence: null
+expertise: medium
+maturity:
+  maintained: false
+  last_release: null
+  implementation_quality: research_code
+governance:
+  acceptance_evidence: []
+  known_deployments: []
+caveats:
+  - Separates per-series metadata from the measurements, which is why it keeps
+    long-range structure that plain RNN GANs lose.
+  - Designed and validated on networking and systems traces, not clinical data.
+    Nothing stops you using it on physiological signals, but nobody has
+    established that it works there.
+  - The authors documented a membership inference risk themselves. Treat the
+    output as sensitive.
+evaluation:
+  - Autocorrelation over long lags
+  - Distribution of the per-series metadata, separately from the measurements
+links:
+  paper: https://doi.org/10.1145/3419394.3423643
+  code: https://github.com/fjxmlzn/DoppelGANger
+related_datasets: []

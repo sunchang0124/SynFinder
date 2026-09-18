@@ -1,0 +1,38 @@
+id: ehr_safe
+name: EHR-Safe
+family: gan
+domains: [biomedical]
+data_types: [tabular_longitudinal, time_series]
+variable_types: [continuous, categorical, ordinal, count, datetime]
+formal_dp: false
+compute: gpu_required
+license: Apache-2.0
+purposes: [ml_augmentation, open_release, benchmarking]
+preserves: [temporal_dynamics, joint_correlations, marginals]
+scale:
+  evidence: null
+expertise: high
+maturity:
+  maintained: false
+  last_release: null
+  implementation_quality: research_code
+governance:
+  acceptance_evidence:
+    - Published with an explicit empirical privacy evaluation rather than a
+      fidelity-only argument
+  known_deployments: []
+caveats:
+  - Handles the messy parts of real EHR that most methods quietly drop -
+    mixed types, irregular timing and missingness as a signal rather than a
+    defect.
+  - The privacy argument is empirical, not formal. It reports resistance to
+    specific attacks; it does not give you an epsilon to put in a DPIA.
+  - Reproducing the published results from the available code is not
+    straightforward.
+evaluation:
+  - Per-feature fidelity plus the paper's membership and attribute inference tests
+  - Check that the missingness pattern is reproduced, not just the values
+links:
+  paper: https://doi.org/10.1038/s41746-023-00888-7
+  code: https://github.com/google-research/google-research/tree/master/ehr_safe
+related_datasets: []

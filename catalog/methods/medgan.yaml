@@ -1,0 +1,34 @@
+id: medgan
+name: medGAN
+family: gan
+domains: [biomedical]
+data_types: [tabular_cross_sectional]
+variable_types: [categorical, count]
+formal_dp: false
+compute: gpu_recommended
+license: BSD-3-Clause
+purposes: [benchmarking, education]
+preserves: [marginals]
+scale:
+  evidence: null
+expertise: medium
+maturity:
+  maintained: false
+  last_release: null
+  implementation_quality: research_code
+governance:
+  acceptance_evidence: []
+  known_deployments: []
+caveats:
+  - The original work on discrete EHR generation and still the standard
+    reference point, but it has been superseded on every axis. Cite it; do not
+    deploy it.
+  - Produces aggregate code counts per patient, not visit sequences. All
+    temporal structure is gone.
+  - Unmaintained, with a TensorFlow 1 codebase that no longer runs without work.
+evaluation:
+  - Dimension-wise probability and dimension-wise prediction, as in the paper
+links:
+  paper: https://doi.org/10.48550/arXiv.1703.06490
+  code: https://github.com/mp2893/medgan
+related_datasets: []

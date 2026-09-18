@@ -1,0 +1,35 @@
+id: survivalgan
+name: SurvivalGAN
+family: gan
+domains: [biomedical]
+data_types: [survival]
+variable_types: [continuous, categorical, ordinal, count]
+formal_dp: false
+compute: gpu_recommended
+license: Apache-2.0
+purposes: [ml_augmentation, statistical_replication, benchmarking]
+preserves: [marginals, joint_correlations, rare_events]
+scale:
+  evidence: null
+expertise: high
+maturity:
+  maintained: true
+  last_release: null
+  implementation_quality: research_code
+governance:
+  acceptance_evidence: []
+  known_deployments: []
+caveats:
+  - One of very few methods that treats censoring as part of the problem rather
+    than a nuisance. A general tabular generator applied to survival data will
+    produce event times and censoring indicators that are jointly incoherent.
+  - Optimises for survival-curve agreement, so it can match Kaplan-Meier curves
+    while getting the covariate structure less right. Check both.
+  - Available through synthcity rather than as a standalone package.
+evaluation:
+  - Compare Kaplan-Meier curves and the paper's optimism and short-sightedness metrics
+  - Fit the same Cox model on real and synthetic data and compare hazard ratios
+links:
+  paper: https://proceedings.mlr.press/v206/norcliffe23a.html
+  code: https://github.com/vanderschaarlab/synthcity
+related_datasets: []

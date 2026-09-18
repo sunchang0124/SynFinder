@@ -76,6 +76,11 @@ class Method(BaseModel):
 
     is_framework: bool = False
 
+    # True for simulators that never ingest real records (Synthea, rule-based
+    # models). They cannot leak what they never saw, so a formal DP
+    # requirement does not apply to them.
+    requires_no_source_data: bool = False
+
     @model_validator(mode="after")
     def _dp_needs_mechanism(self) -> "Method":
         if self.formal_dp and not self.dp_mechanism:

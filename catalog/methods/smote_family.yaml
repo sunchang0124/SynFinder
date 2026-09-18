@@ -1,0 +1,39 @@
+id: smote_family
+name: SMOTE and variants
+aliases: [SMOTE, ADASYN, Borderline-SMOTE]
+family: resampling
+domains: [general]
+data_types: [tabular_cross_sectional]
+variable_types: [continuous, categorical, ordinal, count]
+formal_dp: false
+compute: cpu_fine
+license: MIT
+purposes: [imbalance_correction, education]
+preserves: [marginals]
+scale:
+  evidence: null
+expertise: low
+maturity:
+  maintained: true
+  last_release: null
+  implementation_quality: production_ready
+governance:
+  acceptance_evidence: []
+  known_deployments:
+    - Routine in machine-learning pipelines for class imbalance
+caveats:
+  - Listed here as a contrast, not a recommendation. It is oversampling, not
+    synthesis - new points are interpolations between real neighbours.
+  - It offers no privacy protection whatsoever. Every generated point sits on a
+    line between two real patients, and with enough of them the originals can be
+    recovered. Never use it to make data shareable.
+  - Legitimate for rebalancing a training set inside a pipeline, and only there.
+    If your reason for wanting synthetic data is that you cannot share the real
+    data, this is the wrong tool and the wrong catalog entry.
+evaluation:
+  - Downstream classifier performance on a real, untouched, held-out test set
+  - Do not run privacy metrics on it expecting comfort
+links:
+  paper: https://doi.org/10.1613/jair.953
+  code: https://github.com/scikit-learn-contrib/imbalanced-learn
+related_datasets: []

@@ -1,0 +1,35 @@
+id: rtsgan
+name: RTSGAN
+family: gan
+domains: [biomedical, general]
+data_types: [time_series, tabular_longitudinal]
+variable_types: [continuous, categorical, datetime]
+formal_dp: false
+compute: gpu_recommended
+license: MIT
+purposes: [ml_augmentation, benchmarking]
+preserves: [temporal_dynamics, marginals]
+scale:
+  evidence: null
+expertise: high
+maturity:
+  maintained: false
+  last_release: null
+  implementation_quality: research_code
+governance:
+  acceptance_evidence: []
+  known_deployments: []
+caveats:
+  - Explicitly handles incomplete and irregularly sampled series, which is the
+    situation clinical time series are actually in - a genuine advantage over
+    TimeGAN here.
+  - Validated on ICU benchmarks, so the clinical claim is better supported than
+    most in this part of the catalog.
+  - Research code, thin documentation.
+evaluation:
+  - Train-on-synthetic, test-on-real for an ICU prediction task
+  - Check that the missingness and sampling-interval patterns survive
+links:
+  paper: https://doi.org/10.1109/ICDM51629.2021.00074
+  code: https://github.com/acphile/RTSGAN
+related_datasets: []

@@ -1,0 +1,38 @@
+id: pate_gan
+name: PATE-GAN
+family: gan
+domains: [general]
+data_types: [tabular_cross_sectional]
+variable_types: [continuous, categorical, ordinal, count]
+formal_dp: true
+dp_mechanism: PATE - a differentially private teacher ensemble trains the discriminator
+compute: gpu_recommended
+license: BSD-3-Clause
+purposes: [open_release, ml_augmentation, benchmarking]
+preserves: [marginals, joint_correlations]
+scale:
+  evidence: null
+expertise: high
+maturity:
+  maintained: false
+  last_release: null
+  implementation_quality: research_code
+governance:
+  acceptance_evidence:
+    - Reports a formal epsilon, so it can be written into a DPIA
+  known_deployments: []
+caveats:
+  - Gets its guarantee from a teacher ensemble rather than from DP-SGD, which
+    often buys better utility at the same epsilon than a naively noised GAN.
+  - The teacher count is a real tuning burden - too few and the signal is noise,
+    too many and each teacher has too little data.
+  - Reported utility is sensitive to implementation details; independent
+    reproductions have come out worse than the paper.
+evaluation:
+  - Report epsilon and delta with every utility number
+  - Compare against a DP marginal-based method at the same epsilon before
+    concluding a GAN was the right choice
+links:
+  paper: https://openreview.net/forum?id=S1zk9iRqF7
+  code: https://github.com/vanderschaarlab/synthcity
+related_datasets: []

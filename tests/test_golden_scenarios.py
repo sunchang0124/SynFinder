@@ -118,3 +118,52 @@ def test_frameworks_never_appear_in_a_shortlist(catalog, weights):
                            data_type="tabular_cross_sectional",
                            purpose="pipeline_testing", privacy="none"),
                     weights).shortlist)
+
+
+def test_medical_imaging_surfaces_imaging_methods(catalog, weights):
+    ids, _ = shortlist_ids(
+        catalog, weights,
+        domain="biomedical", data_type="images",
+        purpose="ml_augmentation", privacy="none")
+    assert any(i in ids for i in
+               ("latent_diffusion_brain_mri", "medical_diffusion_3d", "roentgen"))
+    assert "ctgan" not in ids
+
+
+def test_clinical_text_prefers_the_shareable_source_when_releasing(catalog, weights):
+    """Asclepius is built from published case reports, so it can be released;
+    a model trained on real notes cannot be, and must not outrank it here."""
+    ids, _ = shortlist_ids(
+        catalog, weights,
+        domain="biomedical", data_type="text",
+        purpose="open_release", privacy="none")
+    assert "asclepius_notes" in ids
+
+
+def test_graph_intake_surfaces_graph_methods(catalog, weights):
+    ids, _ = shortlist_ids(
+        catalog, weights,
+        domain="general", data_type="graph",
+        purpose="statistical_replication", privacy="none")
+    assert "ergm" in ids
+
+
+def test_genomic_benchmarking_prefers_simulation_over_resampling(catalog, weights):
+    """For benchmarking you want known ground truth and no disclosure risk,
+    which is simulation from theory - not resampled real haplotypes."""
+    ids, _ = shortlist_ids(
+        catalog, weights,
+        domain="biomedical", data_type="genomic",
+        purpose="benchmarking", privacy="none")
+    assert any(i in ids for i in ("msprime", "slim"))
+
+
+def test_genomic_under_a_dp_requirement_keeps_only_the_simulators(catalog, weights):
+    """Resampling real haplotypes is not exempt; simulating from theory is."""
+    ids, result = shortlist_ids(
+        catalog, weights,
+        domain="biomedical", data_type="genomic",
+        purpose="open_release", privacy="formal_dp_required")
+    assert any(i in ids for i in ("msprime", "slim"))
+    assert "hapgen2" not in ids
+    assert "artificial_genomes_gan" not in ids

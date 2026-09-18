@@ -1,0 +1,43 @@
+id: asclepius_notes
+name: Asclepius synthetic clinical notes
+aliases: [synthetic notes from case reports]
+family: llm
+domains: [biomedical]
+data_types: [text]
+variable_types: [free_text]
+formal_dp: false
+requires_no_source_data: true
+compute: gpu_required
+license: CC-BY-4.0
+purposes: [ml_augmentation, education, open_release, benchmarking]
+preserves: [marginals]
+scale:
+  evidence: null
+expertise: medium
+maturity:
+  maintained: false
+  last_release: null
+  implementation_quality: research_code
+governance:
+  acceptance_evidence:
+    - Synthesised from published open-access case reports rather than from
+      protected records, so the output can be shared openly - the key structural
+      difference from models trained on real notes
+  known_deployments:
+    - Used to train openly released clinical language models
+caveats:
+  - Because the source is published case reports, no patient's protected record
+    is involved and the output can be distributed. That is the whole argument
+    for this approach.
+  - Case reports describe unusual presentations by definition. The resulting
+    notes skew heavily toward the remarkable and badly under-represent routine care.
+  - Style follows published prose, not the terse, abbreviation-heavy, misspelled
+    reality of a working EHR. A model trained only on this will be surprised by
+    real notes.
+evaluation:
+  - Compare vocabulary, note length and abbreviation density against real notes
+  - Downstream task performance trained on synthetic, tested on real
+links:
+  paper: https://doi.org/10.48550/arXiv.2309.00237
+  code: https://github.com/starmpcc/Asclepius
+related_datasets: []

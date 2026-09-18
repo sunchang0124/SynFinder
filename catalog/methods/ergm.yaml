@@ -1,0 +1,44 @@
+id: ergm
+name: Exponential random graph models
+aliases: [ERGM, statnet, p-star models]
+family: probabilistic_graphical
+domains: [general, biomedical]
+data_types: [graph]
+variable_types: [categorical, count]
+formal_dp: false
+compute: cpu_fine
+license: GPL-3.0
+purposes: [statistical_replication, causal_inference, education, benchmarking]
+preserves: [joint_correlations, causal_structure]
+scale:
+  evidence: null
+expertise: medium
+maturity:
+  maintained: true
+  last_release: null
+  implementation_quality: production_ready
+governance:
+  acceptance_evidence:
+    - The established statistical model for social and contact networks, with
+      decades of published methodology behind it and parameters that a reviewer
+      can actually interpret
+  known_deployments:
+    - Social network analysis; epidemic contact network modelling
+caveats:
+  - You specify which structural features matter - reciprocity, triangles,
+    homophily on an attribute - and it generates networks with those properties.
+    Interpretable in a way no neural graph generator is.
+  - >-
+    Model degeneracy is a real and well-documented problem. Badly chosen terms
+    produce a model that generates only empty or only complete graphs. This will
+    happen to you at some point.
+  - Fitting gets expensive as networks grow; it is a tool for hundreds to
+    thousands of nodes, not millions.
+  - Primarily R, via statnet.
+evaluation:
+  - The package's own goodness-of-fit plots against observed network statistics
+  - Check explicitly for degeneracy before interpreting anything
+links:
+  paper: https://doi.org/10.18637/jss.v024.i03
+  code: https://github.com/statnet/ergm
+related_datasets: []

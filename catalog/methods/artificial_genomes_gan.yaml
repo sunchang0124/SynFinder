@@ -1,0 +1,43 @@
+id: artificial_genomes_gan
+name: Artificial genomes via GAN and RBM
+aliases: [AG, artificial human genomes]
+family: gan
+domains: [biomedical]
+data_types: [genomic]
+variable_types: [categorical]
+formal_dp: false
+compute: gpu_required
+license: GPL-3.0
+purposes: [open_release, benchmarking, ml_augmentation]
+preserves: [marginals, joint_correlations]
+scale:
+  evidence: null
+expertise: high
+maturity:
+  maintained: false
+  last_release: null
+  implementation_quality: research_code
+governance:
+  acceptance_evidence:
+    - Published with an explicit privacy analysis rather than a fidelity-only
+      argument, unusual for genomic generative models
+  known_deployments: []
+caveats:
+  - Learns haplotype structure from real genomes rather than assuming a
+    demographic model, so it reproduces population structure the model-based
+    simulators cannot.
+  - Genomic data is the worst case for re-identification - a few hundred
+    variants identify a person for life, and their relatives. Overfitting here
+    does not leak a record, it leaks a family.
+  - The authors measure nearest-neighbour adversarial accuracy for exactly this
+    reason. Reproduce that check on your own output; do not take fidelity scores
+    as reassurance.
+  - Demonstrated on limited numbers of variants, far short of a full genome.
+evaluation:
+  - Nearest-neighbour adversarial accuracy and allele frequency correlation
+  - Principal component overlay of real and synthetic genomes
+  - Linkage disequilibrium decay curves
+links:
+  paper: https://doi.org/10.1371/journal.pgen.1009303
+  code: https://github.com/burakyelmen/artificial_genomes
+related_datasets: []

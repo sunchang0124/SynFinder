@@ -1,0 +1,38 @@
+id: roentgen
+name: RoentGen
+family: diffusion
+domains: [biomedical]
+data_types: [images, text]
+variable_types: [free_text]
+formal_dp: false
+compute: gpu_required
+license: MIT
+purposes: [ml_augmentation, benchmarking, education]
+preserves: [marginals]
+scale:
+  evidence: null
+expertise: high
+maturity:
+  maintained: false
+  last_release: null
+  implementation_quality: research_code
+governance:
+  acceptance_evidence: []
+  known_deployments: []
+caveats:
+  - Text-conditioned - you write a radiology impression and get a chest X-ray
+    showing it. That makes it uniquely good at generating rare findings you
+    cannot collect enough of.
+  - Built by fine-tuning a general image model on chest radiographs, so it
+    inherits whatever that model absorbed from the open internet.
+  - Findings it generates are as good as the prompt. It will happily produce an
+    anatomically impossible presentation if you ask for one, without complaint.
+  - Chest radiography only. Nothing about it transfers to other modalities.
+evaluation:
+  - Radiologist assessment of whether the requested finding is actually present
+    and correctly localised
+  - Downstream classifier trained on synthetic, tested on real
+links:
+  paper: https://doi.org/10.48550/arXiv.2211.12737
+  code: https://github.com/StanfordMIMI/RoentGen
+related_datasets: []

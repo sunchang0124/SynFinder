@@ -1,0 +1,39 @@
+id: hapnest
+name: HAPNEST
+family: resampling
+domains: [biomedical]
+data_types: [genomic]
+variable_types: [categorical, continuous]
+formal_dp: false
+compute: cpu_fine
+license: MIT
+purposes: [benchmarking, ml_augmentation, open_release]
+preserves: [marginals, joint_correlations, causal_structure]
+scale:
+  evidence: null
+expertise: medium
+maturity:
+  maintained: false
+  last_release: null
+  implementation_quality: research_code
+governance:
+  acceptance_evidence:
+    - Released alongside a large public synthetic genomic dataset, which is the
+      practical precedent for sharing synthetic genomes
+  known_deployments:
+    - Benchmarking polygenic risk score methods across ancestries
+caveats:
+  - Generates genotypes together with phenotypes under a specified genetic
+    architecture, which is what makes it usable for polygenic score benchmarking
+    where genotypes alone are not enough.
+  - Explicitly multi-ancestry, addressing the European-ancestry bias that makes
+    most genomic resources unfit for equity work.
+  - Built from reference haplotypes, so the same caution as HAPGEN2 applies -
+    this is derived from real genomes, not simulated from theory.
+evaluation:
+  - Compare ancestry-specific allele frequencies and linkage disequilibrium
+  - Confirm realised heritability matches the architecture you specified
+links:
+  paper: https://doi.org/10.1093/bioinformatics/btad535
+  code: https://github.com/intervene-EU-H2020/synthetic_data
+related_datasets: []

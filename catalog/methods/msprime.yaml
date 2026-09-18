@@ -1,0 +1,44 @@
+id: msprime
+name: msprime
+aliases: [tskit, coalescent simulation]
+family: agent_simulation
+domains: [biomedical]
+data_types: [genomic]
+variable_types: [categorical, count]
+formal_dp: false
+requires_no_source_data: true
+compute: cpu_fine
+license: GPL-3.0
+purposes: [benchmarking, education, pipeline_testing, open_release, statistical_replication]
+preserves: [causal_structure]
+scale:
+  evidence: null
+expertise: medium
+maturity:
+  maintained: true
+  last_release: null
+  implementation_quality: production_ready
+governance:
+  acceptance_evidence:
+    - Simulates from population genetic theory, not from anyone's genotypes, so
+      the output carries no disclosure risk and needs no data access agreement
+    - The standard simulator underpinning method development in population genetics
+  known_deployments:
+    - Ubiquitous in population genetics and statistical genetics method papers
+caveats:
+  - Generates genomes backwards in time under a demographic model you specify.
+    Nothing about it depends on real data, which makes it the safest thing in
+    this catalog and also means it tells you nothing about a real cohort.
+  - The output is only as sensible as the demographic model. A wrong or default
+    model gives you confidently wrong population structure.
+  - Neutral coalescent by default - selection needs a forward simulator like SLiM.
+  - Correct choice for benchmarking a genetic method, where you need to know the
+    truth. Wrong choice for imitating a specific biobank.
+evaluation:
+  - Check allele frequency spectra and linkage disequilibrium decay against
+    expectation for the demographic model you specified
+links:
+  paper: https://doi.org/10.1093/genetics/iyab229
+  code: https://github.com/tskit-dev/msprime
+  docs: https://tskit.dev/msprime/
+related_datasets: []

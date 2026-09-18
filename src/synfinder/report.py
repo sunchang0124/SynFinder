@@ -48,14 +48,23 @@ def _intake_lines(intake: Intake) -> list[str]:
     return lines
 
 
-def empty_result_message(intake: Intake, covered: bool) -> str:
-    """Why the shortlist is empty - an uncovered modality is not a no-match."""
+def empty_result_message(
+    intake: Intake, covered: bool, also_covered: list[str] | None = None
+) -> str:
+    """Why the shortlist is empty - an uncovered modality is not a no-match.
+
+    `also_covered` is read from the catalog rather than hardcoded, so this
+    message cannot go stale as modalities are added.
+    """
     if not covered:
+        have = ""
+        if also_covered:
+            names = sorted(d.replace("_", " ") for d in also_covered)
+            have = " The catalog currently covers " + ", ".join(names) + "."
         return (
             f"SynFinder has no entries for {intake.data_type.replace('_', ' ')} "
             "data yet. That is a gap in this catalog, not a statement that no "
-            "method exists. The catalog currently covers tabular, longitudinal, "
-            "coded event sequence, time series and survival data."
+            f"method exists.{have}"
         )
     return (
         "No method in the catalog meets these requirements. Try relaxing the "
@@ -68,6 +77,7 @@ def render_markdown(
     ranking: Ranking,
     datasets: list[Dataset] | None = None,
     covered: bool = True,
+    also_covered: list[str] | None = None,
 ) -> str:
     out: list[str] = [
         "# Synthetic data method recommendation",
@@ -83,7 +93,7 @@ def render_markdown(
     ]
 
     if not ranking.shortlist:
-        out += [empty_result_message(intake, covered), ""]
+        out += [empty_result_message(intake, covered, also_covered), ""]
 
     for i, c in enumerate(ranking.shortlist, start=1):
         e = explain(c)
@@ -144,8 +154,11 @@ def render_html(
     ranking: Ranking,
     datasets: list[Dataset] | None = None,
     covered: bool = True,
+    also_covered: list[str] | None = None,
 ) -> str:
-    body = html_mod.escape(render_markdown(intake, ranking, datasets, covered))
+    body = html_mod.escape(
+        render_markdown(intake, ranking, datasets, covered, also_covered)
+    )
     return (
         "<!doctype html>\n"
         '<html lang="en"><head><meta charset="utf-8">'

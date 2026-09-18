@@ -1,0 +1,34 @@
+id: molgan
+name: MolGAN
+family: gan
+domains: [biomedical]
+data_types: [graph]
+variable_types: [categorical]
+formal_dp: false
+compute: gpu_recommended
+license: MIT
+purposes: [benchmarking, education, ml_augmentation]
+preserves: [joint_correlations]
+scale:
+  evidence: null
+expertise: medium
+maturity:
+  maintained: false
+  last_release: null
+  implementation_quality: research_code
+governance:
+  acceptance_evidence: []
+  known_deployments: []
+caveats:
+  - Generates molecular graphs directly with a reinforcement-learning objective
+    for chemical properties, so you can steer toward drug-likeness.
+  - Notorious mode collapse - it will happily produce the same few molecules
+    over and over. Always measure uniqueness, not just validity.
+  - Demonstrated on small molecules only; it does not scale to larger structures.
+evaluation:
+  - Validity, uniqueness and novelty rates together - any one alone is misleading
+  - Property distributions against the training set
+links:
+  paper: https://doi.org/10.48550/arXiv.1805.11973
+  code: https://github.com/nicola-decao/MolGAN
+related_datasets: []

@@ -1,0 +1,41 @@
+id: gatortrongpt
+name: GatorTronGPT
+family: llm
+domains: [biomedical]
+data_types: [text]
+variable_types: [free_text]
+formal_dp: false
+compute: gpu_required
+license: Apache-2.0
+purposes: [ml_augmentation, benchmarking]
+preserves: [marginals]
+scale:
+  evidence: null
+expertise: high
+maturity:
+  maintained: false
+  last_release: null
+  implementation_quality: research_code
+governance:
+  acceptance_evidence:
+    - Published with a Turing-style evaluation in which physicians could not
+      reliably distinguish synthetic notes from real ones
+  known_deployments: []
+caveats:
+  - Trained on a very large corpus of real clinical notes, and that is exactly
+    the problem - a model that writes convincing notes has memorised real ones.
+    Verbatim regurgitation is a demonstrated failure mode for clinical LLMs.
+  - Passing a physician Turing test is a fidelity result, not a privacy result.
+    The two pull in opposite directions here more sharply than anywhere else in
+    this catalog.
+  - Access to the trained weights is governed; you cannot simply pip install it.
+  - Generated notes contain confident clinical assertions that were never true
+    of any patient. Never let synthetic notes leak into anything used for care.
+evaluation:
+  - Search generated text for verbatim spans from the training corpus, always
+  - Clinical review of a sample for plausibility and internal consistency
+  - Downstream NLP task performance trained on synthetic, tested on real
+links:
+  paper: https://doi.org/10.1038/s41746-023-00958-w
+  code: https://github.com/uf-hobi-informatics-lab/GatorTronGPT
+related_datasets: []

@@ -47,6 +47,9 @@ class Catalog:
         """
         return any(data_type in m.data_types for m in self.generation_methods())
 
+    def covered_data_types(self) -> list[str]:
+        return sorted({dt for m in self.generation_methods() for dt in m.data_types})
+
     def by_id(self, method_id: str) -> Method | None:
         return next((m for m in self.methods if m.id == method_id), None)
 

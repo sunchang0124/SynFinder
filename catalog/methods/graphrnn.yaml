@@ -1,0 +1,33 @@
+id: graphrnn
+name: GraphRNN
+family: gan
+domains: [general]
+data_types: [graph]
+variable_types: [categorical]
+formal_dp: false
+compute: gpu_recommended
+license: MIT
+purposes: [benchmarking, education]
+preserves: [joint_correlations]
+scale:
+  evidence: null
+expertise: medium
+maturity:
+  maintained: false
+  last_release: null
+  implementation_quality: research_code
+governance:
+  acceptance_evidence: []
+  known_deployments: []
+caveats:
+  - Builds graphs node by node with a recurrent model. The standard baseline in
+    graph generation papers, which is the main reason to run it.
+  - Output depends on the node ordering used during training, which is an
+    arbitrary choice that quietly shapes the result.
+  - Superseded on quality by diffusion approaches; keep it for comparability.
+evaluation:
+  - Maximum mean discrepancy over degree, clustering and orbit statistics
+links:
+  paper: https://proceedings.mlr.press/v80/you18a.html
+  code: https://github.com/snap-stanford/GraphRNN
+related_datasets: []

@@ -1,0 +1,41 @@
+id: slim
+name: SLiM
+aliases: [forward genetic simulation]
+family: agent_simulation
+domains: [biomedical]
+data_types: [genomic]
+variable_types: [categorical, count]
+formal_dp: false
+requires_no_source_data: true
+compute: cpu_fine
+license: GPL-3.0
+purposes: [benchmarking, education, statistical_replication, open_release]
+preserves: [causal_structure]
+scale:
+  evidence: null
+expertise: high
+maturity:
+  maintained: true
+  last_release: null
+  implementation_quality: production_ready
+governance:
+  acceptance_evidence:
+    - Simulates from an explicit evolutionary model rather than from real
+      genotypes; no disclosure risk
+  known_deployments:
+    - Standard forward simulator in evolutionary and statistical genetics
+caveats:
+  - Forward-in-time, so unlike msprime it can model selection, complex
+    demography and genotype-phenotype architecture. That is the reason to accept
+    the extra cost.
+  - Far more expensive than coalescent simulation. Large populations over many
+    generations become genuinely slow.
+  - Has its own scripting language. Expect to learn it.
+evaluation:
+  - Confirm the realised allele frequency and phenotype distributions match the
+    model you specified
+links:
+  paper: https://doi.org/10.1093/molbev/msy228
+  code: https://github.com/MesserLab/SLiM
+  docs: https://messerlab.org/slim/
+related_datasets: []

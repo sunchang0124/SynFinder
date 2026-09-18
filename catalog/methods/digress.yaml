@@ -1,0 +1,36 @@
+id: digress
+name: DiGress
+family: diffusion
+domains: [biomedical, general]
+data_types: [graph]
+variable_types: [categorical]
+formal_dp: false
+compute: gpu_required
+license: MIT
+purposes: [ml_augmentation, benchmarking]
+preserves: [joint_correlations]
+scale:
+  evidence: null
+expertise: high
+maturity:
+  maintained: false
+  last_release: null
+  implementation_quality: research_code
+governance:
+  acceptance_evidence: []
+  known_deployments: []
+caveats:
+  - Discrete diffusion over nodes and edges, which respects the fact that graphs
+    are discrete objects rather than forcing them into a continuous space.
+    Currently the strongest general-purpose graph generator.
+  - Benchmarked on molecules. Applying it to a patient contact or referral
+    network is reasonable but unvalidated - the structural statistics that
+    matter there are different ones.
+  - Scales poorly to large graphs; think thousands of nodes, not millions.
+evaluation:
+  - Degree, clustering and orbit-count distributions against the real graphs
+  - For molecules, validity, uniqueness and novelty rates
+links:
+  paper: https://openreview.net/forum?id=UaAD-Nu86WX
+  code: https://github.com/cvignac/DiGress
+related_datasets: []

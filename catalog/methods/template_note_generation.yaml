@@ -1,0 +1,42 @@
+id: template_note_generation
+name: Template-based note generation
+aliases: [rule-based clinical text synthesis]
+family: rule_based
+domains: [biomedical]
+data_types: [text]
+variable_types: [free_text, categorical, datetime]
+formal_dp: false
+requires_no_source_data: true
+compute: cpu_fine
+license: MIT
+purposes: [pipeline_testing, education, open_release]
+preserves: []
+scale:
+  evidence: null
+expertise: low
+maturity:
+  maintained: true
+  last_release: null
+  implementation_quality: production_ready
+governance:
+  acceptance_evidence:
+    - No real text is involved, so there is nothing to disclose and no approval
+      to seek
+  known_deployments:
+    - Standard for building NLP test fixtures and de-identification test sets
+caveats:
+  - Fill structured values into clinical templates. Unfashionable, instant, and
+    frequently the correct answer when you need text today that you are allowed
+    to share.
+  - The language is as varied as the templates you write, which is to say not
+    very. An NLP model trained on this will learn your templates, not clinical
+    language.
+  - Right for pipeline tests, de-identification evaluation and teaching. Wrong
+    for training a model you intend to use on real notes.
+evaluation:
+  - Confirm the generated text exercises the code paths or annotation schema
+    you built it for
+links:
+  paper: null
+  code: https://github.com/synthetichealth/synthea
+related_datasets: []

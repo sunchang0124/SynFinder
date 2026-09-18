@@ -114,11 +114,12 @@ def main() -> None:
     ranking = rank(catalog.generation_methods(), intake, weights, top_n=5)
 
     covered = catalog.covers(intake.data_type)
+    also = catalog.covered_data_types()
     if not ranking.shortlist:
         if covered:
-            st.error(empty_result_message(intake, covered))
+            st.error(empty_result_message(intake, covered, also))
         else:
-            st.info(empty_result_message(intake, covered), icon="🗺️")
+            st.info(empty_result_message(intake, covered, also), icon="🗺️")
     else:
         st.subheader("Recommended methods")
 
@@ -171,10 +172,10 @@ def main() -> None:
     st.subheader("Take it with you")
     d1, d2 = st.columns(2)
     d1.download_button("Download report (Markdown)",
-                       render_markdown(intake, ranking, matching, covered),
+                       render_markdown(intake, ranking, matching, covered, also),
                        file_name="synfinder-report.md", mime="text/markdown")
     d2.download_button("Download report (HTML)",
-                       render_html(intake, ranking, matching, covered),
+                       render_html(intake, ranking, matching, covered, also),
                        file_name="synfinder-report.html", mime="text/html")
 
     if not llm.available():

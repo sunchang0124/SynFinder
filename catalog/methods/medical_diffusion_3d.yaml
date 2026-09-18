@@ -1,0 +1,36 @@
+id: medical_diffusion_3d
+name: 3D medical diffusion
+aliases: [medicaldiffusion, 3D DDPM for MRI and CT]
+family: diffusion
+domains: [biomedical]
+data_types: [images]
+variable_types: []
+formal_dp: false
+compute: gpu_required
+license: MIT
+purposes: [ml_augmentation, benchmarking, education]
+preserves: [marginals]
+scale:
+  evidence: null
+expertise: high
+maturity:
+  maintained: false
+  last_release: null
+  implementation_quality: research_code
+governance:
+  acceptance_evidence: []
+  known_deployments: []
+caveats:
+  - Generates full 3D volumes rather than slices, which matters - slice-wise
+    generation produces volumes that are incoherent along the third axis and
+    are useless for anything volumetric.
+  - Memory hungry. Expect to need a large-memory GPU, and expect long sampling times.
+  - Evaluated by having radiologists try to distinguish real from synthetic;
+    that is the right bar, and it is the bar your own outputs should clear too.
+evaluation:
+  - Expert reader study, ideally blinded
+  - Downstream segmentation performance when trained on synthetic volumes
+links:
+  paper: https://doi.org/10.1038/s41598-023-34341-2
+  code: https://github.com/FirasGit/medicaldiffusion
+related_datasets: []

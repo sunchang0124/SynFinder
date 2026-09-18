@@ -1,0 +1,39 @@
+id: hapgen2
+name: HAPGEN2
+family: resampling
+domains: [biomedical]
+data_types: [genomic]
+variable_types: [categorical]
+formal_dp: false
+compute: cpu_fine
+license: GPL-3.0
+purposes: [benchmarking, ml_augmentation, education]
+preserves: [marginals, joint_correlations]
+scale:
+  evidence: null
+expertise: medium
+maturity:
+  maintained: false
+  last_release: null
+  implementation_quality: research_code
+governance:
+  acceptance_evidence: []
+  known_deployments:
+    - Long-standing tool for simulating GWAS case-control cohorts
+caveats:
+  - Resamples and recombines haplotypes from a reference panel, so linkage
+    disequilibrium structure is realistic in a way simulation from theory is not.
+  - It is resampling real haplotypes. The output is derived from actual people's
+    genomes, and the privacy argument is entirely different from msprime's -
+    check the reference panel's terms before releasing anything.
+  - Limited to the populations represented in the reference panel, with all the
+    ancestry bias that implies.
+  - Unmaintained, and it expects an older file-format world.
+evaluation:
+  - Compare linkage disequilibrium decay and allele frequency spectra against
+    the reference panel
+  - Confirm the simulated disease model produces the effect sizes you intended
+links:
+  paper: https://doi.org/10.1093/bioinformatics/btr341
+  code: https://mathgen.stats.ox.ac.uk/genetics_software/hapgen/hapgen2.html
+related_datasets: []

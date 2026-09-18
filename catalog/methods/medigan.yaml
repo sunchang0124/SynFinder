@@ -1,0 +1,37 @@
+id: medigan
+name: medigan
+family: toolkit
+is_framework: true
+domains: [biomedical]
+data_types: [images]
+variable_types: []
+formal_dp: false
+compute: gpu_recommended
+license: MIT
+purposes: [ml_augmentation, benchmarking, education]
+preserves: [marginals]
+scale:
+  evidence: null
+expertise: low
+maturity:
+  maintained: true
+  last_release: null
+  implementation_quality: production_ready
+governance:
+  acceptance_evidence: []
+  known_deployments: []
+caveats:
+  - A framework, not a method. It exposes pretrained generative models for
+    medical imaging behind one API, so you can generate images without training
+    anything - by far the fastest route to synthetic medical images.
+  - You are using someone else's model trained on someone else's cohort. Know
+    which dataset each model came from before you draw any conclusion from its output.
+  - Coverage is broadest for mammography and a few other modalities; check
+    whether yours is there before planning around it.
+evaluation:
+  - Check the source dataset and training details of the specific model you use
+  - Expert review of generated samples, as for any imaging model
+links:
+  paper: https://doi.org/10.1088/1361-6560/acbb4c
+  code: https://github.com/RichardObi/medigan
+related_datasets: []

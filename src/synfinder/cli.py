@@ -99,13 +99,14 @@ def main(argv: list[str] | None = None) -> int:
     ]
 
     covered = catalog.covers(intake.data_type)
+    also = catalog.covered_data_types()
 
     if args.out and args.out.suffix == ".html":
-        args.out.write_text(render_html(intake, ranking, matching, covered))
+        args.out.write_text(render_html(intake, ranking, matching, covered, also))
         print(f"wrote {args.out}")
         return 0
 
-    markdown = render_markdown(intake, ranking, matching, covered)
+    markdown = render_markdown(intake, ranking, matching, covered, also)
     if args.out:
         args.out.write_text(markdown)
         print(f"wrote {args.out}")

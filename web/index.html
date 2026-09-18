@@ -61,11 +61,16 @@
       <div class="field">
         <label for="purpose">What the synthetic data is for</label>
         <div class="select"><select id="purpose" name="purpose"></select></div>
+        <p class="hint">The single most important answer. A method that does not
+        serve your purpose is never recommended above one that does.</p>
       </div>
 
       <div class="field">
         <label for="privacy">Privacy requirement</label>
         <div class="select"><select id="privacy" name="privacy"></select></div>
+        <p class="hint">"Formal differential privacy required" rules out every method
+        that cannot state a privacy budget — and keeps simulators that never read
+        your data in the first place.</p>
       </div>
 
       <details class="more">
@@ -76,6 +81,8 @@
         </div>
         <div class="field">
           <label for="expertise">Your experience with these methods</label>
+          <p class="hint">Used to avoid recommending something that needs more
+          tuning than you want to do.</p>
           <div class="select"><select id="expertise" name="expertise"></select></div>
         </div>
         <div class="field">
@@ -93,13 +100,19 @@
         <summary>Fidelity &amp; evaluation</summary>
         <div class="field">
           <label>What the synthetic data must preserve</label>
+          <p class="hint">Structure that has to survive generation. Leave blank and
+          it is not counted for or against any method.</p>
           <div class="chips" id="preserves"></div>
         </div>
       </details>
 
       <details class="more">
         <summary>Governance &amp; acceptance</summary>
-        <label class="check"><input type="checkbox" id="needs_governance_evidence"><span></span>I need evidence of ethics or regulatory acceptance</label>
+        <label class="check"><input type="checkbox" id="needs_governance_evidence"><span></span>My choice has to satisfy a review board</label>
+        <p class="hint">Prefers methods someone has already got approved — used by a
+        statistical agency, accepted by an ethics committee, or with no disclosure
+        risk to argue about. Gives you something to cite in a DPIA or ethics
+        application instead of "we chose it because it performed well".</p>
       </details>
 
       <button class="btn-primary" type="submit" id="submitBtn">

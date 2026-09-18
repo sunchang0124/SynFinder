@@ -19,7 +19,6 @@ const LABEL = {
   tabular_cross_sectional: "Tabular, one row per subject",
   tabular_longitudinal: "Tabular, repeated measures",
   coded_event_sequences: "Coded event sequences (EHR visits)",
-  survey_instrument: "Survey or questionnaire",
   ml_augmentation: "Machine learning augmentation",
 };
 const pretty = s => {

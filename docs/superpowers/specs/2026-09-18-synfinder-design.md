@@ -77,8 +77,7 @@ Fields are grouped by what the engine does with them.
 
 - `domains` — biomedical | ssh | general
 - `data_types` — tabular cross-sectional, tabular longitudinal, coded event
-  sequences (EHR), time series, survival, survey instruments, text, images,
-  graph/network
+  sequences (EHR), time series, survival, text, images, graph/network, genomic
 - `variable_types` — continuous, categorical, ordinal, count, datetime,
   free text
 - `formal_dp` — boolean, plus `dp_mechanism` when true

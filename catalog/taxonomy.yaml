@@ -5,7 +5,6 @@ data_types:
   - coded_event_sequences
   - time_series
   - survival
-  - survey_instrument
   - text
   - images
   - graph

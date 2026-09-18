@@ -10,6 +10,7 @@ app = ["streamlit>=1.33"]
 web = ["fastapi>=0.110", "uvicorn>=0.27"]
 llm = ["anthropic>=0.40"]
 dev = ["pytest>=8.0"]
+uitest = ["playwright>=1.40"]
 
 [project.scripts]
 synfinder = "synfinder.cli:main"

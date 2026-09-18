@@ -333,7 +333,7 @@ pre{
 .tbl-cap:first-child{margin-top:4px}
 
 /* ---------- info tooltips ---------- */
-.info{
+.infotip{
   appearance:none; display:inline-grid; place-items:center; vertical-align:middle;
   width:15px; height:15px; margin-left:5px; padding:0; flex:none;
   border:1px solid var(--border); background:var(--surface-3); color:var(--faint);
@@ -341,12 +341,12 @@ pre{
   font-family:Georgia, serif; line-height:1; cursor:help; position:relative;
   transition:color .15s, border-color .15s, background .15s;
 }
-.info:hover,.info:focus-visible{
+.infotip:hover,.infotip:focus-visible{
   color:var(--accent-ink); background:var(--accent); border-color:var(--accent);
   outline:none;
 }
 /* bubble */
-.info::after{
+.infotip::after{
   content:attr(data-tip); position:absolute; left:50%; bottom:calc(100% + 9px);
   transform:translateX(-50%) translateY(4px);
   width:max-content; max-width:270px; z-index:60;
@@ -359,7 +359,7 @@ pre{
   white-space:normal;
 }
 /* arrow */
-.info::before{
+.infotip::before{
   content:""; position:absolute; left:50%; bottom:calc(100% + 4px);
   transform:translateX(-50%) translateY(4px) rotate(45deg);
   width:9px; height:9px; z-index:61;
@@ -367,20 +367,20 @@ pre{
   border-right:1px solid var(--border); border-bottom:1px solid var(--border);
   opacity:0; pointer-events:none; transition:opacity .16s, transform .16s;
 }
-.info:hover::after,.info:focus-visible::after,
-.info:hover::before,.info:focus-visible::before{
+.infotip:hover::after,.infotip:focus-visible::after,
+.infotip:hover::before,.infotip:focus-visible::before{
   opacity:1; transform:translateX(-50%) translateY(0);
 }
-.info:hover::before,.info:focus-visible::before{
+.infotip:hover::before,.infotip:focus-visible::before{
   transform:translateX(-50%) translateY(0) rotate(45deg);
 }
 /* near the panel edge the bubble would clip - pull it left */
-.field:last-of-type .info::after{left:auto; right:-6px; transform:translateY(4px)}
-.field:last-of-type .info:hover::after,
-.field:last-of-type .info:focus-visible::after{transform:translateY(0)}
-.check .info{margin-left:6px}
+.field:last-of-type .infotip::after{left:auto; right:-6px; transform:translateY(4px)}
+.field:last-of-type .infotip:hover::after,
+.field:last-of-type .infotip:focus-visible::after{transform:translateY(0)}
+.check .infotip{margin-left:6px}
 @media (max-width:900px){
-  .info::after{max-width:min(78vw, 300px)}
+  .infotip::after{max-width:min(78vw, 300px)}
 }
 
 /* ---------- callout lists ---------- */

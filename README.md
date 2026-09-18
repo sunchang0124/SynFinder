@@ -112,6 +112,17 @@ entry with no honest failure mode has not really been reviewed.
 pytest
 ```
 
+Layout is checked in a real browser too. Those tests skip themselves unless
+Playwright is installed:
+
+```bash
+pip install -e ".[uitest]" && playwright install chromium
+```
+
+They exist because a CSS class collision once collapsed a whole content block
+to 15x15 pixels while every text-level test still passed - the fault was only
+visible as geometry.
+
 `tests/test_golden_scenarios.py` holds fixed intakes with known-correct
 answers. If one fails after a weight change, the test is usually right and the
 weights are wrong.

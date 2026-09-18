@@ -1,0 +1,98 @@
+name: Submit a method
+description: Propose a synthetic data generation method for the catalog
+title: "[method] "
+labels: ["submission", "method"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you. Please read CONTRIBUTING.md first — especially the rule
+        about caveats, which is what makes this catalog worth using.
+  - type: input
+    id: name
+    attributes:
+      label: Method name
+    validations:
+      required: true
+  - type: dropdown
+    id: domains
+    attributes:
+      label: Domains
+      multiple: true
+      options: [biomedical, ssh, general]
+    validations:
+      required: true
+  - type: dropdown
+    id: data_types
+    attributes:
+      label: Data types
+      multiple: true
+      options:
+        - tabular_cross_sectional
+        - tabular_longitudinal
+        - coded_event_sequences
+        - time_series
+        - survival
+        - survey_instrument
+        - text
+        - images
+        - graph
+        - genomic
+    validations:
+      required: true
+  - type: dropdown
+    id: compute
+    attributes:
+      label: Compute needed
+      options: [cpu_fine, gpu_recommended, gpu_required]
+    validations:
+      required: true
+  - type: dropdown
+    id: expertise
+    attributes:
+      label: Expertise needed to use it well
+      options: [low, medium, high]
+    validations:
+      required: true
+  - type: dropdown
+    id: formal_dp
+    attributes:
+      label: Does it provide formal differential privacy?
+      options: ["no", "yes - state the mechanism below"]
+    validations:
+      required: true
+  - type: textarea
+    id: caveats
+    attributes:
+      label: Caveats
+      description: >-
+        Real failure modes, one per line. When does this method produce bad
+        results, and what will bite someone who uses it naively?
+      placeholder: |
+        High-cardinality categoricals destabilise training and rare
+        categories are dropped entirely.
+    validations:
+      required: true
+  - type: textarea
+    id: preview
+    attributes:
+      label: What the output looks like
+      description: >-
+        A few lines illustrating the shape of the generated data. Not real
+        model output — the format, so a researcher knows what they will get.
+    validations:
+      required: true
+  - type: input
+    id: links
+    attributes:
+      label: Paper DOI and code repository
+    validations:
+      required: true
+  - type: checkboxes
+    id: authorship
+    attributes:
+      label: Authorship
+      options:
+        - label: I am an author of this method
+        - label: I have read CONTRIBUTING.md
+          required: true

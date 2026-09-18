@@ -1,0 +1,92 @@
+name: Submit a dataset
+description: Propose a ready-made synthetic dataset for the registry
+title: "[dataset] "
+labels: ["submission", "dataset"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The registry exists so people can use an existing synthetic dataset
+        instead of training a model they did not need to train.
+  - type: input
+    id: name
+    attributes:
+      label: Dataset name
+    validations:
+      required: true
+  - type: dropdown
+    id: domains
+    attributes:
+      label: Domains
+      multiple: true
+      options: [biomedical, ssh, general]
+    validations:
+      required: true
+  - type: dropdown
+    id: data_types
+    attributes:
+      label: Data types
+      multiple: true
+      options:
+        - tabular_cross_sectional
+        - tabular_longitudinal
+        - coded_event_sequences
+        - time_series
+        - survival
+        - survey_instrument
+        - text
+        - images
+        - graph
+        - genomic
+    validations:
+      required: true
+  - type: input
+    id: n_records
+    attributes:
+      label: Size
+      placeholder: "e.g. 1 million synthetic residents"
+    validations:
+      required: true
+  - type: input
+    id: access
+    attributes:
+      label: How does someone get it?
+      placeholder: "e.g. free public download, no application"
+    validations:
+      required: true
+  - type: input
+    id: license
+    attributes:
+      label: Licence
+    validations:
+      required: true
+  - type: input
+    id: generated_by
+    attributes:
+      label: How was it generated?
+      placeholder: "Method name, or the catalog id if it is already listed"
+  - type: textarea
+    id: realism_caveats
+    attributes:
+      label: Realism caveats
+      description: >-
+        Required. What must someone NOT conclude from this data? No synthetic
+        dataset describes a real population, and the entry must say how it
+        departs from one.
+    validations:
+      required: true
+  - type: input
+    id: links
+    attributes:
+      label: Where to get it, and the paper if there is one
+    validations:
+      required: true
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Confirmation
+      options:
+        - label: This dataset is synthetic, not real data
+          required: true
+        - label: I have read CONTRIBUTING.md
+          required: true

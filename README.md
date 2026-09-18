@@ -25,12 +25,21 @@ pip install -e ".[app,dev]"
 Command line:
 
 ```bash
-synfinder --domain biomedical \
-          --data-type tabular_cross_sectional \
-          --purpose open_release \
-          --privacy formal_dp_required \
-          --out recommendation.md
+# recommend methods for your situation
+synfinder find --domain biomedical \
+               --data-type tabular_cross_sectional \
+               --purpose open_release \
+               --privacy formal_dp_required \
+               --out recommendation.md
+
+# browse ready-made synthetic datasets - you may not need to generate anything
+synfinder datasets --domain biomedical
+
+# create a catalog entry to contribute
+synfinder new method
 ```
+
+The bare `synfinder --domain ...` form was replaced by `synfinder find` in v2.
 
 App:
 
@@ -42,6 +51,20 @@ streamlit run app/streamlit_app.py
 exported report are all produced from the catalog with no network call. If an
 `ANTHROPIC_API_KEY` is present, an LLM rewrites the rationale into fluent
 prose — it cannot add a claim that is not already in the catalog.
+
+## Ready-made datasets come first
+
+When a synthetic dataset already exists that matches what you described, it is
+shown **above** the method shortlist. Using one costs nothing and avoids every
+risk of training your own. Browse the registry with `synfinder datasets` or
+the app's second tab.
+
+## What the output looks like
+
+Every method carries a preview of the shape it emits — a CSV header for
+tabular methods, a visit-and-code nesting for EHR, a genotype matrix for
+genomic, a written specification for imaging. These illustrate the **format**;
+they are not real generated output, and the tool says so above every one.
 
 ## How it decides
 
@@ -87,3 +110,23 @@ pytest
 `tests/test_golden_scenarios.py` holds fixed intakes with known-correct
 answers. If one fails after a weight change, the test is usually right and the
 weights are wrong.
+
+## Contributing
+
+Anyone can add a method or a dataset. The fastest route:
+
+```bash
+synfinder new method      # writes a valid entry, refuses invalid terms
+pytest
+```
+
+then open a pull request with the one new file. If you would rather not use
+git, open an issue with the **Submit a method** or **Submit a dataset** form.
+
+CI runs the full test suite on every pull request with no API key set, so a
+submission that breaks the schema, the taxonomy or a golden scenario cannot
+merge unnoticed.
+
+Read [CONTRIBUTING.md](CONTRIBUTING.md) first. The short version: declare it
+if you authored the method, write caveats that name real failure modes, and
+cite a source for any numeric claim.

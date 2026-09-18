@@ -1,0 +1,21 @@
+[project]
+name = "synfinder"
+version = "0.1.0"
+description = "Find the right synthetic data generation method for your research"
+requires-python = ">=3.11"
+dependencies = ["pydantic>=2.6", "pyyaml>=6.0"]
+
+[project.optional-dependencies]
+app = ["streamlit>=1.33"]
+llm = ["anthropic>=0.40"]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+synfinder = "synfinder.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]

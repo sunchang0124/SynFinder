@@ -1,0 +1,43 @@
+domains: [biomedical, ssh, general]
+data_types:
+  - tabular_cross_sectional
+  - tabular_longitudinal
+  - coded_event_sequences
+  - time_series
+  - survival
+  - survey_instrument
+  - text
+  - images
+  - graph
+variable_types: [continuous, categorical, ordinal, count, datetime, free_text]
+compute: [cpu_fine, gpu_recommended, gpu_required]
+expertise: [low, medium, high]
+implementation_quality: [reference_only, research_code, production_ready]
+purposes:
+  - open_release
+  - pipeline_testing
+  - ml_augmentation
+  - statistical_replication
+  - causal_inference
+  - education
+  - benchmarking
+  - imbalance_correction
+preserves:
+  - marginals
+  - joint_correlations
+  - temporal_dynamics
+  - causal_structure
+  - rare_events
+families:
+  - gan
+  - vae
+  - diffusion
+  - probabilistic_graphical
+  - marginal_based
+  - copula
+  - sequential_tree
+  - llm
+  - agent_simulation
+  - rule_based
+  - resampling
+  - toolkit

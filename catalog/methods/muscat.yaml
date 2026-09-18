@@ -1,0 +1,51 @@
+id: muscat
+name: muscat
+family: probabilistic_graphical
+domains: [biomedical]
+data_types: [single_cell_omics]
+variable_types: [count, categorical]
+formal_dp: false
+compute: cpu_fine
+license: GPL-3.0
+purposes: [benchmarking, statistical_replication, education]
+preserves: [marginals]
+scale:
+  evidence: null
+expertise: medium
+maturity:
+  maintained: true
+  last_release: null
+  implementation_quality: production_ready
+governance:
+  acceptance_evidence: []
+  known_deployments:
+    - Standard for benchmarking differential state analysis across samples
+caveats:
+  - Simulates multi-sample, multi-group designs, which is what you need to
+    benchmark differential expression across patients rather than across cells.
+    Most simulators ignore the sample level entirely and overstate power as a result.
+  - Estimated from a reference dataset, so the realism is inherited from it.
+  - Built for the differential-state question. For trajectory or spatial work,
+    scDesign3 is the better fit.
+evaluation:
+  - Confirm the simulated differential-expression truth matches what you specified
+  - Compare per-sample variability against the reference
+links:
+  paper: https://doi.org/10.1038/s41467-020-19894-4
+  code: https://github.com/HelenaLC/muscat
+related_datasets: []
+output_preview:
+  format: genomic_matrix
+  note: >-
+    A counts matrix, genes by cells, with a companion cell metadata table
+    giving the simulated cell type and any group or batch labels.
+  preview: |
+    gene_id   c0001 c0002 c0003 c0004 c0005
+    ENSG0001  0     4     0     11    2
+    ENSG0002  17    9     23    0     5
+    ENSG0003  0     0     1     0     0
+    ENSG0004  3     0     6     2     8
+    # cell metadata
+    cell_id,cell_type,group,batch
+    c0001,T cell,control,b1
+    c0002,B cell,treated,b1

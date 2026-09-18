@@ -1,0 +1,50 @@
+id: simpop
+name: simPop
+family: probabilistic_graphical
+domains: [ssh, general]
+data_types: [tabular_cross_sectional]
+variable_types: [continuous, categorical, ordinal, count]
+formal_dp: false
+compute: cpu_fine
+license: GPL-2.0
+purposes: [statistical_replication, open_release, education, benchmarking]
+preserves: [marginals, joint_correlations]
+scale:
+  evidence: null
+expertise: medium
+maturity:
+  maintained: true
+  last_release: null
+  implementation_quality: production_ready
+governance:
+  acceptance_evidence:
+    - Built for official statistics, where synthetic population microdata is
+      released under established disclosure control practice rather than as a
+      research novelty
+  known_deployments:
+    - National statistical offices producing synthetic census and survey microdata
+caveats:
+  - Population synthesis rather than record synthesis - it calibrates a synthetic
+    population to known margins and totals, which is what social scientists and
+    statistical agencies actually need.
+  - Requires those margins. If you do not have reliable population totals to
+    calibrate against, this is the wrong tool.
+  - R only, and the workflow expects survey weights and a sampling design;
+    that is a feature for survey data and an obstacle for anything else.
+evaluation:
+  - Compare calibrated margins against the known population totals
+  - The package's own utility diagnostics for structure and heterogeneity
+links:
+  paper: https://doi.org/10.18637/jss.v079.i10
+  code: https://github.com/statistikat/simPop
+related_datasets: []
+output_preview:
+  format: tabular_csv
+  note: >-
+    A full synthetic population, one row per person, with household structure
+    preserved and calibrated to known margins.
+  preview: |
+    hh_id,person_id,age,sex,region,education,income,weight
+    h0001,p0001,42,F,NL-ZH,tertiary,48200,1
+    h0001,p0002,45,M,NL-ZH,secondary,39500,1
+    h0002,p0003,29,F,NL-NH,tertiary,51300,1

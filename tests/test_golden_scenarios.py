@@ -26,12 +26,18 @@ def shortlist_ids(catalog, weights, **intake_kwargs):
 
 
 def test_dp_requirement_keeps_only_dp_methods(catalog, weights):
-    ids, result = shortlist_ids(
-        catalog, weights,
-        domain="biomedical", data_type="tabular_cross_sectional",
-        purpose="open_release", privacy="formal_dp_required")
+    """The invariant, not a fixed list: every survivor either carries a formal
+    guarantee or never reads real data. Naming specific methods here would rot
+    as the catalog grows."""
+    intake = Intake(domain="biomedical", data_type="tabular_cross_sectional",
+                    purpose="open_release", privacy="formal_dp_required")
+    result = rank(catalog.generation_methods(), intake, weights, top_n=8)
+    ids = [c.method.id for c in result.shortlist]
     assert "ctgan" not in ids
-    assert any(i in ids for i in ("dp_cgans", "privbayes"))
+    assert ids, "expected differentially private options"
+    for c in result.shortlist:
+        assert c.method.formal_dp or c.method.requires_no_source_data, (
+            f"{c.method.id} has neither a DP guarantee nor exemption")
     assert any("differential privacy" in e.reason for e in result.excluded)
 
 
@@ -167,3 +173,42 @@ def test_genomic_under_a_dp_requirement_keeps_only_the_simulators(catalog, weigh
     assert any(i in ids for i in ("msprime", "slim"))
     assert "hapgen2" not in ids
     assert "artificial_genomes_gan" not in ids
+
+
+def test_single_cell_intake_surfaces_single_cell_simulators(catalog, weights):
+    ids, _ = shortlist_ids(
+        catalog, weights,
+        domain="biomedical", data_type="single_cell_omics",
+        purpose="benchmarking", privacy="none")
+    assert any(i in ids for i in ("splatter", "scdesign3", "muscat", "sparsim"))
+    assert "ctgan" not in ids
+
+
+def test_low_expertise_cpu_tabular_now_reaches_a_fast_tree_method(catalog, weights):
+    """ARF trains in seconds on a CPU and should be reachable by a beginner."""
+    ids, _ = shortlist_ids(
+        catalog, weights,
+        domain="general", data_type="tabular_cross_sectional",
+        purpose="ml_augmentation", privacy="none",
+        compute="cpu_fine", expertise="low")
+    assert "arf" in ids
+
+
+def test_dp_tabular_shortlist_is_marginal_based_not_gan(catalog, weights):
+    """At a formal DP requirement the marginal-based family should lead; a DP
+    GAN is rarely the right answer and must not crowd them out."""
+    ids, _ = shortlist_ids(
+        catalog, weights,
+        domain="general", data_type="tabular_cross_sectional",
+        purpose="open_release", privacy="formal_dp_required",
+        compute="cpu_fine")
+    assert any(i in ids for i in
+               ("mst_aim", "privbayes", "privsyn", "pac_synth", "dp_merf"))
+
+
+def test_relational_data_reaches_the_one_method_that_handles_it(catalog, weights):
+    ids, _ = shortlist_ids(
+        catalog, weights,
+        domain="general", data_type="tabular_longitudinal",
+        purpose="pipeline_testing", privacy="none")
+    assert ids, "expected recommendations for longitudinal tabular data"

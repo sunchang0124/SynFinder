@@ -1,0 +1,47 @@
+id: privsyn
+name: PrivSyn
+family: marginal_based
+domains: [general]
+data_types: [tabular_cross_sectional]
+variable_types: [categorical, ordinal, count]
+formal_dp: true
+dp_mechanism: Noisy selection and measurement of highly correlated marginals, fitted by gradient-based synthesis
+compute: cpu_fine
+license: MIT
+purposes: [open_release, statistical_replication, benchmarking]
+preserves: [marginals, joint_correlations]
+scale:
+  evidence: null
+expertise: high
+maturity:
+  maintained: false
+  last_release: null
+  implementation_quality: research_code
+governance:
+  acceptance_evidence:
+    - Part of the marginal-based family that statistical agencies evaluate for
+      differentially private microdata release
+  known_deployments: []
+caveats:
+  - Selects correlated marginals in a single round rather than iteratively,
+    which makes it cheaper than AIM but less adaptive to your query workload.
+  - Requires discretised inputs, and the binning interacts with the noise.
+  - Benchmark it against AIM at your epsilon. Which wins is dataset-dependent,
+    and the difference is often larger than the difference between DP families.
+evaluation:
+  - Report epsilon alongside all utility results
+  - Compare k-way marginals against the real data
+links:
+  paper: https://doi.org/10.48550/arXiv.2012.15128
+  code: https://github.com/agl-c/deid2_dpsyn
+related_datasets: []
+output_preview:
+  format: tabular_csv
+  note: >-
+    One row per person, same schema as your input. Continuous columns come
+    back discretised into the bins you supplied.
+  preview: |
+    patient_id,age_band,sex,bmi_band,smoker,diagnosis
+    s0001,50-59,F,25-30,former,E11.9
+    s0002,30-39,M,30-35,never,I10
+    s0003,70-79,F,20-25,current,E11.9

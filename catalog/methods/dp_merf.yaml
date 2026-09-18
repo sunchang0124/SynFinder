@@ -1,0 +1,48 @@
+id: dp_merf
+name: DP-MERF
+aliases: [Differentially Private Mean Embeddings with Random Features]
+family: marginal_based
+domains: [general]
+data_types: [tabular_cross_sectional, images]
+variable_types: [continuous, categorical, ordinal]
+formal_dp: true
+dp_mechanism: A single privatised random-Fourier-feature mean embedding of the data
+compute: cpu_fine
+license: MIT
+purposes: [open_release, ml_augmentation, benchmarking]
+preserves: [marginals]
+scale:
+  evidence: null
+expertise: high
+maturity:
+  maintained: false
+  last_release: null
+  implementation_quality: research_code
+governance:
+  acceptance_evidence: []
+  known_deployments: []
+caveats:
+  - Privatises one summary of the data and then trains a generator against it,
+    so the privacy cost is paid once rather than per training step. That makes it
+    far cheaper at tight epsilon than DP-SGD approaches.
+  - Random features capture smooth structure. Sharp conditional dependencies and
+    rare categories are largely lost.
+  - Handles continuous variables more naturally than the marginal-based DP
+    methods, which need discretisation - that is the main reason to reach for it.
+evaluation:
+  - Report epsilon and delta with every utility number
+  - Compare against AIM or PrivBayes at the same epsilon
+links:
+  paper: https://proceedings.mlr.press/v130/harder21a.html
+  code: https://github.com/ParkLabML/DP-MERF
+related_datasets: []
+output_preview:
+  format: tabular_csv
+  note: >-
+    One row per person, same schema as your input. Continuous columns come
+    back discretised into the bins you supplied.
+  preview: |
+    patient_id,age_band,sex,bmi_band,smoker,diagnosis
+    s0001,50-59,F,25-30,former,E11.9
+    s0002,30-39,M,30-35,never,I10
+    s0003,70-79,F,20-25,current,E11.9

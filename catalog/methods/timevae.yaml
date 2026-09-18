@@ -1,0 +1,46 @@
+id: timevae
+name: TimeVAE
+family: vae
+domains: [general, biomedical]
+data_types: [time_series]
+variable_types: [continuous]
+formal_dp: false
+compute: cpu_fine
+license: MIT
+purposes: [ml_augmentation, pipeline_testing, benchmarking, education]
+preserves: [temporal_dynamics, marginals]
+scale:
+  evidence: null
+expertise: low
+maturity:
+  maintained: true
+  last_release: null
+  implementation_quality: production_ready
+governance:
+  acceptance_evidence: []
+  known_deployments: []
+caveats:
+  - Trains far faster than the GAN and diffusion alternatives and runs on a CPU,
+    which makes it the practical starting point for time series rather than the
+    best-scoring one.
+  - Interpretable variant lets you impose trend and seasonality directly, useful
+    when you know the structure and want it respected.
+  - Over-smooths like most VAEs, so spikes and rare excursions are under-produced -
+    which matters if the clinical signal you care about is the excursion.
+evaluation:
+  - Discriminative and predictive scores
+  - Check that peaks and rare excursions survive at a realistic rate
+links:
+  paper: https://doi.org/10.48550/arXiv.2111.08095
+  code: https://github.com/abudesai/timeVAE
+related_datasets: []
+output_preview:
+  format: tabular_csv
+  note: >-
+    Long format, one row per subject per timestep.
+  preview: |
+    subject_id,t,heart_rate,sbp,spo2,on_vasopressor
+    s0001,0,88,112,97,0
+    s0001,1,91,108,96,0
+    s0001,2,104,96,94,1
+    s0002,0,76,124,99,0

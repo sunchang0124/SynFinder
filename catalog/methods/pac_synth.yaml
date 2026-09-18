@@ -1,0 +1,52 @@
+id: pac_synth
+name: PAC-Synth
+aliases: [Private Aggregate Seeded synthesis, SmartNoise pac-synth]
+family: marginal_based
+domains: [general]
+data_types: [tabular_cross_sectional]
+variable_types: [categorical, ordinal]
+formal_dp: true
+dp_mechanism: Differentially private aggregate counts, from which records are seeded and sampled
+compute: cpu_fine
+license: MIT
+purposes: [open_release, statistical_replication, education]
+preserves: [marginals]
+scale:
+  evidence: null
+expertise: medium
+maturity:
+  maintained: true
+  last_release: null
+  implementation_quality: production_ready
+governance:
+  acceptance_evidence:
+    - Part of OpenDP SmartNoise, a maintained differential privacy platform
+      rather than a paper artefact - which matters when you must justify a tool
+      choice to a review board
+  known_deployments:
+    - Used for privacy-preserving release of categorical count data
+caveats:
+  - Optimised for accurate counts and aggregates rather than for training
+    machine learning models. If your downstream task is a classifier, this is
+    probably not the right family.
+  - Categorical data only. Continuous variables must be binned first.
+  - The most approachable DP synthesiser here - genuinely usable without being
+    a differential privacy researcher, which is rare in this part of the catalog.
+evaluation:
+  - Compare aggregate counts at the granularity you care about
+  - Report epsilon alongside all results
+links:
+  paper: null
+  code: https://github.com/opendp/smartnoise-sdk
+  docs: https://docs.smartnoise.org/synth/synthesizers/pac_synth.html
+related_datasets: []
+output_preview:
+  format: tabular_csv
+  note: >-
+    One row per person, same schema as your input. Continuous columns come
+    back discretised into the bins you supplied.
+  preview: |
+    patient_id,age_band,sex,bmi_band,smoker,diagnosis
+    s0001,50-59,F,25-30,former,E11.9
+    s0002,30-39,M,30-35,never,I10
+    s0003,70-79,F,20-25,current,E11.9

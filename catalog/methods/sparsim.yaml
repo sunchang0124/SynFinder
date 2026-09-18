@@ -1,0 +1,50 @@
+id: sparsim
+name: SPARSim
+family: probabilistic_graphical
+domains: [biomedical]
+data_types: [single_cell_omics]
+variable_types: [count, categorical]
+formal_dp: false
+compute: cpu_fine
+license: GPL-3.0
+purposes: [benchmarking, education, pipeline_testing]
+preserves: [marginals]
+scale:
+  evidence: null
+expertise: medium
+maturity:
+  maintained: false
+  last_release: null
+  implementation_quality: research_code
+governance:
+  acceptance_evidence: []
+  known_deployments: []
+caveats:
+  - Simulates raw counts using a gamma-multivariate hypergeometric model,
+    reproducing the count structure of real protocols more faithfully than a
+    simple Poisson model.
+  - Consistently among the better performers in independent simulator benchmarks
+    for discrete cell types.
+  - Discrete cell types only - it does not model continuous trajectories.
+evaluation:
+  - Compare zero fraction, library size and dispersion against real data
+  - Check cluster separation matches the reference
+links:
+  paper: https://doi.org/10.1093/bioinformatics/btz752
+  code: https://gitlab.com/sysbiobig/sparsim
+related_datasets: []
+output_preview:
+  format: genomic_matrix
+  note: >-
+    A counts matrix, genes by cells, with a companion cell metadata table
+    giving the simulated cell type and any group or batch labels.
+  preview: |
+    gene_id   c0001 c0002 c0003 c0004 c0005
+    ENSG0001  0     4     0     11    2
+    ENSG0002  17    9     23    0     5
+    ENSG0003  0     0     1     0     0
+    ENSG0004  3     0     6     2     8
+    # cell metadata
+    cell_id,cell_type,group,batch
+    c0001,T cell,control,b1
+    c0002,B cell,treated,b1

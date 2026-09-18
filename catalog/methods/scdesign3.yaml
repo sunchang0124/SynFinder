@@ -1,0 +1,54 @@
+id: scdesign3
+name: scDesign3
+family: copula
+domains: [biomedical]
+data_types: [single_cell_omics]
+variable_types: [count, continuous, categorical]
+formal_dp: false
+compute: cpu_fine
+license: MIT
+purposes: [benchmarking, statistical_replication, ml_augmentation, education]
+preserves: [marginals, joint_correlations]
+scale:
+  evidence: null
+expertise: medium
+maturity:
+  maintained: true
+  last_release: null
+  implementation_quality: production_ready
+governance:
+  acceptance_evidence: []
+  known_deployments:
+    - Widely used to benchmark single-cell and spatial omics methods
+caveats:
+  - Fits marginal distributions per gene and ties them together with a copula,
+    so gene-gene correlations and cell-cell distances survive - the things
+    Splatter loses. In published benchmarks it beats scGAN, muscat and SPARSim
+    on exactly those measures.
+  - Handles continuous trajectories and spatial coordinates, not only discrete
+    cell types, which is unusual.
+  - It learns from a real dataset, so unlike Splatter the output is derived from
+    real cells. Treat the privacy question as open rather than settled.
+  - Fitting is slower than Splatter and scales with the number of genes you keep.
+evaluation:
+  - Gene-gene correlation and cell-cell distance agreement, not just marginals
+  - The package's own diagnostic plots against the reference data
+links:
+  paper: https://doi.org/10.1038/s41587-023-01772-1
+  code: https://github.com/SONGDONGYUAN1994/scDesign3
+related_datasets: []
+output_preview:
+  format: genomic_matrix
+  note: >-
+    A counts matrix, genes by cells, with a companion cell metadata table
+    giving the simulated cell type and any group or batch labels.
+  preview: |
+    gene_id   c0001 c0002 c0003 c0004 c0005
+    ENSG0001  0     4     0     11    2
+    ENSG0002  17    9     23    0     5
+    ENSG0003  0     0     1     0     0
+    ENSG0004  3     0     6     2     8
+    # cell metadata
+    cell_id,cell_type,group,batch
+    c0001,T cell,control,b1
+    c0002,B cell,treated,b1

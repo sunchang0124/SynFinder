@@ -9,6 +9,7 @@ data_types:
   - images
   - graph
   - genomic
+  - single_cell_omics
 variable_types: [continuous, categorical, ordinal, count, datetime, free_text]
 compute: [cpu_fine, gpu_recommended, gpu_required]
 expertise: [low, medium, high]

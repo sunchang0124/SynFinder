@@ -1,0 +1,49 @@
+id: realtabformer
+name: REaLTabFormer
+family: llm
+domains: [general]
+data_types: [tabular_cross_sectional, tabular_longitudinal]
+variable_types: [continuous, categorical, ordinal, count, datetime]
+formal_dp: false
+compute: gpu_required
+license: MIT
+purposes: [ml_augmentation, pipeline_testing, benchmarking]
+preserves: [marginals, joint_correlations]
+scale:
+  evidence: null
+expertise: medium
+maturity:
+  maintained: true
+  last_release: null
+  implementation_quality: production_ready
+governance:
+  acceptance_evidence: []
+  known_deployments: []
+caveats:
+  - Handles parent-child table relationships, which almost nothing else in this
+    catalog does. If your data is genuinely relational rather than one flat
+    table, that is the reason to look here.
+  - Transformer-based, so it memorises. It ships a target-masking overfitting
+    check for exactly this reason - run it and believe it.
+  - Training is slow compared with tree or copula methods.
+evaluation:
+  - Its own overfitting and distance-to-closest-record diagnostics
+  - Verify referential integrity between generated parent and child tables
+links:
+  paper: https://doi.org/10.48550/arXiv.2302.02041
+  code: https://github.com/worldbank/REaLTabFormer
+related_datasets: []
+output_preview:
+  format: tabular_csv
+  note: >-
+    Parent and child tables together, with keys preserved so joins still work.
+  preview: |
+    # patients (parent)
+    patient_id,age,sex,enrolled
+    s0001,54,F,2019-02-11
+    s0002,38,M,2019-05-03
+    # visits (child)
+    visit_id,patient_id,date,diagnosis
+    v0001,s0001,2019-03-14,E11.9
+    v0002,s0001,2019-09-02,E11.65
+    v0003,s0002,2019-06-11,J45.909

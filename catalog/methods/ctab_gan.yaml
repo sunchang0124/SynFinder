@@ -1,0 +1,42 @@
+id: ctab_gan
+name: CTAB-GAN and CTAB-GAN+
+family: gan
+domains: [general]
+data_types: [tabular_cross_sectional]
+variable_types: [continuous, categorical, ordinal, count]
+formal_dp: false
+compute: gpu_recommended
+license: MIT
+purposes: [ml_augmentation, benchmarking, imbalance_correction]
+preserves: [marginals, joint_correlations]
+scale:
+  evidence: null
+expertise: medium
+maturity:
+  maintained: false
+  last_release: null
+  implementation_quality: research_code
+governance:
+  acceptance_evidence: []
+  known_deployments: []
+caveats:
+  - Extends CTGAN with explicit handling of mixed-type columns, long-tailed
+    distributions and skew — the failure modes that bite CTGAN hardest on real
+    clinical data.
+  - CTAB-GAN+ adds an optional differential privacy variant, but the base model
+    carries no guarantee. Do not assume the DP claim applies unless you ran that mode.
+  - Research code with limited maintenance; expect to pin versions.
+evaluation:
+  - SDMetrics column shape and column pair trend scores
+  - Check the tails specifically, since that is what it claims to improve
+links:
+  paper: https://proceedings.mlr.press/v157/zhao21a.html
+  code: https://github.com/Team-TUD/CTAB-GAN-Plus
+related_datasets: []
+output_preview:
+  format: tabular_csv
+  note: One row per person, same columns and types as your input.
+  preview: |
+    patient_id,age,sex,bmi,hba1c,smoker,diagnosis
+    s0001,54,F,27.3,6.1,former,E11.9
+    s0002,38,M,31.8,5.4,never,I10

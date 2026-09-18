@@ -20,6 +20,8 @@ const LABEL = {
   tabular_longitudinal: "Tabular, repeated measures",
   coded_event_sequences: "Coded event sequences (EHR visits)",
   ml_augmentation: "Machine learning augmentation",
+  single_cell_omics: "Single-cell omics",
+  genomic: "Genomic (genotypes / variants)",
 };
 const pretty = s => {
   if (LABEL[s]) return LABEL[s];

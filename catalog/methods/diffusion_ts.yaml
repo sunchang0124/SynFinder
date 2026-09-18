@@ -1,0 +1,44 @@
+id: diffusion_ts
+name: Diffusion-TS
+family: diffusion
+domains: [general, biomedical]
+data_types: [time_series]
+variable_types: [continuous, categorical]
+formal_dp: false
+compute: gpu_required
+license: MIT
+purposes: [ml_augmentation, benchmarking, statistical_replication]
+preserves: [temporal_dynamics, marginals, joint_correlations]
+scale:
+  evidence: null
+expertise: high
+maturity:
+  maintained: false
+  last_release: null
+  implementation_quality: research_code
+governance:
+  acceptance_evidence: []
+  known_deployments: []
+caveats:
+  - Decomposes series into trend and seasonal components inside the diffusion
+    process, which makes the output interpretable in a way TimeGAN's is not.
+  - Currently among the strongest general time-series generators in published
+    benchmarks, and the sensible default to try before TimeGAN.
+  - Slow sampling, and long sequences are expensive.
+evaluation:
+  - Discriminative and predictive scores as used in the time-series literature
+  - Autocorrelation structure over the lags that matter clinically
+links:
+  paper: https://openreview.net/forum?id=4h1apFjO99
+  code: https://github.com/Y-debug-sys/Diffusion-TS
+related_datasets: []
+output_preview:
+  format: tabular_csv
+  note: >-
+    Long format, one row per subject per timestep.
+  preview: |
+    subject_id,t,heart_rate,sbp,spo2,on_vasopressor
+    s0001,0,88,112,97,0
+    s0001,1,91,108,96,0
+    s0001,2,104,96,94,1
+    s0002,0,76,124,99,0

@@ -1,0 +1,47 @@
+id: gem_dp
+name: GEM
+aliases: [Generative networks with the Exponential Mechanism]
+family: marginal_based
+domains: [general]
+data_types: [tabular_cross_sectional]
+variable_types: [categorical, ordinal, count]
+formal_dp: true
+dp_mechanism: Adaptive private query selection with a neural network approximating the data distribution
+compute: gpu_recommended
+license: MIT
+purposes: [open_release, statistical_replication, benchmarking]
+preserves: [marginals, joint_correlations]
+scale:
+  evidence: null
+expertise: high
+maturity:
+  maintained: false
+  last_release: null
+  implementation_quality: research_code
+governance:
+  acceptance_evidence: []
+  known_deployments: []
+caveats:
+  - Replaces the graphical model in MST and AIM with a neural network, which
+    scales to higher dimensions where Private-PGM becomes intractable.
+  - That scaling is the only reason to prefer it. Below the dimension where
+    Private-PGM struggles, AIM is usually the better and simpler choice.
+  - Needs a GPU, unlike the graphical-model DP methods, which is a real cost
+    when the whole point was a defensible release rather than peak fidelity.
+evaluation:
+  - Report epsilon alongside all utility results
+  - Compare against AIM at the same epsilon before accepting the extra complexity
+links:
+  paper: https://doi.org/10.48550/arXiv.2106.07153
+  code: https://github.com/terranceliu/iterative-dp
+related_datasets: []
+output_preview:
+  format: tabular_csv
+  note: >-
+    One row per person, same schema as your input. Continuous columns come
+    back discretised into the bins you supplied.
+  preview: |
+    patient_id,age_band,sex,bmi_band,smoker,diagnosis
+    s0001,50-59,F,25-30,former,E11.9
+    s0002,30-39,M,30-35,never,I10
+    s0003,70-79,F,20-25,current,E11.9

@@ -1,0 +1,45 @@
+id: mtgan
+name: MTGAN
+family: gan
+domains: [biomedical]
+data_types: [coded_event_sequences, tabular_longitudinal]
+variable_types: [categorical, count, datetime]
+formal_dp: false
+compute: gpu_required
+license: MIT
+purposes: [ml_augmentation, benchmarking]
+preserves: [temporal_dynamics, marginals, rare_events]
+scale:
+  evidence: null
+expertise: high
+maturity:
+  maintained: false
+  last_release: null
+  implementation_quality: research_code
+governance:
+  acceptance_evidence: []
+  known_deployments: []
+caveats:
+  - Conditional generation targeted at uncommon diseases, which is the case most
+    EHR generators handle worst - they smooth rare conditions away entirely.
+  - Generates visit sequences rather than aggregates, so temporal structure survives.
+  - GAN training instability applies; expect to tune, and check that requested
+    rare conditions actually appear at the rate you asked for.
+evaluation:
+  - Prevalence of the rare conditions you conditioned on, specifically
+  - Visit-length and code-per-visit distributions against real data
+links:
+  paper: https://doi.org/10.48550/arXiv.2212.09538
+  code: https://github.com/LuChang-CS/MTGAN
+related_datasets: []
+output_preview:
+  format: event_sequence
+  note: >-
+    One record per patient, containing an ordered list of visits, each with its
+    own diagnosis and procedure codes.
+  preview: |
+    patient s0001
+      visit 1  2019-03-14  ICD-10: E11.9, I10      proc: 99213
+      visit 2  2019-09-02  ICD-10: E11.65          proc: 82947
+    patient s0002
+      visit 1  2019-06-11  ICD-10: J45.909         proc: 94010

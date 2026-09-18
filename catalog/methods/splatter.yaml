@@ -1,0 +1,58 @@
+id: splatter
+name: Splatter
+aliases: [Splat]
+family: probabilistic_graphical
+domains: [biomedical]
+data_types: [single_cell_omics]
+variable_types: [count, categorical]
+formal_dp: false
+requires_no_source_data: true
+compute: cpu_fine
+license: GPL-3.0
+purposes: [benchmarking, education, pipeline_testing, open_release]
+preserves: [marginals]
+scale:
+  evidence: null
+expertise: low
+maturity:
+  maintained: true
+  last_release: null
+  implementation_quality: production_ready
+governance:
+  acceptance_evidence:
+    - Simulates from a parametric model rather than from anyone's cells, so
+      there is no disclosure risk and no data access agreement to negotiate
+  known_deployments:
+    - The standard simulator for benchmarking single-cell RNA-seq methods
+caveats:
+  - The default reference point for single-cell simulation, and the reason to
+    use it is that you control the truth - you know which genes are
+    differentially expressed because you specified them.
+  - A gamma-Poisson model per gene, so genes are essentially independent.
+    Gene-gene correlation structure, which is what most biology lives in, is
+    not reproduced. Benchmarks built on Splat can therefore flatter methods
+    that assume independence.
+  - Can be estimated from a real dataset to set parameters, but the generated
+    cells are still model draws, not imitations of those cells.
+evaluation:
+  - Compare library size, zero fraction and mean-variance trend against real data
+  - Do not use it to evaluate a method whose whole point is gene-gene correlation
+links:
+  paper: https://doi.org/10.1186/s13059-017-1305-0
+  code: https://github.com/Oshlack/splatter
+related_datasets: []
+output_preview:
+  format: genomic_matrix
+  note: >-
+    A counts matrix, genes by cells, with a companion cell metadata table
+    giving the simulated cell type and any group or batch labels.
+  preview: |
+    gene_id   c0001 c0002 c0003 c0004 c0005
+    ENSG0001  0     4     0     11    2
+    ENSG0002  17    9     23    0     5
+    ENSG0003  0     0     1     0     0
+    ENSG0004  3     0     6     2     8
+    # cell metadata
+    cell_id,cell_type,group,batch
+    c0001,T cell,control,b1
+    c0002,B cell,treated,b1

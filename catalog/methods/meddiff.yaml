@@ -1,0 +1,42 @@
+id: meddiff
+name: MedDiff
+family: diffusion
+domains: [biomedical]
+data_types: [tabular_cross_sectional]
+variable_types: [continuous, categorical, count]
+formal_dp: false
+compute: gpu_required
+license: MIT
+purposes: [ml_augmentation, benchmarking]
+preserves: [marginals, joint_correlations]
+scale:
+  evidence: null
+expertise: high
+maturity:
+  maintained: false
+  last_release: null
+  implementation_quality: research_code
+governance:
+  acceptance_evidence: []
+  known_deployments: []
+caveats:
+  - Accelerated sampling makes it practical where plain diffusion on EHR is too
+    slow to generate a useful cohort.
+  - Conditioning on a label is supported, which is what you want for generating
+    a specific patient subgroup.
+  - Research code accompanying a paper; reproducing the published numbers is not
+    straightforward.
+evaluation:
+  - Dimension-wise probability and prediction against real data
+  - Train-on-synthetic, test-on-real for your downstream task
+links:
+  paper: https://doi.org/10.48550/arXiv.2302.04355
+  code: https://github.com/tencent-ailab/MedDiff
+related_datasets: []
+output_preview:
+  format: tabular_csv
+  note: One row per patient holding counts or indicators per clinical code.
+  preview: |
+    patient_id,E11.9,I10,E78.5,J45.909,N18.3
+    s0001,3,2,1,0,0
+    s0002,0,0,0,4,0

@@ -1,0 +1,47 @@
+id: arf
+name: Adversarial Random Forests
+aliases: [ARF, arfpy]
+family: sequential_tree
+domains: [general]
+data_types: [tabular_cross_sectional]
+variable_types: [continuous, categorical, ordinal, count]
+formal_dp: false
+compute: cpu_fine
+license: MIT
+purposes: [ml_augmentation, pipeline_testing, benchmarking, statistical_replication]
+preserves: [marginals, joint_correlations]
+scale:
+  evidence: null
+expertise: low
+maturity:
+  maintained: true
+  last_release: null
+  implementation_quality: production_ready
+governance:
+  acceptance_evidence: []
+  known_deployments: []
+caveats:
+  - Trains in seconds on a CPU and is competitive with deep generative models on
+    tabular fidelity benchmarks. If you were about to spend a week tuning a GAN,
+    run this first and see whether you still need to.
+  - Density estimation assumes local independence within each leaf, so very
+    sharp non-linear interactions can be smoothed away.
+  - No formal privacy guarantee, and like all tree methods it partitions on real
+    values, so check for memorised records before release.
+evaluation:
+  - SDMetrics fidelity plus machine-learning efficiency
+  - Nearest-neighbour distance ratio against the training set
+links:
+  paper: https://proceedings.mlr.press/v206/watson23a.html
+  code: https://github.com/bips-hb/arfpy
+related_datasets: []
+output_preview:
+  format: tabular_csv
+  note: >-
+    One row per person, same columns and types as your input. Values are new;
+    the schema is yours.
+  preview: |
+    patient_id,age,sex,bmi,hba1c,smoker,diagnosis
+    s0001,54,F,27.3,6.1,former,E11.9
+    s0002,38,M,31.8,5.4,never,I10
+    s0003,71,F,24.1,7.9,current,E11.9

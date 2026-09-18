@@ -1,0 +1,51 @@
+id: scgan
+name: scGAN
+family: gan
+domains: [biomedical]
+data_types: [single_cell_omics]
+variable_types: [count]
+formal_dp: false
+compute: gpu_required
+license: MIT
+purposes: [ml_augmentation, benchmarking]
+preserves: [marginals, joint_correlations]
+scale:
+  evidence: null
+expertise: high
+maturity:
+  maintained: false
+  last_release: null
+  implementation_quality: research_code
+governance:
+  acceptance_evidence: []
+  known_deployments: []
+caveats:
+  - Learns the expression distribution rather than assuming a parametric form,
+    and can generate cells conditioned on a cluster.
+  - Independent benchmarks have found it behind the statistical simulators on
+    gene-gene correlation and cell-cell distance, despite the deep model.
+    Reach for it when you specifically want a learned generator, not by default.
+  - Needs a GPU and a large reference dataset, which is a steep cost for a
+    method that does not currently win its benchmarks.
+evaluation:
+  - Gene-gene correlation and cell-cell distance against real data
+  - Compare against scDesign3 on your own reference before committing
+links:
+  paper: https://doi.org/10.1038/s41467-019-14018-z
+  code: https://github.com/imsb-uke/scGAN
+related_datasets: []
+output_preview:
+  format: genomic_matrix
+  note: >-
+    A counts matrix, genes by cells, with a companion cell metadata table
+    giving the simulated cell type and any group or batch labels.
+  preview: |
+    gene_id   c0001 c0002 c0003 c0004 c0005
+    ENSG0001  0     4     0     11    2
+    ENSG0002  17    9     23    0     5
+    ENSG0003  0     0     1     0     0
+    ENSG0004  3     0     6     2     8
+    # cell metadata
+    cell_id,cell_type,group,batch
+    c0001,T cell,control,b1
+    c0002,B cell,treated,b1

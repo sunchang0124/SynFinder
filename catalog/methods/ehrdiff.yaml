@@ -1,0 +1,46 @@
+id: ehrdiff
+name: EHRDiff
+family: diffusion
+domains: [biomedical]
+data_types: [tabular_cross_sectional, coded_event_sequences]
+variable_types: [continuous, categorical, count]
+formal_dp: false
+compute: gpu_required
+license: MIT
+purposes: [ml_augmentation, benchmarking, statistical_replication]
+preserves: [marginals, joint_correlations]
+scale:
+  evidence: null
+expertise: high
+maturity:
+  maintained: false
+  last_release: null
+  implementation_quality: research_code
+governance:
+  acceptance_evidence: []
+  known_deployments: []
+caveats:
+  - Diffusion applied to EHR, and in independent benchmarking it preserves code
+    prevalence better than the older GAN approaches it replaces.
+  - Generates the code profile, not the visit timeline. If inter-visit timing
+    matters to your question, this is not the model.
+  - Higher fidelity means more of the training distribution is reproduced, so
+    the disclosure risk rises with the quality. Run membership inference.
+evaluation:
+  - Code prevalence and co-occurrence against real data
+  - Membership inference, particularly on rare code combinations
+links:
+  paper: https://doi.org/10.48550/arXiv.2303.05656
+  code: https://github.com/sczzz3/EHRDiff
+related_datasets: []
+output_preview:
+  format: event_sequence
+  note: >-
+    One record per patient, containing an ordered list of visits, each with its
+    own diagnosis and procedure codes.
+  preview: |
+    patient s0001
+      visit 1  2019-03-14  ICD-10: E11.9, I10      proc: 99213
+      visit 2  2019-09-02  ICD-10: E11.65          proc: 82947
+    patient s0002
+      visit 1  2019-06-11  ICD-10: J45.909         proc: 94010

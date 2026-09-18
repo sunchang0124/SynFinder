@@ -1,0 +1,47 @@
+id: csdi
+name: CSDI
+aliases: [Conditional Score-based Diffusion for Imputation]
+family: diffusion
+domains: [general, biomedical]
+data_types: [time_series]
+variable_types: [continuous]
+formal_dp: false
+compute: gpu_required
+license: MIT
+purposes: [ml_augmentation, benchmarking]
+preserves: [temporal_dynamics, joint_correlations]
+scale:
+  evidence: null
+expertise: high
+maturity:
+  maintained: false
+  last_release: null
+  implementation_quality: research_code
+governance:
+  acceptance_evidence: []
+  known_deployments: []
+caveats:
+  - Built for conditional imputation rather than unconditional generation - it
+    fills gaps given observed values. Use it to complete sparse clinical series,
+    not to invent whole patients.
+  - Because it conditions on real observations, the output is a function of real
+    records. It is not a privacy mechanism and must not be treated as one.
+  - Validated on healthcare time series, so the clinical claim is better
+    supported than most.
+evaluation:
+  - Imputation error on held-out masked values
+  - Calibration of the predictive distribution, not only point accuracy
+links:
+  paper: https://papers.nips.cc/paper/2021/hash/cfe8504bda37b575c70ee1a8276f3486-Abstract.html
+  code: https://github.com/ermongroup/CSDI
+related_datasets: []
+output_preview:
+  format: tabular_csv
+  note: >-
+    Long format, one row per subject per timestep.
+  preview: |
+    subject_id,t,heart_rate,sbp,spo2,on_vasopressor
+    s0001,0,88,112,97,0
+    s0001,1,91,108,96,0
+    s0001,2,104,96,94,1
+    s0002,0,76,124,99,0

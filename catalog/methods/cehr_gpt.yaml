@@ -1,0 +1,50 @@
+id: cehr_gpt
+name: CEHR-GPT
+family: llm
+domains: [biomedical]
+data_types: [coded_event_sequences, tabular_longitudinal]
+variable_types: [categorical, count, datetime]
+formal_dp: false
+compute: gpu_required
+license: MIT
+purposes: [ml_augmentation, benchmarking, statistical_replication]
+preserves: [temporal_dynamics, joint_correlations, rare_events]
+scale:
+  evidence: null
+expertise: high
+maturity:
+  maintained: true
+  last_release: null
+  implementation_quality: research_code
+governance:
+  acceptance_evidence:
+    - Built on the OMOP common data model, so output lands in a schema that
+      federated networks and data partners already accept
+  known_deployments: []
+caveats:
+  - Keeps chronological patient timelines including the gaps between visits,
+    which most EHR generators discard. If your analysis depends on when things
+    happened rather than whether they happened, that is decisive.
+  - OMOP-native. That is an advantage if your data is already OMOP and a
+    mapping exercise if it is not.
+  - A generative language model over patient timelines carries the memorisation
+    risk of that model class. Check for reproduced sequences before release.
+evaluation:
+  - Inter-visit interval distributions, not only code prevalence
+  - Run your actual OMOP analysis on synthetic and real, and compare estimates
+  - Membership inference on full patient trajectories
+links:
+  paper: https://doi.org/10.48550/arXiv.2402.04400
+  code: https://github.com/knatarajan-lab/cehrgpt
+related_datasets: []
+output_preview:
+  format: event_sequence
+  note: >-
+    One record per patient, containing an ordered list of visits, each with its
+    own diagnosis and procedure codes.
+  preview: |
+    patient s0001
+      visit 1  2019-03-14  ICD-10: E11.9, I10      proc: 99213
+      visit 2  2019-09-02  ICD-10: E11.65          proc: 82947
+    patient s0002
+      visit 1  2019-06-11  ICD-10: J45.909         proc: 94010

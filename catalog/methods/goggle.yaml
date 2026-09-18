@@ -1,0 +1,43 @@
+id: goggle
+name: GOGGLE
+family: vae
+domains: [general]
+data_types: [tabular_cross_sectional]
+variable_types: [continuous, categorical, ordinal]
+formal_dp: false
+compute: gpu_recommended
+license: MIT
+purposes: [ml_augmentation, benchmarking, causal_inference]
+preserves: [marginals, joint_correlations, causal_structure]
+scale:
+  evidence: null
+expertise: high
+maturity:
+  maintained: false
+  last_release: null
+  implementation_quality: research_code
+governance:
+  acceptance_evidence: []
+  known_deployments: []
+caveats:
+  - Learns a relational graph between variables and generates through it, so the
+    dependency structure is inspectable rather than buried in weights. That is
+    the reason to choose it over a plain VAE.
+  - The learned graph is a dependency graph, not a causal one. Reading
+    interventions off it requires the same domain verification a Bayesian
+    network needs.
+  - Reported performance has been uneven in independent benchmarks.
+evaluation:
+  - Inspect the learned graph against domain expectation before trusting output
+  - SDMetrics fidelity plus machine-learning efficiency
+links:
+  paper: https://openreview.net/forum?id=fPVRcJqspu
+  code: https://github.com/vanderschaarlab/GOGGLE
+related_datasets: []
+output_preview:
+  format: tabular_csv
+  note: One row per person, same columns and types as your input.
+  preview: |
+    patient_id,age,sex,bmi,hba1c,diagnosis
+    s0001,54,F,27.3,6.1,E11.9
+    s0002,38,M,31.8,5.4,I10

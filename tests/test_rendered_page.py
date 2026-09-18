@@ -49,12 +49,26 @@ def server():
 
 
 @pytest.fixture(scope="module")
-def results_page(server):
+def playwright():
+    """One instance for the module. The sync API cannot be nested, so a second
+    sync_playwright() inside a test raises while this fixture is held open."""
     with sync_playwright() as pw:
-        try:
-            browser = pw.chromium.launch()
-        except Exception as exc:
-            pytest.skip(f"no browser available: {exc}")
+        yield pw
+
+
+@pytest.fixture(scope="module")
+def browser(playwright):
+    try:
+        b = playwright.chromium.launch()
+    except Exception as exc:
+        pytest.skip(f"no browser available: {exc}")
+    yield b
+    b.close()
+
+
+@pytest.fixture(scope="module")
+def results_page(server, browser):
+    if True:
         page = browser.new_page(viewport={"width": 1400, "height": 1000})
         errors: list[str] = []
         page.on("pageerror", lambda e: errors.append(str(e)))
@@ -67,7 +81,7 @@ def results_page(server):
         page.wait_for_selector(".card", timeout=20000)
         page.wait_for_timeout(600)
         yield page, errors
-        browser.close()
+        page.close()
 
 
 def test_no_javascript_errors(results_page):
@@ -152,7 +166,7 @@ def static_site(tmp_path_factory):
     server.shutdown()
 
 
-def test_static_build_agrees_with_the_python_engine(static_site):
+def test_static_build_agrees_with_the_python_engine(static_site, browser):
     """The hosted page runs the same package under Pyodide. If it ever
     disagrees with the engine, the whole no-second-implementation argument
     has failed."""
@@ -169,12 +183,8 @@ def test_static_build_agrees_with_the_python_engine(static_site):
         catalog.generation_methods(), intake,
         load_weights(root / "weights.yaml"), top_n=24).shortlist[:5]]
 
-    with sync_playwright() as pw:
-        try:
-            browser = pw.chromium.launch()
-        except Exception as exc:
-            pytest.skip(f"no browser available: {exc}")
-        page = browser.new_page()
+    page = browser.new_page()
+    try:
         page.goto(static_site, wait_until="domcontentloaded")
         page.wait_for_function(
             "document.querySelectorAll('#domain option').length > 0",
@@ -185,6 +195,8 @@ def test_static_build_agrees_with_the_python_engine(static_site):
         page.select_option("#privacy", "required")
         page.click("#submitBtn")
         page.wait_for_selector(".card", timeout=180000)
-        got = page.eval_on_selector_all(".card h3", "e => e.map(x => x.textContent)")
-        browser.close()
+        got = page.eval_on_selector_all(".card h3",
+                                        "e => e.map(x => x.textContent)")
+    finally:
+        page.close()
     assert got == expected, f"browser said {got}, engine said {expected}"

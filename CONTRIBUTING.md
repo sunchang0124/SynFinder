@@ -1,5 +1,7 @@
 # Contributing to SynFinder
 
+The live app: <https://sunchang0124.github.io/SynFinder/>
+
 Thank you for wanting to add to this catalog.
 
 ## What this catalog is for

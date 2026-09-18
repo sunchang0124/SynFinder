@@ -1,5 +1,15 @@
 # SynFinder
 
+### ▶ **[Use it now — sunchang0124.github.io/SynFinder](https://sunchang0124.github.io/SynFinder/)**
+
+No install, no account, no login. The app runs entirely in your browser.
+
+[![Try it](https://img.shields.io/badge/try%20it-live%20app-0d9488?style=flat-square)](https://sunchang0124.github.io/SynFinder/)
+[![CI](https://github.com/sunchang0124/SynFinder/actions/workflows/ci.yml/badge.svg)](https://github.com/sunchang0124/SynFinder/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
+
+---
+
 Find the synthetic data generation method that fits your study — with the
 caveats that will actually bite you.
 

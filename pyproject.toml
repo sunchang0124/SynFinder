@@ -3,6 +3,9 @@ name = "synfinder"
 version = "0.1.0"
 description = "Find the right synthetic data generation method for your research"
 requires-python = ">=3.11"
+license = "MIT"
+authors = [{ name = "Chang Sun" }]
+urls = { Homepage = "https://sunchang0124.github.io/SynFinder/", Repository = "https://github.com/sunchang0124/SynFinder" }
 dependencies = ["pydantic>=2.6", "pyyaml>=6.0"]
 
 [project.optional-dependencies]

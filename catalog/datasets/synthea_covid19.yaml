@@ -1,9 +1,11 @@
 id: synthea_covid19
 name: Synthea COVID-19 synthetic dataset
-domain: biomedical
-data_type: coded_event_sequences
-size: ~125,000 synthetic patients with COVID-19 care pathways
+domains: [biomedical]
+data_types: [coded_event_sequences]
+n_records: ~125,000 synthetic patients with COVID-19 care pathways
 generated_by: synthea
+purposes: [pipeline_testing, education, benchmarking]
+formal_dp: false
 access_conditions: Free public download
 license: Apache-2.0
 realism_caveats:

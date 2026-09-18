@@ -9,6 +9,7 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from synfinder import llm                                    # noqa: E402
 from synfinder.catalog import load_catalog                   # noqa: E402
+from synfinder.datasets import match_datasets                # noqa: E402
 from synfinder.explain import as_text, explain               # noqa: E402
 from synfinder.intake import Intake                          # noqa: E402
 from synfinder.ranking import load_weights, rank             # noqa: E402
@@ -152,9 +153,7 @@ def main() -> None:
         header, rows = comparison_rows(ranking)
         st.dataframe([dict(zip(header, r)) for r in rows], hide_index=True)
 
-    matching = [d for d in catalog.datasets
-                if d.domain in (intake.domain, "general")
-                and d.data_type == intake.data_type]
+    matching = match_datasets(catalog.datasets, intake)
     if matching:
         st.subheader("Ready-made synthetic datasets")
         for d in matching:

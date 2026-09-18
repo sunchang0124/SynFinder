@@ -6,6 +6,7 @@ import sys
 from pathlib import Path
 
 from .catalog import CatalogError, load_catalog
+from .datasets import match_datasets
 from .intake import Intake
 from .ranking import load_weights, rank
 from .report import render_html, render_markdown
@@ -92,11 +93,7 @@ def main(argv: list[str] | None = None) -> int:
     weights = load_weights(weights_path) if weights_path.exists() else None
     ranking = rank(catalog.generation_methods(), intake, weights, top_n=args.top)
 
-    matching = [
-        d for d in catalog.datasets
-        if d.domain in (intake.domain, "general")
-        and d.data_type == intake.data_type
-    ]
+    matching = match_datasets(catalog.datasets, intake)
 
     covered = catalog.covers(intake.data_type)
     also = catalog.covered_data_types()

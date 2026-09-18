@@ -1,9 +1,11 @@
 id: synthea_synthetic_massachusetts
 name: SyntheticMass
-domain: biomedical
-data_type: coded_event_sequences
-size: ~1 million synthetic residents of Massachusetts
+domains: [biomedical]
+data_types: [coded_event_sequences]
+n_records: ~1 million synthetic residents of Massachusetts
 generated_by: synthea
+purposes: [pipeline_testing, education, benchmarking]
+formal_dp: false
 access_conditions: Free public download, no application or data use agreement
 license: Apache-2.0
 realism_caveats:

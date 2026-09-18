@@ -104,11 +104,20 @@ class Method(BaseModel):
 class Dataset(BaseModel):
     id: str
     name: str
-    domain: str
-    data_type: str
-    size: str
+    domains: list[str]
+    data_types: list[str]
+    purposes: list[str] = Field(default_factory=list)
+    n_records: str
+    formal_dp: bool = False
+    dp_mechanism: str | None = None
     generated_by: str | None = None
     access_conditions: str
     license: str
     realism_caveats: list[str] = Field(min_length=1)
     links: Links = Field(default_factory=Links)
+
+    @model_validator(mode="after")
+    def _dp_needs_mechanism(self) -> "Dataset":
+        if self.formal_dp and not self.dp_mechanism:
+            raise ValueError("formal_dp is true but dp_mechanism is missing")
+        return self

@@ -3,6 +3,32 @@ const $ = (s, r = document) => r.querySelector(s);
 // Behind a proxy the app may live under a path prefix. Resolve every API
 // call against the page's own directory rather than the server root.
 const API = new URL(".", location.href).href;
+
+// Two backends, one renderer. Served by FastAPI the calls go over HTTP; on
+// static hosting boot.js runs the same Python package in the browser. The
+// ranking logic therefore exists in exactly one place either way.
+const backend = {
+  async taxonomy() {
+    if (window.SYNFINDER_STATIC) return (await window.synReady).taxonomy();
+    return (await fetch(API + "api/taxonomy")).json();
+  },
+  async recommend(body) {
+    if (window.SYNFINDER_STATIC) return (await window.synReady).recommend(body);
+    const res = await fetch(API + "api/recommend", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    if (!res.ok) throw new Error(await res.text());
+    return res.json();
+  },
+  async datasets(domain, dataType) {
+    if (window.SYNFINDER_STATIC) {
+      return (await window.synReady).datasets(domain, dataType);
+    }
+    const q = new URLSearchParams({ domain, data_type: dataType });
+    return (await fetch(API + "api/datasets?" + q)).json();
+  },
+};
 // Words that should stay upper-case rather than being title-cased.
 const LANG = {
   python: "Python", r: "R", julia: "Julia", cpp: "C/C++", java: "Java",
@@ -79,7 +105,7 @@ function chips(sel, values) {
 const chosen = sel => [...$(sel).querySelectorAll(".chip.on")].map(c => c.dataset.v);
 
 async function boot() {
-  TAX = await (await fetch(API + "api/taxonomy")).json();
+  TAX = await backend.taxonomy();
   fill("#domain", TAX.domains);
   fill("#data_type", TAX.data_types);
   fill("#purpose", TAX.purposes);
@@ -118,12 +144,7 @@ $("#intakeForm").onsubmit = async e => {
     needs_governance_evidence: $("#needs_governance_evidence").checked || null,
   };
   try {
-    const res = await fetch(API + "api/recommend", {
-      method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    });
-    if (!res.ok) throw new Error(await res.text());
-    render(await res.json());
+    render(await backend.recommend(body));
   } catch (err) {
     $("#results").innerHTML =
       `<div class="notice"><b>Something went wrong.</b><br>${esc(err.message)}</div>`;
@@ -367,10 +388,8 @@ function render(r) {
 
 /* ---------- dataset browse ---------- */
 async function loadDatasets() {
-  const q = new URLSearchParams({
-    domain: $("#b_domain").value, data_type: $("#b_data_type").value,
-  });
-  const { datasets } = await (await fetch(API + "api/datasets?" + q)).json();
+  const { datasets } = await backend.datasets(
+    $("#b_domain").value, $("#b_data_type").value);
   $("#datasetResults").innerHTML = datasets.length
     ? `<p class="section-label">${datasets.length} dataset${datasets.length === 1 ? "" : "s"}</p>`
       + `<section class="lead">${datasets.map(datasetBlock).join("")}</section>`
@@ -379,4 +398,11 @@ async function loadDatasets() {
        contributing one is a pull request.</p></div>`;
 }
 
-boot();
+if (window.SYNFINDER_STATIC) {
+  window.synReady.then(boot).catch(e => {
+    document.getElementById("results").innerHTML =
+      `<div class="notice"><b>The engine failed to start.</b><br>${esc(String(e))}</div>`;
+  });
+} else {
+  boot();
+}

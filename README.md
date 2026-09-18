@@ -76,7 +76,18 @@ docker build -t synfinder .
 docker run -p 8501:8501 synfinder
 ```
 
-**A public link anyone can click** — publish to Hugging Face Spaces:
+**A public link anyone can click — GitHub Pages, free and permanent.**
+
+`tools/build_pages.py` builds a static bundle that runs the *real* synfinder
+package in your browser through Pyodide. No server, no account, nothing to
+install for the visitor — and no second implementation of the ranking logic,
+so the hosted page cannot disagree with the CLI. A test asserts exactly that.
+
+It deploys itself on every push to `main` via `.github/workflows/pages.yml`.
+The engine takes a few seconds to start on a first visit, then caches.
+
+**Alternative: Hugging Face Spaces** (note: Docker Spaces now need a PRO
+subscription; only static Spaces are free)
 
 ```bash
 export HF_TOKEN=hf_xxxxxxxx        # write token from huggingface.co/settings/tokens

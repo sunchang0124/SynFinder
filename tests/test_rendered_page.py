@@ -124,3 +124,67 @@ def test_nothing_overflows_the_viewport_horizontally(results_page):
     overflow = page.evaluate(
         "() => document.documentElement.scrollWidth - window.innerWidth")
     assert overflow <= 1, f"page scrolls horizontally by {overflow}px"
+
+
+@pytest.fixture(scope="module")
+def static_site(tmp_path_factory):
+    """Build the GitHub Pages bundle and serve it like GitHub would."""
+    import http.server
+    import shutil
+    import threading
+
+    if shutil.which("pip") is None:
+        pytest.skip("pip needed to build the wheel")
+    subprocess.run([__import__("sys").executable, "tools/build_pages.py"],
+                   cwd=ROOT, check=True, stdout=subprocess.DEVNULL)
+    directory = str(ROOT / "docs_site")
+    port = _free_port()
+
+    class Handler(http.server.SimpleHTTPRequestHandler):
+        def __init__(self, *a, **kw):
+            super().__init__(*a, directory=directory, **kw)
+        def log_message(self, *a):
+            pass
+
+    server = http.server.ThreadingHTTPServer(("127.0.0.1", port), Handler)
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    yield f"http://127.0.0.1:{port}/"
+    server.shutdown()
+
+
+def test_static_build_agrees_with_the_python_engine(static_site):
+    """The hosted page runs the same package under Pyodide. If it ever
+    disagrees with the engine, the whole no-second-implementation argument
+    has failed."""
+    from synfinder.catalog import load_catalog
+    from synfinder.cli import default_catalog_root
+    from synfinder.intake import Intake
+    from synfinder.ranking import load_weights, rank
+
+    root = default_catalog_root()
+    catalog = load_catalog(root)
+    intake = Intake(domain="biomedical", data_type="genomic",
+                    purpose="open_release", privacy="required")
+    expected = [c.method.name for c in rank(
+        catalog.generation_methods(), intake,
+        load_weights(root / "weights.yaml"), top_n=24).shortlist[:5]]
+
+    with sync_playwright() as pw:
+        try:
+            browser = pw.chromium.launch()
+        except Exception as exc:
+            pytest.skip(f"no browser available: {exc}")
+        page = browser.new_page()
+        page.goto(static_site, wait_until="domcontentloaded")
+        page.wait_for_function(
+            "document.querySelectorAll('#domain option').length > 0",
+            timeout=300000)
+        page.select_option("#domain", "biomedical")
+        page.select_option("#data_type", "genomic")
+        page.select_option("#purpose", "open_release")
+        page.select_option("#privacy", "required")
+        page.click("#submitBtn")
+        page.wait_for_selector(".card", timeout=180000)
+        got = page.eval_on_selector_all(".card h3", "e => e.map(x => x.textContent)")
+        browser.close()
+    assert got == expected, f"browser said {got}, engine said {expected}"

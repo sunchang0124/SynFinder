@@ -42,3 +42,10 @@ families:
   - rule_based
   - resampling
   - toolkit
+preview_formats:
+  - tabular_csv
+  - event_sequence
+  - genomic_matrix
+  - image_spec
+  - text
+  - graph_edgelist

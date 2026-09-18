@@ -45,6 +45,18 @@ class Links(BaseModel):
     docs: str | None = None
 
 
+class OutputPreview(BaseModel):
+    """An illustration of the SHAPE a method emits.
+
+    Never real generated output. The disclaimer saying so is rendered by
+    report.render_preview, not stored here, so no entry can omit it.
+    """
+
+    format: str
+    note: str = Field(min_length=1)
+    preview: str = Field(min_length=1)
+
+
 class Method(BaseModel):
     id: str
     name: str
@@ -73,6 +85,7 @@ class Method(BaseModel):
     evaluation: list[str] = Field(default_factory=list)
     links: Links = Field(default_factory=Links)
     related_datasets: list[str] = Field(default_factory=list)
+    output_preview: OutputPreview | None = None
 
     is_framework: bool = False
 

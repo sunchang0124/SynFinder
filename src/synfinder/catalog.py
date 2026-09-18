@@ -81,6 +81,12 @@ def _check_terms(entry: dict, taxonomy: dict[str, list[str]], source: Path) -> N
         raise CatalogError(
             f"{source.name}: '{quality}' is not a permitted implementation_quality"
         )
+    preview = entry.get("output_preview") or {}
+    fmt = preview.get("format")
+    if fmt is not None and fmt not in set(taxonomy.get("preview_formats", [])):
+        raise CatalogError(
+            f"{source.name}: '{fmt}' is not a permitted output_preview format"
+        )
 
 
 def load_catalog(root: Path) -> Catalog:

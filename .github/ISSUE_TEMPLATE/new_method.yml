@@ -88,6 +88,12 @@ body:
       label: Paper DOI and code repository
     validations:
       required: true
+  - type: textarea
+    id: entry_yaml
+    attributes:
+      label: Generated catalog entry (YAML)
+      description: Filled in by the app's Submit tab. Leave empty if you used the form by hand.
+      render: yaml
   - type: checkboxes
     id: authorship
     attributes:

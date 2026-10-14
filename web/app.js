@@ -89,11 +89,11 @@ $("#themeToggle").onclick = () => {
 };
 
 /* ---------- tabs ---------- */
+const VIEWS = ["find", "browse", "submit"];
 document.querySelectorAll(".tab").forEach(t => {
   t.onclick = () => {
     document.querySelectorAll(".tab").forEach(x => x.classList.toggle("is-active", x === t));
-    $("#view-find").classList.toggle("hidden", t.dataset.view !== "find");
-    $("#view-browse").classList.toggle("hidden", t.dataset.view !== "browse");
+    VIEWS.forEach(v => $("#view-" + v).classList.toggle("hidden", t.dataset.view !== v));
     if (t.dataset.view === "browse") loadDatasets();
   };
 });
@@ -125,6 +125,16 @@ async function boot() {
   chips("#preserves", TAX.preserves);
   fill("#b_domain", ["any", ...TAX.domains]);
   fill("#b_data_type", ["any", ...TAX.data_types]);
+  fill("#s_family", TAX.families);
+  chips("#s_domains", TAX.domains);
+  chips("#s_data_types", TAX.data_types);
+  chips("#s_variable_types", TAX.variable_types);
+  fill("#s_compute", TAX.compute);
+  chips("#s_purposes", TAX.purposes);
+  chips("#s_preserves", TAX.preserves);
+  fill("#s_expertise", TAX.expertise);
+  fill("#s_quality", TAX.implementation_quality);
+  fill("#s_preview_format", TAX.preview_formats);
   $("#b_domain").onchange = $("#b_data_type").onchange = loadDatasets;
   const c = TAX.counts;
   $("#catalogCount").textContent =
@@ -396,6 +406,97 @@ function render(r) {
   $("#dlHtml").onclick = () =>
     save(lastReport.report_html, "synfinder-report.html", "text/html");
 }
+
+/* ---------- submission helpers ---------- */
+const ISSUE_BASE = "https://github.com/sunchang0124/SynFinder/issues/new";
+const MAX_ISSUE_URL = 7500;
+
+// One item per non-blank line; the textarea fields use this.
+function collectLines(text) {
+  return String(text || "").split("\n").map(s => s.trim()).filter(Boolean);
+}
+
+// A prefilled GitHub issue. Field ids match .github/ISSUE_TEMPLATE/new_method.yml;
+// the YAML goes into entry_yaml so a maintainer can save it as the catalog file.
+// GitHub rejects very long URLs, so the YAML is cut with a note; the page also
+// offers the full text through "Copy YAML".
+function issueUrl(answers, yamlText) {
+  const params = {
+    template: "new_method.yml",
+    title: `[method] ${answers.name || ""}`,
+    name: answers.name || "",
+    domains: (answers.domains || []).join(","),
+    data_types: (answers.data_types || []).join(","),
+    compute: answers.compute || "",
+    expertise: answers.expertise || "",
+    formal_dp: answers.formal_dp ? "yes - state the mechanism below" : "no",
+    caveats: (answers.caveats || []).join("\n"),
+    preview: answers.preview_body || "",
+    links: [answers.paper, answers.code].filter(Boolean).join(" "),
+  };
+  const build = (yaml) => ISSUE_BASE + "?" +
+    Object.entries({ ...params, entry_yaml: yaml })
+      .map(([k, v]) => `${k}=${encodeURIComponent(v)}`).join("&");
+  let url = build(yamlText);
+  if (url.length > MAX_ISSUE_URL) {
+    let keep = yamlText.length;
+    while (url.length > MAX_ISSUE_URL && keep > 0) {
+      keep = Math.floor(keep * 0.8);
+      url = build(yamlText.slice(0, keep) + "\n# ... truncated for the URL; paste the full YAML from the app\n");
+    }
+  }
+  return url;
+}
+
+/* ---------- submission ---------- */
+function collectSubmission() {
+  const v = id => $("#" + id).value.trim();
+  return {
+    id: v("s_id"), name: v("s_name"), family: v("s_family"),
+    domains: chosen("#s_domains"), data_types: chosen("#s_data_types"),
+    variable_types: chosen("#s_variable_types"),
+    formal_dp: v("s_formal_dp") === "yes",
+    dp_mechanism: v("s_dp_mechanism") || null,
+    compute: v("s_compute"), license: v("s_license"),
+    purposes: chosen("#s_purposes"), preserves: chosen("#s_preserves"),
+    expertise: v("s_expertise"), maintained: $("#s_maintained").checked,
+    implementation_quality: v("s_quality"),
+    caveats: collectLines(v("s_caveats")), evaluation: collectLines(v("s_evaluation")),
+    preview_format: v("s_preview_format"), preview_note: v("s_preview_note"),
+    preview_body: v("s_preview_body"),
+    paper: v("s_paper") || null, code: v("s_code") || null,
+    author: $("#s_author").checked,
+  };
+}
+
+$("#submitForm").onsubmit = async e => {
+  e.preventDefault();
+  const answers = collectSubmission();
+  const el = $("#submitResults");
+  let result;
+  try { result = await backend.validate(answers); }
+  catch (err) { el.innerHTML = `<div class="notice"><b>Validation failed to run.</b><br>${esc(err.message)}</div>`; return; }
+  if (result.errors.length) {
+    el.innerHTML = `<div class="notice"><b>Not valid yet.</b><ul>${result.errors.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>`;
+    return;
+  }
+  const url = issueUrl(answers, result.yaml);
+  el.innerHTML = `<p class="section-label">Valid entry</p>
+    <div class="card">
+      <p class="why">This is the catalog file a maintainer will review.${answers.author ? " You declared authorship; thank you." : ""}</p>
+      <pre id="yamlOut">${esc(result.yaml)}</pre>
+      <div class="dl-row">
+        <button class="dl" id="openIssue">Open a prefilled GitHub issue</button>
+        <button class="dl" id="copyYaml">Copy YAML</button>
+      </div>
+      <p class="why dim">Prefer a pull request? Save the YAML as <code>catalog/methods/${esc(answers.id)}.yaml</code>, run <code>pytest</code>, and open the PR.</p>
+    </div>`;
+  $("#openIssue").onclick = () => window.open(url, "_blank", "noopener");
+  $("#copyYaml").onclick = async () => {
+    try { await navigator.clipboard.writeText(result.yaml); $("#copyYaml").textContent = "Copied"; }
+    catch (err) { $("#copyYaml").textContent = "Select the text above and copy"; }
+  };
+};
 
 /* ---------- dataset browse ---------- */
 async function loadDatasets() {

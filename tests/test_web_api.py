@@ -179,3 +179,10 @@ def test_validate_endpoint_returns_errors_not_a_500():
     assert body["yaml"] is None
     assert any("dp_mechanism" in e for e in body["errors"])
     assert any("caveats" in e for e in body["errors"])
+
+
+def test_the_page_carries_the_submit_tab():
+    html = client.get("/").text
+    assert 'data-view="submit"' in html
+    assert 'id="submitForm"' in html
+    assert "api/validate" in html, "the submit flow must call the shared validator"

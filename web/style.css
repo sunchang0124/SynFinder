@@ -89,15 +89,16 @@ button,input,select{font:inherit; color:inherit}
   border-right:1.6px solid var(--faint); border-bottom:1.6px solid var(--faint);
   transform:translateY(-70%) rotate(45deg); pointer-events:none;
 }
-select,input[type=number]{
+select,input[type=number],input[type=text],textarea{
   width:100%; appearance:none; background:var(--surface-2);
   border:1px solid var(--border); border-radius:var(--r-sm);
   padding:10px 34px 10px 12px; font-size:14.5px; cursor:pointer;
   transition:border-color .16s, box-shadow .16s;
 }
-input[type=number]{padding-right:11px; cursor:text}
-select:hover,input:hover{border-color:var(--faint)}
-select:focus,input:focus{
+input[type=number],input[type=text],textarea{padding-right:11px; cursor:text}
+.field textarea{resize:vertical; font-family:inherit; width:100%}
+select:hover,input:hover,textarea:hover{border-color:var(--faint)}
+select:focus,input:focus,textarea:focus{
   outline:none; border-color:var(--accent);
   box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 16%, transparent);
 }

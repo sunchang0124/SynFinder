@@ -184,7 +184,16 @@ weights are wrong.
 
 ## Contributing
 
-Anyone can add a method or a dataset. The fastest route:
+Anyone can add a method or a dataset.
+
+**From the app.** Open the *Submit a method* tab, fill in the form, and press
+*Check and prepare submission*. The entry is validated against the same
+schema the catalog uses; a valid one opens a prefilled GitHub issue with the
+YAML attached. A maintainer reviews it, saves the YAML into
+`catalog/methods/`, and the method appears on the live page after the next
+deploy. Nothing is sent until you open the issue yourself.
+
+From the command line:
 
 ```bash
 synfinder new method      # writes a valid entry, refuses invalid terms

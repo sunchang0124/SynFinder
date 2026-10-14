@@ -50,7 +50,8 @@ def _candidate_json(c) -> dict:
         "links": {"paper": m.links.paper, "code": m.links.code,
                   "docs": m.links.docs},
         "axes": [{"axis": a.axis, "score": round(a.score, 3),
-                  "weight": a.weight, "note": a.note} for a in c.axes],
+                  "weight": a.weight, "note": a.note,
+                  "known": a.known} for a in c.axes],
         "preview": (
             {"format": m.output_preview.format,
              "note": m.output_preview.note,

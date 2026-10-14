@@ -48,3 +48,14 @@ def test_as_text_contains_every_section_present():
     assert "Watch out" in text
     assert "How to check" in text
     assert "Run SDMetrics." in text
+
+
+def test_an_unknown_axis_is_neither_a_strength_nor_a_weakness():
+    """Nobody checked, so the method is neither praised nor blamed for it."""
+    c = score_method(make_method(purposes=["ml_augmentation"]),
+                     intake(expected_rows=50_000, needs_governance_evidence=True),
+                     DEFAULT_WEIGHTS)
+    e = explain(c)
+    assert not any("size envelope" in w for w in e.why_fits)
+    assert e.weakness is None or "not yet" not in e.weakness
+    assert e.weakness is None or "size envelope" not in e.weakness

@@ -280,8 +280,8 @@ function axes(m) {
   if (!m.axes.length) return "";
   return `<div class="axes">${m.axes.map(a => `
     <div class="axis"><span>${esc(pretty(a.axis))}</span>
-      <span class="bar"><i style="width:0" data-w="${Math.round(a.score * 100)}"></i></span>
-      <span class="v">${a.score.toFixed(2)}</span></div>`).join("")}</div>`;
+      <span class="bar"><i style="width:0" data-w="${a.known === false ? 0 : Math.round(a.score * 100)}"></i></span>
+      <span class="v">${a.known === false ? "?" : a.score.toFixed(2)}</span></div>`).join("")}</div>`;
 }
 
 function card(m, i) {

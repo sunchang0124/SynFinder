@@ -110,3 +110,38 @@ def test_no_purpose_match_is_flagged_rather_than_hidden():
     result = rank([make_method(purposes=["education"])], intake(), top_n=3)
     assert result.no_purpose_match is True
     assert result.shortlist, "near-misses are still shown, but labelled"
+
+
+def test_unknown_scale_scores_neutral_and_is_flagged():
+    c = score_method(make_method(), intake(expected_rows=50_000), DEFAULT_WEIGHTS)
+    a = axis(c, "scale")
+    assert a.score == 0.5
+    assert a.known is False
+
+
+def test_verified_scale_inside_bounds_scores_full_and_is_known():
+    m = make_method(scale=Scale(min_rows=1_000, max_rows=100_000, max_cols=None,
+                                evidence="paper table 3"))
+    a = axis(score_method(m, intake(expected_rows=50_000), DEFAULT_WEIGHTS), "scale")
+    assert a.score == 1.0
+    assert a.known is True
+
+
+def test_unchecked_governance_is_unknown_not_absent():
+    a = axis(score_method(make_method(), intake(needs_governance_evidence=True),
+                          DEFAULT_WEIGHTS), "governance")
+    assert a.score == 0.5
+    assert a.known is False
+
+
+def test_checked_and_empty_governance_scores_low_and_is_known():
+    import datetime as dt
+    from synfinder.schema import Provenance, Links
+    m = make_method(links=Links(code="https://github.com/x/y"),
+                    provenance=Provenance(verified_on=dt.date(2026, 10, 14),
+                                          verified_by="x", sources_checked=["code"],
+                                          fields_checked=["governance"]))
+    a = axis(score_method(m, intake(needs_governance_evidence=True),
+                          DEFAULT_WEIGHTS), "governance")
+    assert a.score == 0.2
+    assert a.known is True

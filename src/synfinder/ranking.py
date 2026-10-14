@@ -94,6 +94,15 @@ class AxisScore:
     score: float
     weight: float
     note: str
+    # False when the catalog records nothing on this axis for this method.
+    # Scored UNKNOWN_SCORE, rendered "?", and never used in an explanation.
+    known: bool = True
+
+
+# What an axis scores when nobody has checked it. Neutral: neither the 1.0
+# that silently rewarded missing evidence before v3, nor a penalty for a gap
+# that is the catalog's fault rather than the method's.
+UNKNOWN_SCORE = 0.5
 
 
 @dataclass
@@ -172,8 +181,9 @@ def _scale_axis(method: Method, intake: Intake) -> AxisScore:
         score = 0.4
         note = f"needs roughly {min_rows:,} rows to train well"
     elif max_rows is None and min_rows is None:
-        score = 1.0
-        note = "has no published size envelope in the catalog yet"
+        return AxisScore("scale", UNKNOWN_SCORE, 0.0,
+                         "has no published size envelope; unverified for your size",
+                         known=False)
     else:
         score = 1.0
         note = f"handles {rows:,} rows comfortably"
@@ -196,12 +206,13 @@ def _governance_axis(method: Method) -> AxisScore:
     evidence = method.governance.acceptance_evidence
     deployments = method.governance.known_deployments
     if evidence or deployments:
-        score = 1.0
-        note = "has a track record you can point a review board to"
-    else:
-        score = 0.2
-        note = "has no documented governance or regulatory acceptance yet"
-    return AxisScore("governance", score, 0.0, note)
+        return AxisScore("governance", 1.0, 0.0,
+                         "has a track record you can point a review board to")
+    if method.governance_checked():
+        return AxisScore("governance", 0.2, 0.0,
+                         "has no documented governance or regulatory acceptance")
+    return AxisScore("governance", UNKNOWN_SCORE, 0.0,
+                     "has not had its governance record checked yet", known=False)
 
 
 def score_method(

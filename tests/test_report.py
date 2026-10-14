@@ -68,3 +68,13 @@ def test_provenance_line_for_both_states():
 def test_markdown_states_verification_for_every_method():
     md = render_markdown(intake(), rank([make_method(name="Plain")], intake()))
     assert "Not yet verified" in md
+
+
+def test_comparison_table_shows_a_question_mark_for_unknown_axes():
+    header, rows = comparison_rows(
+        rank([make_method()], intake(expected_rows=50_000,
+                                     needs_governance_evidence=True)))
+    scale_col = header.index("Scale")
+    gov_col = header.index("Governance")
+    assert rows[0][scale_col] == "?"
+    assert rows[0][gov_col] == "?"

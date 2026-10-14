@@ -59,7 +59,12 @@ def comparison_rows(ranking: Ranking) -> tuple[list[str], list[list[str]]]:
         row = [c.method.name, f"{c.fit:.0%}"]
         for name in COMPARISON_AXES:
             a = c.axis(name)
-            row.append("—" if a is None else f"{a.score:.2f}")
+            if a is None:
+                row.append("—")
+            elif not a.known:
+                row.append("?")
+            else:
+                row.append(f"{a.score:.2f}")
         rows.append(row)
     return header, rows
 

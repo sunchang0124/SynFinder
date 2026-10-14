@@ -20,6 +20,15 @@ PREVIEW_DISCLAIMER = (
 )
 
 
+def provenance_line(entry) -> str:
+    """Rendered by code so no entry can claim a check it does not carry."""
+    p = getattr(entry, "provenance", None)
+    if p is None:
+        return "Not yet verified"
+    d = p.verified_on
+    return f"Verified {d.day} {d.strftime('%b %Y')} by {p.verified_by}"
+
+
 def render_preview(p: OutputPreview) -> list[str]:
     """Markdown lines for a preview, disclaimer first and always."""
     return [
@@ -123,6 +132,7 @@ def render_markdown(
             out.append(f"### {d.name}")
             out.append("")
             out.append(f"- {d.n_records} · {d.license} · {d.access_conditions}")
+            out.append(f"- {provenance_line(d)}")
             if d.generated_by:
                 out.append(f"- Generated with: {d.generated_by}")
             for caveat in d.realism_caveats:
@@ -151,6 +161,8 @@ def render_markdown(
     for i, c in enumerate(ranking.shortlist, start=1):
         e = explain(c)
         out.append(f"### {i}. {c.method.name} — {c.fit:.0%} fit")
+        out.append("")
+        out.append(f"_{provenance_line(c.method)}_")
         out.append("")
         if e.why_fits:
             out.append("**Why it fits:** " + "; ".join(e.why_fits) + ".")

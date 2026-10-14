@@ -142,3 +142,10 @@ def test_candidates_carry_the_language_and_year_tags():
         "purpose": "ml_augmentation", "privacy": "not_required"}).json()
     assert any(c["language"] for c in body["shortlist"])
     assert any(c["last_updated"] for c in body["shortlist"])
+
+
+def test_candidates_and_datasets_carry_a_verification_label():
+    body = client.post("/api/recommend", json=INTAKE).json()
+    assert all("verified" in c for c in body["shortlist"])
+    sets = client.get("/api/datasets").json()["datasets"]
+    assert all("verified" in d for d in sets)

@@ -1,7 +1,51 @@
 """Pydantic models for catalog entries."""
 from __future__ import annotations
 
+from datetime import date
+
 from pydantic import BaseModel, Field, model_validator
+
+PROVENANCE_SOURCES = ("paper", "code", "docs")
+
+
+class Provenance(BaseModel):
+    """Who checked this entry against what, and when.
+
+    Rendered as "Verified <date> by <name>" by report.provenance_line. An
+    entry without one renders "Not yet verified" - the honest state for a
+    fresh contribution.
+    """
+
+    verified_on: date
+    verified_by: str = Field(min_length=1)
+    sources_checked: list[str] = Field(min_length=1)
+    fields_checked: list[str] = Field(default_factory=list)
+    notes: str | None = None
+
+    @model_validator(mode="after")
+    def _well_formed(self) -> "Provenance":
+        bad = sorted(set(self.sources_checked) - set(PROVENANCE_SOURCES))
+        if bad:
+            raise ValueError(
+                f"sources_checked contains {bad}; allowed: {list(PROVENANCE_SOURCES)}")
+        if self.verified_on > date.today():
+            raise ValueError("verified_on is in the future")
+        return self
+
+
+def _check_provenance(entry: "Method | Dataset") -> None:
+    p = entry.provenance
+    if p is None:
+        return
+    for source in p.sources_checked:
+        if getattr(entry.links, source) is None:
+            raise ValueError(
+                f"provenance says {source} was checked but the entry has "
+                f"no {source} link")
+    allowed = set(type(entry).model_fields)
+    unknown = sorted(set(p.fields_checked) - allowed)
+    if unknown:
+        raise ValueError(f"fields_checked names unknown fields {unknown}")
 
 
 class Scale(BaseModel):
@@ -86,6 +130,7 @@ class Method(BaseModel):
     links: Links = Field(default_factory=Links)
     related_datasets: list[str] = Field(default_factory=list)
     output_preview: OutputPreview | None = None
+    provenance: Provenance | None = None
 
     # Practical tags, read off the repository rather than estimated.
     language: str | None = None
@@ -104,6 +149,17 @@ class Method(BaseModel):
             raise ValueError("formal_dp is true but dp_mechanism is missing")
         return self
 
+    @model_validator(mode="after")
+    def _provenance_matches_entry(self) -> "Method":
+        _check_provenance(self)
+        return self
+
+    def governance_checked(self) -> bool:
+        """True only when someone recorded that they looked for governance
+        evidence. Distinguishes "none found" from "nobody looked"."""
+        return (self.provenance is not None
+                and "governance" in self.provenance.fields_checked)
+
 
 class Dataset(BaseModel):
     id: str
@@ -119,6 +175,12 @@ class Dataset(BaseModel):
     license: str
     realism_caveats: list[str] = Field(min_length=1)
     links: Links = Field(default_factory=Links)
+    provenance: Provenance | None = None
+
+    @model_validator(mode="after")
+    def _provenance_matches_entry(self) -> "Dataset":
+        _check_provenance(self)
+        return self
 
     @model_validator(mode="after")
     def _dp_needs_mechanism(self) -> "Dataset":

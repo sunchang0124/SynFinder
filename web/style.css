@@ -208,6 +208,7 @@ select:focus,input:focus{
 .badge.lang{color:var(--accent-2); border-color:color-mix(in srgb, var(--accent-2) 30%, transparent);
   background:color-mix(in srgb, var(--accent-2) 10%, transparent)}
 .badge.warnish{color:var(--warn); border-color:var(--warn-br); background:var(--warn-bg)}
+.badge.ok{color:var(--accent); border-color:var(--accent)}
 .badge.stale{color:var(--rose); border-color:color-mix(in srgb, var(--rose) 30%, transparent);
   background:color-mix(in srgb, var(--rose) 9%, transparent)}
 

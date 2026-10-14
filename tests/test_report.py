@@ -51,3 +51,20 @@ def test_an_uncovered_modality_says_so_instead_of_claiming_no_match():
 def test_a_covered_modality_with_no_match_says_that_instead():
     md = render_markdown(intake(), rank([], intake()), covered=True)
     assert "No method in the catalog meets these requirements" in md
+
+
+def test_provenance_line_for_both_states():
+    import datetime as dt
+    from synfinder.report import provenance_line
+    from synfinder.schema import Provenance, Links
+    assert provenance_line(make_method()) == "Not yet verified"
+    verified = make_method(
+        links=Links(code="https://github.com/x/y"),
+        provenance=Provenance(verified_on=dt.date(2026, 10, 14),
+                              verified_by="Chang Sun", sources_checked=["code"]))
+    assert provenance_line(verified) == "Verified 14 Oct 2026 by Chang Sun"
+
+
+def test_markdown_states_verification_for_every_method():
+    md = render_markdown(intake(), rank([make_method(name="Plain")], intake()))
+    assert "Not yet verified" in md

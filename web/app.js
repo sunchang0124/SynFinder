@@ -271,6 +271,7 @@ function badges(m) {
     b.push(`<span class="${cls}">updated ${m.last_updated}</span>`);
   }
   if (!m.maintained) b.push(`<span class="badge stale">unmaintained</span>`);
+  b.push(`<span class="badge ${m.verified.startsWith("Not") ? "stale" : "ok"}">${esc(m.verified)}</span>`);
   b.push(`<span class="badge">${esc(m.license)}</span>`);
   return `<div class="badges">${b.join("")}</div>`;
 }
@@ -311,6 +312,7 @@ function datasetBlock(d) {
     <div class="meta-row">
       <span class="badge">${esc(d.n_records)}</span>
       <span class="badge">${esc(d.license)}</span>
+      <span class="badge ${d.verified.startsWith("Not") ? "stale" : "ok"}">${esc(d.verified)}</span>
       ${d.generated_by ? `<span class="badge">via ${esc(d.generated_by)}</span>` : ""}
     </div>
     <p class="why" style="margin-top:9px"><span class="dim">Access —</span> ${esc(d.access_conditions)}</p>

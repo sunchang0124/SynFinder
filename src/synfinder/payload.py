@@ -8,6 +8,7 @@ from __future__ import annotations
 
 from .explain import explain
 from .ranking import Ranking
+from .report import provenance_line
 
 def _top_only(ranking: Ranking, top: list) -> Ranking:
     """The exported report carries the shortlist, not the long tail."""
@@ -17,7 +18,8 @@ def _top_only(ranking: Ranking, top: list) -> Ranking:
 
 def _dataset_json(d) -> dict:
     return {
-        "id": d.id, "name": d.name, "n_records": d.n_records,
+        "id": d.id, "name": d.name, "verified": provenance_line(d),
+        "n_records": d.n_records,
         "license": d.license, "access_conditions": d.access_conditions,
         "domains": d.domains, "data_types": d.data_types,
         "generated_by": d.generated_by,
@@ -31,6 +33,7 @@ def _candidate_json(c) -> dict:
     m = c.method
     return {
         "id": m.id, "name": m.name, "family": m.family,
+        "verified": provenance_line(m),
         "fit": round(c.fit, 4),
         "why_fits": e.why_fits,
         "weakness": e.weakness,

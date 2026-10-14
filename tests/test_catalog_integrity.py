@@ -109,3 +109,15 @@ def test_the_social_science_domain_is_gone():
         assert not re.search(r"\bssh\b", path.read_text()), f"{path} mentions ssh"
     catalog = load_catalog(default_catalog_root())
     assert catalog.taxonomy["domains"] == ["biomedical", "general"]
+
+
+def test_unverified_entries_are_listed_but_do_not_fail(capsys):
+    """The count is printed so every CI log shows how much of the catalog has
+    been checked. Nothing forces 100 %: a fresh contribution is unverified
+    until a maintainer verifies it, and that is the honest state."""
+    catalog = load_catalog(default_catalog_root())
+    entries = catalog.methods + catalog.datasets
+    unverified = [e.id for e in entries if e.provenance is None]
+    print(f"\n{len(unverified)} of {len(entries)} entries not yet verified: "
+          + ", ".join(unverified))
+    assert len(unverified) <= len(entries)

@@ -1,4 +1,4 @@
-domains: [biomedical, ssh, general]
+domains: [biomedical, general]
 data_types:
   - tabular_cross_sectional
   - tabular_longitudinal

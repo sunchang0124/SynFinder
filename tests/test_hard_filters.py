@@ -17,9 +17,12 @@ def test_general_domain_methods_survive_a_biomedical_intake():
 
 
 def test_wrong_domain_is_excluded_with_a_reason():
-    kept, dropped = hard_filter([make_method(domains=["ssh"])], intake())
+    """A method established only for biomedical work must not be offered to a
+    general-domain intake."""
+    kept, dropped = hard_filter([make_method(domains=["biomedical"])],
+                                intake(domain="general"))
     assert kept == []
-    assert "biomedical" in dropped[0].reason
+    assert "general" in dropped[0].reason
 
 
 def test_unsupported_data_type_is_excluded():

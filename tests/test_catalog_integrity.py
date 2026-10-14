@@ -94,3 +94,18 @@ def test_most_methods_carry_both_tags():
     tagged = [m for m in methods if m.language and m.last_updated]
     assert len(tagged) > len(methods) * 0.8, (
         f"only {len(tagged)} of {len(methods)} methods carry both tags")
+
+
+def test_the_social_science_domain_is_gone():
+    """v3 is biomedical only. The word must not survive anywhere a user or a
+    contributor can meet it."""
+    import re
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    files = [root / "catalog" / "taxonomy.yaml", root / "web" / "app.js",
+             *sorted((root / "catalog").rglob("*.yaml")),
+             *sorted((root / ".github" / "ISSUE_TEMPLATE").glob("*.yml"))]
+    for path in files:
+        assert not re.search(r"\bssh\b", path.read_text()), f"{path} mentions ssh"
+    catalog = load_catalog(default_catalog_root())
+    assert catalog.taxonomy["domains"] == ["biomedical", "general"]

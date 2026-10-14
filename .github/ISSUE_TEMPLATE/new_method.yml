@@ -19,7 +19,7 @@ body:
     attributes:
       label: Domains
       multiple: true
-      options: [biomedical, ssh, general]
+      options: [biomedical, general]
     validations:
       required: true
   - type: dropdown
@@ -37,6 +37,7 @@ body:
         - images
         - graph
         - genomic
+        - single_cell_omics
     validations:
       required: true
   - type: dropdown

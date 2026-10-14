@@ -8,7 +8,9 @@ Thank you for wanting to add to this catalog.
 
 SynFinder helps researchers choose a synthetic data generation method. It is
 useful only because its entries are honest about what goes wrong. A catalog
-of methods that all sound good is a catalog nobody needs.
+of methods that all sound good is a catalog nobody needs. The scope is health,
+clinical and biomedical research; a method with no documented biomedical use is
+out of scope.
 
 That makes the `caveats` field the most important thing you will write, and
 the thing a maintainer will read hardest.

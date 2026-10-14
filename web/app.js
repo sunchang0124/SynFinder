@@ -35,7 +35,7 @@ const LANG = {
   javascript: "JavaScript", multiple: "Multiple languages", other: "Other",
 };
 const ACRONYM = {
-  gan: "GAN", vae: "VAE", llm: "LLM", dp: "DP", ssh: "SSH", cpu: "CPU",
+  gan: "GAN", vae: "VAE", llm: "LLM", dp: "DP", cpu: "CPU",
   gpu: "GPU", ml: "ML", ok: "OK", csv: "CSV", ehr: "EHR", id: "ID",
 };
 // A few taxonomy terms read badly when merely capitalised.

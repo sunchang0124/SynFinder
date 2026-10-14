@@ -19,7 +19,7 @@ body:
     attributes:
       label: Domains
       multiple: true
-      options: [biomedical, ssh, general]
+      options: [biomedical, general]
     validations:
       required: true
   - type: dropdown

@@ -19,9 +19,9 @@ a ranked shortlist of methods, each with a rationale, its honest failure modes,
 and how to check the output was any good. It also tells you what it ruled out
 and why.
 
-Built for health, clinical and biomedical researchers first. Social sciences
-and humanities are next, and will arrive as catalog entries rather than as new
-code.
+Built for health, clinical and biomedical researchers. Methods that work on
+any tabular, sequence, image, text, graph or omics data are included when they
+have documented biomedical use.
 
 ## Run it from a clean clone
 

@@ -15,7 +15,7 @@ scale:
   evidence: null
 expertise: high
 maturity:
-  maintained: false
+  maintained: true
   last_release: null
   implementation_quality: research_code
 governance:

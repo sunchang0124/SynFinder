@@ -7,7 +7,7 @@ data_types: [coded_event_sequences, tabular_longitudinal]
 variable_types: [categorical, count, datetime]
 formal_dp: false
 compute: gpu_required
-license: MIT
+license: Apache-2.0
 language: python
 last_updated: 2025
 purposes: [ml_augmentation, benchmarking, statistical_replication]
@@ -16,7 +16,7 @@ scale:
   evidence: null
 expertise: high
 maturity:
-  maintained: false
+  maintained: true
   last_release: null
   implementation_quality: research_code
 governance:

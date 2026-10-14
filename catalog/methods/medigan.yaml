@@ -16,7 +16,7 @@ scale:
   evidence: null
 expertise: low
 maturity:
-  maintained: true
+  maintained: false
   last_release: null
   implementation_quality: production_ready
 governance:

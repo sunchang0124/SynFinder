@@ -9,7 +9,7 @@ n_records: >-
   inpatient, outpatient, carrier and prescription drug files
 formal_dp: false
 access_conditions: Free public download from CMS, no registration.
-license: US public domain
+license: Apache-2.0
 realism_caveats:
   - >-
     Built by the US Centers for Medicare and Medicaid Services so that

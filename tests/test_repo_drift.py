@@ -18,7 +18,6 @@ CATALOG = load_catalog(default_catalog_root())
 ENTRIES = {e.id: e for e in CATALOG.methods + CATALOG.datasets}
 
 
-@pytest.mark.xfail(strict=False, reason="drift fixed in the next commit")
 @pytest.mark.parametrize("entry_id", sorted(ENTRIES))
 def test_entry_agrees_with_its_repository(entry_id):
     entry = ENTRIES[entry_id]

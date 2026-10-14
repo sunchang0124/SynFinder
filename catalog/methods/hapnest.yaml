@@ -6,7 +6,7 @@ data_types: [genomic]
 variable_types: [categorical, continuous]
 formal_dp: false
 compute: cpu_fine
-license: MIT
+license: GPL-3.0
 language: python
 last_updated: 2023
 purposes: [benchmarking, ml_augmentation, open_release]

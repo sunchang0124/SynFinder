@@ -60,3 +60,25 @@ def test_multiple_language_and_missing_values_do_not_drift():
     m = make_method(license="MIT", language="multiple", last_updated=None,
                     maturity=Maturity(maintained=True, implementation_quality="research_code"))
     assert repometa.drift(m, dict(META, license_spdx="NOASSERTION"), FETCHED) == []
+
+
+def test_rewrite_fields_touches_only_the_named_lines():
+    text = ("id: m\n# keep this comment\nlicense: Apache-2.0\nlanguage: r\n"
+            "last_updated: 2023\nmaturity:\n  maintained: false\n"
+            "  last_release: \"2023-01\"\n  implementation_quality: research_code\n")
+    out = repometa.rewrite_fields(text, {"license": "MIT", "language": "python",
+                                         "last_updated": "2026",
+                                         "maturity.maintained": "true"})
+    assert "# keep this comment" in out
+    assert "license: MIT\n" in out
+    assert "language: python\n" in out
+    assert "last_updated: 2026\n" in out
+    assert "  maintained: true\n" in out
+    assert '  last_release: "2023-01"\n' in out
+    assert out.count("\n") == text.count("\n")
+
+
+def test_rewrite_fields_adds_a_missing_top_level_field_after_license():
+    text = "id: m\nlicense: MIT\npurposes: [education]\n"
+    out = repometa.rewrite_fields(text, {"language": "python"})
+    assert out == "id: m\nlicense: MIT\nlanguage: python\npurposes: [education]\n"

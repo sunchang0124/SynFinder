@@ -7,7 +7,7 @@ variable_types: [continuous, categorical, ordinal, count]
 formal_dp: true
 dp_mechanism: DP-SGD applied to the CTGAN discriminator
 compute: gpu_recommended
-license: MIT
+license: Apache-2.0
 language: python
 last_updated: 2026
 purposes: [open_release, ml_augmentation, benchmarking]

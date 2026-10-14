@@ -95,3 +95,38 @@ def drift(entry, meta: dict, fetched_at: str) -> list[str]:
 
 def load_metadata(path: Path) -> dict:
     return json.loads(Path(path).read_text())
+
+
+def rewrite_fields(text: str, updates: dict[str, str]) -> str:
+    """Replace scalar lines in a YAML file without reserialising it.
+
+    Keys are top-level (`license`) or one level under `maturity`
+    (`maturity.maintained`). A missing top-level key is inserted after the
+    `license:` line. Comments, order and quoting elsewhere are untouched.
+    """
+    lines = text.split("\n")
+    for key, value in updates.items():
+        if "." in key:
+            parent, child = key.split(".", 1)
+            inside = False
+            for i, line in enumerate(lines):
+                if line.startswith(f"{parent}:"):
+                    inside = True
+                    continue
+                if inside and line and not line.startswith(" "):
+                    inside = False
+                if inside and line.lstrip().startswith(f"{child}:"):
+                    indent = line[:len(line) - len(line.lstrip())]
+                    lines[i] = f"{indent}{child}: {value}"
+                    break
+            continue
+        for i, line in enumerate(lines):
+            if line.startswith(f"{key}:"):
+                lines[i] = f"{key}: {value}"
+                break
+        else:
+            for i, line in enumerate(lines):
+                if line.startswith("license:"):
+                    lines.insert(i + 1, f"{key}: {value}")
+                    break
+    return "\n".join(lines)

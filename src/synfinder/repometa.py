@@ -11,6 +11,8 @@ import re
 from datetime import datetime, timezone
 from pathlib import Path
 
+from .schema import Method
+
 _GITHUB = re.compile(r"^https?://(?:www\.)?github\.com/([^/\s]+)/([^/\s#?]+)")
 
 LICENSE_ALIASES = {
@@ -66,10 +68,16 @@ def is_maintained(pushed_at: str, archived: bool, fetched_at: str) -> bool:
 
 
 def drift(entry, meta: dict, fetched_at: str) -> list[str]:
-    """Human-readable disagreements between a catalog entry and its repo."""
+    """Human-readable disagreements between a catalog entry and its repo.
+
+    The licence rule applies to methods only: a dataset's licence describes
+    the data, while its code link points at the generating or ETL tool, so
+    the repository licence is no evidence about the data licence.
+    """
     out: list[str] = []
     repo_license = normalise_license(meta.get("license_spdx"))
-    if repo_license and normalise_license(entry.license) != repo_license:
+    if (isinstance(entry, Method) and repo_license
+            and normalise_license(entry.license) != repo_license):
         out.append(f"{entry.id}: license is {entry.license!r} but the "
                    f"repository says {repo_license!r}")
     repo_lang = map_language(meta.get("language"))

@@ -16,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from synfinder.catalog import load_catalog  # noqa: E402
+from synfinder.schema import Method  # noqa: E402
 from synfinder.repometa import (drift, is_maintained, load_metadata,  # noqa: E402
                                 map_language, normalise_license, rewrite_fields)
 
@@ -37,7 +38,7 @@ def main() -> int:
         path = ROOT / "catalog" / sub / f"{entry.id}.yaml"
         updates: dict[str, str] = {}
         lic = normalise_license(meta.get("license_spdx"))
-        if lic and normalise_license(entry.license) != lic:
+        if isinstance(entry, Method) and lic and normalise_license(entry.license) != lic:
             updates["license"] = lic
         lang = map_language(meta.get("language"))
         cur_lang = getattr(entry, "language", None)

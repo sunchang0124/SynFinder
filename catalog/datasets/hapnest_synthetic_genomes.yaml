@@ -9,7 +9,7 @@ n_records: >-
 formal_dp: false
 generated_by: hapnest
 access_conditions: Free download from EMBL-EBI BioStudies, accession S-BSST936.
-license: GPL-3.0
+license: CC-BY-4.0
 realism_caveats:
   - >-
     Explicitly multi-ancestry, which is the point - it exists so polygenic

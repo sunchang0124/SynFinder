@@ -82,3 +82,11 @@ def test_rewrite_fields_adds_a_missing_top_level_field_after_license():
     text = "id: m\nlicense: MIT\npurposes: [education]\n"
     out = repometa.rewrite_fields(text, {"language": "python"})
     assert out == "id: m\nlicense: MIT\nlanguage: python\npurposes: [education]\n"
+
+
+def test_dataset_licence_is_not_compared_with_the_repository():
+    from synfinder.schema import Dataset, Links
+    d = Dataset(id="d", name="D", domains=["health"], data_types=["tabular"],
+                n_records="1k", access_conditions="open", license="CC-BY-4.0",
+                realism_caveats=["synthetic"], links=Links(code="https://github.com/o/r"))
+    assert not any("license" in s for s in repometa.drift(d, dict(META, license_spdx="GPL-3.0"), FETCHED))

@@ -136,6 +136,23 @@ they are not real generated output, and the tool says so above every one.
    `catalog/weights.yaml`.
 3. **Questions you skip are dropped** from the average entirely — they never
    count against a method as a zero.
+4. **Unknown is not fine.** An axis the catalog records nothing on scores a
+   neutral 0.5 and shows as `?`, never as a silent 1.0. The explanation does
+   not praise or blame a method for something nobody checked.
+
+## Keeping the catalog honest
+
+Every entry can carry a `provenance` block: who checked it, on what date,
+against which sources, and which fields. The app and the report show
+"Verified <date> by <name>" or "Not yet verified"; the label is rendered by
+code, so no entry can claim a check it does not carry. CI prints how many
+entries are unverified.
+
+The mechanical facts are checked by machine. `tools/sync_repos.py` reads
+licence, language, last push, archived status and latest release from GitHub
+into `catalog/repo_metadata.json`; `tests/test_repo_drift.py` fails when an
+entry disagrees with its repository; `tools/apply_repo_metadata.py` writes
+the corrections. Run the sync a few times a year.
 
 ## Adding a catalog entry
 

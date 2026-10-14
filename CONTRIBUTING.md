@@ -61,6 +61,29 @@ paper or the repository, not against the submission text:
 - `output_preview` — must show the shape the method really emits; `image_spec`
   entries carry a written specification, never image data
 
+## Verifying an entry
+
+1. Run `tools/sync_repos.py` and `pytest tests/test_repo_drift.py`; fix any
+   mechanical drift with `tools/apply_repo_metadata.py --write`.
+2. Open the paper. Confirm `data_types`, `variable_types`, `purposes`,
+   `preserves`, `formal_dp` and `dp_mechanism`. Record scale bounds only
+   with the table or figure they come from; otherwise leave them empty.
+3. Look for governance evidence: a named regulator, ethics board,
+   statistics agency or deployment. Record what you find, or nothing, and
+   list `governance` in `fields_checked` either way.
+4. Reread the caveats against the paper's limitations section and the
+   repository issues. Sharpen them.
+5. Write the `provenance` block:
+
+   ```yaml
+   provenance:
+     verified_on: 2026-10-14
+     verified_by: Your Name
+     sources_checked: [paper, code]
+     fields_checked: [data_types, formal_dp, scale, governance, caveats]
+     notes: Scale from Table 3; DP accountant checked in train.py.
+   ```
+
 ## A note on output previews
 
 Previews illustrate the *format* a method emits. They are not real generated

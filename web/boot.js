@@ -88,7 +88,8 @@ from synfinder.contribute import to_yaml, validate_method
 
 def validate_json(payload):
     answers = json.loads(payload)
-    errors, entry = validate_method(answers, CAT.taxonomy)
+    errors, entry = validate_method(answers, CAT.taxonomy,
+                                    {m.id for m in CAT.methods})
     return json.dumps({"errors": errors,
                        "yaml": to_yaml(entry) if entry else None})
 `);

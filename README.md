@@ -152,7 +152,8 @@ The mechanical facts are checked by machine. `tools/sync_repos.py` reads
 licence, language, last push, archived status and latest release from GitHub
 into `catalog/repo_metadata.json`; `tests/test_repo_drift.py` fails when an
 entry disagrees with its repository; `tools/apply_repo_metadata.py` writes
-the corrections. Run the sync a few times a year.
+the corrections. Run the sync a few times a year. CI fails when the metadata
+file is more than a year old, so the sync cannot be forgotten.
 
 ## Adding a catalog entry
 
@@ -208,7 +209,7 @@ Anyone can add a method or a dataset.
 schema the catalog uses; a valid one opens a prefilled GitHub issue with the
 YAML attached. A maintainer reviews it, saves the YAML into
 `catalog/methods/`, and the method appears on the live page after the next
-deploy. Nothing is sent until you open the issue yourself.
+deploy. Nothing is sent to GitHub until you open the issue yourself.
 
 From the command line:
 

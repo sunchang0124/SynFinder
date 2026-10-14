@@ -298,7 +298,7 @@ function badges(m) {
 function axes(m) {
   if (!m.axes.length) return "";
   return `<div class="axes">${m.axes.map(a => `
-    <div class="axis"><span>${esc(pretty(a.axis))}</span>
+    <div class="axis" title="${esc(a.note || "")}"><span>${esc(pretty(a.axis))}</span>
       <span class="bar"><i style="width:0" data-w="${a.known === false ? 0 : Math.round(a.score * 100)}"></i></span>
       <span class="v">${a.known === false ? "?" : a.score.toFixed(2)}</span></div>`).join("")}</div>`;
 }
@@ -313,7 +313,7 @@ function card(m, i) {
       ${ring(m.fit)}
     </div>
     ${m.why_fits.length ? `<p class="why"><span class="dim">Why it fits —</span> ${esc(m.why_fits.join("; "))}.</p>` : ""}
-    ${m.narration ? `<p class="why"><span class="dim">In plain words —</span> ${esc(m.narration)} <span class="dim">(rewritten from the catalog text by an AI model; it cannot add claims)</span></p>` : ""}
+    ${m.narration ? `<p class="why"><span class="dim">In plain words —</span> ${esc(m.narration)} <span class="dim">Rewritten from the catalog text by an AI model; it cannot add claims.</span></p>` : ""}
     ${m.weakness ? `<p class="why"><span class="dim">Weaker on —</span> it ${esc(m.weakness)}.</p>` : ""}
     ${bullets("Watch out", m.caveats, "")}
     ${bullets("How to check it worked", m.evaluation, " info")}
@@ -435,15 +435,31 @@ function issueUrl(answers, yamlText) {
     preview: answers.preview_body || "",
     links: [answers.paper, answers.code].filter(Boolean).join(" "),
   };
-  const build = (yaml) => ISSUE_BASE + "?" +
-    Object.entries({ ...params, entry_yaml: yaml })
+  const build = (yaml, p = params) => ISSUE_BASE + "?" +
+    Object.entries({ ...p, entry_yaml: yaml })
       .map(([k, v]) => `${k}=${encodeURIComponent(v)}`).join("&");
+  // Cut text to `keep` UTF-16 units without splitting a surrogate pair.
+  const cut = (text, keep) => {
+    if (keep > 0 && keep < text.length) {
+      const c = text.charCodeAt(keep - 1);
+      if (c >= 0xD800 && c <= 0xDBFF) keep -= 1;
+    }
+    return text.slice(0, Math.max(keep, 0));
+  };
   let url = build(yamlText);
   if (url.length > MAX_ISSUE_URL) {
+    // The YAML already carries the preview and caveats; cap the copies first.
+    const capped = { ...params };
+    for (const k of ["preview", "caveats"]) {
+      capped[k] = capped[k].length > 300
+        ? cut(capped[k], 300) + "\n... truncated (see entry_yaml below)" : capped[k];
+    }
+    params.preview = capped.preview; params.caveats = capped.caveats;
+    url = build(yamlText);
     let keep = yamlText.length;
     while (url.length > MAX_ISSUE_URL && keep > 0) {
       keep = Math.floor(keep * 0.8);
-      url = build(yamlText.slice(0, keep) + "\n# ... truncated for the URL; paste the full YAML from the app\n");
+      url = build(cut(yamlText, keep) + "\n# ... truncated for the URL; paste the full YAML from the app\n");
     }
   }
   return url;
@@ -457,7 +473,7 @@ function collectSubmission() {
     domains: chosen("#s_domains"), data_types: chosen("#s_data_types"),
     variable_types: chosen("#s_variable_types"),
     formal_dp: v("s_formal_dp") === "yes",
-    dp_mechanism: v("s_dp_mechanism") || null,
+    dp_mechanism: v("s_formal_dp") === "yes" ? (v("s_dp_mechanism") || null) : null,
     compute: v("s_compute"), license: v("s_license"),
     purposes: chosen("#s_purposes"), preserves: chosen("#s_preserves"),
     expertise: v("s_expertise"), maintained: $("#s_maintained").checked,
@@ -481,7 +497,9 @@ $("#submitForm").onsubmit = async e => {
     el.innerHTML = `<div class="notice"><b>Not valid yet.</b><ul>${result.errors.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>`;
     return;
   }
-  const url = issueUrl(answers, result.yaml);
+  let url;
+  try { url = issueUrl(answers, result.yaml); }
+  catch (err) { el.innerHTML = `<div class="notice"><b>Could not prepare the GitHub issue.</b><br>${esc(err.message)}</div>`; return; }
   el.innerHTML = `<p class="section-label">Valid entry</p>
     <div class="card">
       <p class="why">This is the catalog file a maintainer will review.${answers.author ? " You declared authorship; thank you." : ""}</p>

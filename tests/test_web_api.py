@@ -203,3 +203,10 @@ def test_recommend_narration_is_null_without_a_model(monkeypatch):
     monkeypatch.setattr(llm, "available", lambda: False)
     body = client.post("/api/recommend", json=INTAKE).json()
     assert all(c["narration"] is None for c in body["shortlist"])
+
+
+def test_validate_endpoint_rejects_an_id_already_in_the_catalog():
+    body = client.post("/api/validate",
+                       json={"answers": dict(GOOD_ANSWERS, id="ctgan")}).json()
+    assert body["yaml"] is None
+    assert any("already exists" in e for e in body["errors"])

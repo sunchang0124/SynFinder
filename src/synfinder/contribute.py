@@ -1,6 +1,7 @@
 """Generate a valid catalog entry, so a contributor cannot write an invalid one."""
 from __future__ import annotations
 
+import re
 import sys
 from pathlib import Path
 
@@ -66,7 +67,8 @@ def build_dataset(a: dict) -> dict:
     }
 
 
-def validate_method(answers: dict, taxonomy: dict) -> tuple[list[str], dict | None]:
+def validate_method(answers: dict, taxonomy: dict,
+                    existing_ids=()) -> tuple[list[str], dict | None]:
     """Every reason this entry cannot enter the catalog, in plain words.
 
     Shared by `synfinder new method`, the HTTP API and the browser form, so
@@ -78,6 +80,13 @@ def validate_method(answers: dict, taxonomy: dict) -> tuple[list[str], dict | No
         return [f"missing answer: {exc.args[0]}"], None
 
     errors: list[str] = []
+    if not (entry["links"].get("paper") or entry["links"].get("code")):
+        errors.append("links: give a paper DOI/URL or a code repository URL")
+    entry_id = str(entry["id"])
+    if not re.fullmatch(r"[a-z0-9_]+", entry_id):
+        errors.append("id: use lowercase letters, digits and underscores only")
+    elif entry_id in set(existing_ids or ()):
+        errors.append(f"id: '{entry_id}' already exists in the catalog")
     for field, key in CONTROLLED.items():
         value = entry.get(field)
         if value is None:
@@ -185,7 +194,8 @@ def new_entry(kind: str, catalog_root: Path, answers: dict | None = None,
     a = answers if answers is not None else _interview(kind, catalog.taxonomy)
 
     if kind == "method":
-        errors, entry = validate_method(a, catalog.taxonomy)
+        errors, entry = validate_method(a, catalog.taxonomy,
+                                        {m.id for m in catalog.methods})
     else:
         entry = build_dataset(a)
         errors = []

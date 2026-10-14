@@ -78,3 +78,14 @@ def test_comparison_table_shows_a_question_mark_for_unknown_axes():
     gov_col = header.index("Governance")
     assert rows[0][scale_col] == "?"
     assert rows[0][gov_col] == "?"
+
+
+def test_unknown_legend_appears_only_when_an_axis_is_unknown():
+    from synfinder.schema import Scale
+    legend = "? = not yet recorded in the catalog"
+    unknown = make_method(id="u", name="U")
+    known = make_method(id="k", name="K", scale=Scale(
+        min_rows=100, max_rows=100000, evidence="paper table 2"))
+    i = intake(expected_rows=5000)
+    assert legend in render_markdown(i, rank([unknown], i))
+    assert legend not in render_markdown(i, rank([known], i))

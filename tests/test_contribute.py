@@ -83,3 +83,22 @@ def test_validate_method_reports_a_missing_required_answer():
     errors, entry = validate_method(bad, TAX)
     assert entry is None
     assert any("name" in e for e in errors)
+
+
+def test_validate_method_requires_a_paper_or_code_link():
+    from synfinder.contribute import validate_method
+    errors, entry = validate_method(dict(ANSWERS, paper=None, code=None), TAX)
+    assert entry is None and any("links" in e for e in errors)
+
+
+def test_validate_method_rejects_a_malformed_id():
+    from synfinder.contribute import validate_method
+    errors, entry = validate_method(dict(ANSWERS, id="Bad Id!"), TAX)
+    assert entry is None and any(e.startswith("id") for e in errors)
+
+
+def test_validate_method_rejects_an_id_already_in_the_catalog():
+    from synfinder.contribute import validate_method
+    errors, entry = validate_method(dict(ANSWERS, id="ctgan"), TAX,
+                                    existing_ids={"ctgan"})
+    assert entry is None and any("already exists" in e for e in errors)

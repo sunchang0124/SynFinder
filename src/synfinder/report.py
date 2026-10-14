@@ -199,6 +199,9 @@ def render_markdown(
                 "|" + "---|" * len(header)]
         out += ["| " + " | ".join(r) + " |" for r in rows]
         out.append("")
+        if any(not a.known for c in ranking.shortlist for a in c.axes):
+            out += ["? = not yet recorded in the catalog; scored neutral (0.5) "
+                    "and left out of the explanation.", ""]
 
     if ranking.excluded:
         out += [

@@ -58,9 +58,18 @@ check("issue url targets the method form", url.startsWith(ISSUE_BASE) && url.inc
 check("title is prefilled", decodeURIComponent(url).includes("title=[method] My Method"));
 check("yaml is carried", decodeURIComponent(url).includes("entry_yaml=id: my_method"));
 check("authorship is not prefilled", !url.includes("authorship="));
-const longUrl = issueUrl(answers, "id: x\n" + "preview: |\n" + "  row\n".repeat(5000));
+const longBody = "age,sex,bmi\n" + "54,F,23.1\n".repeat(800);
+const longUrl = issueUrl(Object.assign({}, answers, { preview_body: longBody }),
+  "id: x\n" + "preview: |\n" + "  row\n".repeat(5000) + longBody);
 check("url stays under the GitHub limit", longUrl.length < 8000);
 check("truncation is announced", decodeURIComponent(longUrl).includes("truncated"));
+let emojiOk = true, emojiUrl = "";
+try {
+  emojiUrl = issueUrl(Object.assign({}, answers, { preview_body: "😀".repeat(3000) }),
+    "😀".repeat(3000));
+  decodeURIComponent(emojiUrl);
+} catch (err) { emojiOk = false; }
+check("emoji at the cut boundary does not throw", emojiOk && emojiUrl.length < 8000);
 
 console.log(failed ? `\n${failed} check(s) failed` : "\nall checks passed");
 process.exit(failed ? 1 : 0);

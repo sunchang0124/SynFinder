@@ -176,5 +176,6 @@ class ValidateRequest(BaseModel):
 
 @app.post("/api/validate")
 def validate(req: ValidateRequest) -> dict:
-    errors, entry = validate_method(req.answers, _catalog().taxonomy)
+    errors, entry = validate_method(req.answers, _catalog().taxonomy,
+                                    {m.id for m in _catalog().methods})
     return {"errors": errors, "yaml": to_yaml(entry) if entry else None}

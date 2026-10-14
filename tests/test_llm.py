@@ -38,3 +38,7 @@ def test_prompt_carries_only_catalog_facts():
     prompt = llm.build_prompt(EXPL, make_method(), INTAKE)
     assert "A caveat." in prompt
     assert "do not introduce" in prompt.lower()
+
+
+def test_model_is_the_current_opus():
+    assert llm.MODEL == "claude-opus-5-5"

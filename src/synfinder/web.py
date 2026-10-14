@@ -16,7 +16,9 @@ from pydantic import BaseModel, Field
 
 from .catalog import Catalog, load_catalog
 from .contribute import to_yaml, validate_method
+from . import llm
 from .datasets import match_datasets
+from .explain import explain
 from .intake import Intake
 from .payload import _candidate_json, _dataset_json, _top_only
 from .ranking import Ranking, load_weights, rank
@@ -98,9 +100,14 @@ def recommend(req: IntakeRequest) -> dict:
     matching = match_datasets(cat.datasets, intake)
     covered = cat.covers(intake.data_type)
 
+    shortlist_json = [_candidate_json(c) for c in top]
+    if llm.available():
+        for c, j in zip(top, shortlist_json):
+            j["narration"] = llm.narrate(explain(c), c.method, intake)
+
     return {
         "datasets": [_dataset_json(d) for d in matching],
-        "shortlist": [_candidate_json(c) for c in top],
+        "shortlist": shortlist_json,
         "also_ranked": [_candidate_json(c) for c in rest],
         "excluded": [
             {"id": e.method_id, "name": e.method_name, "reason": e.reason}

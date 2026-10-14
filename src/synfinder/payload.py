@@ -34,6 +34,7 @@ def _candidate_json(c) -> dict:
     return {
         "id": m.id, "name": m.name, "family": m.family,
         "verified": provenance_line(m),
+        "narration": None,
         "fit": round(c.fit, 4),
         "why_fits": e.why_fits,
         "weakness": e.weakness,

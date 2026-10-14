@@ -313,6 +313,7 @@ function card(m, i) {
       ${ring(m.fit)}
     </div>
     ${m.why_fits.length ? `<p class="why"><span class="dim">Why it fits —</span> ${esc(m.why_fits.join("; "))}.</p>` : ""}
+    ${m.narration ? `<p class="why"><span class="dim">In plain words —</span> ${esc(m.narration)} <span class="dim">(rewritten from the catalog text by an AI model; it cannot add claims)</span></p>` : ""}
     ${m.weakness ? `<p class="why"><span class="dim">Weaker on —</span> it ${esc(m.weakness)}.</p>` : ""}
     ${bullets("Watch out", m.caveats, "")}
     ${bullets("How to check it worked", m.evaluation, " info")}

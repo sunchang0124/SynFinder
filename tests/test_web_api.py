@@ -186,3 +186,20 @@ def test_the_page_carries_the_submit_tab():
     assert 'data-view="submit"' in html
     assert 'id="submitForm"' in html
     assert "api/validate" in html, "the submit flow must call the shared validator"
+
+
+def test_recommend_carries_narration_when_a_model_is_available(monkeypatch):
+    from synfinder import llm, web
+    monkeypatch.setattr(llm, "available", lambda: True)
+    monkeypatch.setattr(llm, "narrate", lambda e, m, i: f"Fluent prose about {m.name}.")
+    body = client.post("/api/recommend", json=INTAKE).json()
+    first = body["shortlist"][0]
+    assert first["narration"] == f"Fluent prose about {first['name']}."
+    assert all(c["narration"] is None for c in body["also_ranked"])
+
+
+def test_recommend_narration_is_null_without_a_model(monkeypatch):
+    from synfinder import llm
+    monkeypatch.setattr(llm, "available", lambda: False)
+    body = client.post("/api/recommend", json=INTAKE).json()
+    assert all(c["narration"] is None for c in body["shortlist"])

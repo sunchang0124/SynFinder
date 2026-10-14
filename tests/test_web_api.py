@@ -149,3 +149,33 @@ def test_candidates_and_datasets_carry_a_verification_label():
     assert all("verified" in c for c in body["shortlist"])
     sets = client.get("/api/datasets").json()["datasets"]
     assert all("verified" in d for d in sets)
+
+
+GOOD_ANSWERS = {
+    "id": "mymethod", "name": "MyMethod", "family": "gan",
+    "domains": ["biomedical"], "data_types": ["tabular_cross_sectional"],
+    "variable_types": ["continuous"], "formal_dp": False, "compute": "cpu_fine",
+    "license": "MIT", "purposes": ["ml_augmentation"], "preserves": ["marginals"],
+    "expertise": "medium", "maintained": True,
+    "implementation_quality": "research_code",
+    "caveats": ["Falls over on high-cardinality columns."], "evaluation": [],
+    "paper": None, "code": "https://github.com/example/mymethod",
+    "preview_format": "tabular_csv", "preview_note": "One row per person.",
+    "preview_body": "age,sex\n54,F\n",
+}
+
+
+def test_validate_endpoint_accepts_a_good_entry():
+    body = client.post("/api/validate", json={"answers": GOOD_ANSWERS}).json()
+    assert body["errors"] == []
+    assert body["yaml"].startswith("id: mymethod")
+
+
+def test_validate_endpoint_returns_errors_not_a_500():
+    bad = dict(GOOD_ANSWERS, formal_dp=True, caveats=[])
+    r = client.post("/api/validate", json={"answers": bad})
+    assert r.status_code == 200
+    body = r.json()
+    assert body["yaml"] is None
+    assert any("dp_mechanism" in e for e in body["errors"])
+    assert any("caveats" in e for e in body["errors"])

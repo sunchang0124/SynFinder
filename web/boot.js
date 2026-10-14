@@ -83,6 +83,14 @@ def datasets_json(domain, data_type):
     if data_type and data_type != "any":
         found = [d for d in found if data_type in d.data_types]
     return json.dumps({"datasets": [_dataset_json(d) for d in found]})
+
+from synfinder.contribute import to_yaml, validate_method
+
+def validate_json(payload):
+    answers = json.loads(payload)
+    errors, entry = validate_method(answers, CAT.taxonomy)
+    return json.dumps({"errors": errors,
+                       "yaml": to_yaml(entry) if entry else None})
 `);
 
   return {
@@ -91,5 +99,7 @@ def datasets_json(domain, data_type):
       JSON.parse(py.globals.get("recommend_json")(JSON.stringify(body))),
     datasets: (domain, dataType) =>
       JSON.parse(py.globals.get("datasets_json")(domain, dataType)),
+    validate: (answers) =>
+      JSON.parse(py.globals.get("validate_json")(JSON.stringify(answers))),
   };
 })();

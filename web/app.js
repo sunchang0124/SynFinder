@@ -28,6 +28,15 @@ const backend = {
     const q = new URLSearchParams({ domain, data_type: dataType });
     return (await fetch(API + "api/datasets?" + q)).json();
   },
+  async validate(answers) {
+    if (window.SYNFINDER_STATIC) return (await window.synReady).validate(answers);
+    const res = await fetch(API + "api/validate", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ answers }),
+    });
+    if (!res.ok) throw new Error(await res.text());
+    return res.json();
+  },
 };
 // Words that should stay upper-case rather than being title-cased.
 const LANG = {

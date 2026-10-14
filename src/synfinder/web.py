@@ -15,6 +15,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from .catalog import Catalog, load_catalog
+from .contribute import to_yaml, validate_method
 from .datasets import match_datasets
 from .intake import Intake
 from .payload import _candidate_json, _dataset_json, _top_only
@@ -160,3 +161,13 @@ def index() -> HTMLResponse:
 
 # kept so a direct link still works, but the page does not depend on it
 app.mount("/static", StaticFiles(directory=WEB_DIR), name="static")
+
+
+class ValidateRequest(BaseModel):
+    answers: dict
+
+
+@app.post("/api/validate")
+def validate(req: ValidateRequest) -> dict:
+    errors, entry = validate_method(req.answers, _catalog().taxonomy)
+    return {"errors": errors, "yaml": to_yaml(entry) if entry else None}

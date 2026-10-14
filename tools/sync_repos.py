@@ -38,7 +38,7 @@ def _token() -> str | None:
     try:
         r = subprocess.run(["gh", "auth", "token"], capture_output=True, text=True)
         return r.stdout.strip() or None
-    except FileNotFoundError:
+    except (OSError, subprocess.SubprocessError):
         return None
 
 
@@ -53,6 +53,8 @@ def _get(url: str, token: str | None) -> tuple[int, dict | None, dict]:
             return resp.status, json.loads(resp.read()), dict(resp.headers)
     except urllib.error.HTTPError as e:
         return e.code, None, dict(e.headers)
+    except (urllib.error.URLError, OSError, ValueError):
+        return 0, None, {}
 
 
 def fetch(slug: str, token: str | None) -> tuple[dict | None, int, dict]:
@@ -70,6 +72,8 @@ def fetch(slug: str, token: str | None) -> tuple[dict | None, int, dict]:
     }
     rstatus, rel, headers = _get(
         f"https://api.github.com/repos/{slug}/releases/latest", token)
+    if _rate_limited(rstatus, headers):
+        return None, rstatus, headers
     if rstatus == 200 and rel:
         meta["latest_release"] = {"tag": rel.get("tag_name"),
                                   "published_at": rel.get("published_at")}

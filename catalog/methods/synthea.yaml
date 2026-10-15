@@ -11,7 +11,7 @@ compute: cpu_fine
 license: Apache-2.0
 language: java
 last_updated: 2026
-purposes: [education, open_release, pipeline_testing, causal_inference]
+purposes: [causal_inference, education, open_release, pipeline_testing]
 preserves: [temporal_dynamics]
 scale:
   evidence: null

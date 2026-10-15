@@ -7,7 +7,7 @@ variable_types: [categorical, count, datetime]
 formal_dp: false
 compute: gpu_required
 license: MIT
-purposes: [benchmarking, ml_augmentation, statistical_replication, open_release]
+purposes: [benchmarking, ml_augmentation, open_release, statistical_replication]
 preserves: [temporal_dynamics, joint_correlations]
 scale:
   evidence: null

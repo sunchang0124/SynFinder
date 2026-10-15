@@ -9,7 +9,7 @@ compute: gpu_required
 license: MIT
 language: python
 last_updated: 2024
-purposes: [benchmarking, ml_augmentation, statistical_replication, open_release]
+purposes: [benchmarking, ml_augmentation, open_release, statistical_replication]
 preserves: [marginals, joint_correlations]
 scale:
   evidence: null

@@ -9,7 +9,7 @@ compute: gpu_required
 license: MIT
 language: python
 last_updated: 2026
-purposes: [ml_augmentation, statistical_replication, open_release]
+purposes: [ml_augmentation, open_release, statistical_replication]
 preserves: [temporal_dynamics, joint_correlations, rare_events]
 scale:
   evidence: null

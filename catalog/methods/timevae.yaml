@@ -9,7 +9,7 @@ compute: cpu_fine
 license: MIT
 language: python
 last_updated: 2025
-purposes: [benchmarking, ml_augmentation, pipeline_testing, open_release]
+purposes: [benchmarking, ml_augmentation, open_release, pipeline_testing]
 preserves: [temporal_dynamics, marginals]
 scale:
   evidence: null

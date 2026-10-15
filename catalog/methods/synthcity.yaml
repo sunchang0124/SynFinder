@@ -10,7 +10,7 @@ compute: cpu_fine
 license: Apache-2.0
 language: python
 last_updated: 2026
-purposes: [benchmarking, ml_augmentation, statistical_replication, open_release]
+purposes: [benchmarking, ml_augmentation, open_release, statistical_replication, causal_inference, education, imbalance_correction]
 preserves: [marginals, joint_correlations, temporal_dynamics]
 scale:
   evidence: null
@@ -38,3 +38,8 @@ links:
   paper: https://doi.org/10.48550/arXiv.2301.07573
   code: https://github.com/vanderschaarlab/synthcity
 related_datasets: []
+provenance:
+  verified_on: 2026-10-15
+  verified_by: "Chang Sun"
+  sources_checked: [paper, code]
+  fields_checked: [purposes, links]

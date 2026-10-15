@@ -9,7 +9,7 @@ compute: gpu_recommended
 license: Apache-2.0
 language: python
 last_updated: 2026
-purposes: [benchmarking, ml_augmentation, statistical_replication, education, open_release]
+purposes: [benchmarking, education, ml_augmentation, open_release, statistical_replication]
 preserves: [marginals, joint_correlations, rare_events]
 scale:
   evidence: null

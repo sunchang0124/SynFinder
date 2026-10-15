@@ -11,7 +11,7 @@ compute: gpu_recommended
 license: MIT
 language: python
 last_updated: 2026
-purposes: [benchmarking, ml_augmentation, open_release, education, imbalance_correction, statistical_replication]
+purposes: [benchmarking, education, imbalance_correction, ml_augmentation, open_release, statistical_replication]
 preserves: [marginals, joint_correlations]
 scale:
   # UNVERIFIED - Sun et al. 2023 experiment sizes not yet confirmed (repo example is a 200-row toy)

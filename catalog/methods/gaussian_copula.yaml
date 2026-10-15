@@ -10,7 +10,7 @@ compute: cpu_fine
 license: MIT
 language: python
 last_updated: 2026
-purposes: [benchmarking, education, pipeline_testing, statistical_replication, open_release]
+purposes: [benchmarking, education, open_release, pipeline_testing, statistical_replication]
 preserves: [marginals, joint_correlations]
 scale:
   # UNVERIFIED - SDV paper (Patki et al. 2016) not yet checked for tested sizes

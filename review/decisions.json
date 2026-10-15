@@ -368,6 +368,17 @@
   ],
   "reviewer": "Chang Sun"
  },
+ "medigan": {
+  "decided_at": "2026-10-15T14:31:34+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "ml_augmentation",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
  "metasyn": {
   "decided_at": "2026-10-15T13:29:30+00:00",
   "links_ok": true,
@@ -553,6 +564,18 @@
   ],
   "reviewer": "Chang Sun"
  },
+ "sdv": {
+  "decided_at": "2026-10-15T14:31:51+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "ml_augmentation",
+   "statistical_replication",
+   "education",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
  "simpop": {
   "decided_at": "2026-10-15T13:33:39+00:00",
   "links_ok": true,
@@ -646,6 +669,21 @@
    "ml_augmentation",
    "statistical_replication",
    "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "synthcity": {
+  "decided_at": "2026-10-15T14:32:04+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "ml_augmentation",
+   "statistical_replication",
+   "causal_inference",
+   "education",
+   "benchmarking",
+   "imbalance_correction"
   ],
   "reviewer": "Chang Sun"
  },

@@ -11,7 +11,7 @@ compute: cpu_fine
 license: MIT
 language: python
 last_updated: 2023
-purposes: [benchmarking, ml_augmentation, open_release, imbalance_correction, statistical_replication]
+purposes: [benchmarking, imbalance_correction, ml_augmentation, open_release, statistical_replication]
 preserves: [marginals]
 scale:
   evidence: null

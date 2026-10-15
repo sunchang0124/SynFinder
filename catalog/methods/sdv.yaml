@@ -11,7 +11,7 @@ compute: cpu_fine
 license: MIT
 language: python
 last_updated: 2026
-purposes: [pipeline_testing, ml_augmentation, benchmarking, education]
+purposes: [benchmarking, education, ml_augmentation, statistical_replication]
 preserves: [marginals, joint_correlations]
 scale:
   evidence: null
@@ -38,3 +38,8 @@ links:
   code: https://github.com/sdv-dev/SDV
   docs: https://docs.sdv.dev/sdv
 related_datasets: []
+provenance:
+  verified_on: 2026-10-15
+  verified_by: "Chang Sun"
+  sources_checked: [paper, code, docs]
+  fields_checked: [purposes, links]

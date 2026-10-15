@@ -9,7 +9,7 @@ compute: gpu_required
 license: MIT
 language: python
 last_updated: 2024
-purposes: [ml_augmentation, imbalance_correction, statistical_replication]
+purposes: [imbalance_correction, ml_augmentation, statistical_replication]
 preserves: [marginals, joint_correlations]
 scale:
   evidence: null

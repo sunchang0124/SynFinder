@@ -9,7 +9,7 @@ compute: cpu_fine
 license: GPL-3.0
 language: python
 last_updated: 2023
-purposes: [benchmarking, open_release, causal_inference, statistical_replication]
+purposes: [benchmarking, causal_inference, open_release, statistical_replication]
 preserves: [marginals, joint_correlations, causal_structure]
 scale:
   evidence: null

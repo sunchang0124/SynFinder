@@ -1,0 +1,87 @@
+{
+ "id": "sdv",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": "Paper full text unavailable (paywalled) and README digest is partly truncated, so the judgements rest on the README and docs front page only.",
+ "purposes": {
+  "open_release": {
+   "verdict": "unclear",
+   "rationale": "README mentions anonymization options but never frames output as releasable or shareable.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "choose from different types of anonymization",
+     "verified": true
+    }
+   ]
+  },
+  "pipeline_testing": {
+   "verdict": "unclear",
+   "rationale": "No testing or development-data framing in the available README or docs; paper text unavailable.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "unclear",
+   "rationale": "Only generic statements about generating any amount of synthetic data; no ML utility or augmentation framing found.",
+   "quotes": [
+    {
+     "source": "docs",
+     "text": "create any amount of synthetic data on-demand",
+     "verified": true
+    }
+   ]
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "README and docs describe comparing synthetic to real data and measuring statistical quality.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "Compare the synthetic data to the real data against a",
+     "verified": true
+    },
+    {
+     "source": "docs",
+     "text": "Measure the statistical quality of your synthetic data and diagnose problems.",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "No DAG, causal or intervention framing in the sources read.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "supported",
+   "rationale": "README links hands-on tutorial notebooks and a demo dataset.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "Get some hands-on experience with the SDV. Launch the tutorial notebooks and run the code yourself.",
+     "verified": true
+    },
+    {
+     "source": "readme",
+     "text": "Load a demo dataset to get started. This dataset is a single table describing guests",
+     "verified": true
+    }
+   ]
+  },
+  "benchmarking": {
+   "verdict": "unclear",
+   "rationale": "Only the wider DataCebo ecosystem is said to compare generation models; SDV itself is not shown as a baseline or benchmark data, and paper text is unavailable.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "Measuring quality and privacy of synthetic data, and comparing different synthetic data generation models.",
+     "verified": true
+    }
+   ]
+  },
+  "imbalance_correction": {
+   "verdict": "not_supported",
+   "rationale": "No class-imbalance or minority-class framing in the sources read.",
+   "quotes": []
+  }
+ }
+}

@@ -27,7 +27,7 @@ def state() -> dict:
     cat = load_catalog(ROOT / "catalog")
     decisions = json.loads(DEC.read_text()) if DEC.exists() else {}
     methods = []
-    for m in cat.generation_methods():
+    for m in cat.methods:
         src = json.loads((SRC / f"{m.id}.json").read_text()) if (SRC / f"{m.id}.json").exists() else {}
         evd = json.loads((EVD / f"{m.id}.json").read_text()) if (EVD / f"{m.id}.json").exists() else {}
         links = {}
@@ -41,6 +41,7 @@ def state() -> dict:
                         "year": r.get("year"), "renamed": r.get("full_name") if r.get("renamed") else None,
                         "archived": r.get("archived"), "fulltext": bool(r.get("fulltext") or r.get("readme"))}
         methods.append({"id": m.id, "name": m.name, "family": m.family,
+                        "toolkit": bool(m.is_framework),
                         "current": list(m.purposes), "caveats": m.caveats,
                         "links": links, "evidence": evd.get("purposes", {}),
                         "link_notes": evd.get("link_notes"),

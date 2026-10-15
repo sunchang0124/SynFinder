@@ -1,6 +1,6 @@
 # Purpose review: design
 
-Chang reviews the `purposes` field of every generation method herself. The
+Chang reviews the `purposes` field of every method, including the three toolkits (SDV, synthcity, medigan), herself. The
 tooling's job is to put the evidence in front of her and write her
 decisions back into the catalog with a provenance block. Nothing here
 decides a purpose; it only collects, shows, and records.

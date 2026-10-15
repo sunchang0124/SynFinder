@@ -89,3 +89,9 @@ def test_unknown_legend_appears_only_when_an_axis_is_unknown():
     i = intake(expected_rows=5000)
     assert legend in render_markdown(i, rank([unknown], i))
     assert legend not in render_markdown(i, rank([known], i))
+
+
+def test_report_does_not_lead_with_datasets():
+    md = render_markdown(intake(), rank([make_method()], intake()))
+    assert "You may not need to generate anything" not in md
+    assert md.index("## What you asked for") < md.index("## Recommended methods")

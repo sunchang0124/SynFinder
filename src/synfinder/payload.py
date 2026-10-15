@@ -28,6 +28,27 @@ def _dataset_json(d) -> dict:
     }
 
 
+def _method_json(m) -> dict:
+    """A catalog entry on its own, without a study to score it against."""
+    return {
+        "id": m.id, "name": m.name, "family": m.family, "aliases": m.aliases,
+        "verified": provenance_line(m),
+        "is_framework": m.is_framework,
+        "domains": m.domains, "data_types": m.data_types,
+        "purposes": m.purposes, "preserves": m.preserves,
+        "formal_dp": m.formal_dp, "dp_mechanism": m.dp_mechanism,
+        "requires_no_source_data": m.requires_no_source_data,
+        "compute": m.compute, "expertise": m.expertise,
+        "license": m.license, "language": m.language,
+        "last_updated": m.last_updated,
+        "maintained": m.maturity.maintained,
+        "quality": m.maturity.implementation_quality,
+        "caveats": m.caveats, "evaluation": m.evaluation,
+        "links": {"paper": m.links.paper, "code": m.links.code,
+                  "docs": m.links.docs},
+    }
+
+
 def _candidate_json(c) -> dict:
     e = explain(c)
     m = c.method

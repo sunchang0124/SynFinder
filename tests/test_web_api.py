@@ -43,6 +43,32 @@ def test_api_and_engine_agree_on_the_shortlist():
            [c["id"] for c in api["shortlist"]]
 
 
+def test_recommend_no_longer_leads_with_datasets():
+    """Datasets live on their own tab; the shortlist is the answer."""
+    body = client.post("/api/recommend", json=INTAKE).json()
+    assert "datasets" not in body
+    assert "You may not need to generate anything" not in body["report_markdown"]
+
+
+def test_methods_endpoint_searches_by_name_alias_and_family():
+    assert [m["id"] for m in client.get("/api/methods?q=synthea").json()["methods"]] == ["synthea"]
+    assert [m["id"] for m in client.get("/api/methods?q=syntheticmass").json()["methods"]] == ["synthea"]
+    everything = client.get("/api/methods").json()["methods"]
+    assert len(everything) == client.get("/api/taxonomy").json()["counts"]["methods"] + \
+        client.get("/api/taxonomy").json()["counts"]["frameworks"]
+    assert everything == sorted(everything, key=lambda m: m["name"].lower())
+    gans = client.get("/api/methods?family=gan").json()["methods"]
+    assert gans and all(m["family"] == "gan" for m in gans)
+
+
+def test_method_json_carries_what_the_card_shows():
+    m = client.get("/api/methods?q=synthea").json()["methods"][0]
+    for key in ("name", "family", "verified", "data_types", "purposes", "caveats",
+                "license", "maintained", "links", "is_framework", "formal_dp"):
+        assert key in m, key
+    assert m["verified"].startswith(("Verified", "Not yet"))
+
+
 def test_recommend_reports_exclusions_with_reasons():
     body = client.post("/api/recommend", json=INTAKE).json()
     assert body["excluded"]

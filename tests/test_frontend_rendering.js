@@ -17,6 +17,9 @@ load("/* ---------- preview rendering ---------- */", "/* ---------- rendering -
 load("/* ---------- submission helpers ---------- */", "/* ---------- submission ---------- */",
      ["collectLines", "issueUrl", "ISSUE_BASE"]);
 
+load("/* ---------- method browse ---------- */", "/* ---------- dataset browse ---------- */",
+     ["methodCard"]);
+
 let failed = 0;
 const check = (name, cond) => {
   console.log((cond ? "  ok   " : "  FAIL ") + name);
@@ -70,6 +73,21 @@ try {
   decodeURIComponent(emojiUrl);
 } catch (err) { emojiOk = false; }
 check("emoji at the cut boundary does not throw", emojiOk && emojiUrl.length < 8000);
+
+console.log("method cards");
+const mc = methodCard({ id: "synthea", name: "Synthea", family: "agent_simulation",
+  verified: "Not yet verified", domains: ["biomedical"], data_types: ["coded_event_sequences"],
+  purposes: ["education"], caveats: ["Only a simulation."], evaluation: [],
+  formal_dp: false, compute: "cpu_fine", license: "Apache-2.0", language: "java",
+  maintained: true, quality: "production_ready", is_framework: false,
+  links: { code: "https://github.com/synthetichealth/synthea", paper: null, docs: null } });
+check("card shows the name", mc.includes("Synthea"));
+check("card shows the verification label", mc.includes("Not yet verified"));
+check("card shows the family", mc.includes("Agent simulation"));
+check("card shows caveats", mc.includes("Only a simulation."));
+check("card links the code", mc.includes("synthetichealth/synthea"));
+check("card escapes html", !methodCard({ id: "x", name: "<b>", family: "gan", verified: "Not yet verified",
+  domains: [], data_types: [], purposes: [], caveats: [], evaluation: [], links: {} }).includes("<b>"));
 
 console.log(failed ? `\n${failed} check(s) failed` : "\nall checks passed");
 process.exit(failed ? 1 : 0);

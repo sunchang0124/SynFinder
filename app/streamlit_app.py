@@ -9,7 +9,6 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from synfinder import llm                                    # noqa: E402
 from synfinder.catalog import load_catalog                   # noqa: E402
-from synfinder.datasets import match_datasets                # noqa: E402
 from synfinder.explain import as_text, explain               # noqa: E402
 from synfinder.intake import Intake                          # noqa: E402
 from synfinder.ranking import load_weights, rank             # noqa: E402
@@ -169,21 +168,6 @@ def _find_view(st, catalog, weights) -> None:
         "needs_governance_evidence": needs_governance or None,
     })
 
-    matching = match_datasets(catalog.datasets, intake)
-    if matching:
-        st.success(
-            "**You may not need to generate anything.** These datasets "
-            "already exist and match what you described.", icon="📦")
-        for d in matching:
-            with st.container(border=True):
-                st.markdown(f"### {d.name}")
-                st.write(f"{d.n_records} · {d.license} · {d.access_conditions}")
-                for caveat in d.realism_caveats:
-                    st.warning(caveat, icon="⚠️")
-                link = d.links.docs or d.links.code
-                if link:
-                    st.markdown(f"[Where to get it]({link})")
-
     ranking = rank(catalog.generation_methods(), intake, weights, top_n=5)
 
     covered = catalog.covers(intake.data_type)
@@ -241,10 +225,10 @@ def _find_view(st, catalog, weights) -> None:
     st.subheader("Take it with you")
     d1, d2 = st.columns(2)
     d1.download_button("Download report (Markdown)",
-                       render_markdown(intake, ranking, matching, covered, also),
+                       render_markdown(intake, ranking, covered, also),
                        file_name="synfinder-report.md", mime="text/markdown")
     d2.download_button("Download report (HTML)",
-                       render_html(intake, ranking, matching, covered, also),
+                       render_html(intake, ranking, covered, also),
                        file_name="synfinder-report.html", mime="text/html")
 
     if not llm.available():

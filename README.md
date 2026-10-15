@@ -49,7 +49,10 @@ synfinder find --domain biomedical \
                --privacy required \
                --out recommendation.md
 
-# browse ready-made synthetic datasets - you may not need to generate anything
+# look a method up by name, alias, id or family
+synfinder search synthea
+
+# browse ready-made synthetic datasets
 synfinder datasets --domain biomedical
 
 # create a catalog entry to contribute
@@ -112,12 +115,12 @@ push to `main`.
 CI builds the image and boots it on every push, so the container path is
 verified rather than assumed.
 
-## Ready-made datasets come first
+## Browsing by name
 
-When a synthetic dataset already exists that matches what you described, it is
-shown **above** the method shortlist. Using one costs nothing and avoids every
-risk of training your own. Browse the registry with `synfinder datasets` or
-the app's second tab.
+The **Methods** tab looks a catalog entry up by name, alias, id or family and
+shows its facts without scoring it against a study. The **Datasets** tab lists
+ready-made synthetic datasets; using one costs nothing and avoids every risk
+of training your own. From the command line: `synfinder search <name>` and `synfinder datasets`.
 
 ## What the output looks like
 

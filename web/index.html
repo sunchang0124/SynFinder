@@ -28,6 +28,7 @@
   </div>
   <nav class="tabs" role="tablist">
     <button class="tab is-active" data-view="find" role="tab">Find a method</button>
+    <button class="tab" data-view="methods" role="tab">Methods</button>
     <button class="tab" data-view="browse" role="tab">Datasets</button>
     <button class="tab" data-view="submit" role="tab">Submit a method</button>
   </nav>
@@ -123,6 +124,25 @@
       <p>You will get a ranked shortlist, the caveats that will actually bite you, and every method that was ruled out — with the reason.</p>
     </div>
   </section>
+</main>
+
+<!-- ============ METHODS ============ -->
+<main class="layout browse hidden" id="view-methods">
+  <aside class="panel">
+    <div class="panel-head">
+      <h2>Browse the catalog</h2>
+      <p>Look a method up by name. To find one that fits a study, use the first tab.</p>
+    </div>
+    <div class="field">
+      <label for="m_query">Name, alias or id</label>
+      <input type="text" id="m_query" placeholder="e.g. synthea, ctgan, privbayes">
+    </div>
+    <div class="field">
+      <label for="m_family">Family</label>
+      <div class="select"><select id="m_family"></select></div>
+    </div>
+  </aside>
+  <section class="results" id="methodResults"></section>
 </main>
 
 <!-- ============ BROWSE ============ -->

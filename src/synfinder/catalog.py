@@ -55,6 +55,26 @@ class Catalog:
         return next((m for m in self.methods if m.id == method_id), None)
 
 
+def search_methods(methods: list[Method], query: str = "",
+                   family: str | None = None) -> list[Method]:
+    """Case-insensitive substring search over name, aliases, id and family.
+
+    Shared by the API and the browser build so a name search cannot find
+    different entries on the two paths. An empty query lists everything.
+    """
+    found = methods
+    if family and family != "any":
+        found = [m for m in found if m.family == family]
+    q = (query or "").strip().lower()
+    if q:
+        def hit(m: Method) -> bool:
+            haystack = [m.name, m.id, m.family, m.family.replace("_", " "),
+                        *m.aliases]
+            return any(q in h.lower() for h in haystack)
+        found = [m for m in found if hit(m)]
+    return sorted(found, key=lambda m: m.name.lower())
+
+
 def load_taxonomy(path: Path) -> dict[str, list[str]]:
     if not path.exists():
         raise CatalogError(f"taxonomy file not found: {path}")

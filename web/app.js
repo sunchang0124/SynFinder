@@ -21,6 +21,11 @@ const backend = {
     if (!res.ok) throw new Error(await res.text());
     return res.json();
   },
+  async methods(q, family) {
+    if (window.SYNFINDER_STATIC) return (await window.synReady).methods(q, family);
+    const params = new URLSearchParams({ q, family });
+    return (await fetch(API + "api/methods?" + params)).json();
+  },
   async datasets(domain, dataType) {
     if (window.SYNFINDER_STATIC) {
       return (await window.synReady).datasets(domain, dataType);
@@ -89,12 +94,13 @@ $("#themeToggle").onclick = () => {
 };
 
 /* ---------- tabs ---------- */
-const VIEWS = ["find", "browse", "submit"];
+const VIEWS = ["find", "methods", "browse", "submit"];
 document.querySelectorAll(".tab").forEach(t => {
   t.onclick = () => {
     document.querySelectorAll(".tab").forEach(x => x.classList.toggle("is-active", x === t));
     VIEWS.forEach(v => $("#view-" + v).classList.toggle("hidden", t.dataset.view !== v));
     if (t.dataset.view === "browse") loadDatasets();
+    if (t.dataset.view === "methods") loadMethods();
   };
 });
 
@@ -136,6 +142,10 @@ async function boot() {
   fill("#s_quality", TAX.implementation_quality);
   fill("#s_preview_format", TAX.preview_formats);
   $("#b_domain").onchange = $("#b_data_type").onchange = loadDatasets;
+  fill("#m_family", ["any", ...TAX.families]);
+  $("#m_family").onchange = loadMethods;
+  let pending;
+  $("#m_query").oninput = () => { clearTimeout(pending); pending = setTimeout(loadMethods, 150); };
   const c = TAX.counts;
   $("#catalogCount").textContent =
     `${c.methods} methods · ${c.frameworks} frameworks · ${c.datasets} datasets`;
@@ -353,15 +363,6 @@ function animate(scope) {
 function render(r) {
   const out = [];
 
-  if (r.datasets.length) {
-    out.push(`<section class="lead">
-      <h3><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M21 8v13H3V8M1 3h22v5H1zM10 12h4"/></svg>
-        You may not need to generate anything</h3>
-      <p>These synthetic datasets already exist and match what you described.</p>
-      ${r.datasets.map(datasetBlock).join("")}</section>`);
-  }
-
   if (r.no_purpose_match && r.shortlist.length) {
     out.push(`<div class="notice"><b>Nothing in this catalog is intended for what you asked.</b>
       The entries below are the closest on your other constraints, but none is designed for
@@ -516,6 +517,39 @@ $("#submitForm").onsubmit = async e => {
     catch (err) { $("#copyYaml").textContent = "Select the text above and copy"; }
   };
 };
+
+/* ---------- method browse ---------- */
+function methodCard(m) {
+  const links = Object.entries(m.links || {})
+    .filter(([, v]) => v)
+    .map(([k, v]) => `<a href="${esc(v)}" target="_blank" rel="noopener">${k}</a>`).join("");
+  const tag = v => `<span class="badge">${esc(pretty(v))}</span>`;
+  return `<div class="lead-item">
+    <h4>${esc(m.name)}${m.is_framework ? ' <span class="badge">toolkit</span>' : ""}</h4>
+    <div class="meta-row">
+      <span class="badge">${esc(pretty(m.family))}</span>
+      ${m.license ? `<span class="badge">${esc(m.license)}</span>` : ""}
+      ${m.formal_dp ? '<span class="badge ok">formal DP</span>' : ""}
+      ${m.requires_no_source_data ? '<span class="badge ok">no real data needed</span>' : ""}
+      ${m.maintained === false ? '<span class="badge stale">not maintained</span>' : ""}
+      <span class="badge ${String(m.verified).startsWith("Not") ? "stale" : "ok"}">${esc(m.verified)}</span>
+    </div>
+    ${m.data_types.length ? `<p class="why"><span class="dim">Data —</span> ${m.data_types.map(tag).join(" ")}</p>` : ""}
+    ${m.purposes.length ? `<p class="why"><span class="dim">For —</span> ${m.purposes.map(tag).join(" ")}</p>` : ""}
+    ${(m.caveats || []).map(c => `<div class="callout"><span class="k">Caveat</span>${esc(c)}</div>`).join("")}
+    ${links ? `<div class="links">${links}</div>` : ""}
+  </div>`;
+}
+
+async function loadMethods() {
+  const { methods } = await backend.methods($("#m_query").value, $("#m_family").value);
+  $("#methodResults").innerHTML = methods.length
+    ? `<p class="section-label">${methods.length} entr${methods.length === 1 ? "y" : "ies"}</p>`
+      + `<section class="lead">${methods.map(methodCard).join("")}</section>`
+    : `<div class="empty-state"><h3>No entry matches</h3>
+       <p>Nothing in the catalog is called that. Names, aliases, ids and families are
+       searched. If the method exists, the Submit tab is the way to add it.</p></div>`;
+}
 
 /* ---------- dataset browse ---------- */
 async function loadDatasets() {

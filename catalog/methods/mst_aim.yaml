@@ -41,7 +41,7 @@ evaluation:
     not measured
 links:
   paper: https://doi.org/10.14778/3551793.3551817
-  code: https://github.com/ryan112358/private-pgm
+  code: https://github.com/ryan112358/mbi
 related_datasets: []
 output_preview:
   format: tabular_csv

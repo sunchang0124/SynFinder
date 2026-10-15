@@ -32,7 +32,7 @@ evaluation:
   - Train-on-synthetic, test-on-real for an ICU prediction task
   - Check that the missingness and sampling-interval patterns survive
 links:
-  paper: null
+  paper: https://doi.org/10.48550/arXiv.2111.08386
   code: https://github.com/acphile/RTSGAN
 related_datasets: []
 output_preview:

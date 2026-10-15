@@ -1,0 +1,53 @@
+{
+ "id": "ergm",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": "Sources are thin: abstract and a short README only, no paper full text.",
+ "purposes": {
+  "open_release": {
+   "verdict": "not_supported",
+   "rationale": "ERGM is a network model-fitting package; nothing frames its simulations as a releasable substitute for data.",
+   "quotes": []
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "No test-data or format framing in the abstract or README.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "not_supported",
+   "rationale": "No predictive-model training or augmentation framing in the abstract or README.",
+   "quotes": []
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "The package simulates new networks from a fitted ERGM and assesses how well the fit captures the data's characteristics.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "simulating new network data sets from a fitted ERGM using Markov chain Monte Carlo; and assessing how well a fitted ERGM does at capturing characteristics of a particular network data set.",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "ERGMs are statistical models of network structure; the abstract and README have no causal or intervention framing.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "unclear",
+   "rationale": "The README is thin and shows no teaching material, but the full paper was not available.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "unclear",
+   "rationale": "The README is thin and shows no use as a baseline or benchmark, but the full paper was not available.",
+   "quotes": []
+  },
+  "imbalance_correction": {
+   "verdict": "not_supported",
+   "rationale": "No class or imbalance framing in the abstract or README.",
+   "quotes": []
+  }
+ }
+}

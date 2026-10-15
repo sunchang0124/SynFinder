@@ -9,14 +9,14 @@ formal_dp: false
 compute: gpu_required
 license: Apache-2.0
 language: python
-last_updated: 2024
+last_updated: 2026
 purposes: [ml_augmentation, open_release, benchmarking, education]
 preserves: [marginals]
 scale:
   evidence: null
 expertise: high
 maturity:
-  maintained: false
+  maintained: true
   last_release: null
   implementation_quality: research_code
 governance:
@@ -43,7 +43,8 @@ evaluation:
   - Train a downstream segmentation or classification model on synthetic, test on real
 links:
   paper: https://doi.org/10.1007/978-3-031-18576-2_12
-  code: https://github.com/Project-MONAI/GenerativeModels
+  code: https://github.com/Project-MONAI/MONAI
+  docs: https://github.com/Project-MONAI/tutorials/tree/main/generation
 related_datasets: []
 output_preview:
   format: image_spec

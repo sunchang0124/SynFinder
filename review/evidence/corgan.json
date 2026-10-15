@@ -1,0 +1,65 @@
+{
+ "id": "corgan",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": null,
+ "purposes": {
+  "open_release": {
+   "verdict": "supported",
+   "rationale": "The README motivates the synthetic records as a way for stakeholders to share data without privacy hurdles, with a membership-inference privacy assessment.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "Synthetic records helping stakeholders to *share and work* on data without privacy hurdles",
+     "verified": true
+    }
+   ]
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "The sources make realism and privacy claims and do not mention testing software or formats.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "supported",
+   "rationale": "The paper evaluates ML utility by training predictors on synthetic data and testing on real data.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "train the predictive model on synthetic data and test it on the real data.",
+     "verified": true
+    }
+   ]
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "The paper reports dimension-wise probability and statistical analysis of how realistic the synthetic records are.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "We also give a privacy assessment and report on statistical analysis regarding realistic characteristics of the synthetic data.",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "No causal structure or intervention framing appears in the sources.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "not_supported",
+   "rationale": "No teaching or tutorial framing appears in the sources.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "unclear",
+   "rationale": "The paper compares CorGAN against DBM, VAE and medGAN baselines and the repo includes baseline code, but CorGAN itself is not shown serving as a baseline for others.",
+   "quotes": []
+  },
+  "imbalance_correction": {
+   "verdict": "not_supported",
+   "rationale": "No class-imbalance or minority-class framing appears in the sources.",
+   "quotes": []
+  }
+ }
+}

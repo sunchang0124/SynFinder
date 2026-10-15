@@ -1,0 +1,70 @@
+{
+ "id": "medgan",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": null,
+ "purposes": {
+  "open_release": {
+   "verdict": "supported",
+   "rationale": "The paper frames sharing synthetic EHR data as a way around privacy limits on access.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "However, various concerns, particularly over privacy, can limit access to and collaborative use of EHR data.",
+     "verified": true
+    },
+    {
+     "source": "paper",
+     "text": "We also empirically observe a limited privacy risk in both identity and attribute disclosure using medGAN.",
+     "verified": true
+    }
+   ]
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "No testing or format-conformance framing; realism is the stated goal.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "supported",
+   "rationale": "Classifiers trained on synthetic data are scored on real test data as a utility check.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "We can assume that the closer the performance of LRSk to that of LRRk , the better",
+     "verified": true
+    }
+   ]
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "Dimension-wise probability checks compare each synthetic feature distribution with the real one.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "Using R and S, we compare the Bernoulli success probability pk of each",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "No causal or DAG framing.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "not_supported",
+   "rationale": "README only gives run instructions, no teaching framing.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "not_supported",
+   "rationale": "medGAN is the proposed method here; the digest shows no use as another study's baseline or benchmark data.",
+   "quotes": []
+  },
+  "imbalance_correction": {
+   "verdict": "not_supported",
+   "rationale": "No minority-class or imbalance experiments appear.",
+   "quotes": []
+  }
+ }
+}

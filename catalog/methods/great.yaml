@@ -37,7 +37,7 @@ evaluation:
   - Exact-match search for training rows in the output, every time
 links:
   paper: https://openreview.net/forum?id=cEygmQNOeI
-  code: https://github.com/kathrinse/be_great
+  code: https://github.com/tabularis-ai/be_great
 related_datasets: []
 output_preview:
   format: tabular_csv

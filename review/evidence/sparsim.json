@@ -1,0 +1,59 @@
+{
+ "id": "sparsim",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": "Sources are thin: no full text, and the GitLab README is only a title and one-line description.",
+ "purposes": {
+  "open_release": {
+   "verdict": "not_supported",
+   "rationale": "Only the R package is freely available; the sources do not frame simulated output as a data release.",
+   "quotes": []
+  },
+  "pipeline_testing": {
+   "verdict": "unclear",
+   "rationale": "The abstract says simulated data help develop new methods, but without full text it is unclear whether this means testing pipelines.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "To help the development of such new methods, the availability of simulated data could play a pivotal role.",
+     "verified": true
+    }
+   ]
+  },
+  "ml_augmentation": {
+   "verdict": "not_supported",
+   "rationale": "No machine-learning or augmentation framing appears.",
+   "quotes": []
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "The abstract claims simulated counts resemble real data in intensity, variability and sparsity, compared against Splat.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "We demonstrate that SPARSim allows to generate count data that resemble real data in terms of count intensity, variability and sparsity, performing comparably or better than one of the most used scRNA-seq simulator, Splat.",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "No causal framing appears in the abstract or README.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "not_supported",
+   "rationale": "No teaching or tutorial framing appears in the available sources.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "unclear",
+   "rationale": "SPARSim is compared against Splat in its own paper, but the available text does not show it used as a benchmark or baseline by others.",
+   "quotes": []
+  },
+  "imbalance_correction": {
+   "verdict": "not_supported",
+   "rationale": "No class-imbalance framing appears.",
+   "quotes": []
+  }
+ }
+}

@@ -31,7 +31,7 @@ evaluation:
   - Prevalence of the rare conditions you conditioned on, specifically
   - Visit-length and code-per-visit distributions against real data
 links:
-  paper: https://doi.org/10.48550/arXiv.2212.09538
+  paper: https://doi.org/10.48550/arXiv.2204.04797
   code: https://github.com/LuChang-CS/MTGAN
 related_datasets: []
 output_preview:

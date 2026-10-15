@@ -1,0 +1,59 @@
+{
+ "id": "goggle",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": "Sources are thin: the paper title and full text are missing and only the README abstract is available, so most purposes cannot be settled.",
+ "purposes": {
+  "open_release": {
+   "verdict": "unclear",
+   "rationale": "The README does not mention sharing, release or privacy.",
+   "quotes": []
+  },
+  "pipeline_testing": {
+   "verdict": "unclear",
+   "rationale": "The README is too short to show any testing use.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "unclear",
+   "rationale": "The README gives no ML utility or augmentation evidence; the paper text is missing.",
+   "quotes": []
+  },
+  "statistical_replication": {
+   "verdict": "unclear",
+   "rationale": "The README says the model captures variable dependencies but shows no fidelity evaluation.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "a generative model that learns a relational structure underlying tabular data to better model variable dependencies, to introduce regularization, and to incorporate prior knowledge",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "unclear",
+   "rationale": "The README describes a learned relational structure and prior knowledge but never mentions causal graphs or interventions.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "a generative model that learns a relational structure underlying tabular data to better model variable dependencies, to introduce regularization, and to incorporate prior knowledge",
+     "verified": true
+    }
+   ]
+  },
+  "education": {
+   "verdict": "unclear",
+   "rationale": "The README is too short to show any teaching use.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "unclear",
+   "rationale": "The README only lists experiment notebooks; benchmark use cannot be judged without the paper.",
+   "quotes": []
+  },
+  "imbalance_correction": {
+   "verdict": "unclear",
+   "rationale": "The README has no class-imbalance information; the paper text is missing.",
+   "quotes": []
+  }
+ }
+}

@@ -1,0 +1,59 @@
+{
+ "id": "roentgen",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": null,
+ "purposes": {
+  "open_release": {
+   "verdict": "not_supported",
+   "rationale": "Model weights are restricted to credentialed MIMIC-CXR researchers, and the sources do not frame the images as a shareable substitute.",
+   "quotes": []
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "No testing purpose appears in the sources.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "supported",
+   "rationale": "The paper uses synthetic chest x-rays as data augmentation and measures classifier gains.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "Fine-tuning this model on a fixed training set and using it as a data augmentation method, we measure a 5% improvement of a classifier trained jointly on synthetic and real images, and a 3% improvement when trained on a larger but purely synthetic training set.",
+     "verified": true
+    }
+   ]
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "Image fidelity and diversity are evaluated with FID and MS-SSIM against real images.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "We assess the model outputs quantitatively using image quality metrics, and evaluate image quality and text-image alignment by human domain experts.",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "No causal framing appears.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "not_supported",
+   "rationale": "No teaching or demonstration-for-learning framing appears in the sources.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "not_supported",
+   "rationale": "RoentGen is the proposed model; the sources do not show it used as a baseline or benchmark data.",
+   "quotes": []
+  },
+  "imbalance_correction": {
+   "verdict": "not_supported",
+   "rationale": "The paper only caps the No Finding class in its training split and does not oversample a rare class.",
+   "quotes": []
+  }
+ }
+}

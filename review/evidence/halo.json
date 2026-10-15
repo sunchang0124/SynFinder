@@ -1,0 +1,71 @@
+{
+ "id": "halo",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": "Repo is HALO_Inpatient (a reproduction repo for the preprint 'Synthesizing Extremely High Dimensional Electronic Health Records'), and the Nature Communications paper has no full text, so sources are thin.",
+ "purposes": {
+  "open_release": {
+   "verdict": "supported",
+   "rationale": "The abstract frames the synthetic EHRs as privacy-preserving alternatives usable without privacy concerns.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "Synthetic electronic health records (EHRs) that are both realistic and privacy-preserving offer alternatives to real EHRs for machine learning (ML) and statistical analysis.",
+     "verified": true
+    }
+   ]
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "Nothing in the sources points to this purpose.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "supported",
+   "rationale": "The abstract reports that models trained on the synthetic data reach accuracy similar to models trained on real data.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "also enhances the accuracy of predictive modeling and enables downstream ML models to attain similar accuracy as models trained on genuine data.",
+     "verified": true
+    }
+   ]
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "The abstract claims preserved statistical properties and an R2 above 0.9 on code probabilities.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "which preserve the statistical properties of real EHRs and can train accurate ML models without privacy concerns.",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "Nothing in the sources points to this purpose.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "not_supported",
+   "rationale": "Nothing in the sources points to this purpose.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "unclear",
+   "rationale": "The README trains baseline models to compare against HALO, but no text shows HALO itself used as a baseline or benchmark.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "Next, any desired baseline models may be trained by changing your working directory to `baselines/{baseline_model}` and running the corresponding `train_{baseline_model}.py` script",
+     "verified": true
+    }
+   ]
+  },
+  "imbalance_correction": {
+   "verdict": "unclear",
+   "rationale": "No full text is available, so any class-imbalance experiment cannot be ruled in or out.",
+   "quotes": []
+  }
+ }
+}

@@ -1,0 +1,82 @@
+{
+ "id": "medical_diffusion_3d",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": null,
+ "purposes": {
+  "open_release": {
+   "verdict": "supported",
+   "rationale": "Paper names privacy-preserving AI and sharing protected data between sites as aims.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "Synthetic images may play a crucial role in privacy-preserving artificial intelligence and can also be used to augment small datasets.",
+     "verified": true
+    },
+    {
+     "source": "paper",
+     "text": "Synthetic images can be used to share protected data between sites, for",
+     "verified": true
+    }
+   ]
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "No testing or interoperability framing.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "supported",
+   "rationale": "Synthetic images pre-train a segmentation model and raise Dice when real data are scarce.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "we demonstrate that synthetic images can be used in self-supervised pre-training and improve the performance of breast segmentation models when data is scarce",
+     "verified": true
+    }
+   ]
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "Diversity is compared with the original data distribution and radiologists rate realism.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "These findings demonstrate that diffusion models can generate more diverse samples representative of the",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "No causal or DAG framing.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "supported",
+   "rationale": "Paper names education as an intended application of the synthetic scans.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "data becomes an attainable goal with potential applications in education, data anonymization, data augmentation,",
+     "verified": true
+    }
+   ]
+  },
+  "benchmarking": {
+   "verdict": "supported",
+   "rationale": "Authors release code to set a baseline for later work and compare against a WGAN-GP baseline.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "We make our code publicly available to foster further research",
+     "verified": true
+    }
+   ]
+  },
+  "imbalance_correction": {
+   "verdict": "not_supported",
+   "rationale": "No class-imbalance framing.",
+   "quotes": []
+  }
+ }
+}

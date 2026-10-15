@@ -1,0 +1,82 @@
+{
+ "id": "ctgan",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": null,
+ "purposes": {
+  "open_release": {
+   "verdict": "unclear",
+   "rationale": "The paper only remarks that the generator never touching real data makes differential privacy easier; no release framing.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "CTGAN achieve differential privacy [14] easier than TVAE.",
+     "verified": true
+    }
+   ]
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "No testing or format-conformance framing appears.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "supported",
+   "rationale": "The paper evaluates machine learning efficacy and says the conditional generator can be used for data augmentation.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "Ttrain ? (2) Machine learning efficacy: When training a classifier or a regressor to predict one column",
+     "verified": true
+    },
+    {
+     "source": "paper",
+     "text": "generate data with a specific discrete value, which can be used for data augmentation. As future",
+     "verified": true
+    }
+   ]
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "The benchmark scores likelihood fitness, whether synthetic columns follow the same joint distribution as real data.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "along 2 axes. (1) Likelihood fitness: Do columns in Tsyn follow the same joint distribution as",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "Simulated data come from Gaussian mixture or Bayesian network oracles used for likelihood scoring, with no causal or intervention framing.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "not_supported",
+   "rationale": "The README usage example is a how-to, not teaching or course material.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "supported",
+   "rationale": "The paper contributes an open-source benchmark of synthetic tabular data generators with baselines.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "(2) A benchmarking system for synthetic data generation algorithms.2 We designed a compre-",
+     "verified": true
+    }
+   ]
+  },
+  "imbalance_correction": {
+   "verdict": "supported",
+   "rationale": "Training-by-sampling and the conditional generator target highly imbalanced categorical columns, with ablations on imbalanced data.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "generator are critical for imbalanced datasets. Especially on highly imbalanced dataset such as",
+     "verified": true
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,70 @@
+{
+ "id": "synteg",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": "No code repo and no full text in the digest; judgements rest on the abstract alone.",
+ "purposes": {
+  "open_release": {
+   "verdict": "supported",
+   "rationale": "Abstract frames simulated EHR data as a way to resolve the tension between data sharing and patient privacy and tests membership and attribute inference attacks.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "Simulating electronic health record data offers an opportunity to resolve the tension between data sharing and patient privacy.",
+     "verified": true
+    },
+    {
+     "source": "paper",
+     "text": "The privacy risks in synthetic data, with respect to the membership and attribute inference were negligible.",
+     "verified": true
+    }
+   ]
+  },
+  "pipeline_testing": {
+   "verdict": "unclear",
+   "rationale": "Abstract says nothing about testing or software pipelines and no full text or README is available.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "supported",
+   "rationale": "Abstract evaluates diagnosis prediction models trained on real versus synthetic temporal data and reports the AUROC difference.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "diagnosis prediction models based on real versus synthetic temporal data exhibited an average relative difference in area under the ROC curve of 1.6%",
+     "verified": true
+    }
+   ]
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "Abstract defines three utility measures for preserved feature correlations and temporal patterns and reports similarity to real sequences.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "We designed 3 utility measures to characterize the extent to which the framework maintains feature correlations and temporal patterns in clinical events.",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "unclear",
+   "rationale": "Abstract describes temporal patterns, not causal structure, and no full text is available to settle it.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "unclear",
+   "rationale": "No teaching framing in the abstract and no README or full text to check.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "unclear",
+   "rationale": "Abstract does not say whether SynTEG is used as a baseline or benchmark, and no full text is available.",
+   "quotes": []
+  },
+  "imbalance_correction": {
+   "verdict": "unclear",
+   "rationale": "Abstract has no class-imbalance framing and no full text is available to check.",
+   "quotes": []
+  }
+ }
+}

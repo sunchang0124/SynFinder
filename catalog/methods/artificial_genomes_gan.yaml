@@ -43,7 +43,7 @@ evaluation:
   - Linkage disequilibrium decay curves
 links:
   paper: https://doi.org/10.1371/journal.pgen.1009303
-  code: null
+  code: https://gitlab.inria.fr/ml_genetics/public/artificial_genomes
 related_datasets: []
 output_preview:
   format: genomic_matrix

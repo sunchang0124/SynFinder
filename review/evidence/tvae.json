@@ -1,0 +1,70 @@
+{
+ "id": "tvae",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": "The paper and README are for CTGAN (Modeling Tabular Data using Conditional GAN) and the CTGAN library, where TVAE is a secondary model; evidence below is about TVAE where the text allows.",
+ "purposes": {
+  "open_release": {
+   "verdict": "not_supported",
+   "rationale": "The paper says differential privacy is easier to achieve with CTGAN than with TVAE, and gives TVAE no privacy guarantee.",
+   "quotes": []
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "No testing or format-conformance use appears.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "supported",
+   "rationale": "The benchmark evaluates TVAE with machine learning efficiency, training models on synthetic data.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "of the baseline methods on a number of metrics such as likelihood fitness and machine learning",
+     "verified": true
+    }
+   ]
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "The benchmark scores likelihood fitness of TVAE output against real data, and the README claims high fidelity.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "which are able to learn from real data and generate synthetic data with high fidelity.",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "No causal structure or intervention framing appears.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "not_supported",
+   "rationale": "The README shows a usage demo only, with no teaching framing.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "supported",
+   "rationale": "TVAE is one of the generators evaluated in the paper's open-source synthetic data benchmark.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "(2) A benchmarking system for synthetic data generation algorithms.2 We designed a compre-",
+     "verified": true
+    },
+    {
+     "source": "paper",
+     "text": "We compare TVAE and CTGAN with these baselines.",
+     "verified": true
+    }
+   ]
+  },
+  "imbalance_correction": {
+   "verdict": "not_supported",
+   "rationale": "Imbalance handling (conditional generator, training-by-sampling) belongs to CTGAN, not TVAE.",
+   "quotes": []
+  }
+ }
+}

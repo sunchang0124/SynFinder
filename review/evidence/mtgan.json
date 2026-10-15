@@ -1,0 +1,71 @@
+{
+ "id": "mtgan",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": null,
+ "purposes": {
+  "open_release": {
+   "verdict": "unclear",
+   "rationale": "The paper frames synthetic EHR as a way around restricted access to patient data, but never states the output is meant to be released.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "due to privacy constraints, limited access to EHR becomes a bottleneck for deep learning research. To mitigate these concerns, generative adversarial networks (GANs) have been successfully used for generating EHR data.",
+     "verified": true
+    }
+   ]
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "No testing or format-conformance use appears in the paper or README.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "supported",
+   "rationale": "The paper evaluates the synthetic data with prediction tasks on health events.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "Furthermore, we design multiple statistical metrics and prediction tasks to evaluate the generated data.",
+     "verified": true
+    }
+   ]
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "The paper evaluates fidelity with statistical metrics and claims realistic synthetic EHR.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "Experimental results demonstrate the quality of the synthetic data and the effectiveness of MTGAN in generating realistic sequential EHR data, especially for uncommon diseases.",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "No causal structure or intervention framing in the sources.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "not_supported",
+   "rationale": "No teaching or tutorial framing; the README only gives preprocessing, training and generation commands.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "not_supported",
+   "rationale": "MTGAN is compared against other GANs in its own experiments but is not offered as a baseline or benchmark dataset.",
+   "quotes": []
+  },
+  "imbalance_correction": {
+   "verdict": "supported",
+   "rationale": "A central goal is better generation of uncommon (minority) diseases in imbalanced EHR data.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "we propose a Multi-label Time-series GAN (MTGAN) to generate EHR and simultaneously improve the quality of uncommon disease generation.",
+     "verified": true
+    }
+   ]
+  }
+ }
+}

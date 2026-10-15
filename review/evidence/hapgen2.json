@@ -1,0 +1,71 @@
+{
+ "id": "hapgen2",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": null,
+ "purposes": {
+  "open_release": {
+   "verdict": "not_supported",
+   "rationale": "Nothing in the sources points to this purpose.",
+   "quotes": []
+  },
+  "pipeline_testing": {
+   "verdict": "unclear",
+   "rationale": "Output is written in IMPUTE/SNPTEST formats, but the framing is evaluating designs and methods, not pipeline testing.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "HAPGEN2 output data in the FILE FORMAT used by IMPUTE , IMPUTE2 , SNPTEST and GTOOL .",
+     "verified": true
+    }
+   ]
+  },
+  "ml_augmentation": {
+   "verdict": "not_supported",
+   "rationale": "Nothing in the sources points to this purpose.",
+   "quotes": []
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "The README says simulated data keeps the LD patterns of the reference haplotypes.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "so that the simulated data has the same LD patterns as the reference data",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "supported",
+   "rationale": "Disease SNPs are simulated from a specified disease model with relative risks.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "The disease model is specified through a set of disease causing SNPs together with their relative risks.",
+     "verified": true
+    }
+   ]
+  },
+  "education": {
+   "verdict": "not_supported",
+   "rationale": "Nothing in the sources points to this purpose.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "supported",
+   "rationale": "The abstract presents simulated data as a way to evaluate competing designs and analysis methods in GWAS.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "Performing experiments with simulated data is an inexpensive approach to evaluating competing experimental designs and analysis methods in genome-wide association studies.",
+     "verified": true
+    }
+   ]
+  },
+  "imbalance_correction": {
+   "verdict": "not_supported",
+   "rationale": "Nothing in the sources points to this purpose.",
+   "quotes": []
+  }
+ }
+}

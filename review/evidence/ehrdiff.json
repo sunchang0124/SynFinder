@@ -1,0 +1,70 @@
+{
+ "id": "ehrdiff",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": null,
+ "purposes": {
+  "open_release": {
+   "verdict": "supported",
+   "rationale": "The paper motivates synthetic EHR as a substitute for EHR that cannot be publicly released, and evaluates privacy attacks.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "Such circumstances limit the public release of rich EHR data, hence impeding the advancement of precision medicine methodologies.",
+     "verified": true
+    },
+    {
+     "source": "paper",
+     "text": "To mitigate the issue of limited publicly available EHR data, researchers alternatively explored generating synthetic EHR data",
+     "verified": true
+    }
+   ]
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "No test-data or development-data framing in the paper or README.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "supported",
+   "rationale": "Downstream classifiers are trained on synthetic EHR and tested on real data.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "The downstream biomedical models can benefit from training on synthetic EHR data by EHRDiff , potentially overcoming the obstacles of limited publicly available real EHR data.",
+     "verified": true
+    }
+   ]
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "Code prevalence and pairwise correlation (CMD) against real data are evaluated.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "CMD results demonstrate that EHRDiff can better capture the inherent pair-wise relations between code features than GAN-based methods.",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "No causal or DAG framing in the paper or README.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "not_supported",
+   "rationale": "No teaching or demonstration framing in the paper or README.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "not_supported",
+   "rationale": "EHRDiff is the proposed method compared against GAN baselines, not used as a baseline or benchmark in these sources.",
+   "quotes": []
+  },
+  "imbalance_correction": {
+   "verdict": "not_supported",
+   "rationale": "Rare codes are discussed only as a mode-collapse check, with no minority-class oversampling.",
+   "quotes": []
+  }
+ }
+}

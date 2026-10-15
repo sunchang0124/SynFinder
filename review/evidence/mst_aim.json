@@ -1,0 +1,65 @@
+{
+ "id": "mst_aim",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": "Linked repo (ryan112358/mbi) is the general MBI estimation library, not MST or AIM themselves; paper full text unavailable.",
+ "purposes": {
+  "open_release": {
+   "verdict": "supported",
+   "rationale": "AIM produces differentially private synthetic data, which is a formal privacy guarantee.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "We propose AIM, a new algorithm for differentially private synthetic data generation. AIM is a workload-adaptive algorithm",
+     "verified": true
+    }
+   ]
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "No testing or format framing in the abstract or README.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "unclear",
+   "rationale": "Full text is missing, so ML utility evaluation cannot be checked.",
+   "quotes": []
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "AIM is judged on query-error accuracy of the generated data against the input data.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "We also provide analytic expressions to bound per-query error with high probability which can be used to construct confidence intervals and inform users about the accuracy of generated data.",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "No causal framing.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "not_supported",
+   "rationale": "README is a library quick start, not teaching material.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "unclear",
+   "rationale": "AIM is compared against other mechanisms; full text is missing to see use as a baseline by others.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "We show empirically that AIM consistently outperforms a wide variety of existing mechanisms across a variety of experimental settings.",
+     "verified": true
+    }
+   ]
+  },
+  "imbalance_correction": {
+   "verdict": "not_supported",
+   "rationale": "No class-imbalance framing.",
+   "quotes": []
+  }
+ }
+}

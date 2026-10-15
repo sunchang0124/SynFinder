@@ -1,0 +1,65 @@
+{
+ "id": "msprime",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": "Paper full text not available and README/docs are thin; labels rest on the abstract only.",
+ "purposes": {
+  "open_release": {
+   "verdict": "unclear",
+   "rationale": "Output comes from models, not real records, but no sharing or release framing appears.",
+   "quotes": []
+  },
+  "pipeline_testing": {
+   "verdict": "unclear",
+   "rationale": "Abstract says the software was thoroughly tested, which concerns msprime itself, not use of its output to test pipelines.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "These high-performance features have been thoroughly tested and validated, and built using a collaborative, open source development model",
+     "verified": true
+    }
+   ]
+  },
+  "ml_augmentation": {
+   "verdict": "not_supported",
+   "rationale": "No predictive-model or augmentation framing.",
+   "quotes": []
+  },
+  "statistical_replication": {
+   "verdict": "not_supported",
+   "rationale": "Simulations follow stated models rather than replicating a real dataset.",
+   "quotes": []
+  },
+  "causal_inference": {
+   "verdict": "supported",
+   "rationale": "Data are simulated from specified ancestral and mutation mechanisms, which counts as known-mechanism simulation.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "Stochastic simulation is a key tool in population genetics, since the models involved are often analytically intractable",
+     "verified": true
+    }
+   ]
+  },
+  "education": {
+   "verdict": "unclear",
+   "rationale": "Docs digest is only a redirect page, so teaching use cannot be judged.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "supported",
+   "rationale": "Abstract says simulation is used to obtain ground-truth data to evaluate inferences.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "simulation is usually the only way of obtaining ground-truth data to evaluate inferences.",
+     "verified": true
+    }
+   ]
+  },
+  "imbalance_correction": {
+   "verdict": "not_supported",
+   "rationale": "No class-imbalance framing.",
+   "quotes": []
+  }
+ }
+}

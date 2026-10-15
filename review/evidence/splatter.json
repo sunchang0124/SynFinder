@@ -1,0 +1,75 @@
+{
+ "id": "splatter",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": null,
+ "purposes": {
+  "open_release": {
+   "verdict": "not_supported",
+   "rationale": "The sources stress reproducible code and documentation, not releasing simulated data in place of real data.",
+   "quotes": []
+  },
+  "pipeline_testing": {
+   "verdict": "unclear",
+   "rationale": "Simulated data are said to be used to test and validate analysis methods, but a realism claim is also made, so it is unclear this counts as pipeline testing.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "Many methods have been tested, developed, and validated using simulated datasets.",
+     "verified": true
+    }
+   ]
+  },
+  "ml_augmentation": {
+   "verdict": "not_supported",
+   "rationale": "No machine-learning or augmentation framing appears.",
+   "quotes": []
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "Splatter estimates parameters from real data and provides functions and figures comparing simulations with real datasets.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "Splatter also has functions for comparing simulations and real datasets.",
+     "verified": true
+    },
+    {
+     "source": "paper",
+     "text": "Unfortunately, current simulations are often poorly documented, their similarity to real data is not demonstrated, or reproducible code is not available.",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "No causal or structural-model framing appears.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "not_supported",
+   "rationale": "The README points to a vignette for getting started, but no teaching or course use is shown.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "supported",
+   "rationale": "The paper provides a framework for comparing simulation models and positions simulations as a known truth for evaluating analysis methods.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "Splatter provides a common interface to multiple simulations that have:",
+     "verified": true
+    },
+    {
+     "source": "paper",
+     "text": "Splatter Bioconductor package for simple, reproducible, and well-documented simulation of scRNA-seq data. Splatter provides an interface to multiple simulation methods",
+     "verified": true
+    }
+   ]
+  },
+  "imbalance_correction": {
+   "verdict": "not_supported",
+   "rationale": "No class-imbalance framing appears.",
+   "quotes": []
+  }
+ }
+}

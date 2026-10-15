@@ -1,0 +1,70 @@
+{
+ "id": "scgan",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": null,
+ "purposes": {
+  "open_release": {
+   "verdict": "not_supported",
+   "rationale": "The paper frames generated cells as augmentation of real data, not as a releasable or privacy-preserving substitute.",
+   "quotes": []
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "No software-testing or format-conformance use is described; the method targets realistic augmentation.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "supported",
+   "rationale": "Augmenting sparse cell populations with generated cells improves classifier robustness, evaluated with real-test F1 scores.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "Augmenting sparse cell populations with cscGAN generated cells improves downstream analyses such as the detection of marker genes, the robustness and reliability of classifiers, the assessment of novel analysis algorithms",
+     "verified": true
+    }
+   ]
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "Fidelity is evaluated with marker-gene correlations, MMD and a real-vs-generated classifier, claiming data that mimics the real distribution.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "Augmenting few real observations with generated in silico samples could lead to more robust analysis results and a higher reproducibility rate.",
+     "verified": true
+    },
+    {
+     "source": "paper",
+     "text": "cscGAN learns non-linear gene–gene dependencies from complex, multiple cell type samples and uses this information to generate realistic cells of defined types.",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "No causal structure, DAG or intervention framing appears in the sources.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "not_supported",
+   "rationale": "The sources show no teaching or tutorial framing; the README is a replication guide for the manuscript.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "not_supported",
+   "rationale": "scGAN is compared against Splatter and SUGAR in its own paper, but the sources do not show it used as a baseline or benchmark dataset by others.",
+   "quotes": []
+  },
+  "imbalance_correction": {
+   "verdict": "supported",
+   "rationale": "The paper upsamples a downsampled rare cell cluster with generated cells and measures the gain in classification F1.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "Augmenting sparse cell populations with cscGAN generated cells improves downstream analyses such as the detection of marker genes, the robustness and reliability of classifiers, the assessment of novel analysis algorithms",
+     "verified": true
+    }
+   ]
+  }
+ }
+}

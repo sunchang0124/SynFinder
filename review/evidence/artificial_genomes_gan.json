@@ -1,0 +1,65 @@
+{
+ "id": "artificial_genomes_gan",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": "Only the paper abstract and an empty GitLab page were fetched (no full text, README blank), so sources are too thin to judge beyond the abstract.",
+ "purposes": {
+  "open_release": {
+   "verdict": "supported",
+   "rationale": "The abstract presents the artificial genomes as anonymous, easy-access alternatives to private genetic databases.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "high-quality, easy-access and anonymous alternatives for private databases",
+     "verified": true
+    }
+   ]
+  },
+  "pipeline_testing": {
+   "verdict": "unclear",
+   "rationale": "Only the abstract is available and it does not mention testing or pipelines.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "supported",
+   "rationale": "The abstract reports using the artificial genomes as data augmentation to improve imputation quality.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "imputation quality for low frequency alleles can be improved by data augmentation to reference panels with AGs",
+     "verified": true
+    }
+   ]
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "The abstract states the artificial genomes replicate allele frequencies, linkage disequilibrium and population structure of the source.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "our generated AGs replicate characteristics of the source dataset such as allele frequencies, linkage disequilibrium, pairwise haplotype distances and population structure",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "unclear",
+   "rationale": "The abstract does not mention causal structure and no full text is available.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "unclear",
+   "rationale": "The abstract does not mention teaching use and no full text is available.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "unclear",
+   "rationale": "The abstract does not say whether the method is used as a baseline or benchmark and no full text is available.",
+   "quotes": []
+  },
+  "imbalance_correction": {
+   "verdict": "unclear",
+   "rationale": "The abstract mentions improving low-frequency alleles, which is not clearly class-imbalance correction, and no full text is available.",
+   "quotes": []
+  }
+ }
+}

@@ -7,7 +7,7 @@ variable_types: [continuous, categorical, ordinal, count]
 formal_dp: true
 dp_mechanism: DP-SGD applied to the CTGAN discriminator
 compute: gpu_recommended
-license: Apache-2.0
+license: MIT
 language: python
 last_updated: 2026
 purposes: [open_release, ml_augmentation, benchmarking]
@@ -35,8 +35,9 @@ evaluation:
   - Report epsilon and delta alongside every utility number
   - Run the full privacy-utility curve, not one epsilon
 links:
-  paper: https://doi.org/10.48550/arXiv.2001.09700
-  code: https://github.com/vanderschaarlab/synthcity
+  paper: https://doi.org/10.1007/978-3-031-09342-5_17
+  code: https://github.com/opendp/smartnoise-sdk
+  docs: https://docs.smartnoise.org/synth/synthesizers/dpctgan.html
 related_datasets: []
 output_preview:
   format: tabular_csv

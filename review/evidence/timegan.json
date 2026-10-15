@@ -1,0 +1,71 @@
+{
+ "id": "timegan",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": null,
+ "purposes": {
+  "open_release": {
+   "verdict": "not_supported",
+   "rationale": "Neither the paper nor the README frames the output as shareable or privacy-preserving.",
+   "quotes": []
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "No testing or format-conformance use appears.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "supported",
+   "rationale": "The paper evaluates usefulness with train-on-synthetic, test-on-real prediction.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "between real and generated sequences. Furthermore, by applying the \"train on synthetic, test on real",
+     "verified": true
+    }
+   ]
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "The paper evaluates diversity and fidelity of generated sequences against real data.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "(1) diversity—samples should be distributed to cover the real data; (2) fidelity—samples should be",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "The only causal mention is causal time ordering of outputs, not causal structure.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "supported",
+   "rationale": "The README points users to a Jupyter tutorial notebook for TimeGAN.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "python3 -m main_timegan.py or see jupyter-notebook tutorial of TimeGAN in tutorial_timegan.ipynb.",
+     "verified": true
+    }
+   ]
+  },
+  "benchmarking": {
+   "verdict": "unclear",
+   "rationale": "The paper compares TimeGAN with other methods, but the sources do not show it used as a baseline by others.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "Benchmarks and Evaluation. We compare TimeGAN with RCGAN [5] and C-RNN-GAN [4],",
+     "verified": true
+    }
+   ]
+  },
+  "imbalance_correction": {
+   "verdict": "not_supported",
+   "rationale": "No class-imbalance framing appears.",
+   "quotes": []
+  }
+ }
+}

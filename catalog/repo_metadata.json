@@ -38,7 +38,7 @@
     "tag": "v0.1.9"
    },
    "license_spdx": "MIT",
-   "pushed_at": "2026-10-14T02:16:47Z",
+   "pushed_at": "2026-10-15T04:41:18Z",
    "slug": "knatarajan-lab/cehrgpt",
    "stars": 18
   },
@@ -133,13 +133,13 @@
    "archived": false,
    "language": "Python",
    "latest_release": {
-    "published_at": "2025-05-08T08:50:46Z",
-    "tag": "v0.2.12"
+    "published_at": "2023-11-05T02:26:25Z",
+    "tag": "synth/v1.0.2"
    },
-   "license_spdx": "Apache-2.0",
-   "pushed_at": "2026-04-21T17:24:15Z",
-   "slug": "vanderschaarlab/synthcity",
-   "stars": 691
+   "license_spdx": "MIT",
+   "pushed_at": "2026-07-01T09:38:15Z",
+   "slug": "opendp/smartnoise-sdk",
+   "stars": 304
   },
   "dp_merf": {
    "archived": false,
@@ -164,7 +164,7 @@
    "language": "R",
    "latest_release": null,
    "license_spdx": "NOASSERTION",
-   "pushed_at": "2026-10-13T23:54:51Z",
+   "pushed_at": "2026-10-15T10:40:43Z",
    "slug": "statnet/ergm",
    "stars": 110
   },
@@ -185,7 +185,7 @@
     "tag": "v1.38.5"
    },
    "license_spdx": "NOASSERTION",
-   "pushed_at": "2026-10-13T20:37:47Z",
+   "pushed_at": "2026-10-14T19:00:06Z",
    "slug": "sdv-dev/SDV",
    "stars": 3576
   },
@@ -238,7 +238,7 @@
    "license_spdx": "Apache-2.0",
    "pushed_at": "2025-01-28T02:06:55Z",
    "slug": "btheodorou99/HALO_Inpatient",
-   "stars": 34
+   "stars": 35
   },
   "hapnest": {
    "archived": false,
@@ -259,16 +259,16 @@
    "stars": 25
   },
   "latent_diffusion_brain_mri": {
-   "archived": true,
-   "language": "Jupyter Notebook",
+   "archived": false,
+   "language": "Python",
    "latest_release": {
-    "published_at": "2024-01-31T16:05:16Z",
-    "tag": "0.2.3"
+    "published_at": "2026-09-27T19:34:20Z",
+    "tag": "1.6.1"
    },
    "license_spdx": "Apache-2.0",
-   "pushed_at": "2024-07-01T14:33:54Z",
-   "slug": "Project-MONAI/GenerativeModels",
-   "stars": 760
+   "pushed_at": "2026-10-13T20:49:33Z",
+   "slug": "Project-MONAI/MONAI",
+   "stars": 8777
   },
   "lhs_open_synthea": {
    "archived": false,
@@ -312,7 +312,10 @@
   "metasyn": {
    "archived": false,
    "language": "Python",
-   "latest_release": null,
+   "latest_release": {
+    "published_at": "2026-10-02T09:36:54Z",
+    "tag": "v3.0.0"
+   },
    "license_spdx": "MIT",
    "pushed_at": "2026-10-13T20:12:30Z",
    "slug": "sodascience/metasyn",
@@ -344,7 +347,7 @@
    "language": "Python",
    "latest_release": null,
    "license_spdx": "Apache-2.0",
-   "pushed_at": "2026-10-14T12:34:07Z",
+   "pushed_at": "2026-10-15T04:35:26Z",
    "slug": "ryan112358/mbi",
    "stars": 119
   },
@@ -458,7 +461,7 @@
     "tag": "v0.14"
    },
    "license_spdx": "MIT",
-   "pushed_at": "2026-10-14T05:30:17Z",
+   "pushed_at": "2026-10-15T09:30:05Z",
    "slug": "py-why/dowhy",
    "stars": 8358
   },
@@ -488,7 +491,7 @@
     "tag": "v1.38.5"
    },
    "license_spdx": "NOASSERTION",
-   "pushed_at": "2026-10-13T20:37:47Z",
+   "pushed_at": "2026-10-14T19:00:06Z",
    "slug": "sdv-dev/SDV",
    "stars": 3576
   },
@@ -578,9 +581,9 @@
     "tag": "master-branch-latest"
    },
    "license_spdx": "Apache-2.0",
-   "pushed_at": "2026-08-18T16:19:53Z",
+   "pushed_at": "2026-10-14T14:11:55Z",
    "slug": "synthetichealth/synthea",
-   "stars": 3387
+   "stars": 3392
   },
   "synthea_covid19_10k": {
    "archived": false,
@@ -635,9 +638,9 @@
     "tag": "master-branch-latest"
    },
    "license_spdx": "Apache-2.0",
-   "pushed_at": "2026-08-18T16:19:53Z",
+   "pushed_at": "2026-10-14T14:11:55Z",
    "slug": "synthetichealth/synthea",
-   "stars": 3387
+   "stars": 3392
   },
   "timeautodiff": {
    "archived": false,
@@ -655,7 +658,7 @@
    "license_spdx": "NOASSERTION",
    "pushed_at": "2026-02-05T17:06:00Z",
    "slug": "jsyoon0823/TimeGAN",
-   "stars": 1063
+   "stars": 1064
   },
   "timevae": {
    "archived": false,
@@ -664,7 +667,7 @@
    "license_spdx": "MIT",
    "pushed_at": "2025-03-30T19:57:00Z",
    "slug": "abudesai/timeVAE",
-   "stars": 185
+   "stars": 186
   },
   "tvae": {
    "archived": false,
@@ -680,77 +683,78 @@
   }
  },
  "errors": {},
- "fetched_at": "2026-10-14T15:35:47Z",
+ "fetched_at": "2026-10-15T11:19:23Z",
  "stamps": {
-  "arf": "2026-10-14T12:28:14Z",
-  "asclepius_notes": "2026-10-14T12:28:14Z",
-  "bayesian_network": "2026-10-14T12:28:14Z",
-  "cehr_gpt": "2026-10-14T12:28:14Z",
-  "cms_desynpuf": "2026-10-14T15:35:47Z",
-  "corgan": "2026-10-14T12:28:14Z",
-  "csdi": "2026-10-14T12:28:14Z",
-  "ctab_gan": "2026-10-14T12:28:14Z",
-  "ctgan": "2026-10-14T12:28:14Z",
-  "diffusion_ts": "2026-10-14T12:28:14Z",
-  "digress": "2026-10-14T12:28:14Z",
-  "doppelganger": "2026-10-14T12:28:14Z",
-  "dp_cgans": "2026-10-14T12:28:14Z",
-  "dp_ctgan": "2026-10-14T12:28:14Z",
-  "dp_merf": "2026-10-14T12:28:14Z",
-  "ehrdiff": "2026-10-14T12:28:14Z",
-  "ergm": "2026-10-14T12:28:14Z",
-  "gatortrongpt": "2026-10-14T12:28:14Z",
-  "gaussian_copula": "2026-10-14T12:28:14Z",
-  "gem_dp": "2026-10-14T12:28:14Z",
-  "goggle": "2026-10-14T12:28:14Z",
-  "graphrnn": "2026-10-14T12:28:14Z",
-  "great": "2026-10-14T12:28:14Z",
-  "halo": "2026-10-14T12:28:14Z",
-  "hapnest": "2026-10-14T12:28:14Z",
-  "hapnest_synthetic_genomes": "2026-10-14T15:35:47Z",
-  "latent_diffusion_brain_mri": "2026-10-14T12:28:14Z",
-  "lhs_open_synthea": "2026-10-14T15:35:47Z",
-  "medgan": "2026-10-14T12:28:14Z",
-  "medical_diffusion_3d": "2026-10-14T12:28:14Z",
-  "medigan": "2026-10-14T12:28:14Z",
-  "metasyn": "2026-10-14T12:28:14Z",
-  "molgan": "2026-10-14T14:01:38Z",
-  "msprime": "2026-10-14T14:01:38Z",
-  "mst_aim": "2026-10-14T14:01:38Z",
-  "mtgan": "2026-10-14T14:01:38Z",
-  "muscat": "2026-10-14T14:01:38Z",
-  "pac_synth": "2026-10-14T14:01:38Z",
-  "pate_gan": "2026-10-14T14:01:38Z",
-  "privbayes": "2026-10-14T14:01:38Z",
-  "privsyn": "2026-10-14T14:01:38Z",
-  "promptehr": "2026-10-14T14:01:38Z",
-  "realtabformer": "2026-10-14T14:01:38Z",
-  "roentgen": "2026-10-14T14:01:38Z",
-  "rtsgan": "2026-10-14T14:01:38Z",
-  "rule_based_simulation": "2026-10-14T14:01:38Z",
-  "scdesign3": "2026-10-14T14:01:38Z",
-  "scgan": "2026-10-14T14:01:38Z",
-  "sdv": "2026-10-14T14:01:38Z",
-  "simpop": "2026-10-14T14:01:38Z",
-  "slim": "2026-10-14T14:01:38Z",
-  "smote_family": "2026-10-14T14:01:38Z",
-  "splatter": "2026-10-14T14:01:38Z",
-  "stasy": "2026-10-14T14:01:38Z",
-  "survivalgan": "2026-10-14T14:01:38Z",
-  "synthcity": "2026-10-14T14:01:38Z",
-  "synthea": "2026-10-14T14:01:38Z",
-  "synthea_covid19_10k": "2026-10-14T15:35:47Z",
-  "synthea_sample_data": "2026-10-14T15:35:47Z",
-  "synthpop": "2026-10-14T14:01:38Z",
-  "tabddpm": "2026-10-14T14:01:38Z",
-  "tabsyn": "2026-10-14T14:01:38Z",
-  "template_note_generation": "2026-10-14T14:01:38Z",
-  "timeautodiff": "2026-10-14T15:35:47Z",
-  "timegan": "2026-10-14T15:35:47Z",
-  "timevae": "2026-10-14T15:35:47Z",
-  "tvae": "2026-10-14T15:35:47Z"
+  "arf": "2026-10-15T11:19:23Z",
+  "asclepius_notes": "2026-10-15T11:19:23Z",
+  "bayesian_network": "2026-10-15T11:19:23Z",
+  "cehr_gpt": "2026-10-15T11:19:23Z",
+  "cms_desynpuf": "2026-10-15T11:19:23Z",
+  "corgan": "2026-10-15T11:19:23Z",
+  "csdi": "2026-10-15T11:19:23Z",
+  "ctab_gan": "2026-10-15T11:19:23Z",
+  "ctgan": "2026-10-15T11:19:23Z",
+  "diffusion_ts": "2026-10-15T11:19:23Z",
+  "digress": "2026-10-15T11:19:23Z",
+  "doppelganger": "2026-10-15T11:19:23Z",
+  "dp_cgans": "2026-10-15T11:19:23Z",
+  "dp_ctgan": "2026-10-15T11:19:23Z",
+  "dp_merf": "2026-10-15T11:19:23Z",
+  "ehrdiff": "2026-10-15T11:19:23Z",
+  "ergm": "2026-10-15T11:19:23Z",
+  "gatortrongpt": "2026-10-15T11:19:23Z",
+  "gaussian_copula": "2026-10-15T11:19:23Z",
+  "gem_dp": "2026-10-15T11:19:23Z",
+  "goggle": "2026-10-15T11:19:23Z",
+  "graphrnn": "2026-10-15T11:19:23Z",
+  "great": "2026-10-15T11:19:23Z",
+  "halo": "2026-10-15T11:19:23Z",
+  "hapnest": "2026-10-15T11:19:23Z",
+  "hapnest_synthetic_genomes": "2026-10-15T11:19:23Z",
+  "latent_diffusion_brain_mri": "2026-10-15T11:19:23Z",
+  "lhs_open_synthea": "2026-10-15T11:19:23Z",
+  "medgan": "2026-10-15T11:19:23Z",
+  "medical_diffusion_3d": "2026-10-15T11:19:23Z",
+  "medigan": "2026-10-15T11:19:23Z",
+  "metasyn": "2026-10-15T11:19:23Z",
+  "molgan": "2026-10-15T11:19:23Z",
+  "msprime": "2026-10-15T11:19:23Z",
+  "mst_aim": "2026-10-15T11:19:23Z",
+  "mtgan": "2026-10-15T11:19:23Z",
+  "muscat": "2026-10-15T11:19:23Z",
+  "pac_synth": "2026-10-15T11:19:23Z",
+  "pate_gan": "2026-10-15T11:19:23Z",
+  "privbayes": "2026-10-15T11:19:23Z",
+  "privsyn": "2026-10-15T11:19:23Z",
+  "promptehr": "2026-10-15T11:19:23Z",
+  "realtabformer": "2026-10-15T11:19:23Z",
+  "roentgen": "2026-10-15T11:19:23Z",
+  "rtsgan": "2026-10-15T11:19:23Z",
+  "rule_based_simulation": "2026-10-15T11:19:23Z",
+  "scdesign3": "2026-10-15T11:19:23Z",
+  "scgan": "2026-10-15T11:19:23Z",
+  "sdv": "2026-10-15T11:19:23Z",
+  "simpop": "2026-10-15T11:19:23Z",
+  "slim": "2026-10-15T11:19:23Z",
+  "smote_family": "2026-10-15T11:19:23Z",
+  "splatter": "2026-10-15T11:19:23Z",
+  "stasy": "2026-10-15T11:19:23Z",
+  "survivalgan": "2026-10-15T11:19:23Z",
+  "synthcity": "2026-10-15T11:19:23Z",
+  "synthea": "2026-10-15T11:19:23Z",
+  "synthea_covid19_10k": "2026-10-15T11:19:23Z",
+  "synthea_sample_data": "2026-10-15T11:19:23Z",
+  "synthpop": "2026-10-15T11:19:23Z",
+  "tabddpm": "2026-10-15T11:19:23Z",
+  "tabsyn": "2026-10-15T11:19:23Z",
+  "template_note_generation": "2026-10-15T11:19:23Z",
+  "timeautodiff": "2026-10-15T11:19:23Z",
+  "timegan": "2026-10-15T11:19:23Z",
+  "timevae": "2026-10-15T11:19:23Z",
+  "tvae": "2026-10-15T11:19:23Z"
  },
  "unverifiable": {
+  "artificial_genomes_gan": "https://gitlab.inria.fr/ml_genetics/public/artificial_genomes",
   "hapgen2": "https://mathgen.stats.ox.ac.uk/genetics_software/hapgen/hapgen2.html",
   "sparsim": "https://gitlab.com/sysbiobig/sparsim"
  }

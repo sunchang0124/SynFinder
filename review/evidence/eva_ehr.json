@@ -1,0 +1,70 @@
+{
+ "id": "eva_ehr",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": null,
+ "purposes": {
+  "open_release": {
+   "verdict": "supported",
+   "rationale": "The paper frames synthetic EHRs as a privacy-preserving substitute for de-identified data that health systems will not share.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "De-identified EHRs do not adequately address the needs of health systems, as de-identified data are susceptible to re-identification and its volume is also limited. Synthetic EHRs offer a potential solution.",
+     "verified": true
+    }
+   ]
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "Nothing in the paper frames the synthetic EHRs as test data for software or pipelines.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "supported",
+   "rationale": "The paper trains predictive models on synthetic EHRs and reports gains from augmenting real data.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "We confirmed the performance of predictive models trained on the synthetic data are similar with those trained on real EHRs.",
+     "verified": true
+    },
+    {
+     "source": "paper",
+     "text": "our findings indicate that augmenting real data with synthetic EHRs results in the best predictive performance",
+     "verified": true
+    }
+   ]
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "The paper evaluates how well generated sequences capture real EHR statistics and judges them realistic in clinician studies.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "We illustrate that EVA can produce realistic EHR sequences, account for individual differences among patients, and can be conditioned on specific disease conditions",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "The paper uses a latent variable model with no causal graph or intervention framing.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "not_supported",
+   "rationale": "The paper has no teaching, tutorial or demonstration framing.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "not_supported",
+   "rationale": "EVA is the proposed method compared against baselines; the paper does not use it as a baseline or offer benchmark data.",
+   "quotes": []
+  },
+  "imbalance_correction": {
+   "verdict": "not_supported",
+   "rationale": "The paper conditions generation on diseases but does not frame this as oversampling a rare class.",
+   "quotes": []
+  }
+ }
+}

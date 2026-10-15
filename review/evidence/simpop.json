@@ -1,0 +1,75 @@
+{
+ "id": "simpop",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": null,
+ "purposes": {
+  "open_release": {
+   "verdict": "supported",
+   "rationale": "The paper frames synthetic populations as public use files and shareable replacement datasets from confidential data.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "The production of synthetic datasets has been proposed as a statistical disclosure control solution to generate public use files out of protected data",
+     "verified": true
+    },
+    {
+     "source": "paper",
+     "text": "Synthetic data generation makes the dissemination and use of information contained in confidential datasets possible, by creating",
+     "verified": true
+    }
+   ]
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "No testing or format-conformance purpose is stated; the aim is realistic synthetic populations.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "not_supported",
+   "rationale": "The 'augmented datasets' are inputs to micro-simulation models, not training data for predictive models.",
+   "quotes": []
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "The paper requires the synthetic population to match marginals and correlation structure and reports a utility assessment against real data.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "The performance and acceptability of such a tool relies heavily on the quality of the synthetic populations, i.e., on the statistical similarity between the synthetic and the true population of interest.",
+     "verified": true
+    },
+    {
+     "source": "paper",
+     "text": "We demonstrate the use of simPop by creating a synthetic population of Austria, and report on the utility of the resulting data.",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "No causal or structural-model framing appears in the sources.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "unclear",
+   "rationale": "The paper mentions sharing replacement datasets 'for research or training' and demonstrates the package, but no course or tutorial use is shown.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "“replacement datasets” that can be shared as public use files for research or training.",
+     "verified": true
+    }
+   ]
+  },
+  "benchmarking": {
+   "verdict": "unclear",
+   "rationale": "The full text is truncated and the README is thin; the visible text only describes other tools and does not show simPop used as a baseline.",
+   "quotes": []
+  },
+  "imbalance_correction": {
+   "verdict": "not_supported",
+   "rationale": "No minority-class or imbalance framing appears in the sources.",
+   "quotes": []
+  }
+ }
+}

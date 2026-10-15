@@ -1,0 +1,70 @@
+{
+ "id": "realtabformer",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": null,
+ "purposes": {
+  "open_release": {
+   "verdict": "supported",
+   "rationale": "The paper motivates synthetic data as a way to make sensitive data accessible to researchers and adds anti-copying safeguards.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "can help to make sensitive data accessible to researchers",
+     "verified": true
+    },
+    {
+     "source": "readme",
+     "text": "which was used to generate the synthetic population for research on disclosure risk and the mosaic effect.",
+     "verified": true
+    }
+   ]
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "The sources show no testing or format-conformance purpose.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "supported",
+   "rationale": "The paper reports machine learning efficacy of models trained on the synthetic data.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "REaLTabFormer also achieves state-of-the-art results on prediction tasks, \"out-of-the-box\", for large non-relational datasets without needing fine-tuning.",
+     "verified": true
+    }
+   ]
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "The paper evaluates how well synthetic data captures relational and distributional structure of real data.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "Experiments using real-world datasets show that REaLTabFormer captures the relational structure better than a baseline model.",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "No causal framing appears.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "not_supported",
+   "rationale": "No teaching framing appears; the README is a usage guide.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "not_supported",
+   "rationale": "It is the proposed method compared against baselines, and the sources do not show it used as a baseline or benchmark data.",
+   "quotes": []
+  },
+  "imbalance_correction": {
+   "verdict": "not_supported",
+   "rationale": "No class-imbalance experiments appear.",
+   "quotes": []
+  }
+ }
+}

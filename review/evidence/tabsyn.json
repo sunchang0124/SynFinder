@@ -1,0 +1,76 @@
+{
+ "id": "tabsyn",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": null,
+ "purposes": {
+  "open_release": {
+   "verdict": "unclear",
+   "rationale": "Privacy is only checked with a distance-to-closest-record test; the sources never frame the output as releasable.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "via Distance to Closest Records (DCR) in Appendix F.6; 4) Performance on downstream tasks –",
+     "verified": true
+    }
+   ]
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "No testing or format-conformance use appears in the paper or README.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "supported",
+   "rationale": "The paper evaluates machine learning efficiency, training on synthetic data and testing on real data.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "accuracy on real data when trained on synthetically generated tabular datasets. The performance on",
+     "verified": true
+    },
+    {
+     "source": "paper",
+     "text": "The generative models are learned on the real training set, from which a synthetic set of equivalent",
+     "verified": true
+    }
+   ]
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "The paper measures column-wise distribution and pair-wise correlation fidelity against real data.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "Tabsyn outperforms existing methods. Specifically, it reduces the error rates by 86% and 67% for column-wise distribution and pair-wise column correlation estimations compared with the most competitive baselines.",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "No causal structure, DAG or intervention framing appears.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "not_supported",
+   "rationale": "No tutorial or teaching framing; the README is a research code release.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "unclear",
+   "rationale": "The paper compares TabSyn with seven baselines on six datasets, but does not position TabSyn itself as a baseline or benchmark dataset.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "Baselines. We compare the proposed TAB S YN with seven existing synthetic tabular data generation",
+     "verified": true
+    }
+   ]
+  },
+  "imbalance_correction": {
+   "verdict": "not_supported",
+   "rationale": "Class imbalance is mentioned only when describing CTGAN in related work; TabSyn does no minority-class handling.",
+   "quotes": []
+  }
+ }
+}

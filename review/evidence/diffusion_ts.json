@@ -1,0 +1,71 @@
+{
+ "id": "diffusion_ts",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": null,
+ "purposes": {
+  "open_release": {
+   "verdict": "supported",
+   "rationale": "The introduction motivates synthesis as a remedy where data sharing may cause privacy breaches.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "learning solutions in some cases where data sharing may lead to privacy breaches (Alaa et al., 2021).",
+     "verified": true
+    }
+   ]
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "No testing or format-conformance framing appears.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "supported",
+   "rationale": "The predictive score trains a sequence model on synthetic data and tests on real data (TSTR).",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "sequence model to predict next-step temporal vectors using the train-synthesis-and-test-real (TSTR)",
+     "verified": true
+    }
+   ]
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "Evaluation uses discriminative, correlational and Context-FID scores to compare synthetic and real series.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "lute error between cross correlation matrices by real data and synthetic data to assess the temporal",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "fMRI is used only as a dataset; there is no causal-structure preservation claim.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "unclear",
+   "rationale": "The README points to tutorial notebooks, but they only illustrate implementation of the evaluation.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "Please refer to `.ipynb` tutorial files in this repo for more detailed implementations.",
+     "verified": true
+    }
+   ]
+  },
+  "benchmarking": {
+   "verdict": "not_supported",
+   "rationale": "The method is compared against baselines but is not shown as a baseline or benchmark for others in these sources.",
+   "quotes": []
+  },
+  "imbalance_correction": {
+   "verdict": "not_supported",
+   "rationale": "No class-imbalance or minority-class content.",
+   "quotes": []
+  }
+ }
+}

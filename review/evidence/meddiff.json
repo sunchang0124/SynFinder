@@ -1,0 +1,65 @@
+{
+ "id": "meddiff",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": "No code repository or README is linked and only the arXiv text is available.",
+ "purposes": {
+  "open_release": {
+   "verdict": "supported",
+   "rationale": "The abstract frames synthetic EHRs as a way to do research while mitigating the privacy concerns of data sharing.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "can be leveraged to accelerate methodological developments for research purposes while mitigating privacy concerns associated with data sharing.",
+     "verified": true
+    }
+   ]
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "Nothing in the sources points to this purpose.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "supported",
+   "rationale": "A case study trains a classifier on synthetic records and tests augmenting real training data with them.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "the real data or the synthetic data on the real test set",
+     "verified": true
+    }
+   ]
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "The abstract claims the model beats prior synthetic EHR generators on realism, with density comparisons in the paper.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "We empirically show that our model outperforms existing state-of-the-art synthetic EHR generation methods.",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "Nothing in the sources points to this purpose.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "not_supported",
+   "rationale": "Nothing in the sources points to this purpose.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "not_supported",
+   "rationale": "Nothing in the sources points to this purpose.",
+   "quotes": []
+  },
+  "imbalance_correction": {
+   "verdict": "not_supported",
+   "rationale": "Nothing in the sources points to this purpose.",
+   "quotes": []
+  }
+ }
+}

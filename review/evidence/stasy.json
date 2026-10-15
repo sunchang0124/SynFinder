@@ -1,0 +1,98 @@
+{
+ "id": "stasy",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": null,
+ "purposes": {
+  "open_release": {
+   "verdict": "unclear",
+   "rationale": "Paper lists privacy-protecting release of fake data only as general motivation for tabular synthesis, with no privacy guarantee or release claim for STaSy itself.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": " inal tabular data by releasing fake tabular\n data (Park et al., 2018; Lee et al., 2021),",
+     "verified": true
+    }
+   ]
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "Sources contain no testing, format or pipeline framing.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "supported",
+   "rationale": "Quality is measured by train-on-synthetic, test-on-real classification and regression, and the intro cites augmentation as a motivation.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "is trained with self-paced learning and the fine-tuning method. ii) In general, we follow the “train",
+     "verified": true
+    },
+    {
+     "source": "paper",
+     "text": "use R2 and RMSE for regression. For the sampling diversity, we use coverage (Naeem et al., 2020),",
+     "verified": true
+    }
+   ]
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "Paper evaluates how well fake records cover and match the real data distribution using a coverage (diversity) metric alongside TSTR quality.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "use R2 and RMSE for regression. For the sampling diversity, we use coverage (Naeem et al., 2020),",
+     "verified": true
+    },
+    {
+     "source": "paper",
+     "text": "sampling quality, whereas it shows relatively inferior coverage",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "No causal structure, DAG or intervention framing in the sources.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "supported",
+   "rationale": "README links a Google Colab tutorial notebook for the method.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "## Link for Tutorial: \n\n- Google Colab Notebook Link: [Colab](https://colab.research.google.com/drive/1leKzdlsXnrxiJnOXzxqfGp8-iZpcBI-X?usp=sharing)",
+     "verified": true
+    }
+   ]
+  },
+  "benchmarking": {
+   "verdict": "unclear",
+   "rationale": "Paper benchmarks STaSy against 7 baselines on 15 datasets, but the sources do not show it used as a baseline or benchmark resource by others.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "In our experiments with 15 benchmark tabular datasets and 7 baselines, our method outperforms existing methods in terms of task-dependant evaluations and diversity.",
+     "verified": true
+    }
+   ]
+  },
+  "imbalance_correction": {
+   "verdict": "supported",
+   "rationale": "Paper converts STaSy into an oversampling method for imbalanced data compared against SOS, and studies a 0.3% minority class in Credit.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "are not possible. However, we convert our method to an oversampling method following their design",
+     "verified": true
+    },
+    {
+     "source": "paper",
+     "text": "minority class, showing an F1 score close to 0 in Table 11 of Appendix G.1. CTGAN and TableGAN",
+     "verified": true
+    }
+   ]
+  }
+ }
+}

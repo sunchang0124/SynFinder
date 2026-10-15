@@ -1,0 +1,71 @@
+{
+ "id": "doppelganger",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": "Paper full text is not available; judgments rest on the abstract, TLDR and README only.",
+ "purposes": {
+  "open_release": {
+   "verdict": "supported",
+   "rationale": "The paper is about GANs for sharing synthetic datasets, though it states privacy is not resolved.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "explore if and how generative adversarial networks (GANs) can be used to incentivize data sharing by enabling a generic framework for sharing synthetic datasets with minimal expert knowledge.",
+     "verified": true
+    }
+   ]
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "The abstract and README do not mention testing software or pipelines.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "supported",
+   "rationale": "The abstract lists predictive modeling among the use cases where fidelity is demonstrated.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "use cases (e.g., structural characterization, predictive modeling, algorithm comparison)",
+     "verified": true
+    }
+   ]
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "The paper claims higher fidelity, including long-term dependencies and multidimensional relationships, than baselines.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "DG achieves up to 43% better fidelity than baseline models.",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "No causal framing in the abstract or README.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "not_supported",
+   "rationale": "The README lists third-party tutorials but frames the repo as research code, not teaching material.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "unclear",
+   "rationale": "Algorithm comparison is a listed use case of the synthetic data, but full text is missing to show use as baseline or benchmark.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "use cases (e.g., structural characterization, predictive modeling, algorithm comparison)",
+     "verified": true
+    }
+   ]
+  },
+  "imbalance_correction": {
+   "verdict": "not_supported",
+   "rationale": "No class-imbalance or minority-class content in the abstract or README.",
+   "quotes": []
+  }
+ }
+}

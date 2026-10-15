@@ -1,0 +1,76 @@
+{
+ "id": "privsyn",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": "The paper is right, but the repo (deid2_dpsyn) is a competition implementation that includes only the record-synthesis part of PrivSyn.",
+ "purposes": {
+  "open_release": {
+   "verdict": "supported",
+   "rationale": "The paper says the DP synthetic dataset lets any task run without privacy concern.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "The synthetic dataset enables any task to be done without privacy concern and modification to existing algorithms.",
+     "verified": true
+    }
+   ]
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "No testing or format-conformance use in the sources.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "supported",
+   "rationale": "The paper trains classifiers on the synthetic data and measures classification accuracy.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "nally, we can also use the synthetic dataset to train classifi-",
+     "verified": true
+    }
+   ]
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "The paper aims to capture the useful information in the private data, evaluated with marginal and range queries.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "generate synthetic datasets that efficiently capture the useful information in the private data",
+     "verified": true
+    },
+    {
+     "source": "readme",
+     "text": "We present DPSyn, an algorithm for synthesizing microdata for data analysis while satisfying differential privacy.",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "No causal or DAG framing; the graphical model captures correlations.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "not_supported",
+   "rationale": "No teaching or tutorial framing in the sources.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "unclear",
+   "rationale": "The README mentions a competition setting, but the sources do not show it used as a baseline by others.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "There are two similar and highly-related papers (both from competitors in the competition).",
+     "verified": true
+    }
+   ]
+  },
+  "imbalance_correction": {
+   "verdict": "not_supported",
+   "rationale": "No class-imbalance framing in the sources.",
+   "quotes": []
+  }
+ }
+}

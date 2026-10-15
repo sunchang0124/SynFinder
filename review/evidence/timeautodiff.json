@@ -1,0 +1,77 @@
+{
+ "id": "timeautodiff",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": null,
+ "purposes": {
+  "open_release": {
+   "verdict": "unclear",
+   "rationale": "A distance-to-closest-record audit checks memorization, but the sources do not frame the output as releasable.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "to-closest-record (DCR) audit demonstrates that the model achieves generalization with",
+     "verified": true
+    }
+   ]
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "No testing or format-conformance use appears.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "unclear",
+   "rationale": "Predictive metrics are mentioned, but no augmentation or train-on-synthetic framing is visible in the digest.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "predictive metrics) and consistently lowers MAE/MSE for imputation and forecasting tasks.",
+     "verified": true
+    }
+   ]
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "The paper evaluates synthetic sequence fidelity including temporal-correlation metrics.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "strong baselines in synthetic sequence fidelity (discriminative, temporal-correlation, and",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "unclear",
+   "rationale": "Metadata editing yields counterfactual what-if trajectories, but there is no explicit causal graph or structural model.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "metadata sequences, practitioners can generate coherent families of counterfactual trajectories",
+     "verified": true
+    }
+   ]
+  },
+  "education": {
+   "verdict": "not_supported",
+   "rationale": "No tutorial or teaching framing; the README is a one-line pointer.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "unclear",
+   "rationale": "The paper compares against baseline methods but does not present itself as a baseline or benchmark.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "Table 1: A comparison table that summarizes TimeAutoDiff against baseline methods, evaluating metrics",
+     "verified": true
+    }
+   ]
+  },
+  "imbalance_correction": {
+   "verdict": "not_supported",
+   "rationale": "No class-imbalance framing appears.",
+   "quotes": []
+  }
+ }
+}

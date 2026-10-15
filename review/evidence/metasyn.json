@@ -1,0 +1,71 @@
+{
+ "id": "metasyn",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": null,
+ "purposes": {
+  "open_release": {
+   "verdict": "supported",
+   "rationale": "README says owners can share synthetic data and the model in place of sensitive data.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "Metasyn makes it possible for owners of sensitive data to create test data, do open science, improve code reproducibility, encourage data reuse, and enhance accessibility of their datasets, without worrying about leaking private information.",
+     "verified": true
+    }
+   ]
+  },
+  "pipeline_testing": {
+   "verdict": "supported",
+   "rationale": "README lists creating test data as a headline use.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "Metasyn makes it possible for owners of sensitive data to create test data, do open science, improve code reproducibility, encourage data reuse",
+     "verified": true
+    }
+   ]
+  },
+  "ml_augmentation": {
+   "verdict": "not_supported",
+   "rationale": "No predictive-model or augmentation framing in the README or docs.",
+   "quotes": []
+  },
+  "statistical_replication": {
+   "verdict": "unclear",
+   "rationale": "README says output looks like the real data but deliberately limits statistical information; no fidelity evaluation in the digest.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "we make the explicit choice to strictly limit the statistical information in our model in order to adhere to the highest privacy standards.",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "No causal framing.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "supported",
+   "rationale": "README offers an interactive tutorial for newcomers.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "To explore more options and try this out online, take a look at our interactive tutorial:",
+     "verified": true
+    }
+   ]
+  },
+  "benchmarking": {
+   "verdict": "not_supported",
+   "rationale": "No benchmark or baseline use appears in the digest.",
+   "quotes": []
+  },
+  "imbalance_correction": {
+   "verdict": "not_supported",
+   "rationale": "No class-imbalance framing.",
+   "quotes": []
+  }
+ }
+}

@@ -1,0 +1,59 @@
+{
+ "id": "rtsgan",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": null,
+ "purposes": {
+  "open_release": {
+   "verdict": "unclear",
+   "rationale": "The introduction cites confidentiality as motivation, but no release or privacy evaluation is made for RTSGAN itself.",
+   "quotes": []
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "No testing or format-conformance framing appears.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "supported",
+   "rationale": "Synthetic data utility is evaluated by training downstream models on synthetic data and testing on real data.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "Experiments on the four RTS datasets show that the proposed framework outperforms the previous generation methods in terms of synthetic data utility for downstream classification and prediction tasks.",
+     "verified": true
+    }
+   ]
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "The method aims to respect original feature distributions and is evaluated for realistic-looking data.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "By combining the generator and the decoder, RTSGAN is able to generate RTS which respect the original feature distributions and the temporal dynamics.",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "No causal framing appears.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "not_supported",
+   "rationale": "No teaching framing appears; the README is experiment code.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "not_supported",
+   "rationale": "RTSGAN is the proposed method and the sources do not show it used as a baseline.",
+   "quotes": []
+  },
+  "imbalance_correction": {
+   "verdict": "not_supported",
+   "rationale": "No class-imbalance framing appears.",
+   "quotes": []
+  }
+ }
+}

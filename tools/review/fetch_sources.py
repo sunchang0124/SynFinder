@@ -145,6 +145,17 @@ def semantic_scholar(key: str) -> dict:
             "pdf": (d.get("openAccessPdf") or {}).get("url")}
 
 
+# OpenReview blocks this network (403 on API and PDF). The same papers on arXiv,
+# checked by title on 15 Oct 2026; GOGGLE and PATE-GAN have no arXiv version.
+OPENREVIEW_ARXIV = {
+    "4h1apFjO99": "2403.01742",   # Diffusion-TS
+    "UaAD-Nu86WX": "2209.14734",  # DiGress
+    "cEygmQNOeI": "2210.06280",   # GReaT
+    "1mNssCWt_v": "2210.04018",   # STaSy
+    "4Ay23yeuz0": "2310.09656",   # TabSyn
+}
+
+
 def paper_record(url: str) -> dict:
     rec: dict = {"url": url}
     st, final, page = get(url)
@@ -164,8 +175,12 @@ def paper_record(url: str) -> dict:
             rec.update(crossref(doi))
             rec["s2"] = semantic_scholar(f"DOI:{doi}")
     elif "openreview.net" in u:
+        fid = urllib.parse.parse_qs(urllib.parse.urlparse(url).query)["id"][0]
         rec["source"] = "openreview"
-        rec.update(openreview(urllib.parse.parse_qs(urllib.parse.urlparse(url).query)["id"][0]))
+        rec.update(openreview(fid))
+        if rec.get("status") != 200 and fid in OPENREVIEW_ARXIV:
+            rec["source"] = "arxiv (OpenReview unreachable)"
+            rec.update(arxiv(OPENREVIEW_ARXIV[fid]))
     elif "proceedings.mlr.press" in u or "papers.nips.cc" in u:
         rec["source"] = "html"
         rec["title"] = meta_tag(page, "citation_title") or strip_tags(
@@ -231,8 +246,34 @@ def page_record(url: str) -> dict:
     return rec
 
 
+def write_table() -> None:
+    """Rebuild review/links.md from every record on disk, not just this run's."""
+    rows = []
+    for f in sorted(OUT.glob("*.json")):
+        rec = json.loads(f.read_text())
+        p, c = rec.get("paper", {}), rec.get("code", {})
+        rows.append((rec["id"], rec["name"],
+                     f"{p.get('http_status', '-')}/{p.get('status', '-')}" if p else "none",
+                     (p.get("title") or "?")[:90] if p else "",
+                     str(p.get("year") or "") if p else "",
+                     "yes" if p and p.get("fulltext") else ("abs" if p and (p.get("abstract") or (p.get("s2") or {}).get("abstract")) else "no") if p else "",
+                     (f"{c.get('api_status', c.get('http_status', '-'))}"
+                      + (" RENAMED→" + c["full_name"] if c.get("renamed") else "")
+                      + (" ARCHIVED" if c.get("archived") else "")
+                      + (f" path:{c['path_status']}" if c.get("path_status") not in (None, 200) else "")) if c else "none",
+                     (c.get("description") or "")[:70] if c else ""))
+    md = ["# Link check", "", f"Fetched {datetime.now(timezone.utc).date()}. Paper title and repo description are what the link resolves to; compare with the name.", "",
+          "| id | name | paper http/meta | title | year | text | code | repo description |", "|---|---|---|---|---|---|---|---|"]
+    md += ["| " + " | ".join(str(x).replace("|", "/").replace("\n", " ") for x in r) + " |" for r in rows]
+    (ROOT / "review" / "links.md").write_text("\n".join(md) + "\n")
+
+
 def main() -> int:
     OUT.mkdir(parents=True, exist_ok=True)
+    if sys.argv[1:] == ["--table-only"]:
+        write_table()
+        print("wrote review/links.md")
+        return 0
     cat = load_catalog(ROOT / "catalog")
     only = set(sys.argv[1:])
     tok = token()
@@ -263,10 +304,7 @@ def main() -> int:
                      (c.get("description") or "")[:70] if c else ""))
         print(f"[{i}/{len(entries)}] {e.id}: paper {rows[-1][2]} ({rows[-1][5]}) · code {rows[-1][6]}", flush=True)
         time.sleep(0.6)
-    md = ["# Link check", "", f"Fetched {datetime.now(timezone.utc).date()}. Paper title and repo description are what the link resolves to; compare with the name.", "",
-          "| id | name | paper http/meta | title | year | text | code | repo description |", "|---|---|---|---|---|---|---|---|"]
-    md += ["| " + " | ".join(str(x).replace("|", "/") for x in r) + " |" for r in rows]
-    (ROOT / "review" / "links.md").write_text("\n".join(md) + "\n")
+    write_table()
     print("wrote review/links.md")
     return 0
 

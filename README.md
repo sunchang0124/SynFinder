@@ -117,8 +117,8 @@ verified rather than assumed.
 
 ## Browsing by name
 
-The **Methods** tab looks a catalog entry up by name, alias, id or family and
-shows its facts without scoring it against a study. The **Datasets** tab lists
+The magnifier tab searches the catalog by name, alias, id or family and
+shows an entry's facts without scoring it against a study. The **Datasets** tab lists
 ready-made synthetic datasets; using one costs nothing and avoids every risk
 of training your own. From the command line: `synfinder search <name>` and `synfinder datasets`.
 

@@ -94,13 +94,13 @@ $("#themeToggle").onclick = () => {
 };
 
 /* ---------- tabs ---------- */
-const VIEWS = ["find", "methods", "browse", "submit"];
+const VIEWS = ["find", "browse", "submit", "search"];
 document.querySelectorAll(".tab").forEach(t => {
   t.onclick = () => {
     document.querySelectorAll(".tab").forEach(x => x.classList.toggle("is-active", x === t));
     VIEWS.forEach(v => $("#view-" + v).classList.toggle("hidden", t.dataset.view !== v));
     if (t.dataset.view === "browse") loadDatasets();
-    if (t.dataset.view === "methods") loadMethods();
+    if (t.dataset.view === "search") loadMethods();
   };
 });
 
@@ -518,7 +518,7 @@ $("#submitForm").onsubmit = async e => {
   };
 };
 
-/* ---------- method browse ---------- */
+/* ---------- catalog search ---------- */
 function methodCard(m) {
   const links = Object.entries(m.links || {})
     .filter(([, v]) => v)

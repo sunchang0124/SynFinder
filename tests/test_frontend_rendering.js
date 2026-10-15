@@ -17,7 +17,7 @@ load("/* ---------- preview rendering ---------- */", "/* ---------- rendering -
 load("/* ---------- submission helpers ---------- */", "/* ---------- submission ---------- */",
      ["collectLines", "issueUrl", "ISSUE_BASE"]);
 
-load("/* ---------- method browse ---------- */", "/* ---------- dataset browse ---------- */",
+load("/* ---------- catalog search ---------- */", "/* ---------- dataset browse ---------- */",
      ["methodCard"]);
 
 let failed = 0;

@@ -55,6 +55,7 @@ button,input,select{font:inherit; color:inherit}
 }
 .tab:hover{color:var(--text)}
 .tab.is-active{background:var(--surface); color:var(--text); box-shadow:var(--shadow)}
+.tab-icon{display:inline-flex; align-items:center; padding-left:11px; padding-right:11px}
 .icon-btn{
   appearance:none; display:grid; place-items:center; width:34px; height:34px;
   border:1px solid var(--border); background:var(--surface-2); color:var(--dim);

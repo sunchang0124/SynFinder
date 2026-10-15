@@ -9,7 +9,7 @@ compute: cpu_fine
 license: MIT
 language: r
 last_updated: 2025
-purposes: [benchmarking, statistical_replication, ml_augmentation, education]
+purposes: [benchmarking, education, ml_augmentation, statistical_replication]
 preserves: [marginals, joint_correlations]
 scale:
   evidence: null
@@ -54,3 +54,8 @@ output_preview:
     cell_id,cell_type,group,batch
     c0001,T cell,control,b1
     c0002,B cell,treated,b1
+provenance:
+  verified_on: 2026-10-15
+  verified_by: "Chang Sun"
+  sources_checked: [paper, code]
+  fields_checked: [purposes, links]

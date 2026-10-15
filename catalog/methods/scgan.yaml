@@ -9,7 +9,7 @@ compute: gpu_required
 license: MIT
 language: python
 last_updated: 2024
-purposes: [ml_augmentation, benchmarking]
+purposes: [ml_augmentation, imbalance_correction, statistical_replication]
 preserves: [marginals, joint_correlations]
 scale:
   evidence: null
@@ -51,3 +51,8 @@ output_preview:
     cell_id,cell_type,group,batch
     c0001,T cell,control,b1
     c0002,B cell,treated,b1
+provenance:
+  verified_on: 2026-10-15
+  verified_by: "Chang Sun"
+  sources_checked: [paper, code]
+  fields_checked: [purposes, links]

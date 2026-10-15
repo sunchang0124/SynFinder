@@ -10,7 +10,7 @@ compute: gpu_required
 license: Apache-2.0
 language: python
 last_updated: 2026
-purposes: [ml_augmentation, open_release, benchmarking, education]
+purposes: [ml_augmentation, open_release]
 preserves: [marginals]
 scale:
   evidence: null
@@ -60,3 +60,8 @@ output_preview:
     manifest    subject_id,age,sex,brain_volume,file
                 s0001,67,F,1043210,s0001_T1.nii.gz
                 s0002,44,M,1198455,s0002_T1.nii.gz
+provenance:
+  verified_on: 2026-10-15
+  verified_by: "Chang Sun"
+  sources_checked: [paper, code, docs]
+  fields_checked: [purposes, links]

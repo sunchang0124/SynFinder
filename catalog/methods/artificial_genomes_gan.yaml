@@ -8,7 +8,7 @@ variable_types: [categorical]
 formal_dp: false
 compute: gpu_required
 license: GPL-3.0
-purposes: [open_release, benchmarking, ml_augmentation]
+purposes: [ml_augmentation, open_release, statistical_replication]
 preserves: [marginals, joint_correlations]
 scale:
   evidence: null
@@ -55,3 +55,8 @@ output_preview:
     rs0000002   1      768448   G   A    1     1     2
     rs0000003   1      798959   C   T    0     0     1
     rs0000004   2      113422   T   C    2     1     0
+provenance:
+  verified_on: 2026-10-15
+  verified_by: "Chang Sun"
+  sources_checked: [paper, code]
+  fields_checked: [purposes, links]

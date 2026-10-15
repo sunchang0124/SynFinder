@@ -10,7 +10,7 @@ compute: cpu_fine
 license: MIT
 language: python
 last_updated: 2026
-purposes: [causal_inference, statistical_replication, education, benchmarking]
+purposes: [causal_inference, education, statistical_replication, open_release]
 preserves: [marginals, joint_correlations, causal_structure]
 scale:
   # UNVERIFIED - pgmpy publishes no scale benchmark
@@ -54,3 +54,8 @@ output_preview:
     s0001,54,F,27.3,6.1,former,E11.9
     s0002,38,M,31.8,5.4,never,I10
     s0003,71,F,24.1,7.9,current,E11.9
+provenance:
+  verified_on: 2026-10-15
+  verified_by: "Chang Sun"
+  sources_checked: [paper, code, docs]
+  fields_checked: [purposes, links]

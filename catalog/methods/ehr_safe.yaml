@@ -9,7 +9,7 @@ compute: gpu_required
 license: Apache-2.0
 language: python
 last_updated: 2026
-purposes: [ml_augmentation, open_release, benchmarking]
+purposes: [benchmarking, ml_augmentation, open_release, statistical_replication]
 preserves: [temporal_dynamics, joint_correlations, marginals]
 scale:
   evidence: null
@@ -49,3 +49,8 @@ output_preview:
     s0001,1,91,108,96,0
     s0001,2,104,96,94,1
     s0002,0,76,124,99,0
+provenance:
+  verified_on: 2026-10-15
+  verified_by: "Chang Sun"
+  sources_checked: [paper]
+  fields_checked: [purposes, links]

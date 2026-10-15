@@ -10,7 +10,7 @@ compute: cpu_fine
 license: GPL-2.0
 language: r
 last_updated: 2026
-purposes: [statistical_replication, pipeline_testing, education, open_release]
+purposes: [education, open_release, pipeline_testing, statistical_replication]
 preserves: [marginals, joint_correlations, rare_events]
 scale:
   # UNVERIFIED - JSS paper uses SD2011; row/variable counts not yet confirmed
@@ -52,3 +52,8 @@ output_preview:
     s0001,54,F,27.3,6.1,former,E11.9
     s0002,38,M,31.8,5.4,never,I10
     s0003,71,F,24.1,7.9,current,E11.9
+provenance:
+  verified_on: 2026-10-15
+  verified_by: "Chang Sun"
+  sources_checked: [paper, code, docs]
+  fields_checked: [purposes, links]

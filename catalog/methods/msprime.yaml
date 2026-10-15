@@ -11,7 +11,7 @@ compute: cpu_fine
 license: GPL-3.0
 language: python
 last_updated: 2026
-purposes: [benchmarking, education, pipeline_testing, open_release, statistical_replication]
+purposes: [benchmarking, pipeline_testing]
 preserves: [causal_structure]
 scale:
   evidence: null
@@ -54,3 +54,8 @@ output_preview:
     rs0000002   1      768448   G   A    1     1     2
     rs0000003   1      798959   C   T    0     0     1
     rs0000004   2      113422   T   C    2     1     0
+provenance:
+  verified_on: 2026-10-15
+  verified_by: "Chang Sun"
+  sources_checked: [paper, code, docs]
+  fields_checked: [purposes, links]

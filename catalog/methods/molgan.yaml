@@ -50,3 +50,8 @@ output_preview:
     node_id,attribute
     n1,clinic
     n2,ward
+provenance:
+  verified_on: 2026-10-15
+  verified_by: "Chang Sun"
+  sources_checked: [paper, code]
+  fields_checked: [purposes, links]

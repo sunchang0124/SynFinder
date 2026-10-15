@@ -10,7 +10,7 @@ compute: cpu_fine
 license: GPL-3.0
 language: r
 last_updated: 2026
-purposes: [statistical_replication, causal_inference, education, benchmarking]
+purposes: [benchmarking, education, statistical_replication]
 preserves: [joint_correlations, causal_structure]
 scale:
   evidence: null
@@ -60,3 +60,8 @@ output_preview:
     node_id,attribute
     n1,clinic
     n2,ward
+provenance:
+  verified_on: 2026-10-15
+  verified_by: "Chang Sun"
+  sources_checked: [paper, code]
+  fields_checked: [purposes, links]

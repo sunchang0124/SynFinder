@@ -10,7 +10,7 @@ compute: gpu_required
 license: MIT
 language: python
 last_updated: 2023
-purposes: [ml_augmentation, benchmarking, education]
+purposes: [benchmarking, education, ml_augmentation, open_release, statistical_replication]
 preserves: [marginals]
 scale:
   evidence: null
@@ -44,3 +44,8 @@ output_preview:
     dimensions  128 x 128 x 128 voxels, single channel
     modality    MRI or CT depending on the trained checkpoint
     note        coherent along all 3 axes, unlike slice-wise generation
+provenance:
+  verified_on: 2026-10-15
+  verified_by: "Chang Sun"
+  sources_checked: [paper, code]
+  fields_checked: [purposes, links]

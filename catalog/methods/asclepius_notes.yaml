@@ -11,7 +11,7 @@ compute: gpu_required
 license: CC-BY-4.0
 language: python
 last_updated: 2024
-purposes: [ml_augmentation, education, open_release, benchmarking]
+purposes: [ml_augmentation, open_release]
 preserves: [marginals]
 scale:
   evidence: null
@@ -55,3 +55,8 @@ output_preview:
     breath. Known type 2 diabetes on metformin. Chest radiograph showed
     bibasal consolidation. Treated with intravenous antibiotics and
     discharged on day four in stable condition.
+provenance:
+  verified_on: 2026-10-15
+  verified_by: "Chang Sun"
+  sources_checked: [paper, code]
+  fields_checked: [purposes, links]

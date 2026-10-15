@@ -9,7 +9,7 @@ compute: cpu_fine
 license: MIT
 language: python
 last_updated: 2025
-purposes: [ml_augmentation, pipeline_testing, benchmarking, education]
+purposes: [benchmarking, ml_augmentation, pipeline_testing, open_release]
 preserves: [temporal_dynamics, marginals]
 scale:
   evidence: null
@@ -46,3 +46,8 @@ output_preview:
     s0001,1,91,108,96,0
     s0001,2,104,96,94,1
     s0002,0,76,124,99,0
+provenance:
+  verified_on: 2026-10-15
+  verified_by: "Chang Sun"
+  sources_checked: [paper, code]
+  fields_checked: [purposes, links]

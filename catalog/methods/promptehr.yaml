@@ -9,7 +9,7 @@ compute: gpu_required
 license: MIT
 language: python
 last_updated: 2023
-purposes: [ml_augmentation, benchmarking]
+purposes: [ml_augmentation, open_release, statistical_replication]
 preserves: [temporal_dynamics, joint_correlations]
 scale:
   evidence: null
@@ -48,3 +48,8 @@ output_preview:
       visit 3  2020-01-27  ICD-10: E11.9, E78.5    proc: 80061, 99214
     patient s0002
       visit 1  2019-06-11  ICD-10: J45.909         proc: 94010
+provenance:
+  verified_on: 2026-10-15
+  verified_by: "Chang Sun"
+  sources_checked: [paper, code]
+  fields_checked: [purposes, links]

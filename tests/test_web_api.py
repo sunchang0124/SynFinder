@@ -22,7 +22,7 @@ def test_recommend_returns_a_shortlist_with_explanations():
     body = client.post("/api/recommend", json=INTAKE).json()
     assert body["shortlist"], "expected recommendations"
     first = body["shortlist"][0]
-    assert 0 <= first["fit"] <= 1
+    assert "fit" not in first and "axes" not in first, "the score is never shown"
     assert first["caveats"], "every method carries caveats"
     assert first["preview"]["body"]
 

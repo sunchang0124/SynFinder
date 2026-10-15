@@ -56,7 +56,6 @@ def _candidate_json(c) -> dict:
         "id": m.id, "name": m.name, "family": m.family,
         "verified": provenance_line(m),
         "narration": None,
-        "fit": round(c.fit, 4),
         "why_fits": e.why_fits,
         "weakness": e.weakness,
         "caveats": e.caveats,
@@ -71,9 +70,6 @@ def _candidate_json(c) -> dict:
         "quality": m.maturity.implementation_quality,
         "links": {"paper": m.links.paper, "code": m.links.code,
                   "docs": m.links.docs},
-        "axes": [{"axis": a.axis, "score": round(a.score, 3),
-                  "weight": a.weight, "note": a.note,
-                  "known": a.known} for a in c.axes],
         "preview": (
             {"format": m.output_preview.format,
              "note": m.output_preview.note,

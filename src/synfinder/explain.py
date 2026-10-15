@@ -1,4 +1,6 @@
-"""Turn a score breakdown into prose, using only catalog text."""
+"""Turn a ranking breakdown into prose, using only catalog text.
+
+The numeric fit is an ordering device, not a claim; it is never shown."""
 from __future__ import annotations
 
 from dataclasses import dataclass, field
@@ -28,7 +30,7 @@ def explain(candidate: Candidate, top_k: int = 2) -> Explanation:
     losers.sort(key=lambda a: a.score * a.weight)
     weakness = losers[0].note if losers else None
 
-    headline = f"{method.name} — {candidate.fit:.0%} fit"
+    headline = method.name
     return Explanation(
         headline=headline,
         why_fits=why,

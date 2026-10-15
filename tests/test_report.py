@@ -1,6 +1,6 @@
 from synfinder.intake import Intake
 from synfinder.ranking import rank
-from synfinder.report import render_markdown, render_html, comparison_rows
+from synfinder.report import render_markdown, render_html
 from tests.factories import make_method
 
 
@@ -24,13 +24,6 @@ def test_markdown_records_the_intake_so_the_report_is_self_contained():
     md = render_markdown(intake(), rank([make_method()], intake()))
     assert "ml_augmentation" in md
     assert "biomedical" in md
-
-
-def test_comparison_rows_has_one_row_per_shortlisted_method():
-    methods = [make_method(id="a", name="A"), make_method(id="b", name="B")]
-    header, rows = comparison_rows(rank(methods, intake()))
-    assert header[0] == "Method"
-    assert len(rows) == 2
 
 
 def test_html_is_wrapped_in_a_document():
@@ -70,28 +63,15 @@ def test_markdown_states_verification_for_every_method():
     assert "Not yet verified" in md
 
 
-def test_comparison_table_shows_a_question_mark_for_unknown_axes():
-    header, rows = comparison_rows(
-        rank([make_method()], intake(expected_rows=50_000,
-                                     needs_governance_evidence=True)))
-    scale_col = header.index("Scale")
-    gov_col = header.index("Governance")
-    assert rows[0][scale_col] == "?"
-    assert rows[0][gov_col] == "?"
-
-
-def test_unknown_legend_appears_only_when_an_axis_is_unknown():
-    from synfinder.schema import Scale
-    legend = "? = not yet recorded in the catalog"
-    unknown = make_method(id="u", name="U")
-    known = make_method(id="k", name="K", scale=Scale(
-        min_rows=100, max_rows=100000, evidence="paper table 2"))
-    i = intake(expected_rows=5000)
-    assert legend in render_markdown(i, rank([unknown], i))
-    assert legend not in render_markdown(i, rank([known], i))
-
-
 def test_report_does_not_lead_with_datasets():
     md = render_markdown(intake(), rank([make_method()], intake()))
     assert "You may not need to generate anything" not in md
     assert md.index("## What you asked for") < md.index("## Recommended methods")
+
+
+def test_report_shows_no_score():
+    """The ordering is a heuristic; a number would claim more than it knows."""
+    md = render_markdown(intake(), rank([make_method(name="Alpha")], intake()))
+    assert "% fit" not in md
+    assert "Side by side" not in md
+    assert "### 1. Alpha" in md

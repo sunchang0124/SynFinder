@@ -59,3 +59,8 @@ def test_an_unknown_axis_is_neither_a_strength_nor_a_weakness():
     assert not any("size envelope" in w for w in e.why_fits)
     assert e.weakness is None or "not yet" not in e.weakness
     assert e.weakness is None or "size envelope" not in e.weakness
+
+
+def test_headline_is_the_name_without_a_score():
+    e = explain(score_method(make_method(name="Alpha"), intake(), DEFAULT_WEIGHTS))
+    assert e.headline == "Alpha"

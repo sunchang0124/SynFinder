@@ -39,30 +39,6 @@ def render_preview(p: OutputPreview) -> list[str]:
     ]
 
 
-COMPARISON_AXES = [
-    "purpose", "preserves", "expertise", "scale", "maturity", "governance",
-]
-
-
-def comparison_rows(ranking: Ranking) -> tuple[list[str], list[list[str]]]:
-    header = ["Method", "Fit"] + [
-        a.replace("_", " ").title() for a in COMPARISON_AXES
-    ]
-    rows: list[list[str]] = []
-    for c in ranking.shortlist:
-        row = [c.method.name, f"{c.fit:.0%}"]
-        for name in COMPARISON_AXES:
-            a = c.axis(name)
-            if a is None:
-                row.append("—")
-            elif not a.known:
-                row.append("?")
-            else:
-                row.append(f"{a.score:.2f}")
-        rows.append(row)
-    return header, rows
-
-
 def _intake_lines(intake: Intake) -> list[str]:
     lines = [
         f"- Domain: {intake.domain}",
@@ -142,7 +118,7 @@ def render_markdown(
 
     for i, c in enumerate(ranking.shortlist, start=1):
         e = explain(c)
-        out.append(f"### {i}. {c.method.name} — {c.fit:.0%} fit")
+        out.append(f"### {i}. {c.method.name}")
         out.append("")
         out.append(f"_{provenance_line(c.method)}_")
         out.append("")
@@ -168,17 +144,6 @@ def render_markdown(
         if link_line:
             out.append(link_line)
         out.append("")
-
-    if ranking.shortlist:
-        header, rows = comparison_rows(ranking)
-        out += ["## Side by side", "",
-                "| " + " | ".join(header) + " |",
-                "|" + "---|" * len(header)]
-        out += ["| " + " | ".join(r) + " |" for r in rows]
-        out.append("")
-        if any(not a.known for c in ranking.shortlist for a in c.axes):
-            out += ["? = not yet recorded in the catalog; scored neutral (0.5) "
-                    "and left out of the explanation.", ""]
 
     if ranking.excluded:
         out += [

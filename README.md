@@ -134,14 +134,17 @@ they are not real generated output, and the tool says so above every one.
 1. **Hard filters** eliminate methods that cannot serve you at all — wrong data
    type, no formal DP when you need it, needs a GPU you do not have. Every
    exclusion records its reason and is shown to you.
-2. **A weighted score** over the axes you answered: purpose, what must be
-   preserved, scale, expertise, maturity, governance. Weights live in
-   `catalog/weights.yaml`.
-3. **Questions you skip are dropped** from the average entirely — they never
+2. **Survivors are ordered** by a weighted heuristic over the axes you
+   answered: purpose, what must be preserved, scale, expertise, maturity,
+   governance (weights in `catalog/weights.yaml`). The number is an ordering
+   device, not a prediction, so it is never shown; each card says in words
+   why it is where it is. A method not intended for your purpose can never
+   outrank one that is.
+3. **Questions you skip are dropped** from the ordering entirely — they never
    count against a method as a zero.
-4. **Unknown is not fine.** An axis the catalog records nothing on scores a
-   neutral 0.5 and shows as `?`, never as a silent 1.0. The explanation does
-   not praise or blame a method for something nobody checked.
+4. **Unknown is not fine.** An axis the catalog records nothing on is treated
+   as neutral, never as a silent full mark, and the explanation does not
+   praise or blame a method for something nobody checked.
 
 ## Keeping the catalog honest
 

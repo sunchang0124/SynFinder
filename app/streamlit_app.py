@@ -13,7 +13,7 @@ from synfinder.explain import as_text, explain               # noqa: E402
 from synfinder.intake import Intake                          # noqa: E402
 from synfinder.ranking import load_weights, rank             # noqa: E402
 from synfinder.report import (                               # noqa: E402
-    PREVIEW_DISCLAIMER, comparison_rows, empty_result_message, render_html,
+    PREVIEW_DISCLAIMER, empty_result_message, render_html,
     render_markdown,
 )
 
@@ -183,10 +183,7 @@ def _find_view(st, catalog, weights) -> None:
     for c in ranking.shortlist:
         e = explain(c)
         with st.container(border=True):
-            left, right = st.columns([3, 1])
-            left.markdown(f"### {c.method.name}")
-            right.metric("Fit", f"{c.fit:.0%}")
-            st.progress(c.fit)
+            st.markdown(f"### {c.method.name}")
 
             narrated = llm.narrate(e, c.method, intake) if llm.available() else None
             st.write(narrated or as_text(e).split("\n", 1)[-1])
@@ -209,11 +206,6 @@ def _find_view(st, catalog, weights) -> None:
             line = " · ".join(b for b in bits if b)
             if line:
                 st.markdown(line)
-
-    if ranking.shortlist:
-        st.subheader("Side by side")
-        header, rows = comparison_rows(ranking)
-        st.dataframe([dict(zip(header, r)) for r in rows], hide_index=True)
 
     if ranking.excluded:
         with st.expander(

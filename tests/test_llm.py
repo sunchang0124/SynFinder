@@ -3,7 +3,7 @@ from synfinder.explain import Explanation
 from synfinder.intake import Intake
 from tests.factories import make_method
 
-EXPL = Explanation(headline="M — 90% fit", why_fits=["supports your purpose"],
+EXPL = Explanation(headline="M", why_fits=["supports your purpose"],
                    weakness=None, caveats=["A caveat."], evaluation=[])
 INTAKE = Intake(domain="biomedical", data_type="tabular_cross_sectional",
                 purpose="ml_augmentation", privacy="not_required")

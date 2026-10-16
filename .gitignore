@@ -8,3 +8,6 @@ build/
 dist/
 docs_site/
 review/sources/
+
+# Paper drafts about SynFinder; local only, never pushed (own git history inside)
+papers/

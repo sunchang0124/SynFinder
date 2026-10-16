@@ -20,6 +20,7 @@ maturity:
   maintained: true
   last_release: null
   implementation_quality: production_ready
+  last_pushed: 2026-09-15
 governance:
   acceptance_evidence:
     - Simulates from population genetic theory, not from anyone's genotypes, so

@@ -32,12 +32,10 @@ def test_api_and_engine_agree_on_the_shortlist():
     from synfinder.catalog import load_catalog
     from synfinder.cli import default_catalog_root
     from synfinder.intake import Intake
-    from synfinder.ranking import load_weights, rank
+    from synfinder.ranking import rank
 
     cat = load_catalog(default_catalog_root())
-    engine = rank(cat.generation_methods(), Intake(**INTAKE),
-                  load_weights(default_catalog_root() / "weights.yaml"),
-                  top_n=5)
+    engine = rank(cat.generation_methods(), Intake(**INTAKE), top_n=5)
     api = client.post("/api/recommend", json=INTAKE).json()
     assert [c.method.id for c in engine.shortlist] == \
            [c["id"] for c in api["shortlist"]]

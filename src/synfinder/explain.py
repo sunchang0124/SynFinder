@@ -1,6 +1,6 @@
 """Turn a ranking breakdown into prose, using only catalog text.
 
-The numeric fit is an ordering device, not a claim; it is never shown."""
+There is no number: the order is purpose, optional answers, recency, name."""
 from __future__ import annotations
 
 from dataclasses import dataclass, field
@@ -22,12 +22,12 @@ class Explanation:
 
 def explain(candidate: Candidate, top_k: int = 2) -> Explanation:
     method = candidate.method
-    ranked = sorted(candidate.axes, key=lambda a: a.score * a.weight, reverse=True)
+    ranked = sorted(candidate.axes, key=lambda a: a.score, reverse=True)
 
     why = [a.note for a in ranked if a.known and a.score >= STRONG][:top_k]
 
     losers = [a for a in candidate.axes if a.known and a.score < WEAK]
-    losers.sort(key=lambda a: a.score * a.weight)
+    losers.sort(key=lambda a: a.score)
     weakness = losers[0].note if losers else None
 
     headline = method.name

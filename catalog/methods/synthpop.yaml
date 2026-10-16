@@ -20,6 +20,7 @@ maturity:
   maintained: true
   last_release: "2026-09"
   implementation_quality: production_ready
+  last_pushed: 2026-09-10
 governance:
   acceptance_evidence:
     - Developed in the ESRC SYLLS project explicitly for releasing synthetic

@@ -19,6 +19,7 @@ maturity:
   maintained: true
   last_release: null
   implementation_quality: production_ready
+  last_pushed: 2026-10-15
 governance:
   acceptance_evidence:
     - The established statistical model for social and contact networks, with

@@ -18,6 +18,7 @@ maturity:
   maintained: true
   last_release: null
   implementation_quality: production_ready
+  last_pushed: 2026-01-20
 governance:
   acceptance_evidence:
     - Built for official statistics, where synthetic population microdata is

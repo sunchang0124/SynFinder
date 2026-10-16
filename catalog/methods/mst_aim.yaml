@@ -20,6 +20,7 @@ maturity:
   maintained: true
   last_release: null
   implementation_quality: research_code
+  last_pushed: 2026-10-15
 governance:
   acceptance_evidence:
     - MST won the NIST differential privacy synthetic data challenge; AIM is its

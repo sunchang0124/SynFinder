@@ -20,6 +20,7 @@ maturity:
   maintained: true
   last_release: null
   implementation_quality: production_ready
+  last_pushed: 2026-10-14
 governance:
   acceptance_evidence:
     - Generates patients from published care maps and epidemiology rather than

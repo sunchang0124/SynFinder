@@ -1,6 +1,6 @@
 from synfinder.explain import explain, as_text
 from synfinder.intake import Intake
-from synfinder.ranking import score_method, DEFAULT_WEIGHTS
+from synfinder.ranking import score_method
 from tests.factories import make_method
 
 
@@ -13,7 +13,7 @@ def intake(**over) -> Intake:
 
 def test_why_fits_names_the_strongest_axes():
     c = score_method(make_method(purposes=["ml_augmentation"]),
-                     intake(), DEFAULT_WEIGHTS)
+                     intake())
     e = explain(c)
     assert any("ml augmentation" in reason for reason in e.why_fits)
 
@@ -22,7 +22,7 @@ def test_weakness_names_the_lowest_scoring_axis():
     # purpose must MATCH here, so that `preserves` is unambiguously the
     # weakest axis; if both scored 0.0 the tie-break would pick purpose.
     m = make_method(purposes=["ml_augmentation"], preserves=["marginals"])
-    c = score_method(m, intake(preserves=["temporal_dynamics"]), DEFAULT_WEIGHTS)
+    c = score_method(m, intake(preserves=["temporal_dynamics"]))
     e = explain(c)
     assert e.weakness is not None
     assert "temporal dynamics" in e.weakness
@@ -30,13 +30,13 @@ def test_weakness_names_the_lowest_scoring_axis():
 
 def test_caveats_are_carried_verbatim():
     m = make_method(caveats=["Breaks on irregular visit spacing."])
-    e = explain(score_method(m, intake(), DEFAULT_WEIGHTS))
+    e = explain(score_method(m, intake()))
     assert e.caveats == ["Breaks on irregular visit spacing."]
 
 
 def test_no_weakness_when_everything_scores_full():
     m = make_method(purposes=["ml_augmentation"])
-    e = explain(score_method(m, intake(), DEFAULT_WEIGHTS))
+    e = explain(score_method(m, intake()))
     assert e.weakness is None
 
 
@@ -44,7 +44,7 @@ def test_as_text_contains_every_section_present():
     m = make_method(purposes=["education"],
                     caveats=["A caveat."],
                     evaluation=["Run SDMetrics."])
-    text = as_text(explain(score_method(m, intake(), DEFAULT_WEIGHTS)))
+    text = as_text(explain(score_method(m, intake())))
     assert "Watch out" in text
     assert "How to check" in text
     assert "Run SDMetrics." in text
@@ -53,8 +53,7 @@ def test_as_text_contains_every_section_present():
 def test_an_unknown_axis_is_neither_a_strength_nor_a_weakness():
     """Nobody checked, so the method is neither praised nor blamed for it."""
     c = score_method(make_method(purposes=["ml_augmentation"]),
-                     intake(expected_rows=50_000, needs_governance_evidence=True),
-                     DEFAULT_WEIGHTS)
+                     intake(expected_rows=50_000, needs_governance_evidence=True))
     e = explain(c)
     assert not any("size envelope" in w for w in e.why_fits)
     assert e.weakness is None or "not yet" not in e.weakness
@@ -62,5 +61,5 @@ def test_an_unknown_axis_is_neither_a_strength_nor_a_weakness():
 
 
 def test_headline_is_the_name_without_a_score():
-    e = explain(score_method(make_method(name="Alpha"), intake(), DEFAULT_WEIGHTS))
+    e = explain(score_method(make_method(name="Alpha"), intake()))
     assert e.headline == "Alpha"

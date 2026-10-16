@@ -134,12 +134,14 @@ they are not real generated output, and the tool says so above every one.
 1. **Hard filters** eliminate methods that cannot serve you at all — wrong data
    type, no formal DP when you need it, needs a GPU you do not have. Every
    exclusion records its reason and is shown to you.
-2. **Survivors are ordered** by a weighted heuristic over the axes you
-   answered: purpose, what must be preserved, scale, expertise, maturity,
-   governance (weights in `catalog/weights.yaml`). The number is an ordering
-   device, not a prediction, so it is never shown; each card says in words
-   why it is where it is. A method not intended for your purpose can never
-   outrank one that is.
+2. **Survivors are ordered in strict tiers**, never by a number: methods
+   that list your purpose first; then how well each meets the optional
+   answers you gave (what must be preserved, expertise, expected rows,
+   governance evidence); then how recently its repository was pushed, in
+   buckets of 6, 12, 24 and 36 months, so that two methods updated in the
+   same half year tie; then name. Each card says in words why it is where
+   it is. A method not intended for your purpose can never outrank one
+   that is.
 3. **Questions you skip are dropped** from the ordering entirely — they never
    count against a method as a zero.
 4. **Unknown is not fine.** An axis the catalog records nothing on is treated
@@ -180,7 +182,6 @@ entry with no honest failure mode has not really been reviewed.
 | `catalog/taxonomy.yaml` | controlled vocabulary, the single source of truth |
 | `catalog/methods/*.yaml` | one file per method |
 | `catalog/datasets/*.yaml` | ready-made synthetic datasets |
-| `catalog/weights.yaml` | scoring weights |
 | `src/synfinder/` | schema, loader, intake, ranking, explanations, report, CLI |
 | `app/streamlit_app.py` | the app |
 | `docs/superpowers/specs/` | the design |
@@ -203,8 +204,8 @@ to 15x15 pixels while every text-level test still passed - the fault was only
 visible as geometry.
 
 `tests/test_golden_scenarios.py` holds fixed intakes with known-correct
-answers. If one fails after a weight change, the test is usually right and the
-weights are wrong.
+answers. If one fails after a change to the ordering, the test is usually
+right and the change is wrong.
 
 ## Contributing
 

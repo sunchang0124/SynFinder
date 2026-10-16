@@ -42,8 +42,17 @@ FETCHED = "2026-10-14T00:00:00Z"
 
 def test_no_drift_when_the_entry_matches():
     m = make_method(license="MIT", language="python", last_updated=2026,
-                    maturity=Maturity(maintained=True, implementation_quality="research_code"))
+                    maturity=Maturity(maintained=True, implementation_quality="research_code",
+                                      last_pushed="2026-09-30"))
     assert repometa.drift(m, META, FETCHED) == []
+
+
+def test_last_pushed_drifts_when_it_lags_the_repository():
+    m = make_method(license="MIT", language="python", last_updated=2026,
+                    maturity=Maturity(maintained=True, implementation_quality="research_code",
+                                      last_pushed="2026-01-01"))
+    msgs = repometa.drift(m, META, FETCHED)
+    assert msgs == ["m: last_pushed is '2026-01-01' but the repository was last pushed 2026-09-30"]
 
 
 def test_every_drifting_field_is_named():
@@ -58,7 +67,8 @@ def test_every_drifting_field_is_named():
 
 def test_multiple_language_and_missing_values_do_not_drift():
     m = make_method(license="MIT", language="multiple", last_updated=None,
-                    maturity=Maturity(maintained=True, implementation_quality="research_code"))
+                    maturity=Maturity(maintained=True, implementation_quality="research_code",
+                                      last_pushed="2026-09-30"))
     assert repometa.drift(m, dict(META, license_spdx="NOASSERTION"), FETCHED) == []
 
 
@@ -76,6 +86,14 @@ def test_rewrite_fields_touches_only_the_named_lines():
     assert "  maintained: true\n" in out
     assert '  last_release: "2023-01"\n' in out
     assert out.count("\n") == text.count("\n")
+
+
+def test_rewrite_fields_appends_a_missing_child_to_the_end_of_its_block():
+    text = ("id: m\nmaturity:\n  maintained: true\n  implementation_quality: research_code\n"
+            "governance:\n  acceptance_evidence: []\n")
+    out = repometa.rewrite_fields(text, {"maturity.last_pushed": "2026-09-30"})
+    assert out == ("id: m\nmaturity:\n  maintained: true\n  implementation_quality: research_code\n"
+                   "  last_pushed: 2026-09-30\ngovernance:\n  acceptance_evidence: []\n")
 
 
 def test_rewrite_fields_adds_a_missing_top_level_field_after_license():

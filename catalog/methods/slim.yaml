@@ -20,6 +20,7 @@ maturity:
   maintained: true
   last_release: null
   implementation_quality: production_ready
+  last_pushed: 2026-10-01
 governance:
   acceptance_evidence:
     - Simulates from an explicit evolutionary model rather than from real

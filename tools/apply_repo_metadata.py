@@ -1,6 +1,7 @@
 """Write the mechanical repository facts into the catalog.
 
-Only four fields: license, language, last_updated, maturity.maintained.
+Only five fields: license, language, last_updated, maturity.maintained,
+maturity.last_pushed.
 Everything that needs a human reading a paper stays untouched.
 
     .venv/bin/python tools/apply_repo_metadata.py          # dry run
@@ -50,6 +51,8 @@ def main() -> int:
             if cur_year is not None and str(cur_year) != year:
                 updates["last_updated"] = year
             if hasattr(entry, "maturity"):
+                if entry.maturity.last_pushed != meta["pushed_at"][:10]:
+                    updates["maturity.last_pushed"] = meta["pushed_at"][:10]
                 maintained = is_maintained(meta["pushed_at"], meta.get("archived", False), fetched)
                 if entry.maturity.maintained != maintained:
                     updates["maturity.maintained"] = "true" if maintained else "false"

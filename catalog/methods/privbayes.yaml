@@ -26,6 +26,7 @@ maturity:
   maintained: true
   last_release: null  # DataSynthesizer publishes no releases or tags; last commit 2026-07
   implementation_quality: research_code
+  last_pushed: 2026-07-15
 governance:
   acceptance_evidence:
     - Long-standing reference method for differentially private tabular release

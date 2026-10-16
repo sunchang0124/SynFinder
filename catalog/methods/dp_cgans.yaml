@@ -21,6 +21,7 @@ maturity:
   maintained: true
   last_release: "2025-12"
   implementation_quality: research_code
+  last_pushed: 2026-05-12
 governance:
   acceptance_evidence:
     - Published with an explicit privacy budget and a disclosure risk evaluation

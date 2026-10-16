@@ -18,6 +18,7 @@ maturity:
   maintained: true
   last_release: null
   implementation_quality: research_code
+  last_pushed: 2026-10-15
 governance:
   acceptance_evidence:
     - Built on the OMOP common data model, so output lands in a schema that

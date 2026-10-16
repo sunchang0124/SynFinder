@@ -20,6 +20,7 @@ maturity:
   maintained: true
   last_release: null
   implementation_quality: production_ready
+  last_pushed: 2026-07-01
 governance:
   acceptance_evidence:
     - Part of OpenDP SmartNoise, a maintained differential privacy platform

@@ -275,8 +275,13 @@ function badges(m) {
   else b.push(`<span class="badge">runs on CPU</span>`);
   b.push(`<span class="badge">${esc(m.expertise)} expertise</span>`);
   if (m.language) b.push(`<span class="badge lang">${esc(LANG[m.language] || m.language)}</span>`);
-  if (m.last_updated) {
-    // A year is only useful as a staleness signal, so colour it like one.
+  if (m.last_pushed) {
+    // The repository's last push, in months, because it orders the list.
+    const months = (Date.now() - new Date(m.last_pushed)) / (30.44 * 864e5);
+    const cls = months > 36 ? "badge stale" : months > 24 ? "badge warnish" : "badge";
+    const when = new Date(m.last_pushed).toLocaleDateString("en-GB", { month: "short", year: "numeric" });
+    b.push(`<span class="${cls}" title="${esc(m.maintenance || "")}">updated ${esc(when)}</span>`);
+  } else if (m.last_updated) {
     const age = new Date().getFullYear() - m.last_updated;
     const cls = age >= 3 ? "badge stale" : age >= 2 ? "badge warnish" : "badge";
     b.push(`<span class="${cls}">updated ${m.last_updated}</span>`);
@@ -336,7 +341,7 @@ function render(r) {
     out.push(`<div class="notice ${r.covered ? "" : "flat"}">${esc(r.empty_message || "")}</div>`);
   } else {
     out.push(`<p class="section-label">Recommended methods</p>
-      <p class="order-note">Ordered by how well each entry's recorded purposes, maturity and your optional answers match what you asked; each card says why in words. Everything excluded is listed at the bottom with its reason.</p>`);
+      <p class="order-note">Ordered by purpose first, then by how well each entry meets your optional answers, then by how recently its code was updated (within 6, 12, 24 or 36 months), then by name. Each card says why in words. Everything excluded is listed at the bottom with its reason.</p>`);
     out.push(r.shortlist.map(card).join(""));
   }
 

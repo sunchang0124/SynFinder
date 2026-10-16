@@ -11,7 +11,7 @@ from synfinder import llm                                    # noqa: E402
 from synfinder.catalog import load_catalog                   # noqa: E402
 from synfinder.explain import as_text, explain               # noqa: E402
 from synfinder.intake import Intake                          # noqa: E402
-from synfinder.ranking import load_weights, rank             # noqa: E402
+from synfinder.ranking import rank                           # noqa: E402
 from synfinder.report import (                               # noqa: E402
     PREVIEW_DISCLAIMER, empty_result_message, render_html,
     render_markdown,
@@ -103,16 +103,15 @@ def main() -> None:
     )
 
     catalog = load_catalog(ROOT / "catalog")
-    weights = load_weights(ROOT / "catalog" / "weights.yaml")
 
     find_tab, browse_tab = st.tabs(["Find a method", "Browse datasets"])
     with browse_tab:
         _browse_view(st, catalog)
     with find_tab:
-        _find_view(st, catalog, weights)
+        _find_view(st, catalog)
 
 
-def _find_view(st, catalog, weights) -> None:
+def _find_view(st, catalog) -> None:
     tax = catalog.taxonomy
 
     with st.form("intake"):
@@ -168,7 +167,7 @@ def _find_view(st, catalog, weights) -> None:
         "needs_governance_evidence": needs_governance or None,
     })
 
-    ranking = rank(catalog.generation_methods(), intake, weights, top_n=5)
+    ranking = rank(catalog.generation_methods(), intake, top_n=5)
 
     covered = catalog.covers(intake.data_type)
     also = catalog.covered_data_types()

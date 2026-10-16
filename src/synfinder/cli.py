@@ -7,7 +7,7 @@ from pathlib import Path
 
 from .catalog import CatalogError, load_catalog, search_methods
 from .intake import Intake
-from .ranking import load_weights, rank
+from .ranking import rank
 from .report import provenance_line, render_html, render_markdown
 
 
@@ -109,9 +109,7 @@ def cmd_find(args) -> int:
         needs_governance_evidence=args.needs_governance_evidence or None,
     )
 
-    weights_path = Path(root) / "weights.yaml"
-    weights = load_weights(weights_path) if weights_path.exists() else None
-    ranking = rank(catalog.generation_methods(), intake, weights, top_n=args.top)
+    ranking = rank(catalog.generation_methods(), intake, top_n=args.top)
 
     covered = catalog.covers(intake.data_type)
     also = catalog.covered_data_types()

@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import json
 import re
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from pathlib import Path
 
 from .schema import Method
@@ -61,6 +61,34 @@ def _parse(ts: str) -> datetime:
     return datetime.fromisoformat(ts.replace("Z", "+00:00")).astimezone(timezone.utc)
 
 
+# Shortlist tiers for how recently a repository was pushed: (max days, label).
+MAINTENANCE_BUCKETS = [
+    (183, "within 6 months"),
+    (365, "within 12 months"),
+    (730, "within 24 months"),
+    (1096, "within 36 months"),
+]
+UNDATED_BUCKET = len(MAINTENANCE_BUCKETS) + 1
+
+
+def maintenance_bucket(last_pushed: str | None, today: date) -> tuple[int, str]:
+    """Rank (0 = freshest) and a sentence for the last repository push.
+
+    Buckets, not exact dates, so that two methods pushed in the same half
+    year tie and fall back to name order rather than to whoever committed
+    last week.
+    """
+    if not last_pushed:
+        return UNDATED_BUCKET, "no repository update date on record"
+    pushed = date.fromisoformat(last_pushed[:10])
+    month = pushed.strftime("%b %Y")
+    age = (today - pushed).days
+    for i, (limit, label) in enumerate(MAINTENANCE_BUCKETS):
+        if age <= limit:
+            return i, f"last updated {label} ({month})"
+    return len(MAINTENANCE_BUCKETS), f"last updated more than 36 months ago ({month})"
+
+
 def is_maintained(pushed_at: str, archived: bool, fetched_at: str) -> bool:
     if archived:
         return False
@@ -91,6 +119,9 @@ def drift(entry, meta: dict, fetched_at: str) -> list[str]:
         out.append(f"{entry.id}: last_updated is {year} but the repository "
                    f"was last pushed in {_parse(pushed).year}")
     maturity = getattr(entry, "maturity", None)
+    if pushed and maturity is not None and maturity.last_pushed != pushed[:10]:
+        out.append(f"{entry.id}: last_pushed is {maturity.last_pushed!r} but the "
+                   f"repository was last pushed {pushed[:10]}")
     if pushed and maturity is not None:
         expected = is_maintained(pushed, bool(meta.get("archived")), fetched_at)
         if maturity.maintained != expected:
@@ -110,23 +141,32 @@ def rewrite_fields(text: str, updates: dict[str, str]) -> str:
 
     Keys are top-level (`license`) or one level under `maturity`
     (`maturity.maintained`). A missing top-level key is inserted after the
-    `license:` line. Comments, order and quoting elsewhere are untouched.
+    `license:` line; a missing child key is appended to the end of its
+    parent block. Comments, order and quoting elsewhere are untouched.
     """
     lines = text.split("\n")
     for key, value in updates.items():
         if "." in key:
             parent, child = key.split(".", 1)
             inside = False
+            last_in_block = None
+            done = False
             for i, line in enumerate(lines):
                 if line.startswith(f"{parent}:"):
                     inside = True
+                    last_in_block = i
                     continue
                 if inside and line and not line.startswith(" "):
-                    inside = False
+                    break
+                if inside and line.strip():
+                    last_in_block = i
                 if inside and line.lstrip().startswith(f"{child}:"):
                     indent = line[:len(line) - len(line.lstrip())]
                     lines[i] = f"{indent}{child}: {value}"
+                    done = True
                     break
+            if not done and last_in_block is not None:
+                lines.insert(last_in_block + 1, f"  {child}: {value}")
             continue
         for i, line in enumerate(lines):
             if line.startswith(f"{key}:"):

@@ -1,6 +1,6 @@
 import pytest
 from synfinder.intake import Intake
-from synfinder.ranking import score_method, rank, DEFAULT_WEIGHTS
+from synfinder.ranking import score_method, rank
 from synfinder.schema import Scale, Governance
 from tests.factories import make_method
 
@@ -18,49 +18,48 @@ def axis(candidate, name):
 
 def test_purpose_match_scores_one():
     c = score_method(make_method(purposes=["ml_augmentation"]),
-                     intake(), DEFAULT_WEIGHTS)
+                     intake())
     assert axis(c, "purpose").score == 1.0
 
 
 def test_purpose_mismatch_scores_zero_but_does_not_eliminate():
     c = score_method(make_method(purposes=["education"]),
-                     intake(), DEFAULT_WEIGHTS)
+                     intake())
     assert axis(c, "purpose").score == 0.0
-    assert 0.0 <= c.fit <= 1.0
 
 
 def test_preserves_is_the_fraction_of_needs_met():
     m = make_method(preserves=["marginals", "joint_correlations"])
-    c = score_method(m, intake(preserves=["marginals", "temporal_dynamics"]),
-                     DEFAULT_WEIGHTS)
+    c = score_method(m, intake(preserves=["marginals", "temporal_dynamics"]))
     assert axis(c, "preserves").score == 0.5
 
 
 def test_unanswered_axis_is_absent_not_zero():
-    c = score_method(make_method(), intake(), DEFAULT_WEIGHTS)
+    c = score_method(make_method(), intake())
     assert all(a.axis != "preserves" for a in c.axes)
     assert all(a.axis != "expertise" for a in c.axes)
 
 
-def test_unanswered_axis_does_not_drag_the_fit_down():
-    """A perfect method scores 1.0 even when most questions were skipped."""
+def test_unanswered_axes_contribute_nothing_to_the_optional_tier():
+    """Skipped questions never count for or against a method."""
     m = make_method(purposes=["ml_augmentation"])
-    c = score_method(m, intake(), DEFAULT_WEIGHTS)
-    assert c.fit == pytest.approx(1.0)
+    c = score_method(m, intake())
+    assert c.optional_fit == 0.0
+    assert {a.axis for a in c.axes} == {"purpose", "maintenance"}
 
 
 def test_method_needing_more_expertise_than_the_user_has_is_penalised():
     low = score_method(make_method(expertise="high"),
-                       intake(expertise="low"), DEFAULT_WEIGHTS)
+                       intake(expertise="low"))
     ok = score_method(make_method(expertise="low"),
-                      intake(expertise="low"), DEFAULT_WEIGHTS)
+                      intake(expertise="low"))
     assert axis(low, "expertise").score < axis(ok, "expertise").score
 
 
 def test_scale_beyond_the_method_maximum_is_penalised():
     m = make_method(scale=Scale(min_rows=None, max_rows=10_000, max_cols=None,
                                 evidence="test fixture"))
-    c = score_method(m, intake(expected_rows=1_000_000), DEFAULT_WEIGHTS)
+    c = score_method(m, intake(expected_rows=1_000_000))
     assert axis(c, "scale").score < 0.5
 
 
@@ -69,8 +68,8 @@ def test_governance_evidence_is_rewarded_when_asked_for():
         governance=Governance(acceptance_evidence=["Approved by an MREC in 2024"]))
     without = make_method(governance=Governance())
     i = intake(needs_governance_evidence=True)
-    assert (axis(score_method(with_ev, i, DEFAULT_WEIGHTS), "governance").score
-            > axis(score_method(without, i, DEFAULT_WEIGHTS), "governance").score)
+    assert (axis(score_method(with_ev, i), "governance").score
+            > axis(score_method(without, i), "governance").score)
 
 
 def test_rank_returns_best_first_and_respects_top_n():
@@ -86,13 +85,15 @@ def test_rank_reports_exclusions():
     assert result.excluded[0].method_id == "img"
 
 
-def test_ties_break_towards_the_method_with_a_track_record():
-    """With only the core four answered, many methods score identically."""
+def test_governance_orders_only_when_the_user_asked_for_it():
+    """With only the core four answered, a track record does not reorder."""
     from synfinder.schema import Governance
-    proven = make_method(id="proven", governance=Governance(
+    proven = make_method(id="proven", name="Zeta", governance=Governance(
         acceptance_evidence=["Accepted by a national statistics office"]))
-    unproven = make_method(id="unproven", governance=Governance())
+    unproven = make_method(id="unproven", name="Alpha", governance=Governance())
     result = rank([unproven, proven], intake(), top_n=1)
+    assert [c.method.id for c in result.shortlist] == ["unproven"]
+    result = rank([unproven, proven], intake(needs_governance_evidence=True), top_n=1)
     assert [c.method.id for c in result.shortlist] == ["proven"]
 
 
@@ -113,7 +114,7 @@ def test_no_purpose_match_is_flagged_rather_than_hidden():
 
 
 def test_unknown_scale_scores_neutral_and_is_flagged():
-    c = score_method(make_method(), intake(expected_rows=50_000), DEFAULT_WEIGHTS)
+    c = score_method(make_method(), intake(expected_rows=50_000))
     a = axis(c, "scale")
     assert a.score == 0.5
     assert a.known is False
@@ -122,14 +123,13 @@ def test_unknown_scale_scores_neutral_and_is_flagged():
 def test_verified_scale_inside_bounds_scores_full_and_is_known():
     m = make_method(scale=Scale(min_rows=1_000, max_rows=100_000, max_cols=None,
                                 evidence="paper table 3"))
-    a = axis(score_method(m, intake(expected_rows=50_000), DEFAULT_WEIGHTS), "scale")
+    a = axis(score_method(m, intake(expected_rows=50_000)), "scale")
     assert a.score == 1.0
     assert a.known is True
 
 
 def test_unchecked_governance_is_unknown_not_absent():
-    a = axis(score_method(make_method(), intake(needs_governance_evidence=True),
-                          DEFAULT_WEIGHTS), "governance")
+    a = axis(score_method(make_method(), intake(needs_governance_evidence=True)), "governance")
     assert a.score == 0.5
     assert a.known is False
 
@@ -141,7 +141,6 @@ def test_checked_and_empty_governance_scores_low_and_is_known():
                     provenance=Provenance(verified_on=dt.date(2026, 10, 14),
                                           verified_by="x", sources_checked=["code"],
                                           fields_checked=["governance"]))
-    a = axis(score_method(m, intake(needs_governance_evidence=True),
-                          DEFAULT_WEIGHTS), "governance")
+    a = axis(score_method(m, intake(needs_governance_evidence=True)), "governance")
     assert a.score == 0.2
     assert a.known is True

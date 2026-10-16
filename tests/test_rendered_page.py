@@ -173,15 +173,14 @@ def test_static_build_agrees_with_the_python_engine(static_site, browser):
     from synfinder.catalog import load_catalog
     from synfinder.cli import default_catalog_root
     from synfinder.intake import Intake
-    from synfinder.ranking import load_weights, rank
+    from synfinder.ranking import rank
 
     root = default_catalog_root()
     catalog = load_catalog(root)
     intake = Intake(domain="biomedical", data_type="genomic",
                     purpose="open_release", privacy="required")
     expected = [c.method.name for c in rank(
-        catalog.generation_methods(), intake,
-        load_weights(root / "weights.yaml"), top_n=24).shortlist[:5]]
+        catalog.generation_methods(), intake, top_n=24).shortlist[:5]]
 
     page = browser.new_page()
     try:

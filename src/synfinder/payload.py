@@ -6,8 +6,11 @@ static page and the served API cannot produce different payloads.
 """
 from __future__ import annotations
 
+from datetime import date
+
 from .explain import explain
 from .ranking import Ranking
+from .repometa import maintenance_bucket
 from .report import provenance_line
 
 def _top_only(ranking: Ranking, top: list) -> Ranking:
@@ -41,6 +44,8 @@ def _method_json(m) -> dict:
         "compute": m.compute, "expertise": m.expertise,
         "license": m.license, "language": m.language,
         "last_updated": m.last_updated,
+        "last_pushed": m.maturity.last_pushed,
+        "maintenance": maintenance_bucket(m.maturity.last_pushed, date.today())[1],
         "maintained": m.maturity.maintained,
         "quality": m.maturity.implementation_quality,
         "caveats": m.caveats, "evaluation": m.evaluation,
@@ -66,6 +71,8 @@ def _candidate_json(c) -> dict:
         "license": m.license,
         "language": m.language,
         "last_updated": m.last_updated,
+        "last_pushed": m.maturity.last_pushed,
+        "maintenance": c.maintenance_note,
         "maintained": m.maturity.maintained,
         "quality": m.maturity.implementation_quality,
         "links": {"paper": m.links.paper, "code": m.links.code,

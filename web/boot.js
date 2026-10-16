@@ -52,13 +52,12 @@ root = pathlib.Path("/catalog")
 
 from synfinder.catalog import load_catalog, search_methods
 from synfinder.intake import Intake
-from synfinder.ranking import load_weights, rank
+from synfinder.ranking import rank
 from synfinder.report import (empty_result_message, render_html,
                               render_markdown)
 from synfinder.payload import _candidate_json, _dataset_json, _method_json, _top_only
 
 CAT = load_catalog(root)
-W = load_weights(root / "weights.yaml")
 
 def taxonomy_json():
     return json.dumps({**CAT.taxonomy,
@@ -71,7 +70,7 @@ def taxonomy_json():
 def recommend_json(payload):
     req = json.loads(payload)
     intake = Intake(**req)
-    ranking = rank(CAT.generation_methods(), intake, W, top_n=24)
+    ranking = rank(CAT.generation_methods(), intake, top_n=24)
     top, rest = ranking.shortlist[:5], ranking.shortlist[5:]
     covered = CAT.covers(intake.data_type)
     trimmed = _top_only(ranking, top)

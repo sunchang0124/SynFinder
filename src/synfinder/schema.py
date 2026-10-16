@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from datetime import date
 
-from pydantic import BaseModel, Field, model_validator
+from pydantic import BaseModel, field_validator, Field, model_validator
 
 PROVENANCE_SOURCES = ("paper", "code", "docs")
 
@@ -76,6 +76,15 @@ class Maturity(BaseModel):
     maintained: bool
     last_release: str | None = None
     implementation_quality: str
+    # ISO date of the last push to the linked repository, written by
+    # tools/apply_repo_metadata.py. Orders the shortlist; see ranking.py.
+    last_pushed: str | None = None
+
+    @field_validator("last_pushed", mode="before")
+    @classmethod
+    def _date_as_text(cls, v):
+        # YAML reads a bare 2026-10-13 as a date; keep the catalog's text form.
+        return v.isoformat() if hasattr(v, "isoformat") else v
 
 
 class Governance(BaseModel):

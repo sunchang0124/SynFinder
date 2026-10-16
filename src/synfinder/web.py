@@ -20,7 +20,7 @@ from . import llm
 from .explain import explain
 from .intake import Intake
 from .payload import _candidate_json, _dataset_json, _method_json, _top_only
-from .ranking import Ranking, load_weights, rank
+from .ranking import Ranking, rank
 from .report import empty_result_message, render_html, render_markdown
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -33,11 +33,6 @@ app = FastAPI(title="SynFinder", docs_url="/api/docs")
 @lru_cache(maxsize=1)
 def _catalog() -> Catalog:
     return load_catalog(CATALOG_DIR)
-
-
-@lru_cache(maxsize=1)
-def _weights() -> dict:
-    return load_weights(CATALOG_DIR / "weights.yaml")
 
 
 class IntakeRequest(BaseModel):
@@ -100,8 +95,7 @@ def recommend(req: IntakeRequest) -> dict:
     # Rank deeply, then split. With many methods tying on the core four, a
     # hard cut at five buries whole families - which is how every
     # privacy-preserving method fell off a list it had not been excluded from.
-    ranking: Ranking = rank(cat.generation_methods(), intake, _weights(),
-                            top_n=24)
+    ranking: Ranking = rank(cat.generation_methods(), intake, top_n=24)
     top, rest = ranking.shortlist[:5], ranking.shortlist[5:]
     covered = cat.covers(intake.data_type)
 

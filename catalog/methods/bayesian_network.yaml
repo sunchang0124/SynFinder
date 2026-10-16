@@ -20,6 +20,7 @@ maturity:
   maintained: true
   last_release: "2026-04"
   implementation_quality: production_ready
+  last_pushed: 2026-10-12
 governance:
   acceptance_evidence:
     - The fitted graph is inspectable and can be shown to a domain expert or an

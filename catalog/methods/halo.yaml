@@ -19,6 +19,7 @@ maturity:
   maintained: true
   last_release: null
   implementation_quality: research_code
+  last_pushed: 2025-01-28
 governance:
   acceptance_evidence: []
   known_deployments: []

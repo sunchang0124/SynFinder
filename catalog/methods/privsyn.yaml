@@ -19,6 +19,7 @@ maturity:
   maintained: false
   last_release: null
   implementation_quality: research_code
+  last_pushed: 2021-11-11
 governance:
   acceptance_evidence:
     - Part of the marginal-based family that statistical agencies evaluate for

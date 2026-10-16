@@ -1,12 +1,20 @@
-"""Hard filters and weighted scoring."""
+"""Hard filters and shortlist ordering.
+
+Survivors are ordered in strict tiers, never by a number:
+  1. supports the stated purpose;
+  2. how well it meets the optional answers the user gave (preserved
+     structure, expertise, expected rows, governance evidence);
+  3. how recently its repository was pushed, in half-year to three-year
+     buckets (see repometa.maintenance_bucket);
+  4. name.
+"""
 from __future__ import annotations
 
-from dataclasses import dataclass
-from pathlib import Path
-
-import yaml
+from dataclasses import dataclass, field
+from datetime import date
 
 from .intake import Intake
+from .repometa import maintenance_bucket
 from .schema import Method
 
 OPEN_LICENSES = {
@@ -71,28 +79,14 @@ def hard_filter(
 
 # --- scoring -------------------------------------------------------------
 
-DEFAULT_WEIGHTS: dict[str, float] = {
-    "purpose": 3.0,
-    "preserves": 2.5,
-    "expertise": 1.5,
-    "maturity": 1.5,
-    "scale": 1.0,
-    "governance": 1.0,
-}
+# Axes that only count when the user answered the matching question.
+OPTIONAL_AXES = ("preserves", "expertise", "scale", "governance")
 
 EXPERTISE_RANK = {"low": 0, "medium": 1, "high": 2}
-QUALITY_SCORE = {
-    "reference_only": 0.3,
-    "research_code": 0.6,
-    "production_ready": 1.0,
-}
-
-
 @dataclass
 class AxisScore:
     axis: str
     score: float
-    weight: float
     note: str
     # False when the catalog records nothing on this axis for this method.
     # Scored UNKNOWN_SCORE, rendered "?", and never used in an explanation.
@@ -108,8 +102,12 @@ UNKNOWN_SCORE = 0.5
 @dataclass
 class Candidate:
     method: Method
-    fit: float
     axes: list[AxisScore]
+    # Sum of the optional axes' scores: the second ordering tier.
+    optional_fit: float = 0.0
+    # Recency bucket of the last repository push (0 = freshest): third tier.
+    maintenance: int = 0
+    maintenance_note: str = ""
 
     def axis(self, name: str) -> AxisScore | None:
         return next((a for a in self.axes if a.axis == name), None)
@@ -124,12 +122,6 @@ class Ranking:
     no_purpose_match: bool = False
 
 
-def load_weights(path: Path) -> dict[str, float]:
-    weights = dict(DEFAULT_WEIGHTS)
-    weights.update(yaml.safe_load(Path(path).read_text()) or {})
-    return weights
-
-
 def _purpose_axis(method: Method, intake: Intake) -> AxisScore:
     hit = intake.purpose in method.purposes
     note = (
@@ -137,7 +129,7 @@ def _purpose_axis(method: Method, intake: Intake) -> AxisScore:
         if hit
         else f"is not typically used for {intake.purpose.replace('_', ' ')}"
     )
-    return AxisScore("purpose", 1.0 if hit else 0.0, 0.0, note)
+    return AxisScore("purpose", 1.0 if hit else 0.0, note)
 
 
 def _preserves_axis(method: Method, intake: Intake) -> AxisScore:
@@ -156,7 +148,7 @@ def _preserves_axis(method: Method, intake: Intake) -> AxisScore:
             "preserves none of "
             f"{', '.join(sorted(w.replace('_', ' ') for w in wanted))}"
         )
-    return AxisScore("preserves", score, 0.0, note)
+    return AxisScore("preserves", score, note)
 
 
 def _expertise_axis(method: Method, intake: Intake) -> AxisScore:
@@ -167,7 +159,7 @@ def _expertise_axis(method: Method, intake: Intake) -> AxisScore:
         if gap <= 0
         else f"expects {method.expertise} familiarity with synthetic data methods"
     )
-    return AxisScore("expertise", score, 0.0, note)
+    return AxisScore("expertise", score, note)
 
 
 def _scale_axis(method: Method, intake: Intake) -> AxisScore:
@@ -181,45 +173,42 @@ def _scale_axis(method: Method, intake: Intake) -> AxisScore:
         score = 0.4
         note = f"needs roughly {min_rows:,} rows to train well"
     elif max_rows is None and min_rows is None:
-        return AxisScore("scale", UNKNOWN_SCORE, 0.0,
+        return AxisScore("scale", UNKNOWN_SCORE,
                          "has no published size envelope; unverified for your size",
                          known=False)
     else:
         score = 1.0
         note = f"handles {rows:,} rows comfortably"
-    return AxisScore("scale", score, 0.0, note)
+    return AxisScore("scale", score, note)
 
 
-def _maturity_axis(method: Method) -> AxisScore:
-    score = QUALITY_SCORE.get(method.maturity.implementation_quality, 0.5)
-    if not method.maturity.maintained:
-        score *= 0.5
-    note = (
-        f"implementation is "
-        f"{method.maturity.implementation_quality.replace('_', ' ')}"
-        + ("" if method.maturity.maintained else " and no longer maintained")
-    )
-    return AxisScore("maturity", score, 0.0, note)
+MAINTENANCE_SCORE = [1.0, 0.8, 0.6, 0.4, 0.2]
+
+
+def _maintenance_axis(method: Method, today: date) -> tuple[AxisScore, int]:
+    bucket, note = maintenance_bucket(method.maturity.last_pushed, today)
+    if bucket >= len(MAINTENANCE_SCORE):
+        return AxisScore("maintenance", UNKNOWN_SCORE, note, known=False), bucket
+    return AxisScore("maintenance", MAINTENANCE_SCORE[bucket], note), bucket
 
 
 def _governance_axis(method: Method) -> AxisScore:
     evidence = method.governance.acceptance_evidence
     deployments = method.governance.known_deployments
     if evidence or deployments:
-        return AxisScore("governance", 1.0, 0.0,
+        return AxisScore("governance", 1.0,
                          "has a track record you can point a review board to")
     if method.governance_checked():
-        return AxisScore("governance", 0.2, 0.0,
+        return AxisScore("governance", 0.2,
                          "has no documented governance or regulatory acceptance")
-    return AxisScore("governance", UNKNOWN_SCORE, 0.0,
+    return AxisScore("governance", UNKNOWN_SCORE,
                      "has not had its governance record checked yet", known=False)
 
 
-def score_method(
-    method: Method, intake: Intake, weights: dict[str, float] | None = None
-) -> Candidate:
-    weights = weights or DEFAULT_WEIGHTS
-    axes: list[AxisScore] = [_purpose_axis(method, intake), _maturity_axis(method)]
+def score_method(method: Method, intake: Intake, today: date | None = None) -> Candidate:
+    today = today or date.today()
+    maint, bucket = _maintenance_axis(method, today)
+    axes: list[AxisScore] = [_purpose_axis(method, intake), maint]
 
     if intake.answered("preserves"):
         axes.append(_preserves_axis(method, intake))
@@ -230,22 +219,19 @@ def score_method(
     if intake.needs_governance_evidence:
         axes.append(_governance_axis(method))
 
-    for a in axes:
-        a.weight = weights.get(a.axis, 1.0)
-
-    total = sum(a.weight for a in axes)
-    fit = sum(a.score * a.weight for a in axes) / total if total else 0.0
-    return Candidate(method=method, fit=fit, axes=axes)
+    optional = sum(a.score for a in axes if a.axis in OPTIONAL_AXES)
+    return Candidate(method=method, axes=axes, optional_fit=optional,
+                     maintenance=bucket, maintenance_note=maint.note)
 
 
 def rank(
     methods: list[Method],
     intake: Intake,
-    weights: dict[str, float] | None = None,
     top_n: int = 5,
+    today: date | None = None,
 ) -> Ranking:
     kept, excluded = hard_filter(methods, intake)
-    candidates = [score_method(m, intake, weights) for m in kept]
+    candidates = [score_method(m, intake, today) for m in kept]
 
     # Purpose is the question the user actually asked. A method scoring zero
     # on it must never outrank one that matches, however good its other axes
@@ -255,19 +241,11 @@ def rank(
                if (a := c.axis("purpose")) is not None and a.score > 0]
     no_purpose_match = not matched
     candidates = matched or candidates
-    # Ties are common: with only the core four answered, every method that
-    # supports the stated purpose scores identically. Break on implementation
-    # quality, then on whether anyone has actually got this past a review
-    # board - an arbitrary order would drop a defensible method off the list.
-    candidates.sort(
-        key=lambda c: (
-            c.fit,
-            QUALITY_SCORE.get(c.method.maturity.implementation_quality, 0.0),
-            len(c.method.governance.acceptance_evidence)
-            + len(c.method.governance.known_deployments),
-        ),
-        reverse=True,
-    )
+    # Then the optional answers, then recency of the repository, then name.
+    # Buckets rather than exact dates, so that the last tier is the name and
+    # not whoever happened to push most recently.
+    candidates.sort(key=lambda c: (-c.optional_fit, c.maintenance,
+                                   c.method.name.casefold()))
     return Ranking(
         shortlist=candidates[:top_n],
         excluded=excluded,

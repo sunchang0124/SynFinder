@@ -180,7 +180,7 @@ def test_static_build_agrees_with_the_python_engine(static_site, browser):
     intake = Intake(domain="biomedical", data_type="genomic",
                     purpose="open_release", privacy="required")
     expected = [c.method.name for c in rank(
-        catalog.generation_methods(), intake, top_n=24).shortlist[:5]]
+        catalog.generation_methods(), intake).shortlist]
 
     page = browser.new_page()
     try:

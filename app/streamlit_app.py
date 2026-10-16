@@ -167,7 +167,7 @@ def _find_view(st, catalog) -> None:
         "needs_governance_evidence": needs_governance or None,
     })
 
-    ranking = rank(catalog.generation_methods(), intake, top_n=5)
+    ranking = rank(catalog.generation_methods(), intake)
 
     covered = catalog.covers(intake.data_type)
     also = catalog.covered_data_types()

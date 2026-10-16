@@ -38,7 +38,8 @@ def _build_parser() -> argparse.ArgumentParser:
     f.add_argument("--governance-evidence", action="store_true",
                    dest="needs_governance_evidence")
     f.add_argument("--catalog", type=Path, default=None)
-    f.add_argument("--top", type=int, default=5)
+    f.add_argument("--top", type=int, default=None,
+                   help="show only the first N (default: all that qualify)")
     f.add_argument("--out", type=Path, default=None,
                    help="write the report here (.md or .html)")
     f.set_defaults(func=cmd_find)

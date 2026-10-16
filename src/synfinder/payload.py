@@ -13,12 +13,6 @@ from .ranking import Ranking
 from .repometa import maintenance_bucket
 from .report import provenance_line
 
-def _top_only(ranking: Ranking, top: list) -> Ranking:
-    """The exported report carries the shortlist, not the long tail."""
-    return Ranking(shortlist=top, excluded=ranking.excluded,
-                   no_purpose_match=ranking.no_purpose_match)
-
-
 def _dataset_json(d) -> dict:
     return {
         "id": d.id, "name": d.name, "verified": provenance_line(d),

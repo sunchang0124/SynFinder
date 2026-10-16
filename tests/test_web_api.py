@@ -35,7 +35,7 @@ def test_api_and_engine_agree_on_the_shortlist():
     from synfinder.ranking import rank
 
     cat = load_catalog(default_catalog_root())
-    engine = rank(cat.generation_methods(), Intake(**INTAKE), top_n=5)
+    engine = rank(cat.generation_methods(), Intake(**INTAKE))
     api = client.post("/api/recommend", json=INTAKE).json()
     assert [c.method.id for c in engine.shortlist] == \
            [c["id"] for c in api["shortlist"]]
@@ -134,7 +134,7 @@ def test_privacy_not_required_still_surfaces_privacy_preserving_methods():
     body = client.post("/api/recommend", json={
         "domain": "biomedical", "data_type": "tabular_cross_sectional",
         "purpose": "open_release", "privacy": "not_required"}).json()
-    everything = body["shortlist"] + body["also_ranked"]
+    everything = body["shortlist"]
     assert any(c["formal_dp"] for c in everything), \
         "privacy-preserving methods must be reachable when privacy is not required"
     assert not any("privacy measures" in e["reason"] for e in body["excluded"]), \
@@ -219,7 +219,7 @@ def test_recommend_carries_narration_when_a_model_is_available(monkeypatch):
     body = client.post("/api/recommend", json=INTAKE).json()
     first = body["shortlist"][0]
     assert first["narration"] == f"Fluent prose about {first['name']}."
-    assert all(c["narration"] is None for c in body["also_ranked"])
+    assert all(c["narration"] is None for c in body["shortlist"][web.NARRATED:])
 
 
 def test_recommend_narration_is_null_without_a_model(monkeypatch):
@@ -234,3 +234,20 @@ def test_validate_endpoint_rejects_an_id_already_in_the_catalog():
                        json={"answers": dict(GOOD_ANSWERS, id="ctgan")}).json()
     assert body["yaml"] is None
     assert any("already exists" in e for e in body["errors"])
+
+
+def test_every_qualifying_method_is_shown_and_nothing_is_folded_away():
+    """Chang: show all methods that meet the requirements, not five plus a
+    collapsed "show N more" list."""
+    from synfinder.catalog import load_catalog
+    from synfinder.cli import default_catalog_root
+    from synfinder.intake import Intake
+    from synfinder.ranking import hard_filter
+    req = {"domain": "biomedical", "data_type": "tabular_cross_sectional",
+           "purpose": "ml_augmentation", "privacy": "not_required"}
+    body = client.post("/api/recommend", json=req).json()
+    kept, _ = hard_filter(load_catalog(default_catalog_root()).generation_methods(),
+                          Intake(**req))
+    qualifying = [m for m in kept if req["purpose"] in m.purposes]
+    assert len(body["shortlist"]) == len(qualifying) > 5
+    assert "also_ranked" not in body

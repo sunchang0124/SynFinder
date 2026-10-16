@@ -227,9 +227,10 @@ def score_method(method: Method, intake: Intake, today: date | None = None) -> C
 def rank(
     methods: list[Method],
     intake: Intake,
-    top_n: int = 5,
+    top_n: int | None = None,
     today: date | None = None,
 ) -> Ranking:
+    """Every survivor, in order. top_n trims only when a caller asks."""
     kept, excluded = hard_filter(methods, intake)
     candidates = [score_method(m, intake, today) for m in kept]
 
@@ -247,7 +248,7 @@ def rank(
     candidates.sort(key=lambda c: (-c.optional_fit, c.maintenance,
                                    c.method.name.casefold()))
     return Ranking(
-        shortlist=candidates[:top_n],
+        shortlist=candidates if top_n is None else candidates[:top_n],
         excluded=excluded,
         no_purpose_match=no_purpose_match,
     )

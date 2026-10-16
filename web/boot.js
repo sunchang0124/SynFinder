@@ -55,7 +55,7 @@ from synfinder.intake import Intake
 from synfinder.ranking import rank
 from synfinder.report import (empty_result_message, render_html,
                               render_markdown)
-from synfinder.payload import _candidate_json, _dataset_json, _method_json, _top_only
+from synfinder.payload import _candidate_json, _dataset_json, _method_json
 
 CAT = load_catalog(root)
 
@@ -70,13 +70,12 @@ def taxonomy_json():
 def recommend_json(payload):
     req = json.loads(payload)
     intake = Intake(**req)
-    ranking = rank(CAT.generation_methods(), intake, top_n=24)
-    top, rest = ranking.shortlist[:5], ranking.shortlist[5:]
+    ranking = rank(CAT.generation_methods(), intake)
+    top = ranking.shortlist
     covered = CAT.covers(intake.data_type)
-    trimmed = _top_only(ranking, top)
+    trimmed = ranking
     return json.dumps({
         "shortlist": [_candidate_json(c) for c in top],
-        "also_ranked": [_candidate_json(c) for c in rest],
         "excluded": [{"id": e.method_id, "name": e.method_name,
                       "reason": e.reason} for e in ranking.excluded],
         "no_purpose_match": ranking.no_purpose_match,

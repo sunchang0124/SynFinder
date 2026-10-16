@@ -19,7 +19,7 @@ from .contribute import to_yaml, validate_method
 from . import llm
 from .explain import explain
 from .intake import Intake
-from .payload import _candidate_json, _dataset_json, _method_json, _top_only
+from .payload import _candidate_json, _dataset_json, _method_json
 from .ranking import Ranking, rank
 from .report import empty_result_message, render_html, render_markdown
 
@@ -28,6 +28,9 @@ WEB_DIR = ROOT / "web"
 CATALOG_DIR = ROOT / "catalog"
 
 app = FastAPI(title="SynFinder", docs_url="/api/docs")
+
+# Cards that get model narration; the rest show the catalog text only.
+NARRATED = 5
 
 
 @lru_cache(maxsize=1)
@@ -92,21 +95,18 @@ def datasets(domain: str | None = None, data_type: str | None = None,
 def recommend(req: IntakeRequest) -> dict:
     cat = _catalog()
     intake = req.to_intake()
-    # Rank deeply, then split. With many methods tying on the core four, a
-    # hard cut at five buries whole families - which is how every
-    # privacy-preserving method fell off a list it had not been excluded from.
-    ranking: Ranking = rank(cat.generation_methods(), intake, top_n=24)
-    top, rest = ranking.shortlist[:5], ranking.shortlist[5:]
+    # Every method that meets the requirements is shown; nothing is folded
+    # away. Narration is limited to the first few cards to bound model calls.
+    ranking: Ranking = rank(cat.generation_methods(), intake)
     covered = cat.covers(intake.data_type)
 
-    shortlist_json = [_candidate_json(c) for c in top]
+    shortlist_json = [_candidate_json(c) for c in ranking.shortlist]
     if llm.available():
-        for c, j in zip(top, shortlist_json):
+        for c, j in zip(ranking.shortlist[:NARRATED], shortlist_json):
             j["narration"] = llm.narrate(explain(c), c.method, intake)
 
     return {
         "shortlist": shortlist_json,
-        "also_ranked": [_candidate_json(c) for c in rest],
         "excluded": [
             {"id": e.method_id, "name": e.method_name, "reason": e.reason}
             for e in ranking.excluded
@@ -114,13 +114,13 @@ def recommend(req: IntakeRequest) -> dict:
         "no_purpose_match": ranking.no_purpose_match,
         "covered": covered,
         "empty_message": (
-            None if top
+            None if ranking.shortlist
             else empty_result_message(intake, covered,
                                       cat.covered_data_types())
         ),
-        "report_markdown": render_markdown(intake, _top_only(ranking, top),
+        "report_markdown": render_markdown(intake, ranking,
                                            covered, cat.covered_data_types()),
-        "report_html": render_html(intake, _top_only(ranking, top),
+        "report_html": render_html(intake, ranking,
                                    covered, cat.covered_data_types()),
     }
 

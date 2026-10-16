@@ -340,14 +340,10 @@ function render(r) {
   if (!r.shortlist.length) {
     out.push(`<div class="notice ${r.covered ? "" : "flat"}">${esc(r.empty_message || "")}</div>`);
   } else {
-    out.push(`<p class="section-label">Recommended methods</p>
+    const n = r.shortlist.length;
+    out.push(`<p class="section-label">${n} method${n === 1 ? "" : "s"} meet${n === 1 ? "s" : ""} your requirements</p>
       <p class="order-note">Ordered by purpose first, then by how well each entry meets your optional answers, then by how recently its code was updated (within 6, 12, 24 or 36 months), then by name. Each card says why in words. Everything excluded is listed at the bottom with its reason.</p>`);
-    out.push(r.shortlist.map(card).join(""));
-  }
-
-  if (r.also_ranked && r.also_ranked.length) {
-    out.push(`<details class="ruled more-ranked"><summary>Show ${r.also_ranked.length} more ranked method${r.also_ranked.length === 1 ? "" : "s"}</summary>
-      <div class="more-list">${r.also_ranked.map((m, i) => card(m, 0)).join("")}</div></details>`);
+    out.push(r.shortlist.map((m, i) => card(m, Math.min(i, 8))).join(""));
   }
 
   if (r.excluded.length) {

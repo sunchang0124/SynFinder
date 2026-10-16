@@ -8,10 +8,20 @@
 window.SYNFINDER_STATIC = true;
 
 window.synReady = (async () => {
+  const results = document.getElementById("results");
+  const idle = results ? results.innerHTML : "";
   const status = (msg) => {
-    const el = document.getElementById("results");
-    if (el) el.innerHTML =
+    if (results) results.innerHTML =
       `<div class="empty-state"><h3>Starting the engine</h3><p>${msg}</p></div>`;
+  };
+  // Every same-origin asset is fetched with the build id, so a browser that
+  // cached an earlier deployment can never mix an old engine with a new
+  // catalog (or the other way round).
+  const build = window.SYNFINDER_BUILD || "dev";
+  const fetchOk = async (url) => {
+    const r = await fetch(`${url}?v=${build}`, { cache: "no-cache" });
+    if (!r.ok) throw new Error(`${url}: HTTP ${r.status}`);
+    return r;
   };
   status("Loading Python in your browser. First visit takes a few seconds; after that it is cached.");
 
@@ -20,18 +30,25 @@ window.synReady = (async () => {
   const micropip = py.pyimport("micropip");
   status("Installing the catalog engine…");
   await micropip.install(["pydantic", "pyyaml"]);
-  await micropip.install(window.SYNFINDER_WHEEL);
+  const wheel = window.SYNFINDER_WHEEL;
+  const bytes = new Uint8Array(await (await fetchOk(wheel)).arrayBuffer());
+  py.FS.writeFile(`/tmp/${wheel}`, bytes);
+  await micropip.install(`emfs:/tmp/${wheel}`);
 
   status("Loading the catalog…");
-  const catalog = await (await fetch("catalog.json")).json();
-  py.globals.set("catalog_files", py.toPy(catalog));
+  const catalog = await (await fetchOk("catalog.json")).json();
+  const n = Object.keys(catalog).length;
+  if (!n) throw new Error("catalog.json is empty");
+  py.FS.mkdirTree("/catalog");
+  for (const [rel, text] of Object.entries(catalog)) {
+    const dir = rel.includes("/") ? rel.slice(0, rel.lastIndexOf("/")) : "";
+    if (dir) py.FS.mkdirTree(`/catalog/${dir}`);
+    py.FS.writeFile(`/catalog/${rel}`, text);
+  }
+  status(`Validating ${n} catalog entries…`);
   py.runPython(`
 import json, pathlib
 root = pathlib.Path("/catalog")
-for rel, text in catalog_files.items():
-    p = root / rel
-    p.parent.mkdir(parents=True, exist_ok=True)
-    p.write_text(text)
 
 from synfinder.catalog import load_catalog, search_methods
 from synfinder.intake import Intake
@@ -95,6 +112,9 @@ def validate_json(payload):
                        "yaml": to_yaml(entry) if entry else None})
 `);
 
+  // Put the panel back the way the page shipped it; otherwise the last
+  // progress line stays on screen and the ready engine looks stuck.
+  if (results) results.innerHTML = idle;
   return {
     taxonomy: () => JSON.parse(py.globals.get("taxonomy_json")()),
     recommend: (body) =>

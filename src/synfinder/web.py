@@ -14,10 +14,12 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from .catalog import Catalog, load_catalog
-from .datasets import match_datasets
+from .catalog import Catalog, load_catalog, search_methods
+from .contribute import to_yaml, validate_method
+from . import llm
+from .explain import explain
 from .intake import Intake
-from .payload import _candidate_json, _dataset_json, _top_only
+from .payload import _candidate_json, _dataset_json, _method_json, _top_only
 from .ranking import Ranking, load_weights, rank
 from .report import empty_result_message, render_html, render_markdown
 
@@ -70,6 +72,13 @@ def taxonomy() -> dict:
     }
 
 
+@app.get("/api/methods")
+def methods(q: str | None = None, family: str | None = None) -> dict:
+    """Browse the catalog by name, alias, id or family. Frameworks included."""
+    found = search_methods(_catalog().methods, q or "", family)
+    return {"methods": [_method_json(m) for m in found]}
+
+
 @app.get("/api/datasets")
 def datasets(domain: str | None = None, data_type: str | None = None,
              license: str | None = None) -> dict:
@@ -94,12 +103,15 @@ def recommend(req: IntakeRequest) -> dict:
     ranking: Ranking = rank(cat.generation_methods(), intake, _weights(),
                             top_n=24)
     top, rest = ranking.shortlist[:5], ranking.shortlist[5:]
-    matching = match_datasets(cat.datasets, intake)
     covered = cat.covers(intake.data_type)
 
+    shortlist_json = [_candidate_json(c) for c in top]
+    if llm.available():
+        for c, j in zip(top, shortlist_json):
+            j["narration"] = llm.narrate(explain(c), c.method, intake)
+
     return {
-        "datasets": [_dataset_json(d) for d in matching],
-        "shortlist": [_candidate_json(c) for c in top],
+        "shortlist": shortlist_json,
         "also_ranked": [_candidate_json(c) for c in rest],
         "excluded": [
             {"id": e.method_id, "name": e.method_name, "reason": e.reason}
@@ -113,9 +125,8 @@ def recommend(req: IntakeRequest) -> dict:
                                       cat.covered_data_types())
         ),
         "report_markdown": render_markdown(intake, _top_only(ranking, top),
-                                           matching, covered,
-                                           cat.covered_data_types()),
-        "report_html": render_html(intake, _top_only(ranking, top), matching,
+                                           covered, cat.covered_data_types()),
+        "report_html": render_html(intake, _top_only(ranking, top),
                                    covered, cat.covered_data_types()),
     }
 
@@ -160,3 +171,14 @@ def index() -> HTMLResponse:
 
 # kept so a direct link still works, but the page does not depend on it
 app.mount("/static", StaticFiles(directory=WEB_DIR), name="static")
+
+
+class ValidateRequest(BaseModel):
+    answers: dict
+
+
+@app.post("/api/validate")
+def validate(req: ValidateRequest) -> dict:
+    errors, entry = validate_method(req.answers, _catalog().taxonomy,
+                                    {m.id for m in _catalog().methods})
+    return {"errors": errors, "yaml": to_yaml(entry) if entry else None}

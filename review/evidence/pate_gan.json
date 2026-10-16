@@ -1,0 +1,59 @@
+{
+ "id": "pate_gan",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": "No paper text in the digest; the repo is synthcity, a library that includes PATEGAN among many generators, so sources are thin for this method alone.",
+ "purposes": {
+  "open_release": {
+   "verdict": "supported",
+   "rationale": "The synthcity README describes PATEGAN as giving tight differential privacy guarantees.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "allowing to tightly bound the influence of any individual sample on the model, resulting in tight differential privacy guarantees and thus an improved performance over models with the same guarantees.",
+     "verified": true
+    }
+   ]
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "No testing or format-conformance use of PATEGAN in the README.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "unclear",
+   "rationale": "Only the repo description mentions data augmentation for the library as a whole, not PATEGAN specifically.",
+   "quotes": []
+  },
+  "statistical_replication": {
+   "verdict": "unclear",
+   "rationale": "The library offers fidelity metrics, but nothing ties them to PATEGAN specifically.",
+   "quotes": []
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "No causal framing for PATEGAN in the README.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "not_supported",
+   "rationale": "Tutorials teach the library, not PATEGAN specifically.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "unclear",
+   "rationale": "PATEGAN is listed as a reference model in a benchmarking library, which is suggestive but not specific.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "General purpose: GAN-based (AdsGAN, CTGAN, PATEGAN, DP-GAN),VAE-based(TVAE, RTVAE), Normalizing flows, Bayesian Networks(PrivBayes, BN), Random Forrest (arfpy), LLM-based (GReaT).",
+     "verified": true
+    }
+   ]
+  },
+  "imbalance_correction": {
+   "verdict": "unclear",
+   "rationale": "No paper and no class-imbalance mention in the README.",
+   "quotes": []
+  }
+ }
+}

@@ -1,0 +1,83 @@
+{
+ "id": "great",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": null,
+ "purposes": {
+  "open_release": {
+   "verdict": "supported",
+   "rationale": "The paper motivates synthetic tables as a way around data that cannot be shared for privacy reasons.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "contain critical person-related information and cannot be shared due to pri- vacy protection or socio-ethical principles",
+     "verified": true
+    }
+   ]
+  },
+  "pipeline_testing": {
+   "verdict": "supported",
+   "rationale": "The README's mock-data mode targets test fixtures and dev environments.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "Useful for privacy-safe dummy data, test fixtures, dev environments, and schema prototyping.",
+     "verified": true
+    }
+   ]
+  },
+  "ml_augmentation": {
+   "verdict": "supported",
+   "rationale": "Machine learning efficiency is evaluated by training models on synthetic data and testing on real data.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "this measure evaluates the performance of discriminative models trained on synthetic data sets. Therefore, the models are tested on real test data",
+     "verified": true
+    }
+   ]
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "The paper evaluates how closely synthetic samples reproduce the original data's characteristics and joint distributions.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "we propose GReaT (Generation of Realistic Tabular data), which exploits an auto-regressive generative LLM to sample synthetic and yet highly realistic tabular data.",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "Nothing in the sources points to this purpose.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "not_supported",
+   "rationale": "Nothing in the sources points to this purpose.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "supported",
+   "rationale": "The authors release their experimental results explicitly as benchmarks for the community.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "We have open-sourced our experimental results, making them available as strong benchmarks for the benefit of the community.",
+     "verified": true
+    }
+   ]
+  },
+  "imbalance_correction": {
+   "verdict": "supported",
+   "rationale": "The introduction names class imbalance as a motivating problem and oversampling of subsets as a use of arbitrary conditioning, though no imbalance experiment is shown.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "This allows impu- tation of any missingness pattern in the data or oversampling of arbitrary subsets.",
+     "verified": true
+    }
+   ]
+  }
+ }
+}

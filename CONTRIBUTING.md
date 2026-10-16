@@ -8,7 +8,9 @@ Thank you for wanting to add to this catalog.
 
 SynFinder helps researchers choose a synthetic data generation method. It is
 useful only because its entries are honest about what goes wrong. A catalog
-of methods that all sound good is a catalog nobody needs.
+of methods that all sound good is a catalog nobody needs. The scope is health,
+clinical and biomedical research; a method with no documented biomedical use is
+out of scope.
 
 That makes the `caveats` field the most important thing you will write, and
 the thing a maintainer will read hardest.
@@ -58,6 +60,29 @@ paper or the repository, not against the submission text:
 - `caveats` — the reason anyone trusts this catalog
 - `output_preview` — must show the shape the method really emits; `image_spec`
   entries carry a written specification, never image data
+
+## Verifying an entry
+
+1. Run `tools/sync_repos.py` and `pytest tests/test_repo_drift.py`; fix any
+   mechanical drift with `tools/apply_repo_metadata.py --write`.
+2. Open the paper. Confirm `data_types`, `variable_types`, `purposes`,
+   `preserves`, `formal_dp` and `dp_mechanism`. Record scale bounds only
+   with the table or figure they come from; otherwise leave them empty.
+3. Look for governance evidence: a named regulator, ethics board,
+   statistics agency or deployment. Record what you find, or nothing, and
+   list `governance` in `fields_checked` either way.
+4. Reread the caveats against the paper's limitations section and the
+   repository issues. Sharpen them.
+5. Write the `provenance` block:
+
+   ```yaml
+   provenance:
+     verified_on: 2026-10-14
+     verified_by: Your Name
+     sources_checked: [paper, code]
+     fields_checked: [data_types, formal_dp, scale, governance, caveats]
+     notes: Scale from Table 3; DP accountant checked in train.py.
+   ```
 
 ## A note on output previews
 

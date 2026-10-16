@@ -44,3 +44,61 @@ def test_a_term_outside_the_taxonomy_is_refused(tmp_path):
     out.mkdir()
     assert new_entry("method", default_catalog_root(),
                      dict(ANSWERS, family="telepathy"), out) == 1
+
+
+from synfinder.catalog import load_catalog
+from synfinder.contribute import validate_method, to_yaml
+
+TAX = load_catalog(default_catalog_root()).taxonomy
+
+
+def test_validate_method_returns_no_errors_and_the_entry_for_good_answers():
+    errors, entry = validate_method(ANSWERS, TAX)
+    assert errors == []
+    assert entry["id"] == "mymethod"
+    assert "mymethod" in to_yaml(entry)
+
+
+def test_validate_method_names_a_term_outside_the_taxonomy():
+    errors, entry = validate_method(dict(ANSWERS, family="telepathy"), TAX)
+    assert entry is None
+    assert any("telepathy" in e and "family" in e for e in errors)
+
+
+def test_validate_method_reports_dp_without_a_mechanism():
+    errors, entry = validate_method(dict(ANSWERS, formal_dp=True), TAX)
+    assert entry is None
+    assert any("dp_mechanism" in e for e in errors)
+
+
+def test_validate_method_reports_an_empty_caveat_list():
+    errors, entry = validate_method(dict(ANSWERS, caveats=[]), TAX)
+    assert entry is None
+    assert any("caveats" in e for e in errors)
+
+
+def test_validate_method_reports_a_missing_required_answer():
+    bad = dict(ANSWERS)
+    del bad["name"]
+    errors, entry = validate_method(bad, TAX)
+    assert entry is None
+    assert any("name" in e for e in errors)
+
+
+def test_validate_method_requires_a_paper_or_code_link():
+    from synfinder.contribute import validate_method
+    errors, entry = validate_method(dict(ANSWERS, paper=None, code=None), TAX)
+    assert entry is None and any("links" in e for e in errors)
+
+
+def test_validate_method_rejects_a_malformed_id():
+    from synfinder.contribute import validate_method
+    errors, entry = validate_method(dict(ANSWERS, id="Bad Id!"), TAX)
+    assert entry is None and any(e.startswith("id") for e in errors)
+
+
+def test_validate_method_rejects_an_id_already_in_the_catalog():
+    from synfinder.contribute import validate_method
+    errors, entry = validate_method(dict(ANSWERS, id="ctgan"), TAX,
+                                    existing_ids={"ctgan"})
+    assert entry is None and any("already exists" in e for e in errors)

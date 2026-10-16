@@ -212,3 +212,34 @@ def test_relational_data_reaches_the_one_method_that_handles_it(catalog, weights
         domain="general", data_type="tabular_longitudinal",
         purpose="pipeline_testing", privacy="not_required")
     assert ids, "expected recommendations for longitudinal tabular data"
+
+
+def test_verified_scale_outranks_unknown_scale_on_an_otherwise_equal_method(weights):
+    from synfinder.schema import Scale
+    from tests.factories import make_method
+    known = make_method(id="known", scale=Scale(
+        min_rows=100, max_rows=1_000_000, max_cols=None, evidence="paper table 2"))
+    unknown = make_method(id="unknown")
+    intake = Intake(domain="biomedical", data_type="tabular_cross_sectional",
+                    purpose="ml_augmentation", privacy="not_required",
+                    expected_rows=10_000)
+    ids = [c.method.id for c in rank([unknown, known], intake, weights).shortlist]
+    assert ids == ["known", "unknown"]
+
+
+def test_checked_and_empty_governance_ranks_below_unchecked(weights):
+    """Being checked and found empty is worse news than not having been
+    checked; the score must say so rather than treat both as 0.2."""
+    import datetime as dt
+    from synfinder.schema import Provenance, Links
+    from tests.factories import make_method
+    checked_empty = make_method(
+        id="checked", links=Links(code="https://github.com/x/y"),
+        provenance=Provenance(verified_on=dt.date(2026, 10, 14), verified_by="x",
+                              sources_checked=["code"], fields_checked=["governance"]))
+    unchecked = make_method(id="unchecked")
+    intake = Intake(domain="biomedical", data_type="tabular_cross_sectional",
+                    purpose="ml_augmentation", privacy="not_required",
+                    needs_governance_evidence=True)
+    ids = [c.method.id for c in rank([checked_empty, unchecked], intake, weights).shortlist]
+    assert ids == ["unchecked", "checked"]

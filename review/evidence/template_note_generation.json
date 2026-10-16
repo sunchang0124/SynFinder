@@ -1,0 +1,65 @@
+{
+ "id": "template_note_generation",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": "The digest has no paper, and the code is Synthea, a rule-based patient simulator, which does not clearly match a method called template note generation.",
+ "purposes": {
+  "open_release": {
+   "verdict": "supported",
+   "rationale": "Synthea generates synthetic patients from rules and census statistics rather than copying real records.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "The goal is to output synthetic, realistic (but not real), patient data and associated health records in a variety of formats.",
+     "verified": true
+    }
+   ]
+  },
+  "pipeline_testing": {
+   "verdict": "unclear",
+   "rationale": "The README lists many output formats (FHIR, C-CDA, CSV) but never states a testing or development-data purpose.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "Bulk FHIR in ndjson format (set `exporter.fhir.bulk_data = true` to activate)",
+     "verified": true
+    }
+   ]
+  },
+  "ml_augmentation": {
+   "verdict": "not_supported",
+   "rationale": "The README shows no model training or augmentation use.",
+   "quotes": []
+  },
+  "statistical_replication": {
+   "verdict": "unclear",
+   "rationale": "The README only says output follows census-based demographics; no fidelity evaluation is shown.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "Configuration-based statistics and demographics (defaults with Massachusetts Census data)",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "unclear",
+   "rationale": "Disease modules are rule-based simulation, but no causal framing is stated.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "unclear",
+   "rationale": "The README does not mention teaching or demonstration use; the wiki was not in the digest.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "not_supported",
+   "rationale": "The README does not position Synthea as a baseline or benchmark.",
+   "quotes": []
+  },
+  "imbalance_correction": {
+   "verdict": "not_supported",
+   "rationale": "No class-imbalance framing appears in the README.",
+   "quotes": []
+  }
+ }
+}

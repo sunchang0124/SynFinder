@@ -11,7 +11,7 @@ compute: cpu_fine
 license: GPL-3.0
 language: r
 last_updated: 2026
-purposes: [benchmarking, education, pipeline_testing, open_release]
+purposes: [benchmarking, pipeline_testing, statistical_replication]
 preserves: [marginals]
 scale:
   evidence: null
@@ -58,3 +58,8 @@ output_preview:
     cell_id,cell_type,group,batch
     c0001,T cell,control,b1
     c0002,B cell,treated,b1
+provenance:
+  verified_on: 2026-10-15
+  verified_by: "Chang Sun"
+  sources_checked: [paper, code]
+  fields_checked: [purposes, links]

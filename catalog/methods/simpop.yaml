@@ -1,7 +1,7 @@
 id: simpop
 name: simPop
 family: probabilistic_graphical
-domains: [ssh, general]
+domains: [general]
 data_types: [tabular_cross_sectional]
 variable_types: [continuous, categorical, ordinal, count]
 formal_dp: false
@@ -9,7 +9,7 @@ compute: cpu_fine
 license: GPL-2.0
 language: r
 last_updated: 2026
-purposes: [statistical_replication, open_release, education, benchmarking]
+purposes: [education, open_release, statistical_replication]
 preserves: [marginals, joint_correlations]
 scale:
   evidence: null
@@ -50,3 +50,8 @@ output_preview:
     h0001,p0001,42,F,NL-ZH,tertiary,48200,1
     h0001,p0002,45,M,NL-ZH,secondary,39500,1
     h0002,p0003,29,F,NL-NH,tertiary,51300,1
+provenance:
+  verified_on: 2026-10-15
+  verified_by: "Chang Sun"
+  sources_checked: [paper, code]
+  fields_checked: [purposes, links]

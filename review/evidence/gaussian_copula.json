@@ -1,0 +1,71 @@
+{
+ "id": "gaussian_copula",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": "The repo is the general SDV library (many models), not Gaussian Copula alone, and the paper full text is unavailable, so README claims are about SDV as a whole.",
+ "purposes": {
+  "open_release": {
+   "verdict": "supported",
+   "rationale": "The README says synthetic columns contain new values so real sensitive values are not exposed.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "columns contain new data so you don't expose the real values.",
+     "verified": true
+    }
+   ]
+  },
+  "pipeline_testing": {
+   "verdict": "unclear",
+   "rationale": "Neither the README nor docs frame the data as test data and the paper text is missing.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "unclear",
+   "rationale": "The README shows no ML utility or augmentation evaluation and the paper text is missing.",
+   "quotes": []
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "The README says the synthetic data preserves distributions and correlations and provides a quality report comparing it to real data.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "distribution of check in dates and the correlations between room rate and room type are preserved.",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "The README and docs contain no causal structure or intervention framing.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "supported",
+   "rationale": "The README links hands-on tutorial notebooks for the library.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "Get some hands-on experience with the SDV. Launch the tutorial notebooks and run the code yourself.",
+     "verified": true
+    }
+   ]
+  },
+  "benchmarking": {
+   "verdict": "unclear",
+   "rationale": "The README mentions comparing generation models but does not show Gaussian Copula as a baseline; the paper text is missing.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "Measuring quality and privacy of synthetic data, and comparing different synthetic data",
+     "verified": true
+    }
+   ]
+  },
+  "imbalance_correction": {
+   "verdict": "not_supported",
+   "rationale": "The README and docs contain no class-imbalance framing.",
+   "quotes": []
+  }
+ }
+}

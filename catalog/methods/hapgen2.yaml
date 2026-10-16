@@ -8,7 +8,7 @@ formal_dp: false
 compute: cpu_fine
 license: GPL-3.0
 language: cpp
-purposes: [benchmarking, ml_augmentation, education]
+purposes: [benchmarking, causal_inference, statistical_replication]
 preserves: [marginals, joint_correlations]
 scale:
   evidence: null
@@ -48,3 +48,8 @@ output_preview:
     rs0000002   1      768448   G   A    1     1     2
     rs0000003   1      798959   C   T    0     0     1
     rs0000004   2      113422   T   C    2     1     0
+provenance:
+  verified_on: 2026-10-15
+  verified_by: "Chang Sun"
+  sources_checked: [paper, code]
+  fields_checked: [purposes, links]

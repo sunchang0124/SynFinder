@@ -1,0 +1,58 @@
+{
+ "id": "dp_ctgan",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": "Repo is the general OpenDP SmartNoise SDK (many synthesizers), not clearly the DP-CTGAN paper's own code; paper text unavailable (TLDR only), so verdicts are thin.",
+ "purposes": {
+  "open_release": {
+   "verdict": "supported",
+   "rationale": "The SDK generates differentially private synthetic data and the DPCTGAN docs describe DP-SGD training, a formal privacy guarantee.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "The SmartNoise SDK includes 2 packages: * [smartnoise-sql](sql/): Run differentially private SQL queries * [smartnoise-synth](synth/): Generate differentially private synthetic data",
+     "verified": true
+    },
+    {
+     "source": "docs",
+     "text": "Conditional tabular GAN with differentially private stochastic gradient descent.",
+     "verified": true
+    }
+   ]
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "Neither the TLDR, README nor docs mention test or development data.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "unclear",
+   "rationale": "No paper full text, and the README and docs show no ML utility evaluation.",
+   "quotes": []
+  },
+  "statistical_replication": {
+   "verdict": "unclear",
+   "rationale": "No paper full text, and the README and docs show no fidelity evaluation.",
+   "quotes": []
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "No causal or DAG framing in the TLDR, README or docs.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "not_supported",
+   "rationale": "The README is install and example code for a toolkit, with no teaching framing.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "unclear",
+   "rationale": "The SDK lists DP-CTGAN among several synthesizers, but nothing shows it used as a baseline or benchmark.",
+   "quotes": []
+  },
+  "imbalance_correction": {
+   "verdict": "unclear",
+   "rationale": "No paper full text, and nothing in the README or docs mentions class imbalance.",
+   "quotes": []
+  }
+ }
+}

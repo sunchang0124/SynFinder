@@ -1,0 +1,65 @@
+{
+ "id": "privbayes",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": "The paper is right, but the repo is DataSynthesizer, a different tool, and its README digest does not mention PrivBayes; the paper full text is also missing.",
+ "purposes": {
+  "open_release": {
+   "verdict": "supported",
+   "rationale": "The paper presents PrivBayes as a differentially private method for releasing synthetic data.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "P riv B ayes samples tuples from the approximate distribution to construct a synthetic dataset, and then releases the synthetic data.",
+     "verified": true
+    }
+   ]
+  },
+  "pipeline_testing": {
+   "verdict": "unclear",
+   "rationale": "Sources are thin; DataSynthesizer has a random mode but the digest does not show testing use.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "unclear",
+   "rationale": "Full text is missing and the abstract reports only accuracy, not ML utility.",
+   "quotes": []
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "The abstract builds an approximation of the data distribution and reports accuracy against alternatives.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "P riv B ayes first constructs a Bayesian network N , which (i) provides a succinct model of the correlations among the attributes in D",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "The Bayesian network models correlations, and nothing in the sources frames it causally.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "unclear",
+   "rationale": "The repo README offers demo notebooks, but they belong to DataSynthesizer rather than PrivBayes.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "After installing DataSynthesizer and [Jupyter Notebook](https://jupyter.org/install), open and try the demos in `./notebooks/`",
+     "verified": true
+    }
+   ]
+  },
+  "benchmarking": {
+   "verdict": "unclear",
+   "rationale": "The abstract compares PrivBayes with existing solutions, but full text is missing so use as a baseline cannot be confirmed.",
+   "quotes": []
+  },
+  "imbalance_correction": {
+   "verdict": "unclear",
+   "rationale": "Full text is missing; the abstract does not mention imbalance.",
+   "quotes": []
+  }
+ }
+}

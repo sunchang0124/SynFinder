@@ -1,0 +1,76 @@
+{
+ "id": "dp_cgans",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": null,
+ "purposes": {
+  "open_release": {
+   "verdict": "supported",
+   "rationale": "Paper frames the output as a privacy-preserving substitute for inaccessible health data and adds a differential privacy guarantee.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "A large amount of personal health data that is highly valuable to the scientific community is still not accessible or requires a lengthy request process due to privacy concerns and legal restrictions.",
+     "verified": true
+    },
+    {
+     "source": "paper",
+     "text": "we inject statistical noise into the gradients in the networking training process of DP-CGANS to provide a differential privacy guarantee.",
+     "verified": true
+    }
+   ]
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "Nothing in the abstract or README frames the output as test or development data.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "supported",
+   "rationale": "The paper evaluates machine learning performance of the synthetic data alongside similarity and privacy.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "We extensively evaluate our model with state-of-the-art generative models on personal socio-economic datasets and real-world personal health datasets in terms of statistical similarity, machine learning performance, and privacy measurement.",
+     "verified": true
+    }
+   ]
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "The paper evaluates statistical similarity and claims better capture of dependence between variables.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "We demonstrate that our model outperforms other comparable models, especially in capturing the dependence between variables.",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "The model captures statistical dependence between variables, with no DAG or causal-mechanism framing.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "not_supported",
+   "rationale": "The README is installation and usage only; no teaching or demonstration framing.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "not_supported",
+   "rationale": "DP-CGANS appears only as the proposed model compared against others, not as a baseline or benchmark dataset in these sources.",
+   "quotes": []
+  },
+  "imbalance_correction": {
+   "verdict": "supported",
+   "rationale": "The model is built around a conditional vector that represents minority classes in imbalanced data.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "Our model is structured with a conditional vector as an additional input to present the minority class in the imbalanced data and maximally capture the dependency between variables.",
+     "verified": true
+    }
+   ]
+  }
+ }
+}

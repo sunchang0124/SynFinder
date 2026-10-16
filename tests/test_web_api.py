@@ -22,7 +22,7 @@ def test_recommend_returns_a_shortlist_with_explanations():
     body = client.post("/api/recommend", json=INTAKE).json()
     assert body["shortlist"], "expected recommendations"
     first = body["shortlist"][0]
-    assert 0 <= first["fit"] <= 1
+    assert "fit" not in first and "axes" not in first, "the score is never shown"
     assert first["caveats"], "every method carries caveats"
     assert first["preview"]["body"]
 
@@ -41,6 +41,32 @@ def test_api_and_engine_agree_on_the_shortlist():
     api = client.post("/api/recommend", json=INTAKE).json()
     assert [c.method.id for c in engine.shortlist] == \
            [c["id"] for c in api["shortlist"]]
+
+
+def test_recommend_no_longer_leads_with_datasets():
+    """Datasets live on their own tab; the shortlist is the answer."""
+    body = client.post("/api/recommend", json=INTAKE).json()
+    assert "datasets" not in body
+    assert "You may not need to generate anything" not in body["report_markdown"]
+
+
+def test_methods_endpoint_searches_by_name_alias_and_family():
+    assert [m["id"] for m in client.get("/api/methods?q=synthea").json()["methods"]] == ["synthea"]
+    assert [m["id"] for m in client.get("/api/methods?q=syntheticmass").json()["methods"]] == ["synthea"]
+    everything = client.get("/api/methods").json()["methods"]
+    assert len(everything) == client.get("/api/taxonomy").json()["counts"]["methods"] + \
+        client.get("/api/taxonomy").json()["counts"]["frameworks"]
+    assert everything == sorted(everything, key=lambda m: m["name"].lower())
+    gans = client.get("/api/methods?family=gan").json()["methods"]
+    assert gans and all(m["family"] == "gan" for m in gans)
+
+
+def test_method_json_carries_what_the_card_shows():
+    m = client.get("/api/methods?q=synthea").json()["methods"][0]
+    for key in ("name", "family", "verified", "data_types", "purposes", "caveats",
+                "license", "maintained", "links", "is_framework", "formal_dp"):
+        assert key in m, key
+    assert m["verified"].startswith(("Verified", "Not yet"))
 
 
 def test_recommend_reports_exclusions_with_reasons():
@@ -142,3 +168,71 @@ def test_candidates_carry_the_language_and_year_tags():
         "purpose": "ml_augmentation", "privacy": "not_required"}).json()
     assert any(c["language"] for c in body["shortlist"])
     assert any(c["last_updated"] for c in body["shortlist"])
+
+
+def test_candidates_and_datasets_carry_a_verification_label():
+    body = client.post("/api/recommend", json=INTAKE).json()
+    assert all("verified" in c for c in body["shortlist"])
+    sets = client.get("/api/datasets").json()["datasets"]
+    assert all("verified" in d for d in sets)
+
+
+GOOD_ANSWERS = {
+    "id": "mymethod", "name": "MyMethod", "family": "gan",
+    "domains": ["biomedical"], "data_types": ["tabular_cross_sectional"],
+    "variable_types": ["continuous"], "formal_dp": False, "compute": "cpu_fine",
+    "license": "MIT", "purposes": ["ml_augmentation"], "preserves": ["marginals"],
+    "expertise": "medium", "maintained": True,
+    "implementation_quality": "research_code",
+    "caveats": ["Falls over on high-cardinality columns."], "evaluation": [],
+    "paper": None, "code": "https://github.com/example/mymethod",
+    "preview_format": "tabular_csv", "preview_note": "One row per person.",
+    "preview_body": "age,sex\n54,F\n",
+}
+
+
+def test_validate_endpoint_accepts_a_good_entry():
+    body = client.post("/api/validate", json={"answers": GOOD_ANSWERS}).json()
+    assert body["errors"] == []
+    assert body["yaml"].startswith("id: mymethod")
+
+
+def test_validate_endpoint_returns_errors_not_a_500():
+    bad = dict(GOOD_ANSWERS, formal_dp=True, caveats=[])
+    r = client.post("/api/validate", json={"answers": bad})
+    assert r.status_code == 200
+    body = r.json()
+    assert body["yaml"] is None
+    assert any("dp_mechanism" in e for e in body["errors"])
+    assert any("caveats" in e for e in body["errors"])
+
+
+def test_the_page_carries_the_submit_tab():
+    html = client.get("/").text
+    assert 'data-view="submit"' in html
+    assert 'id="submitForm"' in html
+    assert "api/validate" in html, "the submit flow must call the shared validator"
+
+
+def test_recommend_carries_narration_when_a_model_is_available(monkeypatch):
+    from synfinder import llm, web
+    monkeypatch.setattr(llm, "available", lambda: True)
+    monkeypatch.setattr(llm, "narrate", lambda e, m, i: f"Fluent prose about {m.name}.")
+    body = client.post("/api/recommend", json=INTAKE).json()
+    first = body["shortlist"][0]
+    assert first["narration"] == f"Fluent prose about {first['name']}."
+    assert all(c["narration"] is None for c in body["also_ranked"])
+
+
+def test_recommend_narration_is_null_without_a_model(monkeypatch):
+    from synfinder import llm
+    monkeypatch.setattr(llm, "available", lambda: False)
+    body = client.post("/api/recommend", json=INTAKE).json()
+    assert all(c["narration"] is None for c in body["shortlist"])
+
+
+def test_validate_endpoint_rejects_an_id_already_in_the_catalog():
+    body = client.post("/api/validate",
+                       json={"answers": dict(GOOD_ANSWERS, id="ctgan")}).json()
+    assert body["yaml"] is None
+    assert any("already exists" in e for e in body["errors"])

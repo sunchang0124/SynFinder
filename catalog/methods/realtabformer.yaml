@@ -8,7 +8,7 @@ formal_dp: false
 compute: gpu_required
 license: MIT
 language: python
-purposes: [ml_augmentation, pipeline_testing, benchmarking]
+purposes: [ml_augmentation, open_release, statistical_replication]
 preserves: [marginals, joint_correlations]
 scale:
   evidence: null
@@ -48,3 +48,8 @@ output_preview:
     v0001,s0001,2019-03-14,E11.9
     v0002,s0001,2019-09-02,E11.65
     v0003,s0002,2019-06-11,J45.909
+provenance:
+  verified_on: 2026-10-15
+  verified_by: "Chang Sun"
+  sources_checked: [paper, code]
+  fields_checked: [purposes, links]

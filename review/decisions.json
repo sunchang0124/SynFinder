@@ -1,0 +1,794 @@
+{
+ "arf": {
+  "decided_at": "2026-10-15T13:51:59+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "ml_augmentation",
+   "statistical_replication",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "artificial_genomes_gan": {
+  "decided_at": "2026-10-15T13:52:08+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "ml_augmentation",
+   "statistical_replication"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "asclepius_notes": {
+  "decided_at": "2026-10-15T13:52:15+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "ml_augmentation"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "bayesian_network": {
+  "decided_at": "2026-10-15T13:52:47+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "statistical_replication",
+   "causal_inference",
+   "education"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "cehr_gpt": {
+  "decided_at": "2026-10-15T13:52:52+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "ml_augmentation",
+   "statistical_replication"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "corgan": {
+  "decided_at": "2026-10-15T13:52:56+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "ml_augmentation",
+   "statistical_replication",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "csdi": {
+  "decided_at": "2026-10-15T13:53:05+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "ml_augmentation",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "ctab_gan": {
+  "decided_at": "2026-10-15T13:53:35+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "ml_augmentation",
+   "statistical_replication",
+   "benchmarking",
+   "imbalance_correction"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "ctgan": {
+  "decided_at": "2026-10-15T13:53:48+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "ml_augmentation",
+   "statistical_replication",
+   "benchmarking",
+   "imbalance_correction"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "diffusion_ts": {
+  "decided_at": "2026-10-15T13:53:56+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "ml_augmentation",
+   "statistical_replication"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "digress": {
+  "decided_at": "2026-10-15T13:54:05+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "statistical_replication"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "doppelganger": {
+  "decided_at": "2026-10-15T13:54:12+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "ml_augmentation",
+   "statistical_replication",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "dp_cgans": {
+  "decided_at": "2026-10-15T13:59:05+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "ml_augmentation",
+   "statistical_replication",
+   "education",
+   "benchmarking",
+   "imbalance_correction"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "dp_ctgan": {
+  "decided_at": "2026-10-15T13:59:08+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "ml_augmentation",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "dp_merf": {
+  "decided_at": "2026-10-15T13:26:06+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "ml_augmentation",
+   "statistical_replication",
+   "benchmarking",
+   "imbalance_correction"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "ehr_safe": {
+  "decided_at": "2026-10-15T13:26:13+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "ml_augmentation",
+   "statistical_replication",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "ehrdiff": {
+  "decided_at": "2026-10-15T13:26:18+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "ml_augmentation",
+   "statistical_replication",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "ergm": {
+  "decided_at": "2026-10-15T13:26:35+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "statistical_replication",
+   "education",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "eva_ehr": {
+  "decided_at": "2026-10-15T13:26:42+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "ml_augmentation",
+   "statistical_replication",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "gatortrongpt": {
+  "decided_at": "2026-10-15T13:26:49+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "ml_augmentation",
+   "statistical_replication",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "gaussian_copula": {
+  "decided_at": "2026-10-15T13:27:05+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "pipeline_testing",
+   "statistical_replication",
+   "education",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "gem_dp": {
+  "decided_at": "2026-10-15T13:27:19+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "statistical_replication",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "goggle": {
+  "decided_at": "2026-10-15T13:27:26+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "ml_augmentation",
+   "causal_inference",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "graphrnn": {
+  "decided_at": "2026-10-15T13:27:39+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "statistical_replication",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "great": {
+  "decided_at": "2026-10-15T13:28:03+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "pipeline_testing",
+   "ml_augmentation",
+   "statistical_replication",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "halo": {
+  "decided_at": "2026-10-15T13:28:11+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "ml_augmentation",
+   "statistical_replication",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "hapgen2": {
+  "decided_at": "2026-10-15T13:28:24+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "statistical_replication",
+   "causal_inference",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "hapnest": {
+  "decided_at": "2026-10-15T13:28:32+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "statistical_replication",
+   "causal_inference",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "latent_diffusion_brain_mri": {
+  "decided_at": "2026-10-15T13:28:51+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "ml_augmentation"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "meddiff": {
+  "decided_at": "2026-10-15T13:28:59+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "ml_augmentation",
+   "statistical_replication",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "medgan": {
+  "decided_at": "2026-10-15T13:29:08+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "medical_diffusion_3d": {
+  "decided_at": "2026-10-15T13:29:19+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "ml_augmentation",
+   "statistical_replication",
+   "education",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "medigan": {
+  "decided_at": "2026-10-15T14:31:34+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "ml_augmentation",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "metasyn": {
+  "decided_at": "2026-10-15T13:29:30+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "pipeline_testing",
+   "education"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "molgan": {
+  "decided_at": "2026-10-15T13:29:51+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "ml_augmentation",
+   "education",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "msprime": {
+  "decided_at": "2026-10-15T13:30:10+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "pipeline_testing",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "mst_aim": {
+  "decided_at": "2026-10-15T13:30:38+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "statistical_replication",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "mtgan": {
+  "decided_at": "2026-10-15T13:30:53+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "ml_augmentation",
+   "statistical_replication",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "muscat": {
+  "decided_at": "2026-10-15T13:30:59+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "statistical_replication",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "pac_synth": {
+  "decided_at": "2026-10-15T13:31:07+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "statistical_replication",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "pate_gan": {
+  "decided_at": "2026-10-15T13:31:16+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "ml_augmentation",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "privbayes": {
+  "decided_at": "2026-10-15T13:31:51+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "statistical_replication"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "privsyn": {
+  "decided_at": "2026-10-15T13:32:05+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "ml_augmentation",
+   "statistical_replication"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "promptehr": {
+  "decided_at": "2026-10-15T13:32:19+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "ml_augmentation",
+   "statistical_replication"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "realtabformer": {
+  "decided_at": "2026-10-15T13:32:32+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "ml_augmentation",
+   "statistical_replication"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "roentgen": {
+  "decided_at": "2026-10-15T13:32:43+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "ml_augmentation",
+   "statistical_replication"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "rtsgan": {
+  "decided_at": "2026-10-15T13:32:52+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "ml_augmentation",
+   "statistical_replication"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "rule_based_simulation": {
+  "decided_at": "2026-10-15T13:33:05+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "pipeline_testing",
+   "causal_inference",
+   "education",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "scdesign3": {
+  "decided_at": "2026-10-15T13:33:12+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "ml_augmentation",
+   "statistical_replication",
+   "education",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "scgan": {
+  "decided_at": "2026-10-15T13:33:27+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "ml_augmentation",
+   "statistical_replication",
+   "imbalance_correction"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "sdv": {
+  "decided_at": "2026-10-15T14:31:51+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "ml_augmentation",
+   "statistical_replication",
+   "education",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "simpop": {
+  "decided_at": "2026-10-15T13:33:39+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "statistical_replication",
+   "education"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "slim": {
+  "decided_at": "2026-10-15T13:34:02+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "statistical_replication",
+   "education"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "smote_family": {
+  "decided_at": "2026-10-15T13:34:15+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "pipeline_testing",
+   "ml_augmentation",
+   "education",
+   "imbalance_correction"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "sparsim": {
+  "decided_at": "2026-10-15T13:40:29+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "pipeline_testing",
+   "statistical_replication",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "splatter": {
+  "decided_at": "2026-10-15T13:43:18+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "pipeline_testing",
+   "statistical_replication",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "stasy": {
+  "decided_at": "2026-10-15T13:43:50+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "ml_augmentation",
+   "statistical_replication",
+   "education",
+   "benchmarking",
+   "imbalance_correction"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "survivalgan": {
+  "decided_at": "2026-10-15T13:44:13+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "ml_augmentation",
+   "statistical_replication",
+   "education",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "synteg": {
+  "decided_at": "2026-10-15T13:44:21+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "ml_augmentation",
+   "statistical_replication",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "synthcity": {
+  "decided_at": "2026-10-15T14:32:04+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "ml_augmentation",
+   "statistical_replication",
+   "causal_inference",
+   "education",
+   "benchmarking",
+   "imbalance_correction"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "synthea": {
+  "decided_at": "2026-10-15T13:44:36+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "pipeline_testing",
+   "causal_inference",
+   "education"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "synthpop": {
+  "decided_at": "2026-10-15T13:44:43+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "pipeline_testing",
+   "statistical_replication",
+   "education"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "tabddpm": {
+  "decided_at": "2026-10-15T13:44:49+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "ml_augmentation",
+   "statistical_replication",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "tabsyn": {
+  "decided_at": "2026-10-15T13:44:57+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "ml_augmentation",
+   "statistical_replication",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "template_note_generation": {
+  "decided_at": "2026-10-15T13:45:05+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "pipeline_testing",
+   "education"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "timeautodiff": {
+  "decided_at": "2026-10-15T13:45:15+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "ml_augmentation",
+   "statistical_replication",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "timegan": {
+  "decided_at": "2026-10-15T13:47:11+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "ml_augmentation",
+   "statistical_replication",
+   "education",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "timevae": {
+  "decided_at": "2026-10-15T13:47:23+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "open_release",
+   "pipeline_testing",
+   "ml_augmentation",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ },
+ "tvae": {
+  "decided_at": "2026-10-15T13:47:34+00:00",
+  "links_ok": true,
+  "notes": "",
+  "purposes": [
+   "ml_augmentation",
+   "statistical_replication",
+   "benchmarking"
+  ],
+  "reviewer": "Chang Sun"
+ }
+}

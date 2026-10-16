@@ -10,13 +10,13 @@ compute: gpu_required
 license: MIT
 language: python
 last_updated: 2026
-purposes: [ml_augmentation, benchmarking]
+purposes: [benchmarking, ml_augmentation, open_release, pipeline_testing, statistical_replication]
 preserves: [marginals, joint_correlations]
 scale:
   evidence: null
 expertise: medium
 maturity:
-  maintained: false
+  maintained: true
   last_release: null
   implementation_quality: research_code
 governance:
@@ -37,7 +37,7 @@ evaluation:
   - Exact-match search for training rows in the output, every time
 links:
   paper: https://openreview.net/forum?id=cEygmQNOeI
-  code: https://github.com/kathrinse/be_great
+  code: https://github.com/tabularis-ai/be_great
 related_datasets: []
 output_preview:
   format: tabular_csv
@@ -48,3 +48,8 @@ output_preview:
     s0001,54,F,27.3,6.1,former,E11.9
     s0002,38,M,31.8,5.4,never,I10
     s0003,71,F,24.1,7.9,current,E11.9
+provenance:
+  verified_on: 2026-10-15
+  verified_by: "Chang Sun"
+  sources_checked: [paper, code]
+  fields_checked: [purposes, links]

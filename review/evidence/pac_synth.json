@@ -1,0 +1,59 @@
+{
+ "id": "pac_synth",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": "No paper in the digest; the repo is the SmartNoise SDK umbrella and the docs page is its wrapper for pac-synth, so sources are thin.",
+ "purposes": {
+  "open_release": {
+   "verdict": "supported",
+   "rationale": "The docs describe a differentially private synthesizer that builds synthetic data from DP marginals.",
+   "quotes": [
+    {
+     "source": "docs",
+     "text": "A differentially-private synthesizer that computes differentially private marginals to build synthetic data.",
+     "verified": true
+    }
+   ]
+  },
+  "pipeline_testing": {
+   "verdict": "unclear",
+   "rationale": "Sources are thin and show no testing use.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "unclear",
+   "rationale": "No paper, and the docs say nothing on ML utility.",
+   "quotes": []
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "The docs say it aims to keep the synthetic data's dimensions as similar as possible to the original.",
+   "quotes": [
+    {
+     "source": "docs",
+     "text": "This may be desirable in some settings, where the goal is to generate synthetic data with dimensions that are as similar as possible to the original data.",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "No causal framing in the docs or README.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "not_supported",
+   "rationale": "Docs give a usage example only; no teaching framing.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "unclear",
+   "rationale": "It is listed as one synthesizer among many in the SDK, but no benchmark use is shown.",
+   "quotes": []
+  },
+  "imbalance_correction": {
+   "verdict": "unclear",
+   "rationale": "No paper; the docs do not mention class imbalance.",
+   "quotes": []
+  }
+ }
+}

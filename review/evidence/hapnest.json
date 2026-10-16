@@ -1,0 +1,71 @@
+{
+ "id": "hapnest",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": null,
+ "purposes": {
+  "open_release": {
+   "verdict": "supported",
+   "rationale": "The authors publish a synthetic dataset of over a million individuals for download.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "We have made this synthetic dataset (and a smaller example dataset) publicly available for download at https://www.ebi.ac.uk/biostudies/studies/S-BSST936.",
+     "verified": true
+    }
+   ]
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "Nothing in the sources points to this purpose.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "not_supported",
+   "rationale": "Nothing in the sources points to this purpose.",
+   "quotes": []
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "The abstract states that generated data preserve key statistical properties of real data and the README ships an evaluation workflow.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "while generating datasets that preserve key statistical properties of real data.",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "supported",
+   "rationale": "Phenotypes are generated from specified causal SNPs, including user-supplied causal lists.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "Filepath for a list of predefined SNPs to be used as causal, overrides `polygenicity` parameter if specified.",
+     "verified": true
+    }
+   ]
+  },
+  "education": {
+   "verdict": "not_supported",
+   "rationale": "Nothing in the sources points to this purpose.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "supported",
+   "rationale": "The paper provides a benchmark synthetic dataset and uses it to compare seven polygenic risk score methods.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "We demonstrate how HAPNEST can facilitate biobank-scale analyses through the comparison of seven methods to generate polygenic risk scoring across multiple ancestry groups and different genetic architectures.",
+     "verified": true
+    }
+   ]
+  },
+  "imbalance_correction": {
+   "verdict": "not_supported",
+   "rationale": "Nothing in the sources points to this purpose.",
+   "quotes": []
+  }
+ }
+}

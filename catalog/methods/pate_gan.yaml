@@ -7,16 +7,16 @@ variable_types: [continuous, categorical, ordinal, count]
 formal_dp: true
 dp_mechanism: PATE - a differentially private teacher ensemble trains the discriminator
 compute: gpu_recommended
-license: BSD-3-Clause
+license: Apache-2.0
 language: python
 last_updated: 2026
-purposes: [open_release, ml_augmentation, benchmarking]
+purposes: [benchmarking, ml_augmentation, open_release]
 preserves: [marginals, joint_correlations]
 scale:
   evidence: null
 expertise: high
 maturity:
-  maintained: false
+  maintained: true
   last_release: null
   implementation_quality: research_code
 governance:
@@ -47,3 +47,8 @@ output_preview:
     s0001,54,F,27.3,6.1,former,E11.9
     s0002,38,M,31.8,5.4,never,I10
     s0003,71,F,24.1,7.9,current,E11.9
+provenance:
+  verified_on: 2026-10-15
+  verified_by: "Chang Sun"
+  sources_checked: [paper, code]
+  fields_checked: [purposes, links]

@@ -1,0 +1,86 @@
+{
+ "id": "tabddpm",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": null,
+ "purposes": {
+  "open_release": {
+   "verdict": "supported",
+   "rationale": "Paper argues synthetic data avoids GDPR-style restrictions, can be publicly shared, and evaluates empirical privacy via distance-to-closest-record and a black-box attack.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "and can be publicly shared without violating anonymity.",
+     "verified": true
+    },
+    {
+     "source": "paper",
+     "text": " tings, e.g., sharing the data without disclosure of personal",
+     "verified": true
+    }
+   ]
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "No testing, format or pipeline framing in the sources.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "supported",
+   "rationale": "Primary evaluation is ML efficiency, training models on synthetic data and testing on real data.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "machine learning (ML) efficiency (or utility) (Xu et al.,",
+     "verified": true
+    },
+    {
+     "source": "paper",
+     "text": "ML efficiency. Compared with SMOTE, we show that",
+     "verified": true
+    }
+   ]
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "Paper compares Wasserstein distance, Jensen-Shannon divergence and correlation matrices between real and synthetic data.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "are reported in Appendix A. TabDDPM generates synthetic datasets with more realistic",
+     "verified": true
+    },
+    {
+     "source": "paper",
+     "text": "terms of Wasserstein distance (WD) between numerical features,",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "No causal structure or intervention framing in the sources.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "not_supported",
+   "rationale": "README gives setup and experiment instructions only, with no teaching or tutorial framing.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "unclear",
+   "rationale": "Paper evaluates TabDDPM on benchmark datasets against baselines, but the sources do not show it used as a baseline by others.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": " on a wide set of benchmarks and demonstrate its quality",
+     "verified": true
+    }
+   ]
+  },
+  "imbalance_correction": {
+   "verdict": "not_supported",
+   "rationale": "Class imbalance appears only as background on SMOTE, and TabDDPM is not evaluated for minority-class oversampling.",
+   "quotes": []
+  }
+ }
+}

@@ -7,7 +7,7 @@ variable_types: [continuous, categorical, count]
 formal_dp: false
 compute: gpu_required
 license: MIT
-purposes: [ml_augmentation, benchmarking]
+purposes: [benchmarking, ml_augmentation, open_release, statistical_replication]
 preserves: [marginals, joint_correlations]
 scale:
   evidence: null
@@ -44,3 +44,8 @@ output_preview:
     patient_id,E11.9,I10,E78.5,J45.909,N18.3
     s0001,3,2,1,0,0
     s0002,0,0,0,4,0
+provenance:
+  verified_on: 2026-10-15
+  verified_by: "Chang Sun"
+  sources_checked: [paper]
+  fields_checked: [purposes, links]

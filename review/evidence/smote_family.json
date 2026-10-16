@@ -1,0 +1,64 @@
+{
+ "id": "smote_family",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": "Paper is the original SMOTE article while the repo is imbalanced-learn, a toolbox of resampling methods (SMOTE variants among them), so the pairing is for the family and not the original code.",
+ "purposes": {
+  "open_release": {
+   "verdict": "not_supported",
+   "rationale": "SMOTE creates training examples for classifiers and is not framed as a releasable data substitute.",
+   "quotes": []
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "No software-testing or format-conformance purpose is stated.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "supported",
+   "rationale": "Synthetic minority examples are added to classifier training data and evaluated by classifier AUC.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "Our method of over-sampling the minority class involves creating synthetic minority class examples. Experiments are performed using C4.5, Ripper and a Naive Bayes classifier.",
+     "verified": true
+    }
+   ]
+  },
+  "statistical_replication": {
+   "verdict": "not_supported",
+   "rationale": "The evaluation is classifier ROC performance, not fidelity of distributions to real data.",
+   "quotes": []
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "No causal framing appears.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "not_supported",
+   "rationale": "The sources show no teaching or tutorial framing; the README points to documentation only.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "not_supported",
+   "rationale": "SMOTE is compared with other resampling approaches in its own paper, but the sources do not show it used as a baseline by others.",
+   "quotes": []
+  },
+  "imbalance_correction": {
+   "verdict": "supported",
+   "rationale": "The method is explicitly designed to over-sample the minority class of imbalanced datasets.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "This paper shows that a combination of our method of over-sampling the minority (abnormal) class and under-sampling the majority (normal) class can achieve",
+     "verified": true
+    },
+    {
+     "source": "readme",
+     "text": "imbalanced-learn is a python package offering a number of re-sampling techniques commonly used in datasets showing strong between-class imbalance.",
+     "verified": true
+    }
+   ]
+  }
+ }
+}

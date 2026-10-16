@@ -10,7 +10,7 @@ compute: gpu_recommended
 license: MIT
 language: python
 last_updated: 2026
-purposes: [open_release, ml_augmentation, benchmarking]
+purposes: [benchmarking, ml_augmentation, open_release]
 preserves: [marginals, joint_correlations]
 scale:
   evidence: null
@@ -35,8 +35,9 @@ evaluation:
   - Report epsilon and delta alongside every utility number
   - Run the full privacy-utility curve, not one epsilon
 links:
-  paper: https://doi.org/10.48550/arXiv.2001.09700
-  code: https://github.com/vanderschaarlab/synthcity
+  paper: https://doi.org/10.1007/978-3-031-09342-5_17
+  code: https://github.com/opendp/smartnoise-sdk
+  docs: https://docs.smartnoise.org/synth/synthesizers/dpctgan.html
 related_datasets: []
 output_preview:
   format: tabular_csv
@@ -47,3 +48,8 @@ output_preview:
     s0001,54,F,27.3,6.1,former,E11.9
     s0002,38,M,31.8,5.4,never,I10
     s0003,71,F,24.1,7.9,current,E11.9
+provenance:
+  verified_on: 2026-10-15
+  verified_by: "Chang Sun"
+  sources_checked: [paper, code, docs]
+  fields_checked: [purposes, links]

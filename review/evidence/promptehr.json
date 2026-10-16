@@ -1,0 +1,65 @@
+{
+ "id": "promptehr",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": null,
+ "purposes": {
+  "open_release": {
+   "verdict": "supported",
+   "rationale": "The paper frames synthetic EHRs as a way to avoid sharing real patient records and tests privacy attacks.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "Synthetic EHRs generation bypasses the need to share sensitive real patient records.",
+     "verified": true
+    }
+   ]
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "No testing or format-conformance framing appears in the sources.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "supported",
+   "rationale": "The paper trains a predictor on synthetic data and on synthetic plus real data, calling the latter data augmentation.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "the synthetic data is regarded as data augmentation.",
+     "verified": true
+    }
+   ]
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "Fidelity is evaluated with perplexity measures on MIMIC-III against baselines.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "Experiments on MIMIC-III data demonstrate the superiority of our methods on realistic EHRs generation (53.1\\% decrease of lpl and 45.3\\% decrease of mpl on average compared to the best baselines) with low privacy risks.",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "No causal graph or intervention framing appears.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "not_supported",
+   "rationale": "No teaching or tutorial framing appears; the README demo only shows usage.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "not_supported",
+   "rationale": "PromptEHR is the proposed method and the sources never show it used as a baseline or benchmark.",
+   "quotes": []
+  },
+  "imbalance_correction": {
+   "verdict": "not_supported",
+   "rationale": "No class-imbalance or minority-class experiments appear.",
+   "quotes": []
+  }
+ }
+}

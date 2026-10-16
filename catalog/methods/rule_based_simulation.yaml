@@ -11,7 +11,7 @@ compute: cpu_fine
 license: MIT
 language: python
 last_updated: 2026
-purposes: [pipeline_testing, education, benchmarking, causal_inference, open_release]
+purposes: [benchmarking, causal_inference, education, open_release, pipeline_testing]
 preserves: [causal_structure]
 scale:
   evidence: null
@@ -52,3 +52,8 @@ output_preview:
     s0001,54,F,27.3,6.1,former,E11.9
     s0002,38,M,31.8,5.4,never,I10
     s0003,71,F,24.1,7.9,current,E11.9
+provenance:
+  verified_on: 2026-10-15
+  verified_by: "Chang Sun"
+  sources_checked: [code]
+  fields_checked: [purposes, links]

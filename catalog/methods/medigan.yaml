@@ -10,13 +10,13 @@ compute: gpu_recommended
 license: MIT
 language: python
 last_updated: 2024
-purposes: [ml_augmentation, benchmarking, education]
+purposes: [benchmarking, ml_augmentation, open_release]
 preserves: [marginals]
 scale:
   evidence: null
 expertise: low
 maturity:
-  maintained: true
+  maintained: false
   last_release: null
   implementation_quality: production_ready
 governance:
@@ -37,3 +37,8 @@ links:
   paper: https://doi.org/10.1117/1.jmi.10.6.061403
   code: https://github.com/RichardObi/medigan
 related_datasets: []
+provenance:
+  verified_on: 2026-10-15
+  verified_by: "Chang Sun"
+  sources_checked: [paper, code]
+  fields_checked: [purposes, links]

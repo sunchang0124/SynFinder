@@ -8,6 +8,7 @@ from __future__ import annotations
 
 from .explain import explain
 from .ranking import Ranking
+from .report import provenance_line
 
 def _top_only(ranking: Ranking, top: list) -> Ranking:
     """The exported report carries the shortlist, not the long tail."""
@@ -17,7 +18,8 @@ def _top_only(ranking: Ranking, top: list) -> Ranking:
 
 def _dataset_json(d) -> dict:
     return {
-        "id": d.id, "name": d.name, "n_records": d.n_records,
+        "id": d.id, "name": d.name, "verified": provenance_line(d),
+        "n_records": d.n_records,
         "license": d.license, "access_conditions": d.access_conditions,
         "domains": d.domains, "data_types": d.data_types,
         "generated_by": d.generated_by,
@@ -26,12 +28,34 @@ def _dataset_json(d) -> dict:
     }
 
 
+def _method_json(m) -> dict:
+    """A catalog entry on its own, without a study to score it against."""
+    return {
+        "id": m.id, "name": m.name, "family": m.family, "aliases": m.aliases,
+        "verified": provenance_line(m),
+        "is_framework": m.is_framework,
+        "domains": m.domains, "data_types": m.data_types,
+        "purposes": m.purposes, "preserves": m.preserves,
+        "formal_dp": m.formal_dp, "dp_mechanism": m.dp_mechanism,
+        "requires_no_source_data": m.requires_no_source_data,
+        "compute": m.compute, "expertise": m.expertise,
+        "license": m.license, "language": m.language,
+        "last_updated": m.last_updated,
+        "maintained": m.maturity.maintained,
+        "quality": m.maturity.implementation_quality,
+        "caveats": m.caveats, "evaluation": m.evaluation,
+        "links": {"paper": m.links.paper, "code": m.links.code,
+                  "docs": m.links.docs},
+    }
+
+
 def _candidate_json(c) -> dict:
     e = explain(c)
     m = c.method
     return {
         "id": m.id, "name": m.name, "family": m.family,
-        "fit": round(c.fit, 4),
+        "verified": provenance_line(m),
+        "narration": None,
         "why_fits": e.why_fits,
         "weakness": e.weakness,
         "caveats": e.caveats,
@@ -46,8 +70,6 @@ def _candidate_json(c) -> dict:
         "quality": m.maturity.implementation_quality,
         "links": {"paper": m.links.paper, "code": m.links.code,
                   "docs": m.links.docs},
-        "axes": [{"axis": a.axis, "score": round(a.score, 3),
-                  "weight": a.weight, "note": a.note} for a in c.axes],
         "preview": (
             {"format": m.output_preview.format,
              "note": m.output_preview.note,

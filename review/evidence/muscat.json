@@ -1,0 +1,59 @@
+{
+ "id": "muscat",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": "The paper is about a differential-state analysis method; the simulator is only one component (used to evaluate methods), and the README covers analysis tools, not a data generator.",
+ "purposes": {
+  "open_release": {
+   "verdict": "not_supported",
+   "rationale": "Nothing in the sources frames simulated data as releasable or privacy-preserving.",
+   "quotes": []
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "The simulation is used to evaluate statistical methods, not to exercise software or formats.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "not_supported",
+   "rationale": "No train-on-synthetic or augmentation use appears.",
+   "quotes": []
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "The simulation is built to mimic real multi-sample scRNA-seq data, anchored to a reference dataset.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "To evaluate method performance, we developed a flexible simulation that mimics multi-sample scRNA-seq data.",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "No causal or DAG framing; the simulation specifies differential-state effects only.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "not_supported",
+   "rationale": "The sources show no teaching or tutorial use of the simulation.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "supported",
+   "rationale": "The simulation framework exists to compare differential-state analysis methods.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "A simulation framework is developed to evaluate various methods to perform cross-condition differential state analyses",
+     "verified": true
+    }
+   ]
+  },
+  "imbalance_correction": {
+   "verdict": "not_supported",
+   "rationale": "No class-imbalance or oversampling framing.",
+   "quotes": []
+  }
+ }
+}

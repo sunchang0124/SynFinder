@@ -1,0 +1,92 @@
+{
+ "id": "synthea",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": null,
+ "purposes": {
+  "open_release": {
+   "verdict": "supported",
+   "rationale": "Paper and docs present Synthea records as freely distributed, risk-free substitutes for real health records, with one million patients published online.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "One million synthetic patient records are now freely available online, encoded in standard formats",
+     "verified": true
+    },
+    {
+     "source": "docs",
+     "text": "The resulting data is free from cost, privacy, and security restrictions, enabling research with Health IT data that is otherwise legally or practically unavailable.",
+     "verified": true
+    }
+   ]
+  },
+  "pipeline_testing": {
+   "verdict": "supported",
+   "rationale": "Docs describe the data as a risk-free environment for Health IT development, and it is exported in FHIR, C-CDA and CSV formats for interoperability.",
+   "quotes": [
+    {
+     "source": "docs",
+     "text": "Synthetic data establishes a risk-free environment for Health IT development and experimentation.",
+     "verified": true
+    },
+    {
+     "source": "readme",
+     "text": "- Formats\n  - HL7 FHIR (R4, STU3 v3.0.1, and DSTU2 v1.0.2)",
+     "verified": true
+    }
+   ]
+  },
+  "ml_augmentation": {
+   "verdict": "not_supported",
+   "rationale": "No ML utility evaluation or augmentation framing in the abstract, README or docs.",
+   "quotes": []
+  },
+  "statistical_replication": {
+   "verdict": "unclear",
+   "rationale": "Sources claim realistic records informed by census and clinical statistics, but full text is missing so no fidelity evaluation can be confirmed.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "The goal is to output synthetic, realistic (but not real), patient data and associated health records in a variety of formats.",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "supported",
+   "rationale": "Patients are simulated from hand-specified disease progression modules with states and transitions, which is simulation from known mechanisms.",
+   "quotes": [
+    {
+     "source": "docs",
+     "text": "Each module models events that could occur in a real patient’s life, describing a progression of states and the transitions between them.",
+     "verified": true
+    },
+    {
+     "source": "paper",
+     "text": "Synthetic patients can be simulated with models of disease progression and corresponding standards of care",
+     "verified": true
+    }
+   ]
+  },
+  "education": {
+   "verdict": "supported",
+   "rationale": "Abstract states the records are suited to educational uses, among others.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "suited to industrial, innovation, research, and educational uses; and free of legal, privacy, security, and intellectual property restrictions.",
+     "verified": true
+    }
+   ]
+  },
+  "benchmarking": {
+   "verdict": "not_supported",
+   "rationale": "Nothing in the sources positions Synthea as a baseline generator or benchmark dataset.",
+   "quotes": []
+  },
+  "imbalance_correction": {
+   "verdict": "not_supported",
+   "rationale": "No class-imbalance or oversampling framing in the sources.",
+   "quotes": []
+  }
+ }
+}

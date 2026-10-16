@@ -1,0 +1,82 @@
+{
+ "id": "timevae",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": null,
+ "purposes": {
+  "open_release": {
+   "verdict": "unclear",
+   "rationale": "Privacy restrictions are named as a motivation for data generators in general, with no release claim for TimeVAE itself.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "ability of any or sufficient amount of real data, restrictions on data usage due to privacy reasons,",
+     "verified": true
+    }
+   ]
+  },
+  "pipeline_testing": {
+   "verdict": "supported",
+   "rationale": "The introduction motivates data generators for building test scenarios, and TimeVAE lets users inject custom temporal patterns.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "to create datasets for specific testing scenarios such as presence of outliers or changepoints. Data",
+     "verified": true
+    }
+   ]
+  },
+  "ml_augmentation": {
+   "verdict": "supported",
+   "rationale": "The README recommends checking downstream models trained on synthetic data, and the paper reports next-step prediction results.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "Downstream task performance**: Build models using original vs. synthetic data, and check performance on held-out original data.",
+     "verified": true
+    },
+    {
+     "source": "paper",
+     "text": "with original data, is computationally efficient to train, and outperforms available methods on the",
+     "verified": true
+    }
+   ]
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "The paper measures similarity of generated series to the original data.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "demonstrate TimeVAE meets the performance of top generative models when measuring similarity",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "No causal structure or intervention framing appears.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "not_supported",
+   "rationale": "The README is usage documentation with no teaching framing.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "unclear",
+   "rationale": "The repo ships dense and convolutional VAE baselines for comparison, but does not position TimeVAE as a benchmark.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "This repository includes the implementation of TimeVAE, as well as two baseline models: a dense VAE and a convolutional VAE.",
+     "verified": true
+    }
+   ]
+  },
+  "imbalance_correction": {
+   "verdict": "not_supported",
+   "rationale": "No class-imbalance framing appears.",
+   "quotes": []
+  }
+ }
+}

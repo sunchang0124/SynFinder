@@ -1,6 +1,7 @@
 """Generate a valid catalog entry, so a contributor cannot write an invalid one."""
 from __future__ import annotations
 
+import re
 import sys
 from pathlib import Path
 
@@ -64,6 +65,61 @@ def build_dataset(a: dict) -> dict:
         "links": {"paper": a.get("paper"), "code": a.get("code"),
                   "docs": a.get("docs")},
     }
+
+
+def validate_method(answers: dict, taxonomy: dict,
+                    existing_ids=()) -> tuple[list[str], dict | None]:
+    """Every reason this entry cannot enter the catalog, in plain words.
+
+    Shared by `synfinder new method`, the HTTP API and the browser form, so
+    the three can never disagree about what is valid.
+    """
+    try:
+        entry = build_method(answers)
+    except KeyError as exc:
+        return [f"missing answer: {exc.args[0]}"], None
+
+    errors: list[str] = []
+    if not (entry["links"].get("paper") or entry["links"].get("code")):
+        errors.append("links: give a paper DOI/URL or a code repository URL")
+    entry_id = str(entry["id"])
+    if not re.fullmatch(r"[a-z0-9_]+", entry_id):
+        errors.append("id: use lowercase letters, digits and underscores only")
+    elif entry_id in set(existing_ids or ()):
+        errors.append(f"id: '{entry_id}' already exists in the catalog")
+    for field, key in CONTROLLED.items():
+        value = entry.get(field)
+        if value is None:
+            continue
+        values = value if isinstance(value, list) else [value]
+        for v in values:
+            if v not in taxonomy.get(key, []):
+                errors.append(f"'{v}' is not a permitted {field}; choose from "
+                              f"{', '.join(taxonomy.get(key, []))}")
+    if errors:
+        return errors, None
+
+    try:
+        Method(**entry)
+    except ValidationError as exc:
+        for err in exc.errors():
+            loc = ".".join(str(part) for part in err["loc"]) or "entry"
+            msg = err["msg"]
+            if "dp_mechanism" in msg:
+                loc = "dp_mechanism"
+            errors.append(f"{loc}: {msg}")
+        # pydantic skips model-level checks when a field is already invalid;
+        # report the DP rule too so the author sees every problem at once.
+        if entry.get("formal_dp") and not entry.get("dp_mechanism") and not any(
+                e.startswith("dp_mechanism") for e in errors):
+            errors.append("dp_mechanism: formal_dp is true but dp_mechanism "
+                          "is missing")
+        return errors, None
+    return [], entry
+
+
+def to_yaml(entry: dict) -> str:
+    return yaml.safe_dump(entry, sort_keys=False, width=78, allow_unicode=True)
 
 
 def _collect(label: str) -> list[str]:
@@ -137,32 +193,36 @@ def new_entry(kind: str, catalog_root: Path, answers: dict | None = None,
     catalog = load_catalog(catalog_root)
     a = answers if answers is not None else _interview(kind, catalog.taxonomy)
 
-    build = build_method if kind == "method" else build_dataset
-    model = Method if kind == "method" else Dataset
-    entry = build(a)
-
-    for field, key in CONTROLLED.items():
-        value = entry.get(field)
-        if value is None:
-            continue
-        values = value if isinstance(value, list) else [value]
-        for v in values:
-            if v not in catalog.taxonomy.get(key, []):
-                print(f"'{v}' is not a permitted {field}", file=sys.stderr)
-                return 1
-
-    try:
-        model(**entry)
-    except ValidationError as exc:
-        print(f"that entry is not valid:\n{exc}", file=sys.stderr)
+    if kind == "method":
+        errors, entry = validate_method(a, catalog.taxonomy,
+                                        {m.id for m in catalog.methods})
+    else:
+        entry = build_dataset(a)
+        errors = []
+        for field, key in CONTROLLED.items():
+            value = entry.get(field)
+            if value is None:
+                continue
+            values = value if isinstance(value, list) else [value]
+            errors += [f"'{v}' is not a permitted {field}" for v in values
+                       if v not in catalog.taxonomy.get(key, [])]
+        if not errors:
+            try:
+                Dataset(**entry)
+            except ValidationError as exc:
+                errors.append(str(exc))
+        if errors:
+            entry = None
+    if errors:
+        for e in errors:
+            print(e, file=sys.stderr)
         return 1
 
     target_dir = out_dir or (
         Path(catalog_root) / ("methods" if kind == "method" else "datasets")
     )
     target = Path(target_dir) / f"{entry['id']}.yaml"
-    target.write_text(yaml.safe_dump(entry, sort_keys=False, width=78,
-                                     allow_unicode=True))
+    target.write_text(to_yaml(entry))
     print(f"\nwrote {target}")
     print("Now: run pytest, then open a pull request. If you authored this "
           "method, say so in the pull request.")

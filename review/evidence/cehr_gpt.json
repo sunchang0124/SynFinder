@@ -1,0 +1,70 @@
+{
+ "id": "cehr_gpt",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": null,
+ "purposes": {
+  "open_release": {
+   "verdict": "supported",
+   "rationale": "The paper and README frame synthetic EHR as a way to give researchers access without identifiable patient data.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "Synthetic Electronic Health Records (EHR) have emerged as a pivotal tool in advancing healthcare applications and machine learning models, particularly for researchers without direct access to healthcare data.",
+     "verified": true
+    },
+    {
+     "source": "readme",
+     "text": "implementing advanced privacy-preserving techniques to ensure generated data contains no identifiable information",
+     "verified": true
+    }
+   ]
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "OMOP compatibility is for dissemination of realistic data, not for exercising software without a realism claim.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "supported",
+   "rationale": "The paper defines and evaluates ML utility, requiring models trained on synthetic data to match those trained on real data.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "learning models trained on the synthetic data achieve perfor-",
+     "verified": true
+    }
+   ]
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "The paper and README evaluate marginal distributions and co-occurrence fidelity against the source data.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "The synthetic data maintains statistical fidelity to real patient populations without containing identifiable information, and outputs are fully compatible with the OMOP Common Data Model.",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "Counterfactual reasoning is only listed as a general GPT application; the work itself focuses on synthetic generation without causal claims.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "not_supported",
+   "rationale": "No teaching or tutorial framing for the synthetic data appears in the sources.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "not_supported",
+   "rationale": "The baselines in the paper are the authors' own model variants, and CEHR-GPT is not positioned as a benchmark for others.",
+   "quotes": []
+  },
+  "imbalance_correction": {
+   "verdict": "not_supported",
+   "rationale": "No class-imbalance or minority-class framing appears in the sources.",
+   "quotes": []
+  }
+ }
+}

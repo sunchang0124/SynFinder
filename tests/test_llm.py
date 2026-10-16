@@ -3,7 +3,7 @@ from synfinder.explain import Explanation
 from synfinder.intake import Intake
 from tests.factories import make_method
 
-EXPL = Explanation(headline="M — 90% fit", why_fits=["supports your purpose"],
+EXPL = Explanation(headline="M", why_fits=["supports your purpose"],
                    weakness=None, caveats=["A caveat."], evaluation=[])
 INTAKE = Intake(domain="biomedical", data_type="tabular_cross_sectional",
                 purpose="ml_augmentation", privacy="not_required")
@@ -38,3 +38,7 @@ def test_prompt_carries_only_catalog_facts():
     prompt = llm.build_prompt(EXPL, make_method(), INTAKE)
     assert "A caveat." in prompt
     assert "do not introduce" in prompt.lower()
+
+
+def test_model_is_the_current_opus():
+    assert llm.MODEL == "claude-opus-5-5"

@@ -11,7 +11,7 @@ from .explain import Explanation, as_text
 from .intake import Intake
 from .schema import Method
 
-MODEL = "claude-opus-5"
+MODEL = "claude-opus-5-5"
 
 SYSTEM = (
     "You rewrite a structured recommendation into two or three fluent "
@@ -52,15 +52,17 @@ def _call(prompt: str) -> str:
     import anthropic
 
     client = anthropic.Anthropic()
+    # Opus 5.5 always thinks; depth is set through effort. Low is right for
+    # rewriting three sentences. Thinking tokens count against max_tokens.
     message = client.messages.create(
         model=MODEL,
-        # Thinking is on by default on Opus 5 and its tokens count against
-        # max_tokens, so leave headroom even though the prose is short.
         max_tokens=2000,
         output_config={"effort": "low"},
         system=SYSTEM,
         messages=[{"role": "user", "content": prompt}],
     )
+    if message.stop_reason == "refusal":
+        return ""
     return "".join(
         block.text for block in message.content if block.type == "text"
     ).strip()

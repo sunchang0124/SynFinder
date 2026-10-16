@@ -1,0 +1,47 @@
+{
+ "id": "molgan",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": null,
+ "purposes": {
+  "open_release": {
+   "verdict": "not_supported",
+   "rationale": "Drug-design generator with no sharing or privacy framing.",
+   "quotes": []
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "No testing or format-conformance framing; the README example is explicitly not the paper experiments.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "not_supported",
+   "rationale": "Aim is generating molecules with desired properties, not adding rows to train a predictor.",
+   "quotes": []
+  },
+  "statistical_replication": {
+   "verdict": "not_supported",
+   "rationale": "Evaluation is validity, uniqueness and novelty of molecules, not reproducing data distributions for reanalysis.",
+   "quotes": []
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "No causal framing.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "not_supported",
+   "rationale": "README example is only a usage example for the library, not teaching material.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "not_supported",
+   "rationale": "MolGAN is evaluated on QM9 against others, but the digest shows no use as a baseline or benchmark for other methods.",
+   "quotes": []
+  },
+  "imbalance_correction": {
+   "verdict": "not_supported",
+   "rationale": "No class-imbalance framing.",
+   "quotes": []
+  }
+ }
+}

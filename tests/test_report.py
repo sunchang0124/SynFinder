@@ -1,6 +1,6 @@
 from synfinder.intake import Intake
 from synfinder.ranking import rank
-from synfinder.report import render_markdown, render_html, comparison_rows
+from synfinder.report import render_markdown, render_html
 from tests.factories import make_method
 
 
@@ -26,13 +26,6 @@ def test_markdown_records_the_intake_so_the_report_is_self_contained():
     assert "biomedical" in md
 
 
-def test_comparison_rows_has_one_row_per_shortlisted_method():
-    methods = [make_method(id="a", name="A"), make_method(id="b", name="B")]
-    header, rows = comparison_rows(rank(methods, intake()))
-    assert header[0] == "Method"
-    assert len(rows) == 2
-
-
 def test_html_is_wrapped_in_a_document():
     html = render_html(intake(), rank([make_method()], intake()))
     assert html.lstrip().startswith("<!doctype html>")
@@ -51,3 +44,34 @@ def test_an_uncovered_modality_says_so_instead_of_claiming_no_match():
 def test_a_covered_modality_with_no_match_says_that_instead():
     md = render_markdown(intake(), rank([], intake()), covered=True)
     assert "No method in the catalog meets these requirements" in md
+
+
+def test_provenance_line_for_both_states():
+    import datetime as dt
+    from synfinder.report import provenance_line
+    from synfinder.schema import Provenance, Links
+    assert provenance_line(make_method()) == "Not yet verified"
+    verified = make_method(
+        links=Links(code="https://github.com/x/y"),
+        provenance=Provenance(verified_on=dt.date(2026, 10, 14),
+                              verified_by="Chang Sun", sources_checked=["code"]))
+    assert provenance_line(verified) == "Verified 14 Oct 2026 by Chang Sun"
+
+
+def test_markdown_states_verification_for_every_method():
+    md = render_markdown(intake(), rank([make_method(name="Plain")], intake()))
+    assert "Not yet verified" in md
+
+
+def test_report_does_not_lead_with_datasets():
+    md = render_markdown(intake(), rank([make_method()], intake()))
+    assert "You may not need to generate anything" not in md
+    assert md.index("## What you asked for") < md.index("## Recommended methods")
+
+
+def test_report_shows_no_score():
+    """The ordering is a heuristic; a number would claim more than it knows."""
+    md = render_markdown(intake(), rank([make_method(name="Alpha")], intake()))
+    assert "% fit" not in md
+    assert "Side by side" not in md
+    assert "### 1. Alpha" in md

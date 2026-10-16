@@ -1,0 +1,71 @@
+{
+ "id": "scdesign3",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": null,
+ "purposes": {
+  "open_release": {
+   "verdict": "not_supported",
+   "rationale": "The sources present scDesign3 as a simulator for benchmarking and interpretation, not as a way to release data in place of real data.",
+   "quotes": []
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "No software or format testing purpose is stated; the benchmarking use is a different label.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "supported",
+   "rationale": "The paper compares prediction models trained on real versus scDesign3 synthetic data, a utility check, though not augmentation.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "machine) has highly consistent prediction errors (average Pearson correlation > 0.99) between",
+     "verified": true
+    }
+   ]
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "scDesign3 learns parameters from real data and is evaluated on how well synthetic data mimics real data characteristics.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "We present a statistical simulator, scDesign3, to generate realistic single-cell and spatial omics data, including various cell states, experimental designs and feature modalities, by learning interpretable parameters from real data.",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "No causal graph or intervention framing appears; altered parameters give hypothetical ground truths, not causal structure.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "supported",
+   "rationale": "The README points to tutorials demonstrating each functionality.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "The tutorials will demonstrate the applications of **scDesign3** from the following four perspectives: data simulation, model parameters, model selection, and model alteration.",
+     "verified": true
+    }
+   ]
+  },
+  "benchmarking": {
+   "verdict": "supported",
+   "rationale": "The paper positions scDesign3 as a generator of in silico controls for benchmarking computational tools.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "generates in silico negative and positive controls for benchmarking computational tools",
+     "verified": true
+    }
+   ]
+  },
+  "imbalance_correction": {
+   "verdict": "not_supported",
+   "rationale": "No class-imbalance framing appears.",
+   "quotes": []
+  }
+ }
+}

@@ -9,13 +9,13 @@ compute: gpu_required
 license: MIT
 language: python
 last_updated: 2026
-purposes: [ml_augmentation, benchmarking, statistical_replication]
+purposes: [benchmarking, ml_augmentation, statistical_replication]
 preserves: [temporal_dynamics, joint_correlations, marginals]
 scale:
   evidence: null
 expertise: high
 maturity:
-  maintained: false
+  maintained: true
   last_release: null
   implementation_quality: research_code
 governance:
@@ -46,3 +46,8 @@ output_preview:
     s0001,1,91,108,96,0
     s0001,2,104,96,94,1
     s0002,0,76,124,99,0
+provenance:
+  verified_on: 2026-10-15
+  verified_by: "Chang Sun"
+  sources_checked: [paper, code]
+  fields_checked: [purposes, links]

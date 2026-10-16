@@ -1,0 +1,70 @@
+{
+ "id": "slim",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": "Paper is SLiM 3 and the repo is SLiM; they match, but the paper full text is unavailable and the README is installation-only, so some questions are unsettled.",
+ "purposes": {
+  "open_release": {
+   "verdict": "not_supported",
+   "rationale": "SLiM is open-source simulation software; the sources never frame its output as a releasable substitute for real data.",
+   "quotes": []
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "No software-testing or format-conformance purpose is stated for SLiM output.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "not_supported",
+   "rationale": "No machine-learning or training-data framing appears.",
+   "quotes": []
+  },
+  "statistical_replication": {
+   "verdict": "unclear",
+   "rationale": "The abstract stresses realistic scenarios but no fidelity-to-real-data evaluation is visible without the full text.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "With the desire to model population genetic processes under increasingly realistic scenarios, forward genetic simulations have become a critical part of the toolbox of modern evolutionary biology.",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "supported",
+   "rationale": "SLiM simulates data forward from user-specified evolutionary mechanisms, which is simulation from known mechanisms.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "SLiM is an evolutionary simulation framework that combines a powerful engine for population genetic simulations with the capability of modeling arbitrarily complex evolutionary scenarios.",
+     "verified": true
+    }
+   ]
+  },
+  "education": {
+   "verdict": "supported",
+   "rationale": "The SLiM site offers free multi-day workshops, online workshop materials and exercise solutions.",
+   "quotes": [
+    {
+     "source": "docs",
+     "text": "We run 5-day SLiM workshops that are free and open to the public (with registration).",
+     "verified": true
+    },
+    {
+     "source": "docs",
+     "text": "The workshop materials are now online, for people who want to do it themselves; visit the online workshop download page for more information.",
+     "verified": true
+    }
+   ]
+  },
+  "benchmarking": {
+   "verdict": "unclear",
+   "rationale": "Nothing visible shows SLiM used as a baseline or benchmark source; the paper full text is unavailable.",
+   "quotes": []
+  },
+  "imbalance_correction": {
+   "verdict": "not_supported",
+   "rationale": "No class-imbalance framing appears.",
+   "quotes": []
+  }
+ }
+}

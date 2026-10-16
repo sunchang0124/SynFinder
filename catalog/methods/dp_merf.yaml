@@ -11,7 +11,7 @@ compute: cpu_fine
 license: MIT
 language: python
 last_updated: 2023
-purposes: [open_release, ml_augmentation, benchmarking]
+purposes: [benchmarking, imbalance_correction, ml_augmentation, open_release, statistical_replication]
 preserves: [marginals]
 scale:
   evidence: null
@@ -48,3 +48,8 @@ output_preview:
     s0001,50-59,F,25-30,former,E11.9
     s0002,30-39,M,30-35,never,I10
     s0003,70-79,F,20-25,current,E11.9
+provenance:
+  verified_on: 2026-10-15
+  verified_by: "Chang Sun"
+  sources_checked: [paper, code]
+  fields_checked: [purposes, links]

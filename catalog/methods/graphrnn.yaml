@@ -9,7 +9,7 @@ compute: gpu_recommended
 license: MIT
 language: python
 last_updated: 2019
-purposes: [benchmarking, education]
+purposes: [benchmarking, statistical_replication]
 preserves: [joint_correlations]
 scale:
   evidence: null
@@ -49,3 +49,8 @@ output_preview:
     node_id,attribute
     n1,clinic
     n2,ward
+provenance:
+  verified_on: 2026-10-15
+  verified_by: "Chang Sun"
+  sources_checked: [paper, code]
+  fields_checked: [purposes, links]

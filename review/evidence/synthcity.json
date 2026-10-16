@@ -1,0 +1,134 @@
+{
+ "id": "synthcity",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": null,
+ "purposes": {
+  "open_release": {
+   "verdict": "supported",
+   "rationale": "Paper gives a scenario of sharing synthetic data from privacy-preserving generators and README lists DP generators and a data release method.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "evaluating the datasets in terms of fidelity and privacy, the data holder may share the synthetic data",
+     "verified": true
+    },
+    {
+     "source": "readme",
+     "text": "A differentially private method for releasing high-dimensional data.",
+     "verified": true
+    },
+    {
+     "source": "paper",
+     "text": "DP is a formal way to describe how private a data generator is [Dwork,",
+     "verified": true
+    }
+   ]
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "Testing appears only as software CI badges and install extras, not as a data-for-testing purpose.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "supported",
+   "rationale": "Abstract frames the package around augmentation and the paper says training downstream models on synthetic data.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "Synthcity is an open-source software package for innovative use cases of synthetic data in ML fairness, privacy and augmentation across diverse tabular data modalities",
+     "verified": true
+    },
+    {
+     "source": "paper",
+     "text": "and causal invariances [Pearl, 2009]. Training downstream AI algorithms on the synthetic data",
+     "verified": true
+    }
+   ]
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "Paper describes fidelity metrics measuring closeness of the learned distribution to the real one.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "Fidelity. The fidelity of synthetic data captures how much the synthetic data resembles real data.",
+     "verified": true
+    },
+    {
+     "source": "paper",
+     "text": "are designed to produce high-fidelity synthetic data while satisfying additional constraints and",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "supported",
+   "rationale": "Paper covers causal-fairness generation (notions of causality, causal DAG regularizer, DECAF), though as bias removal rather than known-structure simulation.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "Typically, notions of causality are employed in the bias removal process.",
+     "verified": true
+    },
+    {
+     "source": "paper",
+     "text": "Causal fairness. The second approach is to generate fairer synthetic data from a biased real",
+     "verified": true
+    }
+   ]
+  },
+  "education": {
+   "verdict": "supported",
+   "rationale": "README lists ten tutorial notebooks and the paper announces tutorials and labs.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "Tutorial 2: Benchmarking models",
+     "verified": true
+    },
+    {
+     "source": "readme",
+     "text": "Tutorial 5: Generating Data with Differential P",
+     "verified": true
+    }
+   ]
+  },
+  "benchmarking": {
+   "verdict": "supported",
+   "rationale": "Abstract offers a one-stop-shop for SOTA benchmarks and the library has a Benchmark class for comparing generators.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "a one-stop-shop for SOTA benchmarks, and an opportunity for extending research",
+     "verified": true
+    },
+    {
+     "source": "paper",
+     "text": "In addition, synthcity also has a Benchmark class that wraps around all the four steps, which is",
+     "verified": true
+    },
+    {
+     "source": "readme",
+     "text": "* Benchmark the quality of the plugins",
+     "verified": true
+    }
+   ]
+  },
+  "imbalance_correction": {
+   "verdict": "supported",
+   "rationale": "Paper proposes generating synthetic minority-group data to rebalance the real data.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "real data by augmenting it with synthetically generated minority groups. Synthcity facilitates this",
+     "verified": true
+    },
+    {
+     "source": "paper",
+     "text": "minority group to augment the real data, thereby achieving balance in distribution. This often",
+     "verified": true
+    }
+   ]
+  }
+ }
+}

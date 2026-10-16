@@ -1,0 +1,47 @@
+{
+ "id": "rule_based_simulation",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": "Linked repo is py-why/dowhy, a causal inference library, with no paper or title; it does not clearly belong to a method called rule-based expert simulation, and the sources are too thin to judge.",
+ "purposes": {
+  "open_release": {
+   "verdict": "unclear",
+   "rationale": "The digest holds only the DoWhy causal inference README and no paper, so nothing about a rule-based expert simulation can be judged.",
+   "quotes": []
+  },
+  "pipeline_testing": {
+   "verdict": "unclear",
+   "rationale": "The digest holds only the DoWhy causal inference README and no paper, so nothing about a rule-based expert simulation can be judged.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "unclear",
+   "rationale": "The digest holds only the DoWhy causal inference README and no paper, so nothing about a rule-based expert simulation can be judged.",
+   "quotes": []
+  },
+  "statistical_replication": {
+   "verdict": "unclear",
+   "rationale": "The digest holds only the DoWhy causal inference README and no paper, so nothing about a rule-based expert simulation can be judged.",
+   "quotes": []
+  },
+  "causal_inference": {
+   "verdict": "unclear",
+   "rationale": "The digest holds only the DoWhy causal inference README and no paper, so nothing about a rule-based expert simulation can be judged.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "unclear",
+   "rationale": "The digest holds only the DoWhy causal inference README and no paper, so nothing about a rule-based expert simulation can be judged.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "unclear",
+   "rationale": "The digest holds only the DoWhy causal inference README and no paper, so nothing about a rule-based expert simulation can be judged.",
+   "quotes": []
+  },
+  "imbalance_correction": {
+   "verdict": "unclear",
+   "rationale": "The digest holds only the DoWhy causal inference README and no paper, so nothing about a rule-based expert simulation can be judged.",
+   "quotes": []
+  }
+ }
+}

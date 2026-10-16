@@ -11,7 +11,7 @@ compute: cpu_fine
 license: Apache-2.0
 language: java
 last_updated: 2026
-purposes: [pipeline_testing, education, open_release, benchmarking]
+purposes: [causal_inference, education, open_release, pipeline_testing]
 preserves: [temporal_dynamics]
 scale:
   evidence: null
@@ -57,3 +57,8 @@ output_preview:
       visit 3  2020-01-27  ICD-10: E11.9, E78.5    proc: 80061, 99214
     patient s0002
       visit 1  2019-06-11  ICD-10: J45.909         proc: 94010
+provenance:
+  verified_on: 2026-10-15
+  verified_by: "Chang Sun"
+  sources_checked: [paper, code, docs]
+  fields_checked: [purposes, links]

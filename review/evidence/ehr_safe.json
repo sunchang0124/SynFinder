@@ -1,0 +1,70 @@
+{
+ "id": "ehr_safe",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": null,
+ "purposes": {
+  "open_release": {
+   "verdict": "supported",
+   "rationale": "The paper is motivated by data sharing and evaluates privacy attacks on the synthetic output, though without a formal DP guarantee.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "Privacy concerns often arise as the key bottleneck for the sharing of data between consumers and data holders, particularly for sensitive data such as Electronic Health Records (EHR).",
+     "verified": true
+    },
+    {
+     "source": "paper",
+     "text": "We propose a generative modeling framework, EHR-Safe, for generating highly realistic and privacy-preserving synthetic EHR data.",
+     "verified": true
+    }
+   ]
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "No test-data or development-data framing in the paper.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "supported",
+   "rationale": "The paper evaluates train-on-synthetic, test-on-real mortality prediction.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "we demonstrate that the fidelity of EHR-Safe is almost-identical with real data (<3% accuracy difference for the models trained on them) while yielding almost-ideal performance in practical privacy metrics.",
+     "verified": true
+    }
+   ]
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "Per-feature statistical similarity (means, KS statistics) is reported against real data.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "KS-stats represent the maximum cumulative distribution function (CDF) difference between original and synthetic features",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "No causal or DAG framing in the paper.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "not_supported",
+   "rationale": "No teaching or demonstration framing in the paper.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "not_supported",
+   "rationale": "EHR-Safe is compared against TimeGAN, RC-GAN and C-RNN-GAN as the proposed method, not used as a baseline or benchmark in these sources.",
+   "quotes": []
+  },
+  "imbalance_correction": {
+   "verdict": "not_supported",
+   "rationale": "Minority groups are mentioned only as a weakness of anonymization; no oversampling or imbalance experiments.",
+   "quotes": []
+  }
+ }
+}

@@ -29,6 +29,11 @@
   <nav class="tabs" role="tablist">
     <button class="tab is-active" data-view="find" role="tab">Find a method</button>
     <button class="tab" data-view="browse" role="tab">Datasets</button>
+    <button class="tab" data-view="submit" role="tab">Submit a method</button>
+    <button class="tab tab-icon" data-view="search" role="tab" title="Search the catalog by name" aria-label="Search the catalog by name">
+      <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    </button>
   </nav>
   <button class="icon-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle theme">
     <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
@@ -124,6 +129,25 @@
   </section>
 </main>
 
+<!-- ============ SEARCH ============ -->
+<main class="layout browse hidden" id="view-search">
+  <aside class="panel">
+    <div class="panel-head">
+      <h2>Search the catalog</h2>
+      <p>Look an entry up by name. To find one that fits a study, use the first tab.</p>
+    </div>
+    <div class="field">
+      <label for="m_query">Name, alias or id</label>
+      <input type="text" id="m_query" placeholder="e.g. synthea, ctgan, privbayes">
+    </div>
+    <div class="field">
+      <label for="m_family">Family</label>
+      <div class="select"><select id="m_family"></select></div>
+    </div>
+  </aside>
+  <section class="results" id="methodResults"></section>
+</main>
+
 <!-- ============ BROWSE ============ -->
 <main class="layout browse hidden" id="view-browse">
   <aside class="panel">
@@ -141,6 +165,48 @@
     </div>
   </aside>
   <section class="results" id="datasetResults"></section>
+</main>
+
+<!-- ============ SUBMIT ============ -->
+<main class="layout hidden" id="view-submit">
+  <aside class="panel">
+    <form id="submitForm" autocomplete="off">
+      <div class="panel-head">
+        <h2>Register a method</h2>
+        <p>Checked against the same schema as the catalog. A valid entry opens a prefilled GitHub issue; a maintainer reviews it and it appears here after merge.</p>
+      </div>
+      <div class="field"><label for="s_id">Identifier (lowercase, underscores)</label><input type="text" id="s_id" placeholder="my_method"></div>
+      <div class="field"><label for="s_name">Display name</label><input type="text" id="s_name"></div>
+      <div class="field"><label for="s_family">Family</label><div class="select"><select id="s_family"></select></div></div>
+      <div class="field"><label>Domains</label><div class="chips" id="s_domains"></div></div>
+      <div class="field"><label>Data types</label><div class="chips" id="s_data_types"></div></div>
+      <div class="field"><label>Variable types</label><div class="chips" id="s_variable_types"></div></div>
+      <div class="field"><label for="s_formal_dp">Formal differential privacy</label><div class="select"><select id="s_formal_dp"><option value="no">No</option><option value="yes">Yes</option></select></div></div>
+      <div class="field"><label for="s_dp_mechanism">DP mechanism (if yes)</label><input type="text" id="s_dp_mechanism" placeholder="DP-SGD with an RDP accountant"></div>
+      <div class="field"><label for="s_compute">Compute</label><div class="select"><select id="s_compute"></select></div></div>
+      <div class="field"><label for="s_license">Licence (SPDX id)</label><input type="text" id="s_license" placeholder="MIT"></div>
+      <div class="field"><label>Purposes</label><div class="chips" id="s_purposes"></div></div>
+      <div class="field"><label>Preserves</label><div class="chips" id="s_preserves"></div></div>
+      <div class="field"><label for="s_expertise">Expertise needed</label><div class="select"><select id="s_expertise"></select></div></div>
+      <label class="check"><input type="checkbox" id="s_maintained" checked><span></span>Actively maintained</label>
+      <div class="field"><label for="s_quality">Implementation quality</label><div class="select"><select id="s_quality"></select></div></div>
+      <div class="field"><label for="s_caveats">Caveats, one per line (real failure modes, not marketing)</label><textarea id="s_caveats" rows="4"></textarea></div>
+      <div class="field"><label for="s_evaluation">How to check it worked, one per line</label><textarea id="s_evaluation" rows="3"></textarea></div>
+      <div class="field"><label for="s_preview_format">Output preview format</label><div class="select"><select id="s_preview_format"></select></div></div>
+      <div class="field"><label for="s_preview_note">One line describing the output</label><input type="text" id="s_preview_note"></div>
+      <div class="field"><label for="s_preview_body">A few lines showing the shape (not real output)</label><textarea id="s_preview_body" rows="4"></textarea></div>
+      <div class="field"><label for="s_paper">Paper DOI or URL</label><input type="text" id="s_paper"></div>
+      <div class="field"><label for="s_code">Code repository URL</label><input type="text" id="s_code"></div>
+      <label class="check"><input type="checkbox" id="s_author"><span></span>I am an author of this method</label>
+      <button class="btn-primary" type="submit" id="validateBtn"><span class="btn-label">Check and prepare submission</span></button>
+    </form>
+  </aside>
+  <section class="results" id="submitResults">
+    <div class="empty-state">
+      <h3>Add a method to the catalog</h3>
+      <p>Fill in the form. Nothing is sent to GitHub until you open the GitHub issue yourself.</p>
+    </div>
+  </section>
 </main>
 
 <script>/*__JS__*/</script>

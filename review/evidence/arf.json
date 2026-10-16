@@ -1,0 +1,71 @@
+{
+ "id": "arf",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": null,
+ "purposes": {
+  "open_release": {
+   "verdict": "unclear",
+   "rationale": "The paper only mentions privacy generically as a motivation for generative modeling and does not frame ARF output as a release.",
+   "quotes": []
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "Nothing in the paper or README uses ARF output for testing software or formats.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "supported",
+   "rationale": "The paper trains classifiers on ARF-generated training sets and evaluates them on real test data.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "eral classifiers are then trained on Z̃trn and evaluated on Ztst ,",
+     "verified": true
+    }
+   ]
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "The paper evaluates how closely synthetic data approximates the target distribution (visual fidelity and test-set likelihood).",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "its target distribution with high fidelity. Classes are clearly",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "ARF learns a joint density via local independence and makes no causal or intervention claims.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "unclear",
+   "rationale": "The README points to a tutorial and example notebooks for the package, but it is software documentation rather than teaching material about synthetic data.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "You can find the twomoons example as a [tutorial here](https://bips-hb.github.io/arfpy/examples/twomoons.html).",
+     "verified": true
+    }
+   ]
+  },
+  "benchmarking": {
+   "verdict": "unclear",
+   "rationale": "The paper benchmarks ARF density estimation against other models, but ARF is not shown serving as a baseline or benchmark dataset for others.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "Table 1: Average NLL on the Twenty Datasets benchmark",
+     "verified": true
+    }
+   ]
+  },
+  "imbalance_correction": {
+   "verdict": "not_supported",
+   "rationale": "No class-imbalance or minority-class framing appears in the visible paper text or README.",
+   "quotes": []
+  }
+ }
+}

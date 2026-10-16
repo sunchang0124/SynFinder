@@ -21,12 +21,26 @@ const backend = {
     if (!res.ok) throw new Error(await res.text());
     return res.json();
   },
+  async methods(q, family) {
+    if (window.SYNFINDER_STATIC) return (await window.synReady).methods(q, family);
+    const params = new URLSearchParams({ q, family });
+    return (await fetch(API + "api/methods?" + params)).json();
+  },
   async datasets(domain, dataType) {
     if (window.SYNFINDER_STATIC) {
       return (await window.synReady).datasets(domain, dataType);
     }
     const q = new URLSearchParams({ domain, data_type: dataType });
     return (await fetch(API + "api/datasets?" + q)).json();
+  },
+  async validate(answers) {
+    if (window.SYNFINDER_STATIC) return (await window.synReady).validate(answers);
+    const res = await fetch(API + "api/validate", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ answers }),
+    });
+    if (!res.ok) throw new Error(await res.text());
+    return res.json();
   },
 };
 // Words that should stay upper-case rather than being title-cased.
@@ -35,7 +49,7 @@ const LANG = {
   javascript: "JavaScript", multiple: "Multiple languages", other: "Other",
 };
 const ACRONYM = {
-  gan: "GAN", vae: "VAE", llm: "LLM", dp: "DP", ssh: "SSH", cpu: "CPU",
+  gan: "GAN", vae: "VAE", llm: "LLM", dp: "DP", cpu: "CPU",
   gpu: "GPU", ml: "ML", ok: "OK", csv: "CSV", ehr: "EHR", id: "ID",
 };
 // A few taxonomy terms read badly when merely capitalised.
@@ -80,12 +94,13 @@ $("#themeToggle").onclick = () => {
 };
 
 /* ---------- tabs ---------- */
+const VIEWS = ["find", "browse", "submit", "search"];
 document.querySelectorAll(".tab").forEach(t => {
   t.onclick = () => {
     document.querySelectorAll(".tab").forEach(x => x.classList.toggle("is-active", x === t));
-    $("#view-find").classList.toggle("hidden", t.dataset.view !== "find");
-    $("#view-browse").classList.toggle("hidden", t.dataset.view !== "browse");
+    VIEWS.forEach(v => $("#view-" + v).classList.toggle("hidden", t.dataset.view !== v));
     if (t.dataset.view === "browse") loadDatasets();
+    if (t.dataset.view === "search") loadMethods();
   };
 });
 
@@ -116,7 +131,21 @@ async function boot() {
   chips("#preserves", TAX.preserves);
   fill("#b_domain", ["any", ...TAX.domains]);
   fill("#b_data_type", ["any", ...TAX.data_types]);
+  fill("#s_family", TAX.families);
+  chips("#s_domains", TAX.domains);
+  chips("#s_data_types", TAX.data_types);
+  chips("#s_variable_types", TAX.variable_types);
+  fill("#s_compute", TAX.compute);
+  chips("#s_purposes", TAX.purposes);
+  chips("#s_preserves", TAX.preserves);
+  fill("#s_expertise", TAX.expertise);
+  fill("#s_quality", TAX.implementation_quality);
+  fill("#s_preview_format", TAX.preview_formats);
   $("#b_domain").onchange = $("#b_data_type").onchange = loadDatasets;
+  fill("#m_family", ["any", ...TAX.families]);
+  $("#m_family").onchange = loadMethods;
+  let pending;
+  $("#m_query").oninput = () => { clearTimeout(pending); pending = setTimeout(loadMethods, 150); };
   const c = TAX.counts;
   $("#catalogCount").textContent =
     `${c.methods} methods · ${c.frameworks} frameworks · ${c.datasets} datasets`;
@@ -229,24 +258,6 @@ function previewBody(p) {
 }
 
 /* ---------- rendering ---------- */
-const CIRC = 2 * Math.PI * 26;
-
-function ring(fit) {
-  const off = CIRC * (1 - fit);
-  return `<div class="ring">
-    <svg width="62" height="62" viewBox="0 0 62 62">
-      <defs><linearGradient id="fitGrad" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0" stop-color="var(--accent)"/><stop offset="1" stop-color="var(--accent-2)"/>
-      </linearGradient></defs>
-      <circle class="track" cx="31" cy="31" r="26"/>
-      <circle class="val" cx="31" cy="31" r="26"
-              stroke-dasharray="${CIRC.toFixed(1)}" stroke-dashoffset="${CIRC.toFixed(1)}"
-              data-off="${off.toFixed(1)}"/>
-    </svg>
-    <b>${Math.round(fit * 100)}%</b>
-  </div>`;
-}
-
 function bullets(heading, items, variant) {
   if (!items.length) return "";
   const body = items.length === 1
@@ -271,16 +282,9 @@ function badges(m) {
     b.push(`<span class="${cls}">updated ${m.last_updated}</span>`);
   }
   if (!m.maintained) b.push(`<span class="badge stale">unmaintained</span>`);
+  b.push(`<span class="badge ${m.verified.startsWith("Not") ? "stale" : "ok"}">${esc(m.verified)}</span>`);
   b.push(`<span class="badge">${esc(m.license)}</span>`);
   return `<div class="badges">${b.join("")}</div>`;
-}
-
-function axes(m) {
-  if (!m.axes.length) return "";
-  return `<div class="axes">${m.axes.map(a => `
-    <div class="axis"><span>${esc(pretty(a.axis))}</span>
-      <span class="bar"><i style="width:0" data-w="${Math.round(a.score * 100)}"></i></span>
-      <span class="v">${a.score.toFixed(2)}</span></div>`).join("")}</div>`;
 }
 
 function card(m, i) {
@@ -290,9 +294,9 @@ function card(m, i) {
   return `<article class="card" style="animation-delay:${i * 60}ms">
     <div class="card-top">
       <div class="card-title"><h3>${esc(m.name)}</h3>${badges(m)}</div>
-      ${ring(m.fit)}
     </div>
     ${m.why_fits.length ? `<p class="why"><span class="dim">Why it fits —</span> ${esc(m.why_fits.join("; "))}.</p>` : ""}
+    ${m.narration ? `<p class="why"><span class="dim">In plain words —</span> ${esc(m.narration)} <span class="dim">Rewritten from the catalog text by an AI model; it cannot add claims.</span></p>` : ""}
     ${m.weakness ? `<p class="why"><span class="dim">Weaker on —</span> it ${esc(m.weakness)}.</p>` : ""}
     ${bullets("Watch out", m.caveats, "")}
     ${bullets("How to check it worked", m.evaluation, " info")}
@@ -300,7 +304,6 @@ function card(m, i) {
         <p class="disclaimer">Illustrative of the output format — not generated by this method.</p>
         <p class="why">${esc(m.preview.note)}</p>
         ${previewBody(m.preview)}</details>` : ""}
-    <details class="disc"><summary>How this score was reached</summary>${axes(m)}</details>
     ${links ? `<div class="links">${links}</div>` : ""}
   </article>`;
 }
@@ -311,6 +314,7 @@ function datasetBlock(d) {
     <div class="meta-row">
       <span class="badge">${esc(d.n_records)}</span>
       <span class="badge">${esc(d.license)}</span>
+      <span class="badge ${d.verified.startsWith("Not") ? "stale" : "ok"}">${esc(d.verified)}</span>
       ${d.generated_by ? `<span class="badge">via ${esc(d.generated_by)}</span>` : ""}
     </div>
     <p class="why" style="margin-top:9px"><span class="dim">Access —</span> ${esc(d.access_conditions)}</p>
@@ -319,26 +323,8 @@ function datasetBlock(d) {
   </div>`;
 }
 
-function animate(scope) {
-  requestAnimationFrame(() => {
-    scope.querySelectorAll(".ring .val").forEach(c =>
-      c.style.strokeDashoffset = c.dataset.off);
-    scope.querySelectorAll(".axis .bar i").forEach(b =>
-      b.style.width = b.dataset.w + "%");
-  });
-}
-
 function render(r) {
   const out = [];
-
-  if (r.datasets.length) {
-    out.push(`<section class="lead">
-      <h3><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M21 8v13H3V8M1 3h22v5H1zM10 12h4"/></svg>
-        You may not need to generate anything</h3>
-      <p>These synthetic datasets already exist and match what you described.</p>
-      ${r.datasets.map(datasetBlock).join("")}</section>`);
-  }
 
   if (r.no_purpose_match && r.shortlist.length) {
     out.push(`<div class="notice"><b>Nothing in this catalog is intended for what you asked.</b>
@@ -349,7 +335,8 @@ function render(r) {
   if (!r.shortlist.length) {
     out.push(`<div class="notice ${r.covered ? "" : "flat"}">${esc(r.empty_message || "")}</div>`);
   } else {
-    out.push(`<p class="section-label">Recommended methods</p>`);
+    out.push(`<p class="section-label">Recommended methods</p>
+      <p class="order-note">Ordered by how well each entry's recorded purposes, maturity and your optional answers match what you asked; each card says why in words. Everything excluded is listed at the bottom with its reason.</p>`);
     out.push(r.shortlist.map(card).join(""));
   }
 
@@ -372,7 +359,6 @@ function render(r) {
   const el = $("#results");
   el.innerHTML = out.join("");
   lastReport = r;
-  animate(el);
 
   const save = (text, name, type) => {
     const url = URL.createObjectURL(new Blob([text], { type }));
@@ -384,6 +370,148 @@ function render(r) {
     save(lastReport.report_markdown, "synfinder-report.md", "text/markdown");
   $("#dlHtml").onclick = () =>
     save(lastReport.report_html, "synfinder-report.html", "text/html");
+}
+
+/* ---------- submission helpers ---------- */
+const ISSUE_BASE = "https://github.com/sunchang0124/SynFinder/issues/new";
+const MAX_ISSUE_URL = 7500;
+
+// One item per non-blank line; the textarea fields use this.
+function collectLines(text) {
+  return String(text || "").split("\n").map(s => s.trim()).filter(Boolean);
+}
+
+// A prefilled GitHub issue. Field ids match .github/ISSUE_TEMPLATE/new_method.yml;
+// the YAML goes into entry_yaml so a maintainer can save it as the catalog file.
+// GitHub rejects very long URLs, so the YAML is cut with a note; the page also
+// offers the full text through "Copy YAML".
+function issueUrl(answers, yamlText) {
+  const params = {
+    template: "new_method.yml",
+    title: `[method] ${answers.name || ""}`,
+    name: answers.name || "",
+    domains: (answers.domains || []).join(","),
+    data_types: (answers.data_types || []).join(","),
+    compute: answers.compute || "",
+    expertise: answers.expertise || "",
+    formal_dp: answers.formal_dp ? "yes - state the mechanism below" : "no",
+    caveats: (answers.caveats || []).join("\n"),
+    preview: answers.preview_body || "",
+    links: [answers.paper, answers.code].filter(Boolean).join(" "),
+  };
+  const build = (yaml, p = params) => ISSUE_BASE + "?" +
+    Object.entries({ ...p, entry_yaml: yaml })
+      .map(([k, v]) => `${k}=${encodeURIComponent(v)}`).join("&");
+  // Cut text to `keep` UTF-16 units without splitting a surrogate pair.
+  const cut = (text, keep) => {
+    if (keep > 0 && keep < text.length) {
+      const c = text.charCodeAt(keep - 1);
+      if (c >= 0xD800 && c <= 0xDBFF) keep -= 1;
+    }
+    return text.slice(0, Math.max(keep, 0));
+  };
+  let url = build(yamlText);
+  if (url.length > MAX_ISSUE_URL) {
+    // The YAML already carries the preview and caveats; cap the copies first.
+    const capped = { ...params };
+    for (const k of ["preview", "caveats"]) {
+      capped[k] = capped[k].length > 300
+        ? cut(capped[k], 300) + "\n... truncated (see entry_yaml below)" : capped[k];
+    }
+    params.preview = capped.preview; params.caveats = capped.caveats;
+    url = build(yamlText);
+    let keep = yamlText.length;
+    while (url.length > MAX_ISSUE_URL && keep > 0) {
+      keep = Math.floor(keep * 0.8);
+      url = build(cut(yamlText, keep) + "\n# ... truncated for the URL; paste the full YAML from the app\n");
+    }
+  }
+  return url;
+}
+
+/* ---------- submission ---------- */
+function collectSubmission() {
+  const v = id => $("#" + id).value.trim();
+  return {
+    id: v("s_id"), name: v("s_name"), family: v("s_family"),
+    domains: chosen("#s_domains"), data_types: chosen("#s_data_types"),
+    variable_types: chosen("#s_variable_types"),
+    formal_dp: v("s_formal_dp") === "yes",
+    dp_mechanism: v("s_formal_dp") === "yes" ? (v("s_dp_mechanism") || null) : null,
+    compute: v("s_compute"), license: v("s_license"),
+    purposes: chosen("#s_purposes"), preserves: chosen("#s_preserves"),
+    expertise: v("s_expertise"), maintained: $("#s_maintained").checked,
+    implementation_quality: v("s_quality"),
+    caveats: collectLines(v("s_caveats")), evaluation: collectLines(v("s_evaluation")),
+    preview_format: v("s_preview_format"), preview_note: v("s_preview_note"),
+    preview_body: v("s_preview_body"),
+    paper: v("s_paper") || null, code: v("s_code") || null,
+    author: $("#s_author").checked,
+  };
+}
+
+$("#submitForm").onsubmit = async e => {
+  e.preventDefault();
+  const answers = collectSubmission();
+  const el = $("#submitResults");
+  let result;
+  try { result = await backend.validate(answers); }
+  catch (err) { el.innerHTML = `<div class="notice"><b>Validation failed to run.</b><br>${esc(err.message)}</div>`; return; }
+  if (result.errors.length) {
+    el.innerHTML = `<div class="notice"><b>Not valid yet.</b><ul>${result.errors.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>`;
+    return;
+  }
+  let url;
+  try { url = issueUrl(answers, result.yaml); }
+  catch (err) { el.innerHTML = `<div class="notice"><b>Could not prepare the GitHub issue.</b><br>${esc(err.message)}</div>`; return; }
+  el.innerHTML = `<p class="section-label">Valid entry</p>
+    <div class="card">
+      <p class="why">This is the catalog file a maintainer will review.${answers.author ? " You declared authorship; thank you." : ""}</p>
+      <pre id="yamlOut">${esc(result.yaml)}</pre>
+      <div class="dl-row">
+        <button class="dl" id="openIssue">Open a prefilled GitHub issue</button>
+        <button class="dl" id="copyYaml">Copy YAML</button>
+      </div>
+      <p class="why dim">Prefer a pull request? Save the YAML as <code>catalog/methods/${esc(answers.id)}.yaml</code>, run <code>pytest</code>, and open the PR.</p>
+    </div>`;
+  $("#openIssue").onclick = () => window.open(url, "_blank", "noopener");
+  $("#copyYaml").onclick = async () => {
+    try { await navigator.clipboard.writeText(result.yaml); $("#copyYaml").textContent = "Copied"; }
+    catch (err) { $("#copyYaml").textContent = "Select the text above and copy"; }
+  };
+};
+
+/* ---------- catalog search ---------- */
+function methodCard(m) {
+  const links = Object.entries(m.links || {})
+    .filter(([, v]) => v)
+    .map(([k, v]) => `<a href="${esc(v)}" target="_blank" rel="noopener">${k}</a>`).join("");
+  const tag = v => `<span class="badge">${esc(pretty(v))}</span>`;
+  return `<div class="lead-item">
+    <h4>${esc(m.name)}${m.is_framework ? ' <span class="badge">toolkit</span>' : ""}</h4>
+    <div class="meta-row">
+      <span class="badge">${esc(pretty(m.family))}</span>
+      ${m.license ? `<span class="badge">${esc(m.license)}</span>` : ""}
+      ${m.formal_dp ? '<span class="badge ok">formal DP</span>' : ""}
+      ${m.requires_no_source_data ? '<span class="badge ok">no real data needed</span>' : ""}
+      ${m.maintained === false ? '<span class="badge stale">not maintained</span>' : ""}
+      <span class="badge ${String(m.verified).startsWith("Not") ? "stale" : "ok"}">${esc(m.verified)}</span>
+    </div>
+    ${m.data_types.length ? `<p class="why"><span class="dim">Data —</span> ${m.data_types.map(tag).join(" ")}</p>` : ""}
+    ${m.purposes.length ? `<p class="why"><span class="dim">For —</span> ${m.purposes.map(tag).join(" ")}</p>` : ""}
+    ${(m.caveats || []).map(c => `<div class="callout"><span class="k">Caveat</span>${esc(c)}</div>`).join("")}
+    ${links ? `<div class="links">${links}</div>` : ""}
+  </div>`;
+}
+
+async function loadMethods() {
+  const { methods } = await backend.methods($("#m_query").value, $("#m_family").value);
+  $("#methodResults").innerHTML = methods.length
+    ? `<p class="section-label">${methods.length} entr${methods.length === 1 ? "y" : "ies"}</p>`
+      + `<section class="lead">${methods.map(methodCard).join("")}</section>`
+    : `<div class="empty-state"><h3>No entry matches</h3>
+       <p>Nothing in the catalog is called that. Names, aliases, ids and families are
+       searched. If the method exists, the Submit tab is the way to add it.</p></div>`;
 }
 
 /* ---------- dataset browse ---------- */

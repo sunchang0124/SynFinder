@@ -1,0 +1,81 @@
+{
+ "id": "dp_merf",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": null,
+ "purposes": {
+  "open_release": {
+   "verdict": "supported",
+   "rationale": "The paper frames the DP synthetic dataset as a replacement for the true data with a formal (epsilon, delta)-DP guarantee.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "afterwards, the synthetic dataset can be used in place of the",
+     "verified": true
+    },
+    {
+     "source": "paper",
+     "text": "true one for unlimited time without further loss of privacy.",
+     "verified": true
+    }
+   ]
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "No test-data or format-conformance framing in the paper or README.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "supported",
+   "rationale": "Synthetic data is judged by training predictive models on it and testing on real data.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "for the models). We then evaluate these trained models on",
+     "verified": true
+    },
+    {
+     "source": "paper",
+     "text": "a test set of real data, which indicates how well the models",
+     "verified": true
+    }
+   ]
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "Fidelity is checked on a Gaussian mixture via NLL under the true distribution and mode coverage.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "NLL denotes the negative log likelihood of the samples given the true data distribution.",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "No causal structure or intervention framing in the paper or README.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "not_supported",
+   "rationale": "The README lists dependencies and code layout only; no teaching framing.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "not_supported",
+   "rationale": "DP-MERF appears as the proposed method compared against DP-CGAN, DP-GAN and GS-WGAN, not as a baseline or benchmark in these sources.",
+   "quotes": []
+  },
+  "imbalance_correction": {
+   "verdict": "supported",
+   "rationale": "Section 4.2 extends DP-MERF to class-imbalanced data so rare classes are modelled accurately.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "balanced, as for rare classes m can be significantly larger",
+     "verified": true
+    }
+   ]
+  }
+ }
+}

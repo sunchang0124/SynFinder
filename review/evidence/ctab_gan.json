@@ -1,0 +1,82 @@
+{
+ "id": "ctab_gan",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": null,
+ "purposes": {
+  "open_release": {
+   "verdict": "supported",
+   "rationale": "The abstract frames synthetic tables as a way to enable data sharing under privacy regulation.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "full effectiveness. Synthetic tabular data emerges as an alternative to enable data sharing",
+     "verified": true
+    }
+   ]
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "No testing or format-conformance framing appears.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "supported",
+   "rationale": "The paper evaluates ML utility by comparing models trained on synthetic versus real data.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "To quantify the ML utility, we compare the performance achieved by 5 widely used machine",
+     "verified": true
+    }
+   ]
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "Statistical similarity is evaluated with Wasserstein distance and pair-wise correlation differences.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "based analysis on the synthetic data, (ii) statistical similarity to the real data, and (iii)",
+     "verified": true
+    },
+    {
+     "source": "paper",
+     "text": "Difference in pair-wise correlation (Diff. Corr.). To evaluate how well feature in-",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "No causal structure framing in the sources.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "not_supported",
+   "rationale": "The README provides example notebooks to run the method, not teaching material.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "unclear",
+   "rationale": "CTAB-GAN is compared against four baselines in its own paper and the README only mentions CTAB-GAN+ as a speed comparator for a newer method; use as someone else's baseline is not shown.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "Its training time is longer than CTAB-GAN+, but the synthetic data fidelity is amazing!",
+     "verified": true
+    }
+   ]
+  },
+  "imbalance_correction": {
+   "verdict": "supported",
+   "rationale": "A dedicated section uses a conditional GAN with training-by-sampling to counter imbalanced training data.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "In CTAB-GAN, we use conditional GAN to counter imbalanced training datasets using",
+     "verified": true
+    }
+   ]
+  }
+ }
+}

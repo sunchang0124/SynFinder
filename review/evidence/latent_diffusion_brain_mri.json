@@ -1,0 +1,47 @@
+{
+ "id": "latent_diffusion_brain_mri",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": "The linked code is the general MONAI toolkit, not code released for 'Brain Imaging Generation with Latent Diffusion Models', and the paper has no abstract or full text, so nothing about the method can be judged.",
+ "purposes": {
+  "open_release": {
+   "verdict": "unclear",
+   "rationale": "The sources contain nothing about this method's data generation, so the purpose cannot be settled.",
+   "quotes": []
+  },
+  "pipeline_testing": {
+   "verdict": "unclear",
+   "rationale": "The sources contain nothing about this method's data generation, so the purpose cannot be settled.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "unclear",
+   "rationale": "The sources contain nothing about this method's data generation, so the purpose cannot be settled.",
+   "quotes": []
+  },
+  "statistical_replication": {
+   "verdict": "unclear",
+   "rationale": "The sources contain nothing about this method's data generation, so the purpose cannot be settled.",
+   "quotes": []
+  },
+  "causal_inference": {
+   "verdict": "unclear",
+   "rationale": "The sources contain nothing about this method's data generation, so the purpose cannot be settled.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "unclear",
+   "rationale": "The sources contain nothing about this method's data generation, so the purpose cannot be settled.",
+   "quotes": []
+  },
+  "benchmarking": {
+   "verdict": "unclear",
+   "rationale": "The sources contain nothing about this method's data generation, so the purpose cannot be settled.",
+   "quotes": []
+  },
+  "imbalance_correction": {
+   "verdict": "unclear",
+   "rationale": "The sources contain nothing about this method's data generation, so the purpose cannot be settled.",
+   "quotes": []
+  }
+ }
+}

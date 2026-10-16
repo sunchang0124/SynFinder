@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>SynFinder purpose review</title>
+<style>
+:root{--bg:#f6f7f9;--surface:#fff;--border:#e3e6ea;--text:#1d232b;--dim:#5e6873;--accent:#0d9488;--ok:#0a7d4f;--bad:#b42318;--warn:#b35c00;--okbg:#e6f6ee;--badbg:#fdeceb;--warnbg:#fff4e5}
+*{box-sizing:border-box}body{margin:0;font:15px/1.55 Inter,system-ui,sans-serif;color:var(--text);background:var(--bg)}
+.layout{display:grid;grid-template-columns:300px 1fr;min-height:100vh}
+aside{border-right:1px solid var(--border);background:var(--surface);padding:14px;overflow:auto;height:100vh;position:sticky;top:0}
+aside h1{font-size:16px;margin:0 0 4px}aside .prog{font-size:13px;color:var(--dim);margin-bottom:10px}
+aside input{width:100%;padding:7px 9px;border:1px solid var(--border);border-radius:7px;font:inherit;margin-bottom:8px}
+.mlist{display:flex;flex-direction:column;gap:2px}
+.mlist button{all:unset;cursor:pointer;padding:6px 8px;border-radius:7px;display:flex;justify-content:space-between;gap:6px;font-size:14px}
+.mlist button:hover{background:var(--bg)}.mlist button.on{background:#e6f4f2;color:var(--accent);font-weight:600}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--border);flex:none;margin-top:7px}.dot.done{background:var(--ok)}
+main{padding:22px 30px;max-width:1100px}
+h2{margin:0;font-size:24px}.sub{color:var(--dim);margin:2px 0 14px}
+.links{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.link{border:1px solid var(--border);border-radius:8px;padding:8px 11px;background:var(--surface);font-size:13.5px;max-width:520px}
+.link a{color:var(--accent);text-decoration:none;word-break:break-all}.link .st{font-weight:600;margin-right:6px}
+.st.ok{color:var(--ok)}.st.bad{color:var(--bad)}.st.warn{color:var(--warn)}
+.purpose{border:1px solid var(--border);border-radius:10px;background:var(--surface);padding:12px 16px;margin-bottom:10px}
+.purpose.supported{border-left:4px solid var(--ok)}.purpose.not_supported{border-left:4px solid var(--bad)}.purpose.unclear{border-left:4px solid var(--warn)}
+.phead{display:flex;align-items:center;gap:12px}.phead label{font-weight:600;font-size:15.5px;display:flex;align-items:center;gap:8px;cursor:pointer}
+.phead input{width:17px;height:17px}
+.chip{font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:99px;font-weight:600}
+.chip.supported{background:var(--okbg);color:var(--ok)}.chip.not_supported{background:var(--badbg);color:var(--bad)}.chip.unclear{background:var(--warnbg);color:var(--warn)}.chip.cur{background:#eef1f4;color:var(--dim)}
+.rat{color:var(--dim);font-size:14px;margin:6px 0 4px}
+.q{margin:6px 0 0;padding:8px 12px;border-left:3px solid var(--border);background:var(--bg);font-size:13.8px;border-radius:0 6px 6px 0}
+.q .src{font-size:11.5px;color:var(--dim);text-transform:uppercase;letter-spacing:.05em;margin-right:8px}
+.q.unverified{opacity:.55;border-left-color:var(--bad)}.q.unverified .src::after{content:" · not found in source"}
+.def{font-size:13px;color:var(--dim);margin-left:auto;max-width:460px}
+textarea{width:100%;min-height:70px;padding:9px;border:1px solid var(--border);border-radius:8px;font:inherit}
+.bar{display:flex;gap:10px;align-items:center;margin:16px 0 40px;flex-wrap:wrap}
+button.b{font:inherit;padding:9px 16px;border-radius:8px;border:1px solid var(--border);background:var(--surface);cursor:pointer}
+button.b.primary{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:600}
+.caveats{font-size:13.5px;color:var(--dim);margin-bottom:14px}.caveats li{margin:2px 0}
+details.defs{margin-bottom:16px;font-size:13.5px}details.defs pre{white-space:pre-wrap;background:var(--surface);padding:10px;border-radius:8px;border:1px solid var(--border)}
+.saved{color:var(--ok);font-size:14px}.linksok{display:flex;align-items:center;gap:8px;font-size:14px}
+kbd{font:12px monospace;border:1px solid var(--border);border-radius:4px;padding:1px 5px;background:var(--surface)}
+</style></head><body>
+<div class="layout">
+<aside>
+  <h1>Purpose review</h1>
+  <div class="prog" id="prog"></div>
+  <input id="filter" placeholder="filter by name…">
+  <div class="mlist" id="mlist"></div>
+</aside>
+<main id="main"></main>
+</div>
+<script>
+const $ = s => document.querySelector(s);
+let S = null, cur = 0;
+const DEFN = {};
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const pretty = s => s.replace(/_/g, " ");
+
+async function load() {
+  S = await (await fetch("/api/state")).json();
+  S.definitions.split("\n").filter(l => l.startsWith("| ") && !l.startsWith("| purpose") && !l.startsWith("|---")).forEach(l => {
+    const c = l.split("|").map(x => x.trim()); DEFN[c[1]] = c[2] + " — evidence: " + c[3];
+  });
+  const first = S.methods.findIndex(m => !m.decision);
+  cur = first < 0 ? 0 : first;
+  renderList(); renderMain();
+}
+function renderList() {
+  const f = ($("#filter").value || "").toLowerCase();
+  const done = S.methods.filter(m => m.decision).length;
+  $("#prog").textContent = `${done} of ${S.methods.length} reviewed`;
+  $("#mlist").innerHTML = S.methods.map((m, i) => (m.name.toLowerCase().includes(f) || m.id.includes(f))
+    ? `<button class="${i === cur ? "on" : ""}" data-i="${i}"><span>${esc(m.name)}</span><span class="dot ${m.decision ? "done" : ""}"></span></button>` : "").join("");
+  $("#mlist").querySelectorAll("button").forEach(b => b.onclick = () => { cur = +b.dataset.i; renderList(); renderMain(); });
+}
+function linkBox(k, l) {
+  if (!l) return "";
+  const ok = l.status === 200, cls = ok ? (l.renamed || l.archived ? "warn" : "ok") : "bad";
+  const extra = [l.renamed ? "renamed to " + l.renamed : "", l.archived ? "archived" : "", l.fulltext ? "" : "no full text fetched"].filter(Boolean).join(" · ");
+  return `<div class="link"><span class="st ${cls}">${k} ${ok ? "resolves" : "HTTP " + (l.status || "error")}</span>
+    <a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.url)}</a>
+    <div>${esc(l.title || "")}${l.year ? " (" + l.year + ")" : ""}${extra ? " · " + extra : ""}</div></div>`;
+}
+function renderMain() {
+  const m = S.methods[cur]; if (!m) return;
+  const chosen = new Set(m.decision ? m.decision.purposes : m.current);
+  $("#main").innerHTML = `
+    <h2>${esc(m.name)} <span class="chip cur">${esc(pretty(m.family))}</span></h2>
+    <p class="sub">${cur + 1} of ${S.methods.length} · <code>${m.id}</code> · currently: ${m.current.map(pretty).join(", ") || "none"}${m.decision ? ` · <span class="saved">reviewed ${m.decision.decided_at.slice(0, 10)}</span>` : ""}</p>
+    <div class="links">${["paper", "code", "docs"].map(k => linkBox(k, m.links[k])).join("")}</div>
+    ${m.link_notes ? `<div class="link" style="margin:-8px 0 14px;border-color:var(--warn)"><span class="st warn">link note</span> ${esc(m.link_notes)}</div>` : ""}
+    <details class="defs"><summary>What the labels mean</summary><pre>${esc(S.definitions)}</pre></details>
+    ${S.purposes.map(p => {
+      const e = m.evidence[p] || { verdict: "unclear", rationale: "no evidence file yet", quotes: [] };
+      return `<div class="purpose ${e.verdict}">
+        <div class="phead"><label><input type="checkbox" data-p="${p}" ${chosen.has(p) ? "checked" : ""}> ${esc(pretty(p))}</label>
+          <span class="chip ${e.verdict}">${esc(pretty(e.verdict))}</span>
+          ${m.current.includes(p) ? '<span class="chip cur">in catalog now</span>' : ""}
+          <span class="def">${esc(DEFN[p] || "")}</span></div>
+        <div class="rat">${esc(e.rationale || "")}</div>
+        ${(e.quotes || []).map(q => `<div class="q ${q.verified === false ? "unverified" : ""}"><span class="src">${esc(q.source)}</span>${esc(q.text)}</div>`).join("")}
+      </div>`; }).join("")}
+    <p><b>Caveats already in the catalog</b></p><ul class="caveats">${m.caveats.map(c => `<li>${esc(c)}</li>`).join("")}</ul>
+    <label>Notes for the provenance block (optional)</label>
+    <textarea id="notes">${esc(m.decision ? m.decision.notes : "")}</textarea>
+    <div class="bar">
+      <label class="linksok"><input type="checkbox" id="linksok" ${m.decision && m.decision.links_ok === false ? "" : "checked"}> links are correct</label>
+      <button class="b primary" id="save">Save and next <kbd>⌘⏎</kbd></button>
+      <button class="b" id="prev">Previous</button><button class="b" id="next">Next without saving</button>
+      ${m.decision ? '<button class="b" id="clear">Clear decision</button>' : ""}
+      <span id="msg"></span>
+    </div>`;
+  $("#save").onclick = save;
+  $("#prev").onclick = () => { cur = Math.max(0, cur - 1); renderList(); renderMain(); };
+  $("#next").onclick = () => { cur = Math.min(S.methods.length - 1, cur + 1); renderList(); renderMain(); };
+  if ($("#clear")) $("#clear").onclick = async () => {
+    await fetch("/api/decision", { method: "POST", body: JSON.stringify({ id: m.id, clear: true }) });
+    m.decision = null; renderList(); renderMain();
+  };
+  window.scrollTo(0, 0);
+}
+async function save() {
+  const m = S.methods[cur];
+  const purposes = [...document.querySelectorAll("input[data-p]:checked")].map(i => i.dataset.p);
+  const body = { id: m.id, purposes, notes: $("#notes").value, links_ok: $("#linksok").checked };
+  const r = await (await fetch("/api/decision", { method: "POST", body: JSON.stringify(body) })).json();
+  m.decision = { ...body, decided_at: new Date().toISOString() };
+  const nxt = S.methods.findIndex((x, i) => i > cur && !x.decision);
+  cur = nxt < 0 ? Math.min(cur + 1, S.methods.length - 1) : nxt;
+  renderList(); renderMain();
+  $("#msg").textContent = `saved (${r.saved} so far)`; $("#msg").className = "saved";
+}
+document.addEventListener("keydown", e => { if ((e.metaKey || e.ctrlKey) && e.key === "Enter") save(); });
+$("#filter").oninput = renderList;
+load();
+</script></body></html>

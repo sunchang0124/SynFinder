@@ -1,0 +1,70 @@
+{
+ "id": "graphrnn",
+ "produced_by": "claude-sonnet reader, 2026-10-15",
+ "link_notes": null,
+ "purposes": {
+  "open_release": {
+   "verdict": "not_supported",
+   "rationale": "The sources never frame generated graphs as releasable or privacy-preserving substitutes.",
+   "quotes": []
+  },
+  "pipeline_testing": {
+   "verdict": "not_supported",
+   "rationale": "The sources do not frame generated graphs as test data for software or pipelines.",
+   "quotes": []
+  },
+  "ml_augmentation": {
+   "verdict": "not_supported",
+   "rationale": "The sources contain no augmentation or train-on-synthetic evaluation.",
+   "quotes": []
+  },
+  "statistical_replication": {
+   "verdict": "supported",
+   "rationale": "Generated graphs are scored against held-out graphs by MMD on degree and clustering distributions.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "To evaluate how close the generated graphs are to the ground truth set, we use MMD (maximum mean discrepancy) to calculate the divergence between two _sets of distributions_ related to",
+     "verified": true
+    }
+   ]
+  },
+  "causal_inference": {
+   "verdict": "not_supported",
+   "rationale": "The sources contain no causal graph or intervention framing.",
+   "quotes": []
+  },
+  "education": {
+   "verdict": "unclear",
+   "rationale": "The README only links a third-party slide deck from a seminar course introducing GraphRNN, which is weak teaching evidence.",
+   "quotes": [
+    {
+     "source": "readme",
+     "text": "Jesse Bettencourt and Harris Chan have made a great [slide](https://duvenaud.github.io/learn-discrete/slides/graphrnn.pdf) introducing GraphRNN in Prof. David Duvenaud’s seminar course",
+     "verified": true
+    }
+   ]
+  },
+  "benchmarking": {
+   "verdict": "supported",
+   "rationale": "The paper introduces a benchmark suite of datasets and baselines for graph generation, and the repo ships the baseline implementations.",
+   "quotes": [
+    {
+     "source": "paper",
+     "text": "introduce a comprehensive suite of benchmark tasks and",
+     "verified": true
+    },
+    {
+     "source": "readme",
+     "text": "B-A and E-R models are implemented in `baselines/baseline_simple.py`.",
+     "verified": true
+    }
+   ]
+  },
+  "imbalance_correction": {
+   "verdict": "not_supported",
+   "rationale": "No class-imbalance framing appears in the sources.",
+   "quotes": []
+  }
+ }
+}

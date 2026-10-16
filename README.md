@@ -19,9 +19,9 @@ a ranked shortlist of methods, each with a rationale, its honest failure modes,
 and how to check the output was any good. It also tells you what it ruled out
 and why.
 
-Built for health, clinical and biomedical researchers first. Social sciences
-and humanities are next, and will arrive as catalog entries rather than as new
-code.
+Built for health, clinical and biomedical researchers. Methods that work on
+any tabular, sequence, image, text, graph or omics data are included when they
+have documented biomedical use.
 
 ## Run it from a clean clone
 
@@ -49,7 +49,10 @@ synfinder find --domain biomedical \
                --privacy required \
                --out recommendation.md
 
-# browse ready-made synthetic datasets - you may not need to generate anything
+# look a method up by name, alias, id or family
+synfinder search synthea
+
+# browse ready-made synthetic datasets
 synfinder datasets --domain biomedical
 
 # create a catalog entry to contribute
@@ -112,12 +115,12 @@ push to `main`.
 CI builds the image and boots it on every push, so the container path is
 verified rather than assumed.
 
-## Ready-made datasets come first
+## Browsing by name
 
-When a synthetic dataset already exists that matches what you described, it is
-shown **above** the method shortlist. Using one costs nothing and avoids every
-risk of training your own. Browse the registry with `synfinder datasets` or
-the app's second tab.
+The magnifier tab searches the catalog by name, alias, id or family and
+shows an entry's facts without scoring it against a study. The **Datasets** tab lists
+ready-made synthetic datasets; using one costs nothing and avoids every risk
+of training your own. From the command line: `synfinder search <name>` and `synfinder datasets`.
 
 ## What the output looks like
 
@@ -131,11 +134,32 @@ they are not real generated output, and the tool says so above every one.
 1. **Hard filters** eliminate methods that cannot serve you at all — wrong data
    type, no formal DP when you need it, needs a GPU you do not have. Every
    exclusion records its reason and is shown to you.
-2. **A weighted score** over the axes you answered: purpose, what must be
-   preserved, scale, expertise, maturity, governance. Weights live in
-   `catalog/weights.yaml`.
-3. **Questions you skip are dropped** from the average entirely — they never
+2. **Survivors are ordered** by a weighted heuristic over the axes you
+   answered: purpose, what must be preserved, scale, expertise, maturity,
+   governance (weights in `catalog/weights.yaml`). The number is an ordering
+   device, not a prediction, so it is never shown; each card says in words
+   why it is where it is. A method not intended for your purpose can never
+   outrank one that is.
+3. **Questions you skip are dropped** from the ordering entirely — they never
    count against a method as a zero.
+4. **Unknown is not fine.** An axis the catalog records nothing on is treated
+   as neutral, never as a silent full mark, and the explanation does not
+   praise or blame a method for something nobody checked.
+
+## Keeping the catalog honest
+
+Every entry can carry a `provenance` block: who checked it, on what date,
+against which sources, and which fields. The app and the report show
+"Verified <date> by <name>" or "Not yet verified"; the label is rendered by
+code, so no entry can claim a check it does not carry. CI prints how many
+entries are unverified.
+
+The mechanical facts are checked by machine. `tools/sync_repos.py` reads
+licence, language, last push, archived status and latest release from GitHub
+into `catalog/repo_metadata.json`; `tests/test_repo_drift.py` fails when an
+entry disagrees with its repository; `tools/apply_repo_metadata.py` writes
+the corrections. Run the sync a few times a year. CI fails when the metadata
+file is more than a year old, so the sync cannot be forgotten.
 
 ## Adding a catalog entry
 
@@ -184,7 +208,16 @@ weights are wrong.
 
 ## Contributing
 
-Anyone can add a method or a dataset. The fastest route:
+Anyone can add a method or a dataset.
+
+**From the app.** Open the *Submit a method* tab, fill in the form, and press
+*Check and prepare submission*. The entry is validated against the same
+schema the catalog uses; a valid one opens a prefilled GitHub issue with the
+YAML attached. A maintainer reviews it, saves the YAML into
+`catalog/methods/`, and the method appears on the live page after the next
+deploy. Nothing is sent to GitHub until you open the issue yourself.
+
+From the command line:
 
 ```bash
 synfinder new method      # writes a valid entry, refuses invalid terms

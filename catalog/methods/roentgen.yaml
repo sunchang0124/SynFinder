@@ -9,7 +9,7 @@ compute: gpu_required
 license: MIT
 language: python
 last_updated: 2024
-purposes: [ml_augmentation, benchmarking, education]
+purposes: [ml_augmentation, statistical_replication]
 preserves: [marginals]
 scale:
   evidence: null
@@ -49,3 +49,8 @@ output_preview:
     manifest    image_id,prompt,file
                 r0001,"small left pleural effusion",r0001.png
                 r0002,"bilateral interstitial opacities",r0002.png
+provenance:
+  verified_on: 2026-10-15
+  verified_by: "Chang Sun"
+  sources_checked: [paper, code]
+  fields_checked: [purposes, links]

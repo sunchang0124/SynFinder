@@ -33,13 +33,12 @@ for rel, text in catalog_files.items():
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text(text)
 
-from synfinder.catalog import load_catalog
-from synfinder.datasets import match_datasets
+from synfinder.catalog import load_catalog, search_methods
 from synfinder.intake import Intake
 from synfinder.ranking import load_weights, rank
 from synfinder.report import (empty_result_message, render_html,
                               render_markdown)
-from synfinder.payload import _candidate_json, _dataset_json, _top_only
+from synfinder.payload import _candidate_json, _dataset_json, _method_json, _top_only
 
 CAT = load_catalog(root)
 W = load_weights(root / "weights.yaml")
@@ -57,11 +56,9 @@ def recommend_json(payload):
     intake = Intake(**req)
     ranking = rank(CAT.generation_methods(), intake, W, top_n=24)
     top, rest = ranking.shortlist[:5], ranking.shortlist[5:]
-    matching = match_datasets(CAT.datasets, intake)
     covered = CAT.covers(intake.data_type)
     trimmed = _top_only(ranking, top)
     return json.dumps({
-        "datasets": [_dataset_json(d) for d in matching],
         "shortlist": [_candidate_json(c) for c in top],
         "also_ranked": [_candidate_json(c) for c in rest],
         "excluded": [{"id": e.method_id, "name": e.method_name,
@@ -70,11 +67,15 @@ def recommend_json(payload):
         "covered": covered,
         "empty_message": (None if top else empty_result_message(
             intake, covered, CAT.covered_data_types())),
-        "report_markdown": render_markdown(intake, trimmed, matching, covered,
+        "report_markdown": render_markdown(intake, trimmed, covered,
                                            CAT.covered_data_types()),
-        "report_html": render_html(intake, trimmed, matching, covered,
+        "report_html": render_html(intake, trimmed, covered,
                                    CAT.covered_data_types()),
     })
+
+def methods_json(q, family):
+    found = search_methods(CAT.methods, q or "", family)
+    return json.dumps({"methods": [_method_json(m) for m in found]})
 
 def datasets_json(domain, data_type):
     found = CAT.datasets
@@ -83,13 +84,26 @@ def datasets_json(domain, data_type):
     if data_type and data_type != "any":
         found = [d for d in found if data_type in d.data_types]
     return json.dumps({"datasets": [_dataset_json(d) for d in found]})
+
+from synfinder.contribute import to_yaml, validate_method
+
+def validate_json(payload):
+    answers = json.loads(payload)
+    errors, entry = validate_method(answers, CAT.taxonomy,
+                                    {m.id for m in CAT.methods})
+    return json.dumps({"errors": errors,
+                       "yaml": to_yaml(entry) if entry else None})
 `);
 
   return {
     taxonomy: () => JSON.parse(py.globals.get("taxonomy_json")()),
     recommend: (body) =>
       JSON.parse(py.globals.get("recommend_json")(JSON.stringify(body))),
+    methods: (q, family) =>
+      JSON.parse(py.globals.get("methods_json")(q, family)),
     datasets: (domain, dataType) =>
       JSON.parse(py.globals.get("datasets_json")(domain, dataType)),
+    validate: (answers) =>
+      JSON.parse(py.globals.get("validate_json")(JSON.stringify(answers))),
   };
 })();

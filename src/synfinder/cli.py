@@ -5,11 +5,10 @@ import argparse
 import sys
 from pathlib import Path
 
-from .catalog import CatalogError, load_catalog
-from .datasets import match_datasets
+from .catalog import CatalogError, load_catalog, search_methods
 from .intake import Intake
 from .ranking import load_weights, rank
-from .report import render_html, render_markdown
+from .report import provenance_line, render_html, render_markdown
 
 
 def default_catalog_root() -> Path:
@@ -50,6 +49,12 @@ def _build_parser() -> argparse.ArgumentParser:
     d.add_argument("--license")
     d.add_argument("--catalog", type=Path, default=None)
     d.set_defaults(func=cmd_datasets)
+
+    s_ = sub.add_parser("search", help="look a method up by name, alias, id or family")
+    s_.add_argument("query", nargs="?", default="")
+    s_.add_argument("--family")
+    s_.add_argument("--catalog", type=Path, default=None)
+    s_.set_defaults(func=cmd_search)
 
     n = sub.add_parser("new", help="create a catalog entry to contribute")
     n.add_argument("kind", choices=["method", "dataset"])
@@ -108,17 +113,15 @@ def cmd_find(args) -> int:
     weights = load_weights(weights_path) if weights_path.exists() else None
     ranking = rank(catalog.generation_methods(), intake, weights, top_n=args.top)
 
-    matching = match_datasets(catalog.datasets, intake)
-
     covered = catalog.covers(intake.data_type)
     also = catalog.covered_data_types()
 
     if args.out and args.out.suffix == ".html":
-        args.out.write_text(render_html(intake, ranking, matching, covered, also))
+        args.out.write_text(render_html(intake, ranking, covered, also))
         print(f"wrote {args.out}")
         return 0
 
-    markdown = render_markdown(intake, ranking, matching, covered, also)
+    markdown = render_markdown(intake, ranking, covered, also)
     if args.out:
         args.out.write_text(markdown)
         print(f"wrote {args.out}")
@@ -158,6 +161,32 @@ def cmd_datasets(args) -> int:
         for caveat in d.realism_caveats:
             print(f"  caveat: {caveat}")
         link = d.links.docs or d.links.code
+        if link:
+            print(f"  {link}")
+        print()
+    return 0
+
+
+def cmd_search(args) -> int:
+    root = args.catalog or default_catalog_root()
+    try:
+        catalog = load_catalog(root)
+    except CatalogError as exc:
+        print(f"catalog error: {exc}", file=sys.stderr)
+        return 1
+
+    found = search_methods(catalog.methods, args.query, args.family)
+    if not found:
+        print("No catalog entry matches that name.")
+        return 0
+    for m in found:
+        kind = "toolkit" if m.is_framework else m.family
+        print(f"{m.name}  [{m.id}]  {kind} · {m.license} · {provenance_line(m)}")
+        print(f"  data types: {', '.join(m.data_types)}")
+        print(f"  purposes: {', '.join(m.purposes)}")
+        for caveat in m.caveats:
+            print(f"  caveat: {caveat}")
+        link = m.links.docs or m.links.code or m.links.paper
         if link:
             print(f"  {link}")
         print()

@@ -1,0 +1,761 @@
+{
+ "entries": {
+  "arf": {
+   "archived": false,
+   "language": "Jupyter Notebook",
+   "latest_release": null,
+   "license_spdx": "MIT",
+   "pushed_at": "2026-06-01T16:53:18Z",
+   "slug": "bips-hb/arfpy",
+   "stars": 35
+  },
+  "asclepius_notes": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": null,
+   "license_spdx": null,
+   "pushed_at": "2024-08-22T06:36:52Z",
+   "slug": "starmpcc/Asclepius",
+   "stars": 121
+  },
+  "bayesian_network": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": {
+    "published_at": "2026-04-30T11:21:49Z",
+    "tag": "v1.1.2"
+   },
+   "license_spdx": "MIT",
+   "pushed_at": "2026-10-12T15:19:36Z",
+   "slug": "pgmpy/pgmpy",
+   "stars": 3357
+  },
+  "cehr_gpt": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": {
+    "published_at": "2026-10-09T00:45:27Z",
+    "tag": "v0.1.9"
+   },
+   "license_spdx": "MIT",
+   "pushed_at": "2026-10-15T04:41:18Z",
+   "slug": "knatarajan-lab/cehrgpt",
+   "stars": 18
+  },
+  "cms_desynpuf": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": null,
+   "license_spdx": "Apache-2.0",
+   "pushed_at": "2022-03-19T16:00:02Z",
+   "slug": "OHDSI/ETL-CMS",
+   "stars": 104
+  },
+  "corgan": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": null,
+   "license_spdx": null,
+   "pushed_at": "2020-12-15T02:21:25Z",
+   "slug": "astorfi/cor-gan",
+   "stars": 58
+  },
+  "csdi": {
+   "archived": false,
+   "language": "Jupyter Notebook",
+   "latest_release": null,
+   "license_spdx": "MIT",
+   "pushed_at": "2024-03-14T15:01:30Z",
+   "slug": "ermongroup/CSDI",
+   "stars": 463
+  },
+  "ctab_gan": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": null,
+   "license_spdx": null,
+   "pushed_at": "2024-05-14T07:53:51Z",
+   "slug": "Team-TUD/CTAB-GAN-Plus",
+   "stars": 90
+  },
+  "ctgan": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": {
+    "published_at": "2026-02-13T03:09:04Z",
+    "tag": "v0.12.1"
+   },
+   "license_spdx": "NOASSERTION",
+   "pushed_at": "2026-10-13T20:34:02Z",
+   "slug": "sdv-dev/CTGAN",
+   "stars": 1574
+  },
+  "diffusion_ts": {
+   "archived": false,
+   "language": "Jupyter Notebook",
+   "latest_release": null,
+   "license_spdx": "MIT",
+   "pushed_at": "2025-02-28T14:30:06Z",
+   "slug": "Y-debug-sys/Diffusion-TS",
+   "stars": 492
+  },
+  "digress": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": null,
+   "license_spdx": "MIT",
+   "pushed_at": "2026-09-10T15:26:05Z",
+   "slug": "cvignac/DiGress",
+   "stars": 535
+  },
+  "doppelganger": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": null,
+   "license_spdx": "BSD-3-Clause-Clear",
+   "pushed_at": "2023-11-03T06:07:19Z",
+   "slug": "fjxmlzn/DoppelGANger",
+   "stars": 313
+  },
+  "dp_cgans": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": {
+    "published_at": "2025-12-17T11:37:20Z",
+    "tag": "v0.2.0"
+   },
+   "license_spdx": "MIT",
+   "pushed_at": "2026-05-12T11:54:34Z",
+   "slug": "sunchang0124/dp_cgans",
+   "stars": 100
+  },
+  "dp_ctgan": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": {
+    "published_at": "2023-11-05T02:26:25Z",
+    "tag": "synth/v1.0.2"
+   },
+   "license_spdx": "MIT",
+   "pushed_at": "2026-07-01T09:38:15Z",
+   "slug": "opendp/smartnoise-sdk",
+   "stars": 304
+  },
+  "dp_merf": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": null,
+   "license_spdx": "MIT",
+   "pushed_at": "2023-03-30T20:13:02Z",
+   "slug": "ParkLabML/DP-MERF",
+   "stars": 16
+  },
+  "ehrdiff": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": null,
+   "license_spdx": null,
+   "pushed_at": "2024-06-25T04:16:42Z",
+   "slug": "sczzz3/EHRDiff",
+   "stars": 33
+  },
+  "ergm": {
+   "archived": false,
+   "language": "R",
+   "latest_release": null,
+   "license_spdx": "NOASSERTION",
+   "pushed_at": "2026-10-15T10:40:43Z",
+   "slug": "statnet/ergm",
+   "stars": 110
+  },
+  "gatortrongpt": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": null,
+   "license_spdx": null,
+   "pushed_at": "2023-07-13T19:42:37Z",
+   "slug": "uf-hobi-informatics-lab/GatorTronGPT",
+   "stars": 45
+  },
+  "gaussian_copula": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": {
+    "published_at": "2026-09-28T20:18:21Z",
+    "tag": "v1.38.5"
+   },
+   "license_spdx": "NOASSERTION",
+   "pushed_at": "2026-10-14T19:00:06Z",
+   "slug": "sdv-dev/SDV",
+   "stars": 3576
+  },
+  "gem_dp": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": null,
+   "license_spdx": null,
+   "pushed_at": "2023-02-10T23:08:03Z",
+   "slug": "terranceliu/iterative-dp",
+   "stars": 6
+  },
+  "goggle": {
+   "archived": false,
+   "language": "Jupyter Notebook",
+   "latest_release": null,
+   "license_spdx": "MIT",
+   "pushed_at": "2024-07-31T02:10:03Z",
+   "slug": "vanderschaarlab/GOGGLE",
+   "stars": 10
+  },
+  "graphrnn": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": null,
+   "license_spdx": "MIT",
+   "pushed_at": "2019-03-08T21:50:34Z",
+   "slug": "snap-stanford/GraphRNN",
+   "stars": 429
+  },
+  "great": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": {
+    "published_at": "2026-05-12T08:28:52Z",
+    "tag": "0.0.14"
+   },
+   "license_spdx": "MIT",
+   "pushed_at": "2026-08-16T16:08:24Z",
+   "slug": "tabularis-ai/be_great",
+   "stars": 371
+  },
+  "halo": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": {
+    "published_at": "2023-06-15T05:09:39Z",
+    "tag": "v1.0.0"
+   },
+   "license_spdx": "Apache-2.0",
+   "pushed_at": "2025-01-28T02:06:55Z",
+   "slug": "btheodorou99/HALO_Inpatient",
+   "stars": 35
+  },
+  "hapnest": {
+   "archived": false,
+   "language": "Jupyter Notebook",
+   "latest_release": null,
+   "license_spdx": "GPL-3.0",
+   "pushed_at": "2023-06-01T12:50:37Z",
+   "slug": "intervene-EU-H2020/synthetic_data",
+   "stars": 25
+  },
+  "hapnest_synthetic_genomes": {
+   "archived": false,
+   "language": "Jupyter Notebook",
+   "latest_release": null,
+   "license_spdx": "GPL-3.0",
+   "pushed_at": "2023-06-01T12:50:37Z",
+   "slug": "intervene-EU-H2020/synthetic_data",
+   "stars": 25
+  },
+  "latent_diffusion_brain_mri": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": {
+    "published_at": "2026-09-27T19:34:20Z",
+    "tag": "1.6.1"
+   },
+   "license_spdx": "Apache-2.0",
+   "pushed_at": "2026-10-13T20:49:33Z",
+   "slug": "Project-MONAI/MONAI",
+   "stars": 8777
+  },
+  "lhs_open_synthea": {
+   "archived": false,
+   "language": null,
+   "latest_release": null,
+   "license_spdx": "NOASSERTION",
+   "pushed_at": "2023-10-26T20:37:07Z",
+   "slug": "lhs-open/synthetic-data",
+   "stars": 34
+  },
+  "medgan": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": null,
+   "license_spdx": "BSD-3-Clause",
+   "pushed_at": "2019-08-19T17:50:15Z",
+   "slug": "mp2893/medgan",
+   "stars": 287
+  },
+  "medical_diffusion_3d": {
+   "archived": false,
+   "language": "Jupyter Notebook",
+   "latest_release": null,
+   "license_spdx": null,
+   "pushed_at": "2023-05-12T13:25:42Z",
+   "slug": "FirasGit/medicaldiffusion",
+   "stars": 495
+  },
+  "medigan": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": {
+    "published_at": "2022-10-01T19:38:49Z",
+    "tag": "v1.0.0"
+   },
+   "license_spdx": "MIT",
+   "pushed_at": "2024-07-22T10:02:32Z",
+   "slug": "RichardObi/medigan",
+   "stars": 206
+  },
+  "metasyn": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": {
+    "published_at": "2026-10-02T09:36:54Z",
+    "tag": "v3.0.0"
+   },
+   "license_spdx": "MIT",
+   "pushed_at": "2026-10-13T20:12:30Z",
+   "slug": "sodascience/metasyn",
+   "stars": 60
+  },
+  "molgan": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": null,
+   "license_spdx": "MIT",
+   "pushed_at": "2023-10-25T15:08:32Z",
+   "slug": "nicola-decao/MolGAN",
+   "stars": 294
+  },
+  "msprime": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": {
+    "published_at": "2026-09-01T17:16:26Z",
+    "tag": "1.4.4"
+   },
+   "license_spdx": "GPL-3.0",
+   "pushed_at": "2026-09-15T13:54:16Z",
+   "slug": "tskit-dev/msprime",
+   "stars": 218
+  },
+  "mst_aim": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": null,
+   "license_spdx": "Apache-2.0",
+   "pushed_at": "2026-10-15T04:35:26Z",
+   "slug": "ryan112358/mbi",
+   "stars": 119
+  },
+  "mtgan": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": null,
+   "license_spdx": null,
+   "pushed_at": "2022-07-05T12:39:17Z",
+   "slug": "LuChang-CS/MTGAN",
+   "stars": 39
+  },
+  "muscat": {
+   "archived": false,
+   "language": "R",
+   "latest_release": null,
+   "license_spdx": null,
+   "pushed_at": "2026-07-06T20:18:50Z",
+   "slug": "HelenaLC/muscat",
+   "stars": 246
+  },
+  "pac_synth": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": {
+    "published_at": "2023-11-05T02:26:25Z",
+    "tag": "synth/v1.0.2"
+   },
+   "license_spdx": "MIT",
+   "pushed_at": "2026-07-01T09:38:15Z",
+   "slug": "opendp/smartnoise-sdk",
+   "stars": 304
+  },
+  "pate_gan": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": {
+    "published_at": "2025-05-08T08:50:46Z",
+    "tag": "v0.2.12"
+   },
+   "license_spdx": "Apache-2.0",
+   "pushed_at": "2026-04-21T17:24:15Z",
+   "slug": "vanderschaarlab/synthcity",
+   "stars": 691
+  },
+  "privbayes": {
+   "archived": false,
+   "language": "HTML",
+   "latest_release": null,
+   "license_spdx": "MIT",
+   "pushed_at": "2026-07-15T15:22:56Z",
+   "slug": "DataResponsibly/DataSynthesizer",
+   "stars": 278
+  },
+  "privsyn": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": null,
+   "license_spdx": "MIT",
+   "pushed_at": "2021-11-11T06:52:55Z",
+   "slug": "agl-c/deid2_dpsyn",
+   "stars": 9
+  },
+  "promptehr": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": {
+    "published_at": "2023-06-08T05:27:12Z",
+    "tag": "V0.0.6"
+   },
+   "license_spdx": "MIT",
+   "pushed_at": "2023-06-08T05:27:11Z",
+   "slug": "RyanWangZf/PromptEHR",
+   "stars": 31
+  },
+  "realtabformer": {
+   "archived": false,
+   "language": "Jupyter Notebook",
+   "latest_release": {
+    "published_at": "2026-01-04T08:38:37Z",
+    "tag": "v0.2.4"
+   },
+   "license_spdx": "MIT",
+   "pushed_at": "2026-01-04T08:38:37Z",
+   "slug": "worldbank/REaLTabFormer",
+   "stars": 245
+  },
+  "roentgen": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": null,
+   "license_spdx": null,
+   "pushed_at": "2024-08-27T03:37:45Z",
+   "slug": "StanfordMIMI/RoentGen",
+   "stars": 90
+  },
+  "rtsgan": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": null,
+   "license_spdx": null,
+   "pushed_at": "2021-11-15T22:08:49Z",
+   "slug": "acphile/RTSGAN",
+   "stars": 44
+  },
+  "rule_based_simulation": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": {
+    "published_at": "2025-11-08T05:02:40Z",
+    "tag": "v0.14"
+   },
+   "license_spdx": "MIT",
+   "pushed_at": "2026-10-15T09:30:05Z",
+   "slug": "py-why/dowhy",
+   "stars": 8358
+  },
+  "scdesign3": {
+   "archived": false,
+   "language": "R",
+   "latest_release": null,
+   "license_spdx": "MIT",
+   "pushed_at": "2025-09-29T17:56:07Z",
+   "slug": "SONGDONGYUAN1994/scDesign3",
+   "stars": 126
+  },
+  "scgan": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": null,
+   "license_spdx": "MIT",
+   "pushed_at": "2024-05-27T11:45:10Z",
+   "slug": "imsb-uke/scGAN",
+   "stars": 88
+  },
+  "sdv": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": {
+    "published_at": "2026-09-28T20:18:21Z",
+    "tag": "v1.38.5"
+   },
+   "license_spdx": "NOASSERTION",
+   "pushed_at": "2026-10-14T19:00:06Z",
+   "slug": "sdv-dev/SDV",
+   "stars": 3576
+  },
+  "simpop": {
+   "archived": false,
+   "language": "R",
+   "latest_release": null,
+   "license_spdx": null,
+   "pushed_at": "2026-01-20T08:39:21Z",
+   "slug": "statistikat/simPop",
+   "stars": 34
+  },
+  "slim": {
+   "archived": false,
+   "language": "C++",
+   "latest_release": {
+    "published_at": "2026-04-12T14:39:47Z",
+    "tag": "v5.2"
+   },
+   "license_spdx": "GPL-3.0",
+   "pushed_at": "2026-10-01T20:57:14Z",
+   "slug": "MesserLab/SLiM",
+   "stars": 234
+  },
+  "smote_family": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": {
+    "published_at": "2026-06-07T21:53:39Z",
+    "tag": "0.14.2"
+   },
+   "license_spdx": "MIT",
+   "pushed_at": "2026-06-29T16:33:16Z",
+   "slug": "scikit-learn-contrib/imbalanced-learn",
+   "stars": 7129
+  },
+  "splatter": {
+   "archived": false,
+   "language": "R",
+   "latest_release": {
+    "published_at": "2026-05-05T16:22:07Z",
+    "tag": "v1.36.0"
+   },
+   "license_spdx": "GPL-3.0",
+   "pushed_at": "2026-05-20T16:51:42Z",
+   "slug": "Oshlack/splatter",
+   "stars": 234
+  },
+  "stasy": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": null,
+   "license_spdx": null,
+   "pushed_at": "2023-08-11T08:47:56Z",
+   "slug": "JayoungKim408/STaSy",
+   "stars": 37
+  },
+  "survivalgan": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": {
+    "published_at": "2025-05-08T08:50:46Z",
+    "tag": "v0.2.12"
+   },
+   "license_spdx": "Apache-2.0",
+   "pushed_at": "2026-04-21T17:24:15Z",
+   "slug": "vanderschaarlab/synthcity",
+   "stars": 691
+  },
+  "synthcity": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": {
+    "published_at": "2025-05-08T08:50:46Z",
+    "tag": "v0.2.12"
+   },
+   "license_spdx": "Apache-2.0",
+   "pushed_at": "2026-04-21T17:24:15Z",
+   "slug": "vanderschaarlab/synthcity",
+   "stars": 691
+  },
+  "synthea": {
+   "archived": false,
+   "language": "Java",
+   "latest_release": {
+    "published_at": "2026-08-18T16:19:36Z",
+    "tag": "master-branch-latest"
+   },
+   "license_spdx": "Apache-2.0",
+   "pushed_at": "2026-10-14T14:11:55Z",
+   "slug": "synthetichealth/synthea",
+   "stars": 3392
+  },
+  "synthea_covid19_10k": {
+   "archived": false,
+   "language": "HTML",
+   "latest_release": null,
+   "license_spdx": null,
+   "pushed_at": "2026-08-18T16:20:46Z",
+   "slug": "synthetichealth/synthea-sample-data",
+   "stars": 16
+  },
+  "synthea_sample_data": {
+   "archived": false,
+   "language": "HTML",
+   "latest_release": null,
+   "license_spdx": null,
+   "pushed_at": "2026-08-18T16:20:46Z",
+   "slug": "synthetichealth/synthea-sample-data",
+   "stars": 16
+  },
+  "synthpop": {
+   "archived": false,
+   "language": "R",
+   "latest_release": null,
+   "license_spdx": null,
+   "pushed_at": "2026-09-10T14:33:31Z",
+   "slug": "cran/synthpop",
+   "stars": 8
+  },
+  "tabddpm": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": null,
+   "license_spdx": "MIT",
+   "pushed_at": "2024-07-13T04:02:14Z",
+   "slug": "yandex-research/tab-ddpm",
+   "stars": 566
+  },
+  "tabsyn": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": null,
+   "license_spdx": "Apache-2.0",
+   "pushed_at": "2024-07-15T13:00:02Z",
+   "slug": "amazon-science/tabsyn",
+   "stars": 208
+  },
+  "template_note_generation": {
+   "archived": false,
+   "language": "Java",
+   "latest_release": {
+    "published_at": "2026-08-18T16:19:36Z",
+    "tag": "master-branch-latest"
+   },
+   "license_spdx": "Apache-2.0",
+   "pushed_at": "2026-10-14T14:11:55Z",
+   "slug": "synthetichealth/synthea",
+   "stars": 3392
+  },
+  "timeautodiff": {
+   "archived": false,
+   "language": "Jupyter Notebook",
+   "latest_release": null,
+   "license_spdx": null,
+   "pushed_at": "2026-01-07T03:27:54Z",
+   "slug": "namjoonsuh/TimeAutoDiff",
+   "stars": 28
+  },
+  "timegan": {
+   "archived": false,
+   "language": "Jupyter Notebook",
+   "latest_release": null,
+   "license_spdx": "NOASSERTION",
+   "pushed_at": "2026-02-05T17:06:00Z",
+   "slug": "jsyoon0823/TimeGAN",
+   "stars": 1064
+  },
+  "timevae": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": null,
+   "license_spdx": "MIT",
+   "pushed_at": "2025-03-30T19:57:00Z",
+   "slug": "abudesai/timeVAE",
+   "stars": 186
+  },
+  "tvae": {
+   "archived": false,
+   "language": "Python",
+   "latest_release": {
+    "published_at": "2026-02-13T03:09:04Z",
+    "tag": "v0.12.1"
+   },
+   "license_spdx": "NOASSERTION",
+   "pushed_at": "2026-10-13T20:34:02Z",
+   "slug": "sdv-dev/CTGAN",
+   "stars": 1574
+  }
+ },
+ "errors": {},
+ "fetched_at": "2026-10-15T11:19:23Z",
+ "stamps": {
+  "arf": "2026-10-15T11:19:23Z",
+  "asclepius_notes": "2026-10-15T11:19:23Z",
+  "bayesian_network": "2026-10-15T11:19:23Z",
+  "cehr_gpt": "2026-10-15T11:19:23Z",
+  "cms_desynpuf": "2026-10-15T11:19:23Z",
+  "corgan": "2026-10-15T11:19:23Z",
+  "csdi": "2026-10-15T11:19:23Z",
+  "ctab_gan": "2026-10-15T11:19:23Z",
+  "ctgan": "2026-10-15T11:19:23Z",
+  "diffusion_ts": "2026-10-15T11:19:23Z",
+  "digress": "2026-10-15T11:19:23Z",
+  "doppelganger": "2026-10-15T11:19:23Z",
+  "dp_cgans": "2026-10-15T11:19:23Z",
+  "dp_ctgan": "2026-10-15T11:19:23Z",
+  "dp_merf": "2026-10-15T11:19:23Z",
+  "ehrdiff": "2026-10-15T11:19:23Z",
+  "ergm": "2026-10-15T11:19:23Z",
+  "gatortrongpt": "2026-10-15T11:19:23Z",
+  "gaussian_copula": "2026-10-15T11:19:23Z",
+  "gem_dp": "2026-10-15T11:19:23Z",
+  "goggle": "2026-10-15T11:19:23Z",
+  "graphrnn": "2026-10-15T11:19:23Z",
+  "great": "2026-10-15T11:19:23Z",
+  "halo": "2026-10-15T11:19:23Z",
+  "hapnest": "2026-10-15T11:19:23Z",
+  "hapnest_synthetic_genomes": "2026-10-15T11:19:23Z",
+  "latent_diffusion_brain_mri": "2026-10-15T11:19:23Z",
+  "lhs_open_synthea": "2026-10-15T11:19:23Z",
+  "medgan": "2026-10-15T11:19:23Z",
+  "medical_diffusion_3d": "2026-10-15T11:19:23Z",
+  "medigan": "2026-10-15T11:19:23Z",
+  "metasyn": "2026-10-15T11:19:23Z",
+  "molgan": "2026-10-15T11:19:23Z",
+  "msprime": "2026-10-15T11:19:23Z",
+  "mst_aim": "2026-10-15T11:19:23Z",
+  "mtgan": "2026-10-15T11:19:23Z",
+  "muscat": "2026-10-15T11:19:23Z",
+  "pac_synth": "2026-10-15T11:19:23Z",
+  "pate_gan": "2026-10-15T11:19:23Z",
+  "privbayes": "2026-10-15T11:19:23Z",
+  "privsyn": "2026-10-15T11:19:23Z",
+  "promptehr": "2026-10-15T11:19:23Z",
+  "realtabformer": "2026-10-15T11:19:23Z",
+  "roentgen": "2026-10-15T11:19:23Z",
+  "rtsgan": "2026-10-15T11:19:23Z",
+  "rule_based_simulation": "2026-10-15T11:19:23Z",
+  "scdesign3": "2026-10-15T11:19:23Z",
+  "scgan": "2026-10-15T11:19:23Z",
+  "sdv": "2026-10-15T11:19:23Z",
+  "simpop": "2026-10-15T11:19:23Z",
+  "slim": "2026-10-15T11:19:23Z",
+  "smote_family": "2026-10-15T11:19:23Z",
+  "splatter": "2026-10-15T11:19:23Z",
+  "stasy": "2026-10-15T11:19:23Z",
+  "survivalgan": "2026-10-15T11:19:23Z",
+  "synthcity": "2026-10-15T11:19:23Z",
+  "synthea": "2026-10-15T11:19:23Z",
+  "synthea_covid19_10k": "2026-10-15T11:19:23Z",
+  "synthea_sample_data": "2026-10-15T11:19:23Z",
+  "synthpop": "2026-10-15T11:19:23Z",
+  "tabddpm": "2026-10-15T11:19:23Z",
+  "tabsyn": "2026-10-15T11:19:23Z",
+  "template_note_generation": "2026-10-15T11:19:23Z",
+  "timeautodiff": "2026-10-15T11:19:23Z",
+  "timegan": "2026-10-15T11:19:23Z",
+  "timevae": "2026-10-15T11:19:23Z",
+  "tvae": "2026-10-15T11:19:23Z"
+ },
+ "unverifiable": {
+  "artificial_genomes_gan": "https://gitlab.inria.fr/ml_genetics/public/artificial_genomes",
+  "hapgen2": "https://mathgen.stats.ox.ac.uk/genetics_software/hapgen/hapgen2.html",
+  "sparsim": "https://gitlab.com/sysbiobig/sparsim"
+ }
+}

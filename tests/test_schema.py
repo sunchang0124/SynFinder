@@ -41,3 +41,56 @@ def test_method_requires_caveats():
 def test_formal_dp_requires_a_mechanism():
     with pytest.raises(ValidationError):
         minimal_method(formal_dp=True, dp_mechanism=None)
+
+
+import datetime as dt  # noqa: E402
+from synfinder.schema import Provenance  # noqa: E402
+from tests.factories import make_method  # noqa: E402
+
+
+def test_provenance_accepts_a_quoted_or_unquoted_date():
+    a = Provenance(verified_on="2026-10-14", verified_by="Chang Sun",
+                   sources_checked=["paper"])
+    b = Provenance(verified_on=dt.date(2026, 10, 14), verified_by="Chang Sun",
+                   sources_checked=["paper"])
+    assert a.verified_on == b.verified_on == dt.date(2026, 10, 14)
+
+
+def test_provenance_rejects_a_future_date():
+    with pytest.raises(ValidationError, match="future"):
+        Provenance(verified_on=dt.date.today() + dt.timedelta(days=1),
+                   verified_by="x", sources_checked=["paper"])
+
+
+def test_provenance_rejects_an_unknown_source():
+    with pytest.raises(ValidationError, match="sources_checked"):
+        Provenance(verified_on="2026-10-14", verified_by="x",
+                   sources_checked=["blog"])
+
+
+def test_a_checked_source_must_have_a_link_on_the_entry():
+    with pytest.raises(ValidationError, match="no paper link"):
+        make_method(links=Links(code="https://github.com/x/y"),
+                    provenance=Provenance(verified_on="2026-10-14",
+                                          verified_by="x",
+                                          sources_checked=["paper"]))
+
+
+def test_fields_checked_must_be_real_fields():
+    with pytest.raises(ValidationError, match="fields_checked"):
+        make_method(links=Links(code="https://github.com/x/y"),
+                    provenance=Provenance(verified_on="2026-10-14",
+                                          verified_by="x",
+                                          sources_checked=["code"],
+                                          fields_checked=["telepathy"]))
+
+
+def test_governance_checked_reads_the_provenance():
+    unchecked = make_method()
+    checked = make_method(links=Links(code="https://github.com/x/y"),
+                          provenance=Provenance(verified_on="2026-10-14",
+                                                verified_by="x",
+                                                sources_checked=["code"],
+                                                fields_checked=["governance"]))
+    assert unchecked.governance_checked() is False
+    assert checked.governance_checked() is True
